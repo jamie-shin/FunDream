@@ -183,3 +183,7 @@ target/
 
 
 # End of https://www.gitignore.io/api/java-web
+
+# META-INF
+MANIFEST.MF
+
