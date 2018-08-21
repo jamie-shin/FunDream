@@ -6,8 +6,11 @@
 <mapper namespace="dao.IMemberDao">
 
 	<sql id="updateColumn">
+		<if test="m_id != 0">
+			m_id=#{m_id}
+		</if>
 		<if test="m_pwd != null">
-			m_pwd=sha(#{m_pwd})
+			,m_pwd=sha(#{m_pwd})
 		</if>
 		<if test="m_nick != null">
 			, m_nick=#{m_nick}
