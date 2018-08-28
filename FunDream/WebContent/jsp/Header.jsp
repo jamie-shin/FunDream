@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,7 @@
 </head>
 <body class="hbody">
 	<header>
-		<div class="Hlogo"><a href="">FunDream</a></div>
+		<div class="Hlogo"><a href="MAIN.do">FunDream</a></div>
 		<nav>
 			<ul>
 				<li><a href="#">프로젝트</a></li>
@@ -30,18 +30,21 @@
 						<li><a href="#">이벤트</a></li>
 					</ul>
 				</li>
-				<li><a href="#">신규프로젝트신청</a></li>
-				<li> <c:if test="${session==null}"> <a href="MIE_LOGINFORM.do"> </c:if><i class="fa fa-user"></i></a>
-				<c:if test="${session!=null}">
+				<c:if test="${(m_manager != 1 && m_email!=null) || (m_email==null)}"><li><a href="#">신규프로젝트신청</a></li></c:if>
+				<c:if test="${m_manager == 1 && m_email !=null}"><li><a href="#">관리자 메인</a></li></c:if>
+				<li> <c:if test="${m_email==null}"> <a href="MIE_LOGINFORM.do"><img src="img/user.png" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px;"></a></c:if> </li>
+				
+				<li><c:if test="${m_email!=null}"><img src="img/user.png" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px;">
 					<ul>
-						<li><a href="#">내 정보 수정</a></li>
+						<li><a href="MUE_CHECKPW.do">내 정보 수정</a></li>
 						<li><a href="#">관심 프로젝트</a></li>
 						<li><a href="#">내가 후원한 내역</a></li>
 						<li><a href="#">내 프로젝트 관리</a></li>
-						<li><a href="#">로그아웃</a></li>
+						<li><a href="MOE.do">로그아웃</a></li>
 					</ul>
-				</c:if>
+				</c:if>	
 				</li>
+				
 				<li><div class="search-container">
 					<form action="">
 						<input type="text" name="" placeholder="Search">

@@ -1,37 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="css/JoinForm.css">
-<title>FunDream_SignUp</title>
+<link rel="stylesheet" type="text/css" href="css/ChangeInformation.css">
+<title>FunDream_Login</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 <script type="text/javascript">	
 	$(function(){
-		$(document).find("#sendCodeBtn").on('click',function(){
-			var openWin = window.open('MSE_SENDC.do?inputEmail='+$('#inputEmail').val(), "authEmail", 'width=500, height=500');
-		});
-		
-		$(document).find('#inputEmail').on('change', function(){
-			$.ajax({
-				url : "MSS_CHECKM.do",
-				method : "post",
-				data : {inputEmail : $('#inputEmail').val()},
-				success:function(data){
-					alert(data);
-					if(data=="1"){
-						$("#sendCodeBtn").removeAttr("disabled");
-						$("#checkEmail").text("사용 가능한 이메일입니다.");
-					}
-					else{
-						$("#checkEmail").text("이미 가입되어있는 이메일입니다.");											
-					}
-				}
-			});
-		});
-		
-		// 검증 미통과시 오류메세지 alert? 아니면 빨간문구?
+
 		// 비밀번호 검증(8~20자리, 공백불가, 영문&숫자&특수문자조합, 같은 문자 3번 이상 사용불가)
 		$(document).find('#inputPwd').on('change',function(){
 			var pwd = $('#inputPwd').val();
@@ -141,43 +122,6 @@
 				if($(this).val().length > 4){
 					$(this).val(p3.substr(0,4));
 				}
-				$("#inputBirthYear").focus();
-				return false;
-			}
-		});
-		$(document).find("#inputBirthYear").keyup(function(event){
-			if($("#inputBirthYear").val().length >= 4){
-				if($(this).val() < 1900 || $(this).val() > 2018){
-					$(this).val("");
-					$(this).focus();
-					alert("잘못된 연도입니다.");
-				}
-				else{
-					$("#inputBirthMonth").focus();
-				}
-				return false;
-			}
-		});
-		$(document).find("#inputBirthMonth").keyup(function(event){
-			if($("#inputBirthMonth").val().length >= 2){
-				if($(this).val() < 1 || $(this).val() > 12){
-					$(this).val("");
-					$(this).focus();
-					alert("잘못된 월입니다.");
-				}
-				else{
-					$("#inputBirthDay").focus();
-				}
-				return false;
-			}
-		});
-		$(document).find("#inputBirthDay").keyup(function(event){
-			if($("#inputBirthDay").val().length >= 2){
-				if($(this).val() < 1 || $(this).val() > 31){
-					$(this).val("");
-					$(this).focus();
-					alert("잘못된 일자입니다.");
-				}
 				return false;
 			}
 		});
@@ -193,9 +137,8 @@
 		});
 		
 		// 회원가입 버튼 클릭 시
-		$(document).find('#signupSubmit').on('click',function(){
+		$(document).find('#updateSubmit').on('click',function(){
 			var m_email = $('#inputEmail').val();
-			var email_auth = $('#sendCodeBtn').val();
 			var m_pwd = $('#inputPwd').val();
 			var m_pwdCheck = $('#inptuPwdCheck').val();
 			var m_name = $('#inputName').val();
@@ -203,25 +146,11 @@
 			var phone2 = $('#inputPhone2').val();
 			var phone3 = $('#inputPhone3').val();
 			var m_phone = phone1 + "-" + phone2 + "-" + phone3;
-			var birthY = $('#inputBirthYear').val();
-			var birthM = $('#inputBirthMonth').val();
-			var birthD = $('#inputBirthDay').val();
-			var m_birth = birthY + "-" + birthM + "-" + birthD;
-			var m_gender = $('#inputGender').val();
 			var m_nick = $('#inputNick').val();
 			var m_img = $('#inputImg').attr('src');
-			var m_agree = $('#c1').val();
 			
-			alert("연락처 : " + m_phone + " / 생일 : " + m_birth);
+			//alert("연락처 : " + m_phone + " / 생일 : " + m_birth);
 			
-			if(m_email == ""){
-				alert('이메일을 입력하세요.');
-				return false;
-			}
-			if(email_auth != "이메일 인증 완료"){
-				alert('이메일 인증을 완료하세요.');
-				return false;
-			}
 			if(m_pwd == ""){
 				alert('비밀번호를 입력하세요.');
 				return false;
@@ -238,21 +167,9 @@
 				alert('연락처를 입력하세요.');
 				return false;
 			}
-			if(birthY == "" || birthM == "" || birthD == ""){
-				alert('생년월일을 입력하세요.');
-				return false;
-			}
-			if(m_gender == ""){
-				alert('성별을 선택하세요.');
-				return false;
-			}
+
 			if(m_nick == ""){
 				alert('닉네임을 입력하세요.');
-				return false;
-			}
-			//체크안하고 회원가입 버튼 누를시
-			if($("#c1").prop("checked")==false){
-				alert("회원약관 동의에 체크하셔야 회원가입이 가능합니다.");
 				return false;
 			}
 			
@@ -260,82 +177,69 @@
 			$('#m_pwd').val(m_pwd);
 			$('#m_name').val(m_name);
 			$('#m_phone').val(m_phone);
-			$('#m_birth').val(m_birth);
-			$('#m_gender').val(m_gender);
 			$('#m_nick').val(m_nick);
 			$('#m_img').val(m_img);
 			alert('이미지링크 : ' + $('#m_img').val());
 			return true;
 		});
 		
+		
+		$(document).find('#leaveBtn').on('click',function(){
+			var m_email = $("#m_email").val();
+			var leaveConfirm = confirm('정말로 탈퇴하시겠습니까? 탈퇴한 이메일로는 6개월 간 재가입이 불가능합니다.');
+			if (leaveConfirm){
+				alert('탈퇴 처리 되었습니다.');
+				location.href='MUU_LEAVE.do?m_email='+m_email;
+			} else {
+				history.go(0);
+			}
+		}); 
+	
+		
 	});
+
 </script>
+
 </head>
-<body class="joinbody">
-	<form action="MSI_JOIN.do" method="post">
-		<input type="hidden" name="m_email" id="m_email" value="">
-		<input type="hidden" name="m_pwd" id="m_pwd" value="">
-		<input type="hidden" name="m_name" id="m_name" value="">
-		<input type="hidden" name="m_phone" id="m_phone" value="">
-		<input type="hidden" name="m_birth" id="m_birth" value="">
-		<input type="hidden" name="m_gender" id="m_gender" value="">
-		<input type="hidden" name="m_nick" id="m_nick" value="">
+<body class="changebody">
+	<form action="MUU_MODIFY.do" method="post">
 		<input type="hidden" name="m_img" id="m_img" value="">
-		<div class="joinbox">
-			<p>이메일</p>
-			<input type="email" id="inputEmail" name="" placeholder="E-mail">
-			<small id="checkEmail"></small> 
-			<input type="button" id="sendCodeBtn" name="" value="이메일 인증"  disabled="disabled">
-			<p>비밀번호</p>
-			<input type="password" id="inputPwd" name="" placeholder="Password">
-			<p>비밀번호 확인</p>
-			<input type="password" id="inputPwdCheck" name="" placeholder="Password Check">
-			<p>이름</p>
-			<input type="text" id="inputName" name="" placeholder="name">
-			<p>연락처</p>
-			<select id="inputPhone1" name="">
-				<option value="010">010</option>
-				<option value="011">011</option>
-				<option value="016">016</option>
-				<option value="017">017</option>
-				<option value="018">018</option>
-				<option value="019">019</option>
-			</select> 
-			<strong>-</strong> <input type="number" id="inputPhone2" name="" maxlength="4" style="width: 70px;">
-			<strong>-</strong> <input type="number" id="inputPhone3" name="" maxlength="4" style="width: 70px;">
-			<p>생년월일</p>
-			<input type="number" id="inputBirthYear" name="" maxlength="4" style="width: 60px;" placeholder="yyyy">
-			<input type="number" id="inputBirthMonth" name="" maxlength="2" style="width: 60px;" placeholder="MM">
-			<input type="number" id="inputBirthDay" name="" maxlength="2" style="width: 60px;" placeholder="dd">
-			<img id="calendarBtn" src="img/calendarIcon.jpg" style="width: 40px; height: 40px; padding: 0px">
-			<p>성별</p>
-			<select id="inputGender" name="">
-				<option value="1">남자</option>
-				<option value="2">여자</option>
-			</select><br>
-			<br>
-			<p>닉네임</p>
-			<small>닉네임을 설정하지 않을경우 이름으로 표시 됩니다.</small>
-			<input type="text" id="inputNick" name="" placeholder="nickname">
+		<input type="hidden" name="m_nick" id="m_nick" value="">
+		<input type="hidden" name="m_email" id="m_email" value="${member.m_email}">
+		<input type="hidden" name="m_pwd" id="m_pwd" value="">
+		<input type="hidden" name="m_phone" id="m_phone" value="">
+
+		<div class="changebox">
+			
 			<p>프로필 이미지</p>
-			<br> <img id="inputImg" src="img/wadiz.jpg" class="logo"> <br>
-			<br><br><br><br>
+			<br> <img src="${member.m_img }" name="" id="inputImg" class="logo"> <br>
+			<br><br><br><br><br><br>
+			<p>닉네임</p>
+			<input type="text" name="" id="inputNick" value="${member.m_nick }" placeholder="nickname">
+			<p>이메일</p>
+			<input type="email" name="" id="inputEmail" readonly value="${member.m_email }" placeholder="가져온 이메일"> 
+			<p>이름</p>
+			<input type="text" name="" id="inputName" value="${member.m_name }"  placeholder="가져온이름">
+			<p>변경할 비밀번호</p>
+			<input type="password" name="" id="inputPwd" placeholder="Password">
+			<p>비밀번호 확인</p>
+			<input type="password" name="" id="inputPwdCheck" placeholder="Password Check">
+			<p>연락처</p>
+			<select name="" id="inputPhone1">
+				<option value="010" <c:if test="${phone[0] eq 010 }">selected</c:if>>010</option>
+				<option value="011" <c:if test="${phone[0] eq 011 }">selected</c:if>>011</option>
+				<option value="016" <c:if test="${phone[0] eq 016 }">selected</c:if>>016</option>
+				<option value="017" <c:if test="${phone[0] eq 017 }">selected</c:if>>017</option>
+				<option value="018" <c:if test="${phone[0] eq 018 }">selected</c:if>>018</option>
+			</select> 
+			<strong>-</strong> <input type="text" name="" id="inputPhone2" value="${phone[1] }" style="width: 70px;">
+			<strong>-</strong> <input type="text" name="" id="inputPhone3" value="${phone[2] }" style="width: 70px;">
 			<br>
-			<p>회원약관</p>
-			<textarea>
-				aasdsadasdadsadsadada
-				asdasdasdasdasdasdasda
-				asdasdasdasdasdasdasda
-				asdasdadsadasdasdasd
-				sdasdasdasdasda
-				asdasdadsadasdasdasd
-				dsadasdasdasd
-			</textarea>
-			<input type="checkbox" name="" id="c1"><label for="c1">상기내용에 동의합니다.</label>
-			<br>
-			<br>
-			<input type="submit" id="signupSubmit" name="" value="회원가입"> 
-			<input type="button" id="cancelBtn" name="" value="취소" onclick="location.href='MIE_LOGINFORM.do'">
+			<!-- <input type="button" class="uploadbtn" name="" value="업로드" onclick=""> -->
+			<br><br><br>
+			<input type="submit" class="modibtn" id="updateSubmit" value="수정"> 
+			<input type="button" class="cancelbtn" name="" value="취소" onclick="location.href='MAIN.do'">
+			<input type="button" class="outbtn" id="leaveBtn" name="" value="탈퇴">
 		</div>
 	</form>
 	<jsp:include page="Header.jsp"/>

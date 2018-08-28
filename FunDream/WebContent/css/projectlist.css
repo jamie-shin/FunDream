@@ -1,0 +1,375 @@
+.mcontainer {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.cards {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: left;
+  justify-content: left;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  padding: 1.5%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.card {
+  position: relative;
+  margin-bottom: 20px;
+  padding-bottom: 30px;
+  background: #fefff9;
+  color: #363636;
+  text-decoration: none;
+  -moz-box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
+  box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+@media (max-width: 700px) {
+  
+  .card {
+    width: 100%;
+  }
+}
+@media (min-width: 700px) {
+  .card {
+    max-width: 320px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  /*.card:nth-child(even) {
+    margin-right: 0;
+  }*/
+}
+@media (min-width: 980px) {
+  .card:nth-child(even) {
+    margin-right: 20px;
+  }
+/*  .card:nth-child(3n) {
+    margin-right: 0;
+  }*/
+}
+
+/* 카테고리 */
+.ct-menu {
+  text-decoration: none;
+}
+
+.ct-container {
+  max-width: 1000px;
+  margin: 0;
+  margin-left: 15px;
+  margin-top: 10%;
+  text-align: center;
+}
+
+.ct-container ul {
+  list-style-type: none;
+  padding: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  background:
+    
+    /* Shadow covers */
+    linear-gradient(90deg, white 30%, rgba(255,255,255,0)),
+    linear-gradient(90deg, rgba(255,255,255,0), white 70%) 100% 0,
+    
+    /* Shadows */
+    radial-gradient(0 50%, farthest-side, rgba(0,0,0,.2), rgba(0,0,0,0)),
+    radial-gradient(100% 50%,farthest-side, rgba(0,0,0,.2), rgba(0,0,0,0)) 100% 0;
+  background:
+    /* Shadow covers */
+    linear-gradient(90deg, white 30%, rgba(255,255,255,0)),
+    linear-gradient(90deg, rgba(255,255,255,0), white 70%) 100% 0,
+    
+    /* Shadows */
+    radial-gradient(farthest-side at 0 50%, rgba(0,0,0,.2), rgba(0,0,0,0)),
+    radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.2), rgba(0,0,0,0)) 100% 0;
+  background-repeat: no-repeat;
+  /*background-color: white;*/
+  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+  
+  /* Opera doesn't support this in the shorthand */
+  background-attachment: local, local, scroll, scroll;
+ }
+
+.ct-container ul li {
+  color: #fefefe;
+  display: inline-block;
+}
+
+.ct-container ul li a {
+  font-weight: bold;
+  color: darkblue;
+  padding-right: 17pt;
+}
+/* /카테고리 */
+
+/* 셀렉트 박스 */
+
+.ct-select {
+  margin-left: 15px;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  color: #000;
+}
+
+.ct-select-box {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 6px;
+  width: 120px;
+  height: 30px;
+  outline: none; 
+  border: none;
+  background: #fefff9;
+  color: inherit;
+}
+
+.select-icon {
+  position: absolute;
+  right: 8px;
+}
+
+/* /셀렉트 박스 */
+
+/* 체크 박스*/
+
+.right-on-page {
+  position: absolute;
+  margin-left: 46%;
+  margin-top:-28px; 
+}
+input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+label {
+  position: relative;
+  display: inline-block;
+  font-size: 12px;
+  /*margin-right: 5px;*/
+  margin-bottom: 10px;
+  padding-left: 30px;
+  padding-right: 10px;
+  line-height: 29px;
+  cursor: pointer;
+}
+label::before {
+  content: " ";
+  position: absolute;
+  top: 6px;
+  left: 0;
+  display: block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #fefff9;
+  border-radius: 4px;
+  z-index: -1;
+}
+/* Checked */
+input[type="checkbox"]:checked + label {
+  padding-left: 10px;
+  color: #fff;
+}
+input[type="checkbox"]:checked + label::before {
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #333;
+}
+/* Transition */
+label,
+label::before {
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}
+
+/* /체크 박스 */
+
+.card-part {
+	margin-left: 66%;
+}
+
+
+.card span {
+  display: block;
+}
+.card .card-summary {
+  padding: 5% 5% 3% 5%;
+}
+.card .card-part {
+  padding: 5% 5% 3% 5%;
+}
+.card .card-header {
+  position: relative;
+  height: 175px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(255, 255, 255, 0.15);
+  background-blend-mode: overlay;
+  -moz-border-radius: 4px 4px 0 0;
+  -webkit-border-radius: 4px;
+  border-radius: 4px 4px 0 0;
+}
+.card .card-header:hover, .card .card-header:focus {
+  background-color: rgba(255, 255, 255, 0);
+}
+.card .card-title {
+  background: darkgray;
+  padding: 3.5% 0 2.5% 0;
+  color: white;
+  font-family: "Roboto Condensed", sans-serif;
+  text-transform: uppercase;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.card .card-title h3 {
+  font-size: 1.2em;
+  line-height: 1.2;
+  padding: 0 3.5%;
+  margin: 0;
+}
+
+.card:hover, .card:focus {
+  background: white;
+  -moz-box-shadow: rgba(0, 0, 0, 0.45) 0px 0px 20px 0px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.45) 0px 0px 20px 0px;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 0px 20px 0px;
+}
+.card:hover .card-title, .card:focus .card-title {
+  background: rgba(157, 187, 63, 0.95);
+}
+.card:hover .card-meta, .card:focus .card-meta {
+  max-height: 1em;
+}
+
+
+.candidatos, div.text {
+    position:relative;
+    height: 40px;
+    margin:0 30px;
+
+}
+.candidatos .parcial {
+    display:inline-block;
+    width:100%;
+    height:40px;
+    vertical-align:middle;
+    padding: 0;
+}
+.candidatos .parcial .info {
+    height:15px;
+    position: relative;
+    font-family: Arial, helvetica, Sans-serif;
+}
+.candidatos .parcial .info > div {
+    float:left;
+}
+.candidatos .parcial .info .nome {
+    position: absolute;
+    top: 0;
+    left:0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #192D49;
+}
+.candidatos .parcial .info .eleito, div.candidatos .parcial .info .segundo-turno {
+    color: #fff;
+    padding: 0 5px 2px 5px;
+    border-radius: 2px;
+}
+div.candidatos .parcial .info .percentagem-num {
+    position: absolute;
+    top:0;
+    right:0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #192D49;
+}
+.candidatos .parcial .progressBar {
+    position:relative;
+    width:100%;
+    height:7px;
+    margin:5px 0 2px;
+    border-radius:10px;
+    background: #e7e7e7;
+}
+.candidatos .parcial .progressBar .percentagem {
+    position:absolute;
+    top:0;
+    left:0;
+    height:7px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background: #A4B5C0;
+    -webkit-transition: 5s all;
+    -webkit-animation-duration: 5s;
+    -webkit-animation-name: animationProgress;
+}
+.candidatos.color .parcial .percentagem {
+    background-color:#C44738;
+}
+.candidatos.color .parcial .percentagem {
+    background-color:#4086CD;
+}
+
+.candidatos .parcial .partidas {
+    font-family: Arial, helvetica, Sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #9e9c9b;
+    text-transform: uppercase;
+}
+.percentual {
+    -webkit-transition: 5s all;
+    -webkit-animation-duration: 5s;
+    -webkit-animation-name: animationProgress;
+    transition: 5s all;
+    animation-duration: 5s;
+    animation-name: animationProgress;
+}
+
+/* /progress bar css */
+
+img {
+  max-width: 100%;
+}
+
+body {
+  background: #f0f0f0;
+  font-size: 17px;
+  line-height: 1.4;
+  font-family: "Jaldi", sans-serif;
+}
+
+* {
+  -moz-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -moz-transform;
+  -o-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -o-transform;
+  -webkit-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -webkit-transform;
+  transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, transform;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
+  transition-timing-function: linear;
+}

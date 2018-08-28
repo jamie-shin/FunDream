@@ -12,5 +12,7 @@ public interface IMemberDao {
 	public Member selectOneMemberByEmail(String m_email);
 	public int updateMember(Member member);
 	public int deleteMember(int m_id);
+	public String shaPwd(String m_pwd);
+	public void updateMemberForLeave(String m_email);
 
 }
