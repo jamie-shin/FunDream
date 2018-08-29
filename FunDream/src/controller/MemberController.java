@@ -375,7 +375,7 @@ public class MemberController {
 
 	@RequestMapping("MUU_MODIFY.do") // 정보수정 확인
 	public ModelAndView MUU_MODIFY(
-			HttpServletRequest request/*
+			HttpServletRequest request,HttpSession session/*
 										 * String m_img, String m_nick, String m_email, String m_pwd, String m_phone
 										 */) throws UnsupportedEncodingException {
 		ModelAndView mav = new ModelAndView();
@@ -419,6 +419,7 @@ public class MemberController {
 				}
 			}
 			memberService.MUU_MODIFY(member);
+			session.setAttribute("m_img", path);
 			mav.addObject("msg", "정보 수정이 완료되었습니다.");
 			mav.addObject("url", "MAIN.do");
 			mav.setViewName("alert");
