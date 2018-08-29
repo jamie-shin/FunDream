@@ -79,12 +79,6 @@ public class MemberService {
 		else return 2;
 	}
 
-	public Member MUU_MODIFYFORM(String m_email) {
-		// TODO Auto-generated method stub
-		System.out.println("service member: "+ memberDao.selectOneMemberByEmail(m_email));
-		return memberDao.selectOneMemberByEmail(m_email);
-	}
-
 	public void MUU_MODIFY(Member m) {
 		// TODO Auto-generated method stub
 		System.out.println(m);
