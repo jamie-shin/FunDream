@@ -141,7 +141,7 @@ public class MemberController {
 		member.setM_pwd(m_pwd);
 		member.setM_name(m_name);
 		member.setM_phone(m_phone);
-		member.setM_birth(new SimpleDateFormat("yyyy-mm-dd").parse(m_birth));
+		member.setM_birth(new SimpleDateFormat("yyyy-MM-dd").parse(m_birth));
 		member.setM_gender(Integer.parseInt(m_gender));
 		member.setM_nick(m_nick);
 		member.setM_img(m_img);

@@ -112,6 +112,16 @@ h1 {
 	font-size: 16px;
 }
 
+.joinbox input[type="number"] {
+	border: none;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	outline: none;;
+	height: 40px;
+	color: #fff;
+	font-size: 16px;
+}
+
 .joinbox small {
 	font-size: 10px;
 	color: red;
@@ -165,13 +175,11 @@ h1 {
 	transform: scale(0);
 }
 
-
 .joinbox input[type="checkbox"]:checked + label:before {
 	background-color: #000;
 	border-color: #000;
 	color: #fff;
 }
-
 
 .joinbox select {
 	width: 70px;
@@ -183,4 +191,10 @@ h1 {
     color: #fff;
     background-color: #000;
     border-radius: 3px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

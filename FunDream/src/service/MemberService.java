@@ -9,11 +9,11 @@ import model.Member;
 @Service
 public class MemberService {
 	@Autowired
-	private IMemberDao md;
+	private IMemberDao memberDao;
 
 	public Member selectOneMemberByEmail(String inputEmail) {
 		// TODO Auto-generated method stub
-		Member member = md.selectOneMemberByEmail(inputEmail);
+		Member member = memberDao.selectOneMemberByEmail(inputEmail);
 		if(member == null) {
 			return null;  // 존재하지 않는 이메일
 		}
@@ -25,14 +25,14 @@ public class MemberService {
 	public int insertMember(Member member) {
 		// TODO Auto-generated method stub
 		if(member!=null) {
-			md.insertMember(member);
+			memberDao.insertMember(member);
 			return 1;
 		}
 		return 2;
 	}
 	
 	public Member selectOneMemberByEmail2(String inputEmail,String name) {
-		Member member = md.selectOneMemberByEmail(inputEmail);
+		Member member = memberDao.selectOneMemberByEmail(inputEmail);
 		if(member != null && member.getM_name().trim().equals(name.trim())) {
 			return member;
 		}
@@ -42,7 +42,7 @@ public class MemberService {
 	public int updateMember(Member member) {
 		// TODO Auto-generated method stub
 		if(member !=null) {
-			md.updateMember(member);
+			memberDao.updateMember(member);
 			return 1;
 		}
 		return 2;
@@ -50,9 +50,9 @@ public class MemberService {
 	
 	public int MIS_LOGIN(String m_email, String m_pwd) {
         // TODO Auto-generated method stub
-        Member member = md.selectOneMemberByEmail(m_email);
+        Member member = memberDao.selectOneMemberByEmail(m_email);
         System.out.println(member);
-        String m_pwd_input = md.shaPwd(m_pwd);
+        String m_pwd_input = memberDao.shaPwd(m_pwd);
         //System.out.println("입력된 pw: "+m_pwd_input);
          
         if(member==null) {
@@ -73,28 +73,28 @@ public class MemberService {
 
 	public int MUS_CHECKPW(String m_pwd_input, String m_email) {
 		// TODO Auto-generated method stub
-		Member member = md.selectOneMemberByEmail(m_email);
-		String m_pwd_check = md.shaPwd(m_pwd_input);
+		Member member = memberDao.selectOneMemberByEmail(m_email);
+		String m_pwd_check = memberDao.shaPwd(m_pwd_input);
 		if (m_pwd_check.equals(member.getM_pwd())) return 1;
 		else return 2;
 	}
 
 	public Member MUU_MODIFYFORM(String m_email) {
 		// TODO Auto-generated method stub
-		System.out.println("service member: "+ md.selectOneMemberByEmail(m_email));
-		return md.selectOneMemberByEmail(m_email);
+		System.out.println("service member: "+ memberDao.selectOneMemberByEmail(m_email));
+		return memberDao.selectOneMemberByEmail(m_email);
 	}
 
 	public void MUU_MODIFY(Member m) {
 		// TODO Auto-generated method stub
 		System.out.println(m);
-		md.updateMember(m);
+		memberDao.updateMember(m);
 		//md.updateMember(m);
 	}
 
 	public void MUU_LEAVE(String m_email) {
 		// TODO Auto-generated method stub
-		md.updateMemberForLeave(m_email);
+		memberDao.updateMemberForLeave(m_email);
 	}
  
 
