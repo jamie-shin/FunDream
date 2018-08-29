@@ -11,6 +11,7 @@
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body class="hbody">
+	<% String m_img = (String)session.getAttribute("m_img"); %>
 	<header>
 		<div class="Hlogo"><a href="MAIN.do">FunDream</a></div>
 		<nav>
@@ -34,7 +35,7 @@
 				<c:if test="${m_manager == 1 && m_email !=null}"><li><a href="#">관리자 메인</a></li></c:if>
 				<li> <c:if test="${m_email==null}"> <a href="MIE_LOGINFORM.do"><img src="img/user.png" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px;"></a></c:if> </li>
 				
-				<li><c:if test="${m_email!=null}"><img src="img/user.png" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px;">
+				<li><c:if test="${m_email!=null}"><img src="${m_img}" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px;">
 					<ul>
 						<li><a href="MUE_CHECKPW.do">내 정보 수정</a></li>
 						<li><a href="#">관심 프로젝트</a></li>
