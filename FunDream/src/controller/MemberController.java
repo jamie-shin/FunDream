@@ -115,7 +115,7 @@ public class MemberController {
 	public String MSE_SENDC(@RequestParam("inputEmail") String inputEmail) {
 		System.out.println(inputEmail);
 		String code = SendCodeToEmail(inputEmail);
-		return "redirect:CertifiedEmail.do?inputEmail=" + inputEmail + "&sendCode=" + code;
+		return "redirect:MSE_CHECKC.do?inputEmail=" + inputEmail + "&sendCode=" + code;
 	}
 
 	@RequestMapping("MSS_CHECKM.do") // 회원가입에서 이메일 인증전 중복검사
