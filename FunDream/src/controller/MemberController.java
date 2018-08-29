@@ -174,29 +174,29 @@ public class MemberController {
 			String applicationPath = request.getServletContext().getRealPath("img");
 			String path = "img/" + filename1;
 			// 파일형식이 jpg 또느 png일 경우에만 DB저장
-			String s = filename1.replace(".", ",");
-			String[] f = s.split(",");
-			if (f[f.length - 1].equalsIgnoreCase("jpg") || f[f.length - 1].equalsIgnoreCase("png")) {
 
-				Member member = new Member();
-				member.setM_email(m_email);
-				member.setM_pwd(m_pwd);
-				member.setM_name(m_name);
-				member.setM_phone(m_phone);
-				member.setM_birth(new SimpleDateFormat("yyyy-MM-dd").parse(m_birth));
-				member.setM_gender(Integer.parseInt(m_gender));
-				member.setM_nick(m_nick);
-				if (filename1 == null) {
-					member.setM_img("img/user.png");
-				} else {
+			Member member = new Member();
+			member.setM_email(m_email);
+			member.setM_pwd(m_pwd);
+			member.setM_name(m_name);
+			member.setM_phone(m_phone);
+			member.setM_birth(new SimpleDateFormat("yyyy-MM-dd").parse(m_birth));
+			member.setM_gender(Integer.parseInt(m_gender));
+			member.setM_nick(m_nick);
+			if (filename1 == null) {
+				member.setM_img("img/user.png");
+			} else {
+				String s = filename1.replace(".", ",");
+				String[] f = s.split(",");
+				if (f[f.length - 1].equalsIgnoreCase("jpg") || f[f.length - 1].equalsIgnoreCase("png")) {
 					member.setM_img(path);
+				} else {// 형식이 올바르지 않을경우 경고창 이후 history.go(-1)
+					url = "alert1.do";
 				}
-				System.out.println(member);
-				memberService.insertMember(member);
-				url = "redirect:MIE_LOGINFORM.do";
-			} else {// 형식이 올바르지 않을경우 경고창 이후 history.go(-1)
-				url = "alert1.do";
 			}
+			System.out.println(member);
+			memberService.insertMember(member);
+			url = "redirect:MIE_LOGINFORM.do";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -374,10 +374,10 @@ public class MemberController {
 	}
 
 	@RequestMapping("MUU_MODIFY.do") // 정보수정 확인
-	public ModelAndView MUU_MODIFY(
-			HttpServletRequest request,HttpSession session/*
-										 * String m_img, String m_nick, String m_email, String m_pwd, String m_phone
-										 */) throws UnsupportedEncodingException {
+	public ModelAndView MUU_MODIFY(HttpServletRequest request,
+			HttpSession session/*
+								 * String m_img, String m_nick, String m_email, String m_pwd, String m_phone
+								 */) throws UnsupportedEncodingException {
 		ModelAndView mav = new ModelAndView();
 		// 파일 업로드 부분
 		request.setCharacterEncoding("UTF-8");
