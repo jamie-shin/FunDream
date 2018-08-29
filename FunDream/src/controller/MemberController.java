@@ -329,6 +329,9 @@ public class MemberController {
 			mav.setViewName("alert");
 		} else {
 			session.setAttribute("m_email", m_email);
+			Member m = memberService.selectOneMemberByEmail(m_email);
+			String m_img = m.getM_img();
+			session.setAttribute("m_img", m_img);
 			if (result == 2) {
 				// String m_manager= "m_manager";
 				session.setAttribute("m_manager", 1);
