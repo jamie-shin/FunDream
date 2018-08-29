@@ -195,14 +195,28 @@
 			}
 		}); 
 	
-		
+		 $(function() {
+		        $("#imgInp").on('change', function(){
+		            readURL(this);
+		        });
+		    });
+		    function readURL(input) {
+		        if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+
+		        reader.onload = function (e) {
+		                $('#blah').attr('src', e.target.result);
+		            }
+		          reader.readAsDataURL(input.files[0]);
+		        }
+		    }
 	});
 
 </script>
 
 </head>
 <body class="changebody">
-	<form action="MUU_MODIFY.do" method="post">
+	<form action="MUU_MODIFY.do" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 		<input type="hidden" name="m_img" id="m_img" value="">
 		<input type="hidden" name="m_nick" id="m_nick" value="">
 		<input type="hidden" name="m_email" id="m_email" value="${member.m_email}">
@@ -213,6 +227,10 @@
 			
 			<p>프로필 이미지</p>
 			<br> <img src="${member.m_img }" name="" id="inputImg" class="logo"> <br>
+			<br><br><br><br><br><br>
+			<p>변경 이미지</p>
+			<br><input type='file' id="imgInp" name="m_img"/><br>
+			<br><img id="blah" src="#" alt="your image" class="logo"/><br>
 			<br><br><br><br><br><br>
 			<p>닉네임</p>
 			<input type="text" name="" id="inputNick" value="${member.m_nick }" placeholder="nickname">
