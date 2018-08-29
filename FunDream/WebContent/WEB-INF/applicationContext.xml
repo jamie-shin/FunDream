@@ -24,5 +24,15 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 		<property name="mapperInterface" value="dao.IMemberDao"/>
 	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="projectDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="mapperInterface" value="dao.IProjectDao"/>
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="rewardDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="mapperInterface" value="dao.IRewardDao"/>
+	</bean>
 
 </beans>
