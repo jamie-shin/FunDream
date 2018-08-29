@@ -10,7 +10,7 @@
 <script src="js/joinform.js"></script>
 </head>
 <body class="joinbody">
-	<form action="MSI_JOIN.do" method="post">
+	<form action="MSI_JOIN.do" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 		<input type="hidden" name="m_email" id="m_email" value="">
 		<input type="hidden" name="m_pwd" id="m_pwd" value="">
 		<input type="hidden" name="m_name" id="m_name" value="">
@@ -55,8 +55,8 @@
 			<p>닉네임</p>
 			<small>닉네임을 설정하지 않을경우 이름으로 표시 됩니다.</small>
 			<input type="text" id="inputNick" name="" placeholder="nickname">
-			<p>프로필 이미지</p>
-			<br> <img id="inputImg" src="img/wadiz.jpg" class="logo"> <br>
+			<p>이미지 파일</p>
+			<br><input type='file' id="imgInp" name="m_img"/><br>
 			<br><br><br><br>
 			<br>
 			<p>회원약관</p>
