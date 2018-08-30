@@ -38,9 +38,11 @@
 				<li><c:if test="${m_email!=null}"><img src="${m_img}" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px;">
 					<ul>
 						<li><a href="MUE_CHECKPW.do">내 정보 수정</a></li>
+						<c:if test="${m_manager != 1 && m_email !=null}">
 						<li><a href="#">관심 프로젝트</a></li>
 						<li><a href="#">내가 후원한 내역</a></li>
 						<li><a href="#">내 프로젝트 관리</a></li>
+						</c:if>
 						<li><a href="MOE.do">로그아웃</a></li>
 					</ul>
 				</c:if>	
