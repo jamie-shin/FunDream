@@ -31,7 +31,7 @@
 						<li><a href="#">이벤트</a></li>
 					</ul>
 				</li>
-				<c:if test="${(m_manager != 1 && m_email!=null) || (m_email==null)}"><li><a href="#">신규프로젝트신청</a></li></c:if>
+				<c:if test="${(m_manager != 1 && m_email!=null) || (m_email==null)}"><li><a href="JJI.do">신규프로젝트신청</a></li></c:if>
 				<c:if test="${m_manager == 1 && m_email !=null}"><li><a href="#">관리자 메인</a></li></c:if>
 				<li> <c:if test="${m_email==null}"> <a href="MIE_LOGINFORM.do"><img src="img/user.png" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px;"></a></c:if> </li>
 				
