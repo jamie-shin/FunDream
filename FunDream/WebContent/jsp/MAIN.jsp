@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        	   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,31 +15,27 @@
 	<div class="slideshow">
 		<ul class="slider">
 			<li>
-				<a href=""><img class="banner" src="img/bg.jpg" alt="1">
+				<a href=""><img class="banner" src="img/애완동물.jpg" alt="1">
 				<section class="caption">
-					<h1>Lorem ipsum1</h1><!-- 프로젝트 제목  -->
-					<p>asdasdsadadsada asdasda asdasdawgs asdqdwda</p><!-- 한줄 설명  -->
+					<h1>프로젝트13</h1><!-- 프로젝트 제목  -->
 				</section></a>
 			</li>
 			<li>
-				<a href=""><img class="banner" src="img/bg.jpg" alt="2">
+				<a href=""><img class="banner" src="img/레저.jpg" alt="2">
 				<section class="caption">
-					<h1>Lorem ipsum2</h1>
-					<p>asdasdsadadsada asdasda asdasdawgs asdqdwda</p>
+					<h1>프로젝트12</h1>
 				</section></a>
 			</li>
 			<li>
-				<a href=""><img class="banner" src="img/bg.jpg" alt="3">
+				<a href=""><img class="banner" src="img/화장품.jpg" alt="3">
 				<section class="caption">
-					<h1>Lorem ipsum3</h1>
-					<p>asdasdsadadsada asdasda asdasdawgs asdqdwda</p>
+					<h1>프로젝트2</h1>
 				</section></a>
 			</li>
 			<li>
-				<a href=""><img class="banner" src="img/bg.jpg" alt="4">
+				<a href=""><img class="banner" src="img/뷰티.jpg" alt="4">
 				<section class="caption">
-					<h1>Lorem ipsum4</h1>
-					<p>asdasdsadadsada asdasda asdasdawgs asdqdwda</p>
+					<h1>프로젝트11</h1>
 				</section></a>
 			</li>
 		</ul>
@@ -57,175 +54,44 @@
 	<!-- 여기부터 메인 flex  -->
 	<div class="mcontainer">
 <span class="left-subtitle">
-	<h2 class="left-h2">추천 프로젝트</h2>
+	<h2 class="left-h2">마감 임박 프로젝트</h2>
 </span>
 <span class="right-allview">
 	<h5 href="" class="right-h5"><a href="">전체보기</a></h5>
 </span>
 	<!-- 카드 하나당 게시물 한개 -->
 	<div class="cards">
+	<c:forEach items="${endlist }" var="list">
 		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3><!-- 게시물 제목 -->
-				</span>
+			<span class="card-header" style="background-image: url(${list.p_mainimg});">
 			</span>
 			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
+				<h3>${list.p_name}</h3><!-- 게시물 제목 -->
 			</span><!-- 한줄 내용 입력창 -->
 			<small class="card-part">00명 참여</small><!-- 참여자 수  -->
 			<!-- 프로그레스 바 -->
 			<div class="candidatos color">
     			<div class="parcial">
         			<div class="info">
-            			<div class="percentagem-num">20%</div><!-- 보여지는 퍼센트  -->
+            			<div class="percentagem-num">${list.per}%</div><!-- 보여지는 퍼센트  -->
+            			
        				</div>
         			<div class="progressBar"><!-- 100%를 넘기면 밖으로 나가버리니 넘지않게 할 것 -->
-            			<div class="percentagem" style="width: 20%;"></div><!-- %바꾸면 그래프 표시된 바 변경   -->
+        			<c:choose>
+        			<c:when test="${list.per<=100}">
+            			<div class="percentagem" style="width: ${list.per}%;"></div><!-- %바꾸면 그래프 표시된 바 변경   -->
+        			</c:when>
+        			<c:when test="${list.per>100 }">
+        			<div class="percentagem" style="width: 100%;"></div><!-- %바꾸면 그래프 표시된 바 변경   -->
+        			</c:when>
+        			</c:choose>
         			</div>
-        			<div class="partidas">100,000원</div> <!-- 모금된 후원액 -->
+        			<div class="partidas">${list.p_status}</div> <!-- 모금된 후원액 -->
     			</div>
 			</div>
 			<!-- 프로그레스 바 -->	
 		</a>
-
-		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
-			</span>
-			<small class="card-part">00명 참여</small>
-			<!-- 프로그레스 바 -->
-			<div class="candidatos color">
-    			<div class="parcial">
-        			<div class="info">
-            			<div class="percentagem-num">20%</div>
-       				</div>
-        			<div class="progressBar">
-            			<div class="percentagem" style="width: 20%;"></div>
-        			</div>
-        			<div class="partidas">100,000원</div>
-    			</div>
-			</div>
-			<!-- 프로그레스 바 -->	
-		</a>
-
-		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
-			</span>
-			<small class="card-part">000명 참여</small>
-			<!-- 프로그레스 바 -->
-			<div class="candidatos color">
-    			<div class="parcial">
-        			<div class="info">
-            			<div class="percentagem-num">20%</div>
-       				</div>
-        			<div class="progressBar">
-            			<div class="percentagem" style="width: 20%;"></div>
-        			</div>
-        			<div class="partidas">100,000원</div>
-    			</div>
-			</div>
-			<!-- 프로그레스 바 -->	
-		</a>
-	</div>
-</div>
-
-
-
-<div class="mcontainer">
-<span class="left-subtitle">
-	<h2 class="left-h2">주제별 인기 프로젝트</h2>
-</span>
-<span class="right-allview">
-	<h5 href="" class="right-h5"><a href="">전체보기</a></h5>
-</span>
-	<div class="cards">
-
-		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
-			</span>
-			<small class="card-part">00명 참여</small>
-			<!-- 프로그레스 바 -->
-			<div class="candidatos color">
-    			<div class="parcial">
-        			<div class="info">
-            			<div class="percentagem-num">40%</div>
-       				</div>
-        			<div class="progressBar">
-            			<div class="percentagem" style="width: 40%;"></div>
-        			</div>
-        			<div class="partidas">100,000원</div>
-    			</div>
-			</div>
-			<!-- 프로그레스 바 -->	
-		</a>
-
-		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
-			</span>
-			<small class="card-part">00명 참여</small>
-			<!-- 프로그레스 바 -->
-			<div class="candidatos color">
-    			<div class="parcial">
-        			<div class="info">
-            			<div class="percentagem-num">90%</div>
-       				</div>
-        			<div class="progressBar">
-            			<div class="percentagem" style="width: 90%;"></div>
-        			</div>
-        			<div class="partidas">100,000원</div>
-    			</div>
-			</div>
-			<!-- 프로그레스 바 -->	
-		</a>
-
-		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
-			</span>
-			<small class="card-part">00명 참여</small>
-			<!-- 프로그레스 바 -->
-			<div class="candidatos color">
-    			<div class="parcial">
-        			<div class="info">
-            			<div class="percentagem-num">110%</div>
-       				</div>
-        			<div class="progressBar">
-            			<div class="percentagem" style="width: 100%;"></div>
-        			</div>
-        			<div class="partidas">100,000원</div>
-    			</div>
-			</div>
-			<!-- 프로그레스 바 -->	
-		</a>
+	</c:forEach>
 	</div>
 </div>
 
@@ -238,169 +104,39 @@
 	<h5 href="" class="right-h5"><a href="">전체보기</a></h5>
 </span>
 	<div class="cards">
-
+<c:forEach items="${newlist}" var="list">
 		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3>
-				</span>
+			<span class="card-header" style="background-image: url(${list.p_mainimg});">
 			</span>
 			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
+				<h3>${list.p_name}</h3>
 			</span>
 			<small class="card-part">00명 참여</small>
 			<!-- 프로그레스 바 -->
 			<div class="candidatos color">
     			<div class="parcial">
         			<div class="info">
-            			<div class="percentagem-num">40%</div>
+            			<div class="percentagem-num">${list.per}%</div>
        				</div>
         			<div class="progressBar">
-            			<div class="percentagem" style="width: 40%;"></div>
+            			<c:choose>
+        			<c:when test="${list.per<=100}">
+            			<div class="percentagem" style="width: ${list.per}%;"></div><!-- %바꾸면 그래프 표시된 바 변경   -->
+        			</c:when>
+        			<c:when test="${list.per>100 }">
+        			<div class="percentagem" style="width: 100%;"></div><!-- %바꾸면 그래프 표시된 바 변경   -->
+        			</c:when>
+        			</c:choose>
         			</div>
-        			<div class="partidas">100,000원</div>
+        			<div class="partidas">${list.p_status}</div>
     			</div>
 			</div>
 			<!-- 프로그레스 바 -->	
 		</a>
-
-		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
-			</span>
-			<small class="card-part">00명 참여</small>
-			<!-- 프로그레스 바 -->
-			<div class="candidatos color">
-    			<div class="parcial">
-        			<div class="info">
-            			<div class="percentagem-num">90%</div>
-       				</div>
-        			<div class="progressBar">
-            			<div class="percentagem" style="width: 90%;"></div>
-        			</div>
-        			<div class="partidas">100,000원</div>
-    			</div>
-			</div>
-			<!-- 프로그레스 바 -->	
-		</a>
-
-		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
-			</span>
-			<small class="card-part">00명 참여</small>
-			<!-- 프로그레스 바 -->
-			<div class="candidatos color">
-    			<div class="parcial">
-        			<div class="info">
-            			<div class="percentagem-num">110%</div>
-       				</div>
-        			<div class="progressBar">
-            			<div class="percentagem" style="width: 100%;"></div>
-        			</div>
-        			<div class="partidas">100,000원</div>
-    			</div>
-			</div>
-			<!-- 프로그레스 바 -->	
-		</a>
+</c:forEach>
 	</div>
 </div>
 
-<div class="mcontainer">
-<span class="left-subtitle">
-	<h2 class="left-h2">마감 임박 프로젝트</h2>
-</span>
-<span class="right-allview">
-	<h5 href="" class="right-h5"><a href="">전체보기</a></h5>
-</span>
-	<div class="cards">
-
-		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
-			</span>
-			<small class="card-part">00명 참여</small>
-			<!-- 프로그레스 바 -->
-			<div class="candidatos color">
-    			<div class="parcial">
-        			<div class="info">
-            			<div class="percentagem-num">40%</div>
-       				</div>
-        			<div class="progressBar">
-            			<div class="percentagem" style="width: 40%;"></div>
-        			</div>
-        			<div class="partidas">100,000원</div>
-    			</div>
-			</div>
-			<!-- 프로그레스 바 -->	
-		</a>
-
-		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
-			</span>
-			<small class="card-part">00명 참여</small>
-			<!-- 프로그레스 바 -->
-			<div class="candidatos color">
-    			<div class="parcial">
-        			<div class="info">
-            			<div class="percentagem-num">90%</div>
-       				</div>
-        			<div class="progressBar">
-            			<div class="percentagem" style="width: 90%;"></div>
-        			</div>
-        			<div class="partidas">100,000원</div>
-    			</div>
-			</div>
-			<!-- 프로그레스 바 -->	
-		</a>
-
-		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
-			</span>
-			<small class="card-part">00명 참여</small>
-			<!-- 프로그레스 바 -->
-			<div class="candidatos color">
-    			<div class="parcial">
-        			<div class="info">
-            			<div class="percentagem-num">110%</div>
-       				</div>
-        			<div class="progressBar">
-            			<div class="percentagem" style="width: 100%;"></div>
-        			</div>
-        			<div class="partidas">100,000원</div>
-    			</div>
-			</div>
-			<!-- 프로그레스 바 -->	
-		</a>
-	</div>
-</div>
 
 
 <div class="mcontainer">
@@ -411,85 +147,38 @@
 	<h5 href="" class="right-h5"><a href="">전체보기</a></h5>
 </span>
 	<div class="cards">
-
+<c:forEach items="${successlist}" var="list">
 		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3>
-				</span>
+			<span class="card-header" style="background-image: url(${list.p_mainimg});">
 			</span>
 			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
+				<h3>${list.p_name}</h3>
 			</span>
 			<small class="card-part">00명 참여</small>
 			<!-- 프로그레스 바 -->
 			<div class="candidatos color">
     			<div class="parcial">
         			<div class="info">
-            			<div class="percentagem-num">40%</div>
+            			<div class="percentagem-num">${list.per}%</div>
        				</div>
         			<div class="progressBar">
-            			<div class="percentagem" style="width: 40%;"></div>
+            			<c:choose>
+        			<c:when test="${list.per<=100}">
+            			<div class="percentagem" style="width: ${list.per}%;"></div><!-- %바꾸면 그래프 표시된 바 변경   -->
+        			</c:when>
+        			<c:when test="${list.per>100 }">
+        			<div class="percentagem" style="width: 100%;"></div><!-- %바꾸면 그래프 표시된 바 변경   -->
+        			</c:when>
+        			</c:choose>
         			</div>
-        			<div class="partidas">100,000원</div>
+        			<div class="partidas">${list.p_status}</div>
     			</div>
 			</div>
 			<!-- 프로그레스 바 -->	
 		</a>
-
-		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
-			</span>
-			<small class="card-part">00명 참여</small>
-			<!-- 프로그레스 바 -->
-			<div class="candidatos color">
-    			<div class="parcial">
-        			<div class="info">
-            			<div class="percentagem-num">90%</div>
-       				</div>
-        			<div class="progressBar">
-            			<div class="percentagem" style="width: 90%;"></div>
-        			</div>
-        			<div class="partidas">100,000원</div>
-    			</div>
-			</div>
-			<!-- 프로그레스 바 -->	
-		</a>
-
-		<a class="card" href="#">
-			<span class="card-header" style="background-image: url(img/bg.jpg);">
-				<span class="card-title">
-					<h3>제목 제목 제목 제목</h3>
-				</span>
-			</span>
-			<span class="card-summary">
-				내요오오오오오오오오오오오오오오오오오오옹내요오오오오오오오오오오오오옹
-			</span>
-			<small class="card-part">00명 참여</small>
-			<!-- 프로그레스 바 -->
-			<div class="candidatos color">
-    			<div class="parcial">
-        			<div class="info">
-            			<div class="percentagem-num">110%</div>
-       				</div>
-        			<div class="progressBar">
-            			<div class="percentagem" style="width: 100%;"></div>
-        			</div>
-        			<div class="partidas">100,000원</div>
-    			</div>
-			</div>
-			<!-- 프로그레스 바 -->	
-		</a>
+</c:forEach>
 	</div>
 </div>
-	
-	
 	
 	
 	
