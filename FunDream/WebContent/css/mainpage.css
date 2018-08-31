@@ -155,6 +155,7 @@ ul, ol {
 }
 
 .card {
+  width: 320px;
   position: relative;
   margin-bottom: 20px;
   padding-bottom: 30px;
@@ -232,6 +233,8 @@ ul, ol {
   position: relative;
   height: 175px;
   overflow: hidden;
+  border:none;
+  border-bottom: 0.5px solid darkgray;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -344,7 +347,7 @@ ul, ol {
     background-color:#C44738;
 }
 .candidatos.color .parcial .percentagem {
-    background-color:#4086CD;
+    background-color:#ffcc00;
 }
 
 .candidatos .parcial .partidas {
