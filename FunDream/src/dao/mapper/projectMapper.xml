@@ -8,5 +8,22 @@
 	<select id="selectAllProjects" parameterType="project">
 		select * from Project
 	</select>
+	
+	<select id="selectEndProject" resultType="project">
+	<![CDATA[
+		select * from project where p_startdate <= now() and p_enddate >= now() and p_approval=2 order by p_enddate limit 3
+		]]>
+	</select>
 
+	<select id="selectNewProject" resultType="project">
+		<![CDATA[
+		select * from project where p_startdate <= now() and p_approval=2 order by p_startdate desc limit 3
+		]]>
+	</select>
+	
+	<select id="selectSuccessProject" resultType="project">
+	<![CDATA[
+		select * from project where p_target <= p_status order by p_startdate desc limit 3
+		]]>
+	</select>
 </mapper>
