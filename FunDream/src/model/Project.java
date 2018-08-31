@@ -19,8 +19,17 @@ public class Project {
     private int p_age;
     private int p_calculate;
     private int p_type;
+    private double per;
     
-    public Project() {
+    public double getPer() {
+		return per;
+	}
+
+	public void setPer(double per) {
+		this.per = per;
+	}
+
+	public Project() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -177,6 +186,6 @@ public class Project {
 				+ ct_index + ", p_name=" + p_name + ", p_createdate=" + p_createdate + ", p_startdate=" + p_startdate
 				+ ", p_enddate=" + p_enddate + ", p_target=" + p_target + ", p_status=" + p_status + ", p_s_link="
 				+ p_s_link + ", p_contents=" + p_contents + ", p_mainimg=" + p_mainimg + ", p_age=" + p_age
-				+ ", p_calculate=" + p_calculate + ", p_type=" + p_type + "]";
+				+ ", p_calculate=" + p_calculate + ", p_type=" + p_type + ", per=" + per + "]";
 	}
 }
