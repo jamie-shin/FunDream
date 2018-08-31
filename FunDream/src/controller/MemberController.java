@@ -278,9 +278,6 @@ public class MemberController {
 		return redirect;
 	}
 
-	@RequestMapping("MAIN.do") // 메인화면 요청
-	public void MAIN() {
-	}
 
 	@RequestMapping("alert.do")
 	public void alert() {
@@ -331,7 +328,9 @@ public class MemberController {
 			session.setAttribute("m_email", m_email);
 			Member m = memberService.selectOneMemberByEmail(m_email);
 			String m_img = m.getM_img();
+			int m_id = m.getM_id();
 			session.setAttribute("m_img", m_img);
+			session.setAttribute("m_id", m_id);
 			if (result == 2) {
 				// String m_manager= "m_manager";
 				session.setAttribute("m_manager", 1);
@@ -347,6 +346,9 @@ public class MemberController {
 	@RequestMapping("MOE.do") // 메뉴바에서 로그아웃버튼
 	public String MOE(HttpSession session) {
 		session.removeAttribute("m_email");
+		session.removeAttribute("m_id");
+		session.removeAttribute("m_img");
+		session.removeAttribute("m_manager");
 		return "redirect:MAIN.do";
 	}
 
@@ -438,6 +440,9 @@ public class MemberController {
 		System.out.println("이메일 : " + m_email);
 		memberService.MUU_LEAVE(m_email);
 		session.removeAttribute("m_email");
+		session.removeAttribute("m_id");
+		session.removeAttribute("m_img");
+		session.removeAttribute("m_manager");
 		System.out.println("성공1");
 		return "redirect:MAIN.do";
 	}
