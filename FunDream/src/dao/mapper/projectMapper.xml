@@ -5,7 +5,7 @@
   
 <mapper namespace="dao.IProjectDao">
 
-	<select id="selectAllProjects" parameterType="project">
+	<select id="selectAllProjects" resultType="project">
 		select * from Project
 	</select>
 	
