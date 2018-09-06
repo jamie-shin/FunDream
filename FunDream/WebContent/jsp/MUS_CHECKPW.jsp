@@ -149,13 +149,7 @@
 			var m_nick = $('#inputNick').val();
 			var m_img = $('#inputImg').attr('src');
 			
-			//alert("연락처 : " + m_phone + " / 생일 : " + m_birth);
-			
-			if(m_pwd == ""){
-				alert('비밀번호를 입력하세요.');
-				return false;
-			}
-			if(m_pwdCheck == ""){
+			if((m_pwd != "" && m_pwdCheck == ""){
 				alert('비밀번호 확인을 입력하세요');
 				return false;
 			}
@@ -195,28 +189,59 @@
 			}
 		}); 
 	
-		 $(function() {
-		        $("#imgInp").on('change', function(){
-		            readURL(this);
-		        });
-		    });
-		    function readURL(input) {
-		        if (input.files && input.files[0]) {
-		        var reader = new FileReader();
+	    $("#imgInp").on('change', function(){
+	 	   readURL(this);
+		});
+	    
+	    $(document).find("#updateSubmit").on('click', function(){
+	    	var formEle = $('#updateForm')[0];
+	    	var formData = new FormData(formEle);
+	    	
+	    	$.ajax({
+	    		url : "MUU_MODIFY.do",
+	    		type : "POST",
+	    		enctype : "multipart/form-data",
+	    		data : formData,
+	    		processData : false,
+	    		contentType : false,
+	    		success : function(data){
+	    			switch(data){
+	    			case "success" :
+	    				alert("정보 수정이 완료되었습니다.");
+	    				location.href="MAIN.do";
+	    				break;
+	    			case "error" :
+	    				alert("이미지 파일이 잘못되었습니다.");
+	    				break;
+	    			case "fail" : 
+	    				alert("정보 수정을 실패하였습니다.");
+	    				break;
+	    			}
+	    		},
+	    		error : function(){
+	    			alert("정보 수정 에러");
+	    		}
+	    	});
+	    });
 
-		        reader.onload = function (e) {
-		                $('#blah').attr('src', e.target.result);
-		            }
-		          reader.readAsDataURL(input.files[0]);
-		        }
-		    }
 	});
+
+	function readURL(input) {
+        if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+          reader.readAsDataURL(input.files[0]);
+        }
+    }
 
 </script>
 
 </head>
 <body class="changebody">
-	<form action="MUU_MODIFY.do" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+	<form action="" id="updateForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 		<input type="hidden" name="m_img" id="m_img" value="">
 		<input type="hidden" name="m_nick" id="m_nick" value="">
 		<input type="hidden" name="m_email" id="m_email" value="${member.m_email}">

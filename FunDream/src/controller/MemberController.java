@@ -389,11 +389,7 @@ public class MemberController {
 	}
 
 	@RequestMapping("MUU_MODIFY.do") // 정보수정 확인
-	public ModelAndView MUU_MODIFY(HttpServletRequest request,
-			HttpSession session/*
-								 * String m_img, String m_nick, String m_email, String m_pwd, String m_phone
-								 */) throws UnsupportedEncodingException {
-		ModelAndView mav = new ModelAndView();
+	public @ResponseBody String MUU_MODIFY(HttpServletRequest request, HttpSession session, Model model) throws UnsupportedEncodingException {
 		// 파일 업로드 부분
 		request.setCharacterEncoding("UTF-8");
 		String realFolder = "";
@@ -420,7 +416,9 @@ public class MemberController {
 
 			Member member = memberService.selectOneMemberByEmail(m_email);
 			member.setM_email(m_email);
-			member.setM_pwd(m_pwd);
+			if(!m_pwd.isEmpty() || m_pwd != null) {
+				member.setM_pwd(m_pwd);
+			}
 			member.setM_phone(m_phone);
 			member.setM_nick(m_nick);
 			if (filename1 != null) {
@@ -430,19 +428,19 @@ public class MemberController {
 				if (f[f.length - 1].equalsIgnoreCase("jpg") || f[f.length - 1].equalsIgnoreCase("png")) {
 					member.setM_img(path);
 				} else {// 형식이 올바르지 않을경우 경고창 이후 history.go(-1)
-					mav.setViewName("alert1");
+					return "error";
 				}
 			}
-			memberService.MUU_MODIFY(member);
-			session.setAttribute("m_img", path);
-			mav.addObject("msg", "정보 수정이 완료되었습니다.");
-			mav.addObject("url", "MAIN.do");
-			mav.setViewName("alert");
+			int result = memberService.MUU_MODIFY(member);
+			if(result == 1) {
+				session.setAttribute("m_img", path);
+				return "success";  // 정보 수정 성공
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return mav;
+		return "fail";
 	}
 
 	@RequestMapping("MUU_LEAVE.do") // 회원 탈퇴

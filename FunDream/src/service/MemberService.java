@@ -79,10 +79,10 @@ public class MemberService {
 		else return 2;
 	}
 
-	public void MUU_MODIFY(Member m) {
+	public int MUU_MODIFY(Member m) {
 		// TODO Auto-generated method stub
 		System.out.println(m);
-		memberDao.updateMember(m);
+		return memberDao.updateMember(m);
 		//md.updateMember(m);
 	}
 
