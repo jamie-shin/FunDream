@@ -149,7 +149,7 @@
 			var m_nick = $('#inputNick').val();
 			var m_img = $('#inputImg').attr('src');
 			
-			if((m_pwd != "" && m_pwdCheck == ""){
+			if(m_pwd != "" && m_pwdCheck == ""){
 				alert('비밀번호 확인을 입력하세요');
 				return false;
 			}
