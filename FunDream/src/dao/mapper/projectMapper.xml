@@ -23,7 +23,7 @@
 	
 	<select id="selectSuccessProject" resultType="project">
 	<![CDATA[
-		select * from project where p_target <= p_status order by p_startdate desc limit 3
+		select * from project where p_target <= p_status and p_approval=2 order by p_startdate desc limit 3
 		]]>
 	</select>
 	
