@@ -138,6 +138,7 @@ ul, ol {
 }
 
 .cards {
+	padding-top:20px;
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: left;
@@ -145,16 +146,17 @@ ul, ol {
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
   margin-top: 20px;
-  padding: 1.5%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  margin-bottom:25px;
 }
 
 .card {
   width: 320px;
   position: relative;
-  margin-bottom: 20px;
+  margin:15px;
+  margin-left: 25px;
   padding-bottom: 30px;
   background: #fefff9;
   color: #363636;
@@ -196,14 +198,14 @@ ul, ol {
   text-align: left;
 }
 .left-h2 {
-  margin-left: 15px;
+  margin-left: 20px;
 }
 .right-allview{
   line-height: 0px; 
   text-align: right;
 }
 .right-h5 {
-  margin-right: 7%;
+  margin-right: 3%;
   padding: 0;
   margin-bottom:-10px;
 }
