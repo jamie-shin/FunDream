@@ -91,13 +91,12 @@
 			    <option>인기순</option>
 			  </select>
 	
-			  <i class="fa fa-angle-down select-icon"></i>
 			</div>
 		
 			<div class="right-on-page">
-			  <input type="checkbox" name="cb" id="cb1" />
+			  <input type="checkbox" name="cb" id="cb1" value="1" checked="checked"/>
 			  <label for="cb1">진행중</label>
-			  <input type="checkbox" name="cb" id="cb2" />
+			  <input type="checkbox" name="cb" id="cb2" value="2"/>
 			  <label for="cb2">마감</label>
 			</div>
 		
