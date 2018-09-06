@@ -20,5 +20,13 @@
 	<select id="selectRewardsByProject" parameterType="int" resultType="reward">
 		select * from Reward where p_index=#{p_index}
 	</select>
-
+	
+	<select id="selectOneRewardByIndex" parameterType="int" resultType="reward">
+		select * from Reward where r_index=#{r_index}
+	</select>
+	
+	<update id="updateOneReward" parameterType="reward">
+		update Reward set r_name=#{r_name}, r_price=#{r_price}, r_img=#{r_img}, r_contents=#{r_contents}, ct_index=#{ct_index}, r_start=#{r_start}, r_option=#{r_option}, r_del=#{r_del}, r_amt=#{r_amt} where r_index=#{r_index}
+	</update>
+	
 </mapper>

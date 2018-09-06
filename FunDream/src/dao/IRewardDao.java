@@ -10,5 +10,7 @@ public interface IRewardDao {
 	public int insertReward(Reward reward);
 	public int deleteReward(int r_index);
 	public List<Reward> selectRewardsByProject(int p_index);
+	public Reward selectOneRewardByIndex(int r_index);
+	public int updateOneReward(Reward reward);
 
 }

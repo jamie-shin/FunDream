@@ -31,4 +31,14 @@ public class RewardService {
 		return rewardDao.selectRewardsByProject(p_index);
 	}
 
+	public Reward getOneRewardByIndex(int r_index) {
+		// TODO Auto-generated method stub
+		return rewardDao.selectOneRewardByIndex(r_index);
+	}
+
+	public int updateOneReward(Reward reward) {
+		// TODO Auto-generated method stub
+		return rewardDao.updateOneReward(reward);
+	}
+	
 }
