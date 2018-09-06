@@ -22,6 +22,7 @@ header .Hlogo {
 	font-size: 24px;
 	float: left;
 	font-weight: bold;
+	border-radius: 50%
 }
 header .Hlogo a {
 	text-decoration: none;

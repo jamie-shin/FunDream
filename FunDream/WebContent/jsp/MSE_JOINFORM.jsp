@@ -57,6 +57,7 @@
 			<input type="text" id="inputNick" name="" placeholder="nickname">
 			<p>이미지 파일</p>
 			<br><input type='file' id="imgInp" name="m_img"/><br>
+			<img id="blah" src="#" alt="your image" class="logo"/>
 			<br><br><br><br>
 			<br>
 			<p>회원약관</p>

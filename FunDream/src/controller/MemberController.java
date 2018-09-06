@@ -3,6 +3,7 @@ package controller;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
@@ -36,7 +37,9 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import model.Member;
+import model.Project;
 import service.MemberService;
+import service.ProjectService;
 
 @Controller
 public class MemberController {
@@ -46,7 +49,10 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
-
+	
+	@Autowired
+	private ProjectService projectService;
+	
 	@RequestMapping("MSE_JOINFORM.do") // 회원가입창 요청
 	public void MSE_JOINFORM() {
 	}
@@ -186,12 +192,13 @@ public class MemberController {
 			if (filename1 == null) {
 				member.setM_img("img/user.png");
 			} else {
+				System.out.println("이미지 파일 : " + filename1);
 				String s = filename1.replace(".", ",");
 				String[] f = s.split(",");
-				if (f[f.length - 1].equalsIgnoreCase("jpg") || f[f.length - 1].equalsIgnoreCase("png")) {
+				if (f[f.length - 1].equalsIgnoreCase("jpg") || f[f.length - 1].equalsIgnoreCase("png") || f[f.length - 1].equalsIgnoreCase("jpeg")) {
 					member.setM_img(path);
 				} else {// 형식이 올바르지 않을경우 경고창 이후 history.go(-1)
-					url = "alert1.do";
+					url = "redirect:alert1.do";
 				}
 			}
 			System.out.println(member);
@@ -304,44 +311,47 @@ public class MemberController {
 		return url;
 	}
 
-	@RequestMapping("MIS_LOGIN.do") // 로그인창에서 로그인버튼
-	public ModelAndView MIS_LOGIN(HttpSession session, @RequestParam String m_email, @RequestParam String m_pwd) {
-		ModelAndView mav = new ModelAndView();
+	 @RequestMapping("MIS_LOGIN.do") // 로그인창에서 로그인버튼
+	    public @ResponseBody String MIS_LOGIN(HttpSession session, @RequestParam("m_email") String m_email, @RequestParam("m_pwd") String m_pwd) {
+	        String checkEmail ="";
+	        System.out.println("이메일: "+m_email);
+	        System.out.println("비밀번호: "+m_pwd);
+	        int result = memberService.MIS_LOGIN(m_email, m_pwd);
+	 
+	        System.out.println("RESULT: " + result);
+	 
+	        if (result == 1 || result == 3 || result == 5 || result == 6) {
+	            if (result == 1) {
+	                checkEmail = "1";//("msg", "해당 이메일로 등록된 회원이 없습니다.");
+	            } else if (result == 3) {
+	            	checkEmail = "3"; //("msg", "비밀번호를 확인해 주세요.");
+	            } else if (result == 5) {
+	               checkEmail="5";//("msg", "탈퇴 처리된 아이디입니다.");
+	            } else if (result == 6) {
+	                checkEmail="6"; //"msg", "이용 정지된 아이디입니다.");
+	            }
 
-		int result = memberService.MIS_LOGIN(m_email, m_pwd);
-
-		System.out.println("RESULT: " + result);
-
-		if (result == 1 || result == 3 || result == 5 || result == 6) {
-			if (result == 1) {
-				mav.addObject("msg", "해당 이메일로 등록된 회원이 없습니다.");
-			} else if (result == 3) {
-				mav.addObject("msg", "비밀번호를 확인해 주세요.");
-			} else if (result == 5) {
-				mav.addObject("msg", "탈퇴 처리된 아이디입니다.");
-			} else if (result == 6) {
-				mav.addObject("msg", "이용 정지된 아이디입니다.");
-			}
-			mav.addObject("url", "MIE_LOGINFORM.do");
-			mav.setViewName("alert");
-		} else {
-			session.setAttribute("m_email", m_email);
-			Member m = memberService.selectOneMemberByEmail(m_email);
-			String m_img = m.getM_img();
-			int m_id = m.getM_id();
-			session.setAttribute("m_img", m_img);
-			session.setAttribute("m_id", m_id);
-			if (result == 2) {
-				// String m_manager= "m_manager";
-				session.setAttribute("m_manager", 1);
-				System.out.println(session);
-			} else if (result == 4) {
-				session.setAttribute("m_manager", 2);
-			}
-			mav.setViewName("MAIN");
-		}
-		return mav;
-	}
+	        } else {
+	            session.setAttribute("m_email", m_email);
+	            Member m = memberService.selectOneMemberByEmail(m_email);
+	            String m_img = m.getM_img();
+	            int m_id = m.getM_id();
+	            String m_name = m.getM_name();
+	            session.setAttribute("m_img", m_img);
+	            session.setAttribute("m_id", m_id);
+	            if (result == 2) {
+	                // String m_manager= "m_manager";
+	                session.setAttribute("m_manager", 1);
+	                checkEmail ="2";//("msg", "관리자님 환영합니다");
+	                System.out.println(session);
+	            } else if (result == 4) {
+	                session.setAttribute("m_manager", 2);
+	                checkEmail ="4"; //("msg",m_name+"님 환영합니다");
+	            }
+	           
+	        }
+	        return checkEmail;
+	    }
 
 	@RequestMapping("MOE.do") // 메뉴바에서 로그아웃버튼
 	public String MOE(HttpSession session) {
@@ -446,4 +456,13 @@ public class MemberController {
 		System.out.println("성공1");
 		return "redirect:MAIN.do";
 	}
+	//해당 아이디에 만든프로젝트가 존재하는지
+	  @RequestMapping("checkProject.do")
+	    public @ResponseBody String checkProject(int m_id) {
+	    	List<Project> projectList = projectService.getProjectById(m_id);
+	    	if(projectList.size() > 0) {
+	    		return "1";
+	    	}
+	    	return "null";
+	    }
 }

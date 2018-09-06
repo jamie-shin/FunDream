@@ -26,4 +26,52 @@
 		select * from project where p_target <= p_status order by p_startdate desc limit 3
 		]]>
 	</select>
+	
+	<sql id="mainImg">
+		<if test="p_mainimg == null || p_mainimg == ''">
+			"img/user.png"
+		</if>
+		<if test="p_mainimg != null">
+			#{p_mainimg}
+		</if>
+	</sql>
+
+	<insert id="insertProject" parameterType="project" useGeneratedKeys="true" keyProperty="p_index">
+		insert into Project (m_id, p_approval, p_createdate, p_status, p_calculate) values (#{m_id}, 4, now(), 0, 0);
+	</insert>
+	
+	<select id="selectOneProjectByIndex" parameterType="int" resultType="project">
+		select * from Project where p_index=#{p_index}
+	</select>
+	
+	<select id="selectProjectsById" parameterType="int" resultType="project">
+		select * from Project where m_id=#{m_id}
+	</select>
+	
+	<update id="updateBasicInfo" parameterType="project">
+		update Project set ct_index=#{ct_index}, p_name=#{p_name}, p_mainImg=<include refid="mainImg"/>, p_type=#{p_type}, p_target=#{p_target}, p_startdate=#{p_startdate}, p_enddate=#{p_enddate}, p_age=#{p_age} where p_index=#{p_index}
+	</update>
+	
+	<update id="updatePolicy" parameterType="project">
+		update Project set p_policy=#{p_policy} where p_index=#{p_index}
+	</update>
+	
+	<select id="selectProject_accept" resultType="project">
+		<![CDATA[
+			select * from project where p_startdate <= now() or p_enddate <= now() and p_approval=2 order by p_startdate desc limit 0,9
+		]]>
+	</select>
+	
+	<select id="selectProject_more" resultType="project" parameterType="int">
+		<![CDATA[
+			select * from project where p_startdate <= now() or p_enddate <= now() and p_approval=2 order by p_startdate desc limit #{num},9
+		]]>
+	</select>
+	
+	<select id="selectProjectByKeyword" resultType="project" parameterType="java.util.HashMap">
+		<![CDATA[
+			select * from project where (p_startdate <= now() or p_enddate <= now() and p_approval=2) AND p_name like
+		]]>	
+			'%${keyword}%' order by p_startdate desc limit 0,9
+	</select>
 </mapper>

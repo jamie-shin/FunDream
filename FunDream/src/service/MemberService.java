@@ -90,6 +90,8 @@ public class MemberService {
 		// TODO Auto-generated method stub
 		memberDao.updateMemberForLeave(m_email);
 	}
- 
-
+	
+	public Member selectOneMemberById(int m_id) {
+		return memberDao.selectOneMemberById(m_id);
+	}
 }

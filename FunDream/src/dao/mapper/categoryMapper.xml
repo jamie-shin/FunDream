@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="dao.ICategoryDao">
+ 
+ 	<select id="selectAllCategories" resultType="category">
+ 		select * from Category
+ 	</select>
+ 
+ 	<select id="selectCategoriesByType" parameterType="int" resultType="category">
+ 		select * from Category where ct_type=#{ct_type}
+ 	</select>
+ 
+ </mapper>

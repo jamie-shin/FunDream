@@ -1,0 +1,127 @@
+@charset "UTF-8";
+/* TAB 기능구현 */
+.ap-radio-tab { display: none; }
+
+.ap-container input[ type="radio" ] ~ .ap-contents .ap-contents-list { display: none; }
+.ap-container input[ id="item01" ]:checked ~ .ap-contents .ap-contents-list.item01 { display: block; }
+.ap-container input[ id="item02" ]:checked ~ .ap-contents .ap-contents-list.item02 { display: block; }
+.ap-container input[ id="item03" ]:checked ~ .ap-contents .ap-contents-list.item03 { display: block; }
+.ap-container input[ id="item04" ]:checked ~ .ap-contents .ap-contents-list.item04 { display: block; }
+
+.ap-container input[ id="item01" ]:checked ~ .ap-menu li label[ for="item01" ] { background-color: darkgray; color: white; }
+.ap-container input[ id="item02" ]:checked ~ .ap-menu li label[ for="item02" ] { background-color: darkgray; color: white; }
+.ap-container input[ id="item03" ]:checked ~ .ap-menu li label[ for="item03" ] { background-color: darkgray; color: white; }
+.ap-container input[ id="item04" ]:checked ~ .ap-menu li label[ for="item04" ] { background-color: darkgray; color: white; }
+
+ul,
+li { margin: 0; padding: 0; }
+li { list-style-type: none; }
+* { box-sizing: border-box; }
+label { cursor: pointer; }
+label { display: block; }
+
+
+/* TAB MENU */
+.ap-menu li { float: left; }
+.ap-menu:after { content: ""; display: block; clear: both; }
+
+.ap-menu li { width: 130px; height: 50px; background-color: white; line-height: 50px; text-align: center; }
+.ap-menu li:nth-of-type(2) { border-left: none; }
+.ap-menu li:nth-of-type(3) { border-left: none; }
+.ap-menu li:nth-of-type(4) { border-left: none; }
+
+.ap-menu li label { transition: .5s; }
+.ap-menu li label:hover { background-color: tomato; color: white; }
+
+/* TAB CONTENTS */
+.ap-contents { width: 100%; height:auto; border: none; border-top: none; padding: 20px; border:1px solid; }
+
+/* START */
+.ap-container { max-width:700px; margin:0 auto; margin-top:100px; margin-bottom:100px; }
+.ap-p { font-size: 14px; }
+.ap-contents-box { margin: 0; width: auto; border: 1px solid; border-color: darkgray; padding: 15px; }
+.ap-image-h4 { padding: 0; margin: 0; text-align: center; }
+.ap-title-img { position: relative; height: 150px; display: block; margin-left: auto; margin-right: auto; border-radius: 10px; }
+.ap-ta { width: 100%; heigh: 60px; padding:10px; resize: none; outline: none; font-size: 12pt; }
+.ap-txtbox { margin:0; padding:3px; font-size:12pt; text-align:center; width:90%; }
+.ap-select-category { width:100%; height:40px; padding-left:10px; font-size:12pt; outline:none; border:hidden; }
+.ap-txt-title { margin-right:10px; padding:5px; font-size:12pt; text-align:left; width:90%; }
+.ap-center-box { text-align:center; }
+.ap-small { font-size:9pt; color:#333; }
+.ap-txt-pay { margin-right:10px; padding:5px; font-size:12pt; text-align:right; width:90%; }
+.ap-btn-center { margin-top:30px; text-align: center; }
+.ap-btn-right { margin-top:30px; text-align: right; }
+.ap-policy-area1 { width:100%; height:60px; resize:none; outline:none; font-size:12pt; padding:5px;  }
+.ap-policy-area2 { width:100%; height:250px; resize:none; outline:none; font-size:12pt; padding:5px; }
+.ap-txt-right { display:block; text-align:right; color:darkgray;}
+.ap-right { text-align:right; }
+
+/* RADIO BUTTON */
+.ap-radios { display: flex; justify-content: center; align-items: center; }
+.ap-radios input + label { border-radius: 50%; border: 2px solid; width: 22px; height: 22px; margin-left: 2px; margin-right: 2px; transition: .3s ease; position: relative; }
+.ap-radios input + label:before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: transparent; transition: .3s ease; position: absolute; }
+.ap-radios input:checked + label{ color: #7db7ff; }
+.ap-radios input:checked + label:before { background: #7db7ff; }
+/* */
+
+/* 달력 가져오기 */
+[type="date"] { background: #fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png) 97% 50% no-repeat; }
+[type="date"]::-webkit-inner-spin-button { display: none; }
+[type="date"]::-webkit-calendar-picker-indicator { opacity: 0; }
+.ap-dateSelect { display: inline; }
+.ap-date { border: 1px solid #c4c4c4; border-radius: 5px; background-color: #fff; padding: 3px 5px; box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1); width: 170px; display: inline; }
+/* */
+
+/* CHECKBOX */
+.ap-wrap { position: absolute; }
+.ap-check-label { font-size: 12pt; color: #bfbfbf;	display: inline-block; padding: 0; cursor: pointer; }
+.ap-check-label:before { content: ''; display: inline-block; background: #55D8C6; position: absolute; left: 0; top: 0; height: 20px; width: 20px; border-radius: 80%;	box-shadow: 0px 1px 0 0 rgba(0, 0, 0, .2); box-sizing: border-box;	border: 10px solid #fff; transition: border .3s ease; }
+.ap-check:checked + label:before { border-color: #fff; border-width: 3px; }
+.ap-check + label { transition: color .7s ease; }
+.ap-check:checked + label { color: #5D5D5D; }
+/* */
+
+/* BTN */
+.ap-main-btn { border:none; outline: none; height:40px; background:navy; color:#fff; font-size:16pt; border-radius:15px; }
+.ap-prev-btn { border:none; outline: none; height:40px; background:#008cba; color:#fff; font-size:16pt; border-radius:15px; }
+.ap-next-btn { border:none; outline: none; height:40px; background:tomato; color:#fff; font-size:16pt; border-radius:15px; }
+.ap-SMadd-btn { border:none; outline:none; height:30px; background:orange; color:#fff; font-size:12pt; border-radius:15px; }
+.ap-reward-addbtn {border:none; outline:none; height:30px; background: #D28484; color:#fff; font-size:13pt; border-radius: 14px; }
+.ap-reward-savebtn { border:none; outline: none; height:40px; background:tomato; color:#fff; font-size:12pt; border-radius:30%; }
+.ap-reward-deletebtn { border:none; outline:none; height:auto; width:40px; margin-left:40%; font-size:15pt; background-color:transparent; }
+.ap-main-btn:hover { cursor: pointer; background: darkblue; color: #fff; }
+.ap-prev-btn:hover { cursor: pointer; background: darkblue; color: #fff; }
+.ap-next-btn:hover { cursor: pointer; background: darkblue; color: #fff; }
+.ap-SMadd-btn:hover { cursor: pointer; background: darkblue; color: #fff; }
+.ap-reward-addbtn:hover { cursor:pointer; background:#BE5C5C; color:#fff; }
+.ap-reward-savebtn:hover { cursor: pointer; background: darkblue; color: #fff; }
+.ap-reward-deletebtn:hover { cursor: pointer; background: transparent; }
+/* */
+
+/* REWARD */
+.ap-reward { margin:0; margin-top:5px; color:#282828; border:3px solid #E56D29; width:100%; border-radius: 15px; display:inline-flex;}
+.ap-reward:hover { cursor:pointer; color:#fff; background: #E56D29}
+#ap-reward-container { padding:15px; marging:0; }
+.ap-reward-img { position: relative; height: 150px; display: block; margin-left: auto; margin-right: auto; margin-bottom:5px; border-radius: 10px; }
+.ap-reward-img-addbtn { margin:0; padding:0; margin-left:30%; margin-right:auto; }
+.ap-reward-name { border: none; border-bottom: 1px solid #000; background: transparent; outline: none; height: 30px; color: #000; font-size: 16pt; width:100%; padding-left:5px; }
+.ap-reward-price { border: none; border-bottom: 1px solid #000; background: transparent; outline: none; height: 30px; color: #000; font-size: 16pt; width:95%; padding-right:15px; text-align:right; }
+.ap-reward-sel-category { width: 90%; height: 40px; margin-left: 3%; padding-left: 10px; font-size: 14px; outline: none; border: hidden; color: #000; }
+.ap-reward-ta1 { width:100%; height:200px; padding: 10px; font-size:13pt; outline:none; resize: none; }
+.ap-reward-ta2 { width:100%; height:50px; padding:10px; font-size:13pt; outline:none; resize:none; margin-top:5px; }
+.ap-reward-checkbox { width: 15px; height: 15px; background-color:white; border:1px solid darkgray; }
+.ap-reward-delpay { border:none; border-bottom:1px solid #000; height:30px; width: 80px; font-size:16pt; text-align:right; outline:none; padding-right:10px; }
+.ap-reward-amt { border:none; border-bottom:1px solid #000; height:30px; width: 80px; font-size:16pt; text-align:center; outline:none; }
+.ap-reward-delyear, .ap-reward-delmonth, .ap-reward-delday { font-size: 12pt; width: 150px; height: 40px; outline: none; background-color: transparent; margin-right:15px; border:none; border-bottom:1px solid black;}
+.ap-reward-radio { width:15px; height:15px; }
+.ap-span { font-size:11pt; font-weight: bold; }
+/*  */
+
+/* 숫자 입력 버튼 */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* */
+

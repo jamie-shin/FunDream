@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="dao.IStory_MemberDao">
+
+	<insert id="insertStoryMember" parameterType="story_Member">
+		insert into Story_Member values (#{p_index}, #{m_id})
+	</insert>
+	
+	<delete id="deleteStoryMember" parameterType="story_Member">
+		delete from Story_Member where p_index=#{p_index} and m_id=#{m_id}
+	</delete>
+	
+	<select id="selectOneStoryMemberByEmail" parameterType="story_Member" resultType="story_Member">
+		select * from Story_Member where p_index=#{p_index} and m_id=#{m_id}
+	</select>
+	
+	<select id="selectStoryMembersByProject" parameterType="int" resultType="story_Member">
+		select * from Story_Member where p_index=#{p_index}
+	</select>
+
+</mapper>

@@ -5,8 +5,20 @@
   
 <mapper namespace="dao.IRewardDao">
 
-	<select id="selectAllRewards" parameterType="reward">
+	<select id="selectAllRewards" parameterType="int" resultType="reward">
 		select * from Reward
+	</select>
+	
+	<insert id="insertReward" parameterType="reward" useGeneratedKeys="true" keyProperty="r_index">
+ 		insert into Reward (p_index, m_id, r_name, r_price, r_img, r_contents, ct_index, r_start, r_option, r_del, r_amt) values(#{p_index}, #{m_id}, #{r_name}, #{r_price}, #{r_img}, #{r_contents}, #{ct_index}, #{r_start}, #{r_option}, #{r_del}, #{r_amt})
+	</insert>
+	
+	<delete id="deleteReward" parameterType="int">
+		delete from Reward where r_index=#{r_index}
+	</delete>
+	
+	<select id="selectRewardsByProject" parameterType="int" resultType="reward">
+		select * from Reward where p_index=#{p_index}
 	</select>
 
 </mapper>

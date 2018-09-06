@@ -18,4 +18,17 @@ public class RewardService {
 		return rewardDao.selectAllRewards();
 	}
 
+	public int addOneReward(Reward reward) {
+		return rewardDao.insertReward(reward);
+	}
+	
+	public int deleteOneReward(int r_index) {
+		return rewardDao.deleteReward(r_index);
+	}
+
+	public List<Reward> getRewardsByProject(int p_index) {
+		// TODO Auto-generated method stub
+		return rewardDao.selectRewardsByProject(p_index);
+	}
+
 }

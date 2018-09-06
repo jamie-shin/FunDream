@@ -11,15 +11,16 @@
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
   margin-top: 15px;
-  padding: 1.5%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 .card {
+  width:320px;
   position: relative;
-  margin-bottom: 20px;
+  margin:15px;
+  margin-left:25px;
   padding-bottom: 30px;
   background: #fefff9;
   color: #363636;
@@ -63,7 +64,7 @@
 }
 
 .ct-container {
-  max-width: 1000px;
+  max-width: 96%;
   margin: 0;
   margin-left: 15px;
   margin-top: 10%;
@@ -123,9 +124,6 @@
 }
 
 .ct-select-box {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
   padding: 6px;
   width: 120px;
   height: 30px;
@@ -145,9 +143,11 @@
 /* 체크 박스*/
 
 .right-on-page {
-  position: absolute;
-  margin-left: 46%;
-  margin-top:-28px; 
+	margin:0;
+	text-align:right;
+	padding:15px;
+	padding-right:18px;
+	margin-top:-47px;
 }
 input[type="checkbox"] {
   position: absolute;

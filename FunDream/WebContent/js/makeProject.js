@@ -1,0 +1,409 @@
+$(function(){
+	 
+    /* 기본정보 탭 관련 */
+    
+    var today = new Date();
+    today.setDate(today.getDate()+6);
+    var minYear = today.getYear()+1900;
+    var todayMonth = today.getMonth()+1; 
+    var minMonth = "";
+    if(todayMonth < 10){
+    	minMonth = "0" + todayMonth;
+    }
+    else{
+    	minMonth = todayMonth;
+    }
+    var todayDate = today.getDate();
+    var minDate = "";
+    if(todayDate < 10){
+    	minDate = "0" + todayDate;
+    }
+    else{
+    	minDate = todayDate;
+    }
+    var mindate = minYear + "-" + minMonth + "-" + minDate;
+    
+	// 이미지 미리보기
+	$(function() {
+        $("#imgInp").on('change', function(){
+            readURL(this);
+        });
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+          reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    // 제목 40자 글자수 제한
+	$('#inputName').on('keyup',function(){
+		var strVal = $(this).val();
+		var strLen = strVal.length;
+		var totalByte = 0;
+		var len = 0;
+		var oneChar = "";
+		
+		if(staVal = ""){
+			$('#countWords').text("0/40");
+		}
+		
+		for(var i = 0; i < strLen; i++){
+			oneChar = strVal.charAt(i);
+			if(escape(oneChar).length > 4){
+				totalByte++;  // totalByte += 2;
+			}
+			else{
+				totalByte++;
+			}
+			
+			if(totalByte <= 40){
+				len = i + 1;
+			}
+			$('#countWords').text(totalByte + "/40");
+		}
+		
+		if(totalByte > 40){
+			str2 = strVal.substr(0, len);
+			$('#countWords').text("40/40");
+			$(this).val(str2);
+			alert("40자를 초과할 수 없습니다.");
+		}
+	});
+	
+	// 목표금액 입력 시
+	$('#inputTarget').keyup(function(){
+		var target = $(this).val();
+		var wonTarget = target*10000;
+		var wonTargetStr = wonTarget.toString();
+		var hanA = new Array("", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구", "십");
+		var danA = new Array("", "십", "백", "천", "", "십", "백", "천", "", "십", "백", "천", "", "십", "백", "천");
+		var strTarget = "";
+		if(target <= 0){
+			$(this).val("");
+			$("#strTarget").text("(0원)");
+			alert("마이너스 금액 또는 0원은 입력할 수 없습니다.");
+		}
+		if(target > 100000){
+			$(this).val("");
+			$("#strTarget").text("(0원)");
+			alert("10억원 이상은 입력할 수 없습니다.");
+		}
+		if(target > 0 && target <= 100000){
+			for(var i = 0; i < wonTargetStr.length; i++){
+				var str = "";
+				var han = hanA[wonTargetStr.charAt(wonTargetStr.length-(i+1))];
+				if(han != ""){
+					str += han+danA[i];
+				}
+				if(i == 4){
+					str += "만";
+				}
+				if(i == 8){
+					str += "억";
+				}
+				if(i == 12){
+					str += "조";
+				}
+				strTarget = str + strTarget;
+			}
+			if(target > 0){
+				strTarget = "(" + strTarget + "원)"; 
+			}
+		}
+		$("#strTarget").text(strTarget);
+	});
+	
+	// 시작일 선택되었을 때
+	$(document).find('#inputStartdate').change(function(){
+		var val_sdate = $(this).val();
+		var val_edate = $('#inputEnddate').val();
+		var sdate = val_sdate.split('-');
+		var startd = new Date(sdate[0], (sdate[1]-1), sdate[2]);
+		if(startd < today){
+			alert("오늘 기준으로 7일 이후부터 시작일 설정이 가능합니다.");
+			$(this).val(mindate);
+		}
+		if(val_edate != ""){
+			var edate = val_edate.split('-');
+			var endd = new Date(edate[0], edate[1], edate[2]);
+			if(startd.getTime() >= endd.getTime()){
+				alert("시작일은 종료일 이전이어야 합니다.");
+				$(this).val(mindate);
+				$('#inputEnddate').val("");
+				$('#period').text("");
+			}
+			else{
+				var periodms = endd - startd;
+				var cDay = 24 * 60 * 60 * 1000;  // 시 * 분 * 초 * 밀리세컨
+				var period = periodms/cDay;  // 기간 일수 구하기
+				if(period < 14 || period > 90){
+					alert("프로젝트 진행은 최소 14일, 최대 90일까지 가능합니다.");
+					$('#inputEnddate').val("");
+					$('#period').text("");
+					return false;
+				}
+				else{
+					$('#period').text("  " + period + "일");
+					return true;
+				}
+			}
+		}
+	});
+	
+	// 종료일 선택되었을 때
+	$(document).find('#inputEnddate').change(function(){
+		var val_edate = $(this).val();
+		var val_sdate = $('#inputStartdate').val();
+		var edate = val_edate.split('-');
+		var endd = new Date(edate[0], (edate[1]-1), edate[2]);
+		
+		if(val_sdate != ""){
+			var sdate = val_sdate.split('-');
+			var startd = new Date(sdate[0], (sdate[1]-1), sdate[2]);
+			if(startd.getTime() >= endd.getTime()){
+				alert("시작일은 종료일 이전이어야 합니다.");
+				$('#inputStartdate').val("");
+				$(this).val("");
+				$('#period').text("");
+			}
+			else{
+				var periodms = endd - startd;
+				var cDay = 24 * 60 * 60 * 1000;  // 시 * 분 * 초 * 밀리세컨
+				var period = periodms/cDay;  // 기간 일수 구하기
+				if(period < 14 || period > 90){
+					alert("프로젝트 진행은 최소 14일, 최대 90일까지 가능합니다.");
+					$(this).val("");
+					$('#period').text("");
+					return false;
+				}
+				else{
+					$('#period').text("  " + period + "일");
+					return true;
+				}
+			}
+		}
+	});
+	
+	// 다음 버튼 클릭 시  
+	$('#nextBtn1').on('click', function(){
+		var form = $('#basicInfoForm')[0];
+		var formData = new FormData(form);
+		$.ajax({
+			url : "JBU_UPDATE.do",
+			type: "POST",
+			enctype: 'multipart/form-data',
+			data : formData,
+			processData: false,
+	        contentType: false,
+	        cache: false,
+			success : function(data){
+				if(data == 'success'){
+					alert("기본정보가 저장되었습니다.");
+					$(document).find('#item02').attr('checked', 'checked');
+				}
+				if(data == 'fail'){
+					alert("기본정보가 저장되지 않았습니다.");
+				}
+			},
+			error : function(){
+				alert("오류!");
+			}
+		});
+	});
+	
+	$('#mainBtn1').on('click', function(){
+		var conf = confirm("저장하시려면 확인, 저장하지 않고 메인화면으로 이동하시려면 취소를 선택하세요.");
+		if(conf == true){
+			var form = $('#basicInfoForm')[0];
+			var formData = new FormData(form);
+			$.ajax({
+				url : "JBU_UPDATE.do",
+				type: "POST",
+				enctype: 'multipart/form-data',
+				data : formData,
+				processData: false,
+		        contentType: false,
+		        cache: false,
+				success : function(data){
+					if(data == 'success'){
+						alert("기본정보가 저장되었습니다.");
+						location.href="MAIN.do";
+					}
+					if(data == 'fail'){
+						alert("기본정보가 저장되지 않았습니다.");
+					}
+				},
+				error : function(){
+					alert("오류!");
+				}
+			});
+		}
+		else{
+			alert("기본정보를 저장하지 않고 메인화면으로 이동합니다.")
+			location.href="MAIN.do";
+		}
+	});
+	
+    /* 기본정보 탭 관련 끝 */
+	
+	/* 정책확인 탭 관련 */
+	
+    // 내용 1000자 글자수 제한
+	$('#inputPolicy').on('keyup',function(){
+		var pStrVal = $(this).val();
+		var pStrLen = pStrVal.length;
+		var pTotalByte = 0;
+		var pLen = 0;
+		var pOneChar = "";
+		
+		if(pStaVal = ""){
+			$('#policyWords').text("0/1000");
+		}
+		
+		for(var i = 0; i < pStrLen; i++){
+			pOneChar = pStrVal.charAt(i);
+			if(escape(pOneChar).length > 4){
+				pTotalByte++;  // totalByte += 2;
+			}
+			else{
+				pTotalByte++;
+			}
+			
+			if(pTotalByte <= 1000){
+				pLen = i + 1;
+			}
+			$('#policyWords').text(pTotalByte + "/1000");
+		}
+		
+		if(pTotalByte > 1000){
+			pStr2 = pStrVal.substr(0, pLen);
+			$('#policyWords').text("1000/1000");
+			$(this).val(pStr2);
+			alert("1000자를 초과할 수 없습니다.");
+		}
+	});
+	
+	// 프로젝트 정책확인 정보 수정 (이전 버튼 클릭 시)
+	$(document).find('#preBtn2').on('click', function(){
+		var p_index = $(document).find('#p_index').val();
+		var m_id = $(document).find('#m_id').val();
+		var policy_value = $('#inputPolicy').val();
+		policy_value = policy_value.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+//		$('#inputPolicy').text(policy_value);
+		$.ajax({
+			url : "JPU_UPDATE.do",
+			type : "post",
+			data : {p_policy : policy_value,
+					p_index : p_index},
+			success : function(data){
+				alert(data);
+				if(data == 'success'){
+					policy_value = policy_value.split('<br/>').join("\r\n");
+					$(document).find('#inputPolicy').val(policy_value);
+					alert("정책확인 정보가 저장되었습니다.");
+					$(document).find('#item01').attr('checked', 'checked');
+				}
+				else{
+					alert('저장 실패!');
+				}
+			},
+			error : function(){
+				alert("error!!!!!");
+			}
+		});
+	});
+	
+	// 프로젝트 정책확인 정보 수정 (다음 버튼 클릭 시)
+	$(document).find('#nextBtn2').on('click', function(){
+		var p_index = $(document).find('#p_index').val();
+		var m_id = $(document).find('#m_id').val();
+		var policy_value = $('#inputPolicy').val();
+		policy_value = policy_value.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+		$.ajax({
+			url : "JPU_UPDATE.do",
+			type : "post",
+			data : {p_policy : policy_value,
+					p_index : p_index},
+			success : function(data){
+				alert(data);
+				if(data == 'success'){
+					policy_value = policy_value.split('<br/>').join("\r\n");
+					$(document).find('#inputPolicy').val(policy_value);
+					alert("정책확인 정보가 저장되었습니다.");
+					$(document).find('#item03').attr('checked', 'checked');
+				}
+				else{
+					alert('저장 실패!');
+				}
+			},
+			error : function(){
+				alert("error!!!!!");
+			}
+		});
+	});
+	
+	/* 정책확인 탭 관련 끝 */
+
+	/* 스토리 탭 관련 */
+	
+	// 스토리 멤버 생성 및 버튼 생성
+	$(document).find('#addStoryMemberBtn').on('click', function(){
+		var pro_index = $('#p_index').val();
+		var searchStoryMember = $('#searchStoryMember').val();
+		$.ajax({
+			url : "JSI.do", 
+			type : "post",
+			data : {p_index : pro_index,
+					email : searchStoryMember},
+			success : function(data){
+				if(data != "null" && data != "exist"){
+					alert("검색 결과 : " + data);
+					$(document).find('#storyMemberList').append("<button class='storyMember' value='" + searchStoryMember + "'>" + data + "</button>");
+					$('#searchStoryMember').val("");
+				}
+				else if(data == "exist"){
+					alert("이미 등록된 스토리멤버입니다.");
+				}
+				else{
+					alert("검색 결과 해당 회원 없음!");
+				}
+			},
+			error : function(){
+				alert("스토리 멤버 찾기 에러!");
+			}
+		});
+	});
+	
+	// 스토리 멤버 버튼 클릭 시 해당 스토리 멤버 삭제
+	$(document).find('#storyMemberList').on('click', '.storyMember', function(){
+		var deleteP_index = $('#p_index').val();
+		var delete_storyMember = $(this);
+		var deleteEmail = delete_storyMember.val();
+		$.ajax({
+			url : "JSD.do",
+			type : "post",
+			data : {email : deleteEmail,
+					p_index : deleteP_index},
+			success : function(data){
+				if(data == "success"){
+					alert(deleteEmail + " : 성공적으로 스토리멤버를 삭제하였습니다.");
+					delete_storyMember.remove();
+				}
+				else{
+					alert("스토리멤버 삭제 실패!");
+				}
+			},
+			error : function(){
+				alert("스토리 멤버 삭제 오류!");
+			}
+		});
+	});
+	
+	/* 스토리 탭 관련 끝 */
+	
+});

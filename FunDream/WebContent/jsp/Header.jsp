@@ -9,14 +9,76 @@
 <title>header</title>
 <link rel="stylesheet" type="text/css" href="css/Header.css">
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+		var sessionEmail = "<%=session.getAttribute("m_email")%>";
+		function checkProject(){
+			$.ajax({
+				url : "JJS.do",
+				data : {m_email : sessionEmail},
+				success : function(data){
+					if(data == "true"){
+						var moveModiProj = confirm("진행중인 프로젝트가 존재합니다. 새로운 프로젝트를 생성을 원하시면 확인, 진행중인 프로젝트의 수정을 원하시면 취소를 선택하세요.");
+						if(moveModiProj == true){
+							location.href = "JJI.do";  // 새로운 프로젝트 생성 선택
+						}
+						else{
+							location.href = "MJS.do";  // 기존 프로젝트 수정 선택
+						}
+					}
+					else{
+						var createNewProj = confirm("새로운 프로젝트를 생성하시겠습니까?");
+						if(createNewProj == true){
+							location.href = "JJI.do";  // 새로운 프로젝트 생성 선택
+						}
+						else{
+							lodation.href = "MAIN.do";  // 기존 프로젝트 수정 선택
+						}
+					}
+				},
+				error : function(){
+					alert("에러입니다.");
+				}
+			});
+		}
+</script>
+<script>
+<%=session.getAttribute("keyword")%>
+$(function(){
+	$(document).find("#submitBtn").on('click', function(){
+		var keyword = $("#keyword").val();
+		alert(keyword);
+		if (keyword==null || keyword ==""){
+			alert("입력된 검색어가 없습니다.");
+			return false;
+		}
+		$("#keyword").val(keyword);
+		return true;
+		
+	});
+});
+</script>
+<script type="text/javascript">
+	var sessionId = "<%=session.getAttribute("m_id")%>";
+	$(function(){
+		$.ajax({
+			url : "checkProject.do",
+			data : {m_id : sessionId},
+			success : function(data){
+				if(data != "1"){
+					$(document).find('#myProject').attr("style", "display: none;");
+				}
+			}
+		});
+	});
+</script>
 </head>
 <body class="hbody">
-	<% String m_img = (String)session.getAttribute("m_img"); %>
 	<header>
 		<div class="Hlogo"><a href="MAIN.do">FunDream</a></div>
 		<nav>
 			<ul>
-				<li><a href="#">프로젝트</a></li>
+				<li><a href="JJS_FORM.do">프로젝트</a></li>
 				<li class="sub-menu"><a href="#">프레젠테이션</a>
 					<ul>
 						<li><a href="#">프레젠테이션 일정</a></li>
@@ -31,17 +93,17 @@
 						<li><a href="#">이벤트</a></li>
 					</ul>
 				</li>
-				<c:if test="${(m_manager != 1 && m_email!=null) || (m_email==null)}"><li><a href="JJI.do">신규프로젝트신청</a></li></c:if>
+				<c:if test="${(m_manager != 1 && m_email!=null)}"><li><a id="createNewProjBtn" onclick="checkProject()">신규프로젝트신청</a></li></c:if> <!-- 0829(주리) - 클릭 경로 / 조건(|| m_email==null 삭제) 수정 및 아이디 추가(0830) -->
 				<c:if test="${m_manager == 1 && m_email !=null}"><li><a href="#">관리자 메인</a></li></c:if>
 				<li> <c:if test="${m_email==null}"> <a href="MIE_LOGINFORM.do"><img src="img/user.png" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px;"></a></c:if> </li>
 				
-				<li><c:if test="${m_email!=null}"><img src="${m_img}" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px;">
+				<li><c:if test="${m_email!=null}"><img src="${m_img}" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px; border-radius: 50%">
 					<ul>
 						<li><a href="MUE_CHECKPW.do">내 정보 수정</a></li>
 						<c:if test="${m_manager != 1 && m_email !=null}">
 						<li><a href="#">관심 프로젝트</a></li>
 						<li><a href="#">내가 후원한 내역</a></li>
-						<li><a href="#">내 프로젝트 관리</a></li>
+						<li id="myProject"><a href="MJS.do">내 프로젝트 관리</a></li>
 						</c:if>
 						<li><a href="MOE.do">로그아웃</a></li>
 					</ul>
@@ -49,9 +111,9 @@
 				</li>
 				
 				<li><div class="search-container">
-					<form action="">
-						<input type="text" name="" placeholder="Search">
-						<button type="submit"><i class="fa fa-search"></i></button>
+					<form action="JJS_FORM.do">
+						<input type="text" name="keyword" id="keyword" placeholder="Search" value=<c:choose><c:when test="${keyword==null}">"" </c:when><c:otherwise>${keyword }</c:otherwise></c:choose>>
+						<button type="submit" id="submitBtn"><i class="fa fa-search"></i></button>
 					</form></div></li>
 			</ul>
 		</nav>
