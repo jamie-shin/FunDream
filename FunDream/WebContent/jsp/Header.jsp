@@ -17,23 +17,17 @@
 				url : "JJS.do",
 				data : {m_email : sessionEmail},
 				success : function(data){
-					if(data == "true"){
+					alert(data);
+					switch(data){
+					case true :
 						var moveModiProj = confirm("진행중인 프로젝트가 존재합니다. 새로운 프로젝트를 생성을 원하시면 확인, 진행중인 프로젝트의 수정을 원하시면 취소를 선택하세요.");
-						if(moveModiProj == true){
-							location.href = "JJI.do";  // 새로운 프로젝트 생성 선택
-						}
-						else{
-							location.href = "MJS.do";  // 기존 프로젝트 수정 선택
-						}
-					}
-					else{
+						if(moveModiProj == true) location.href = "JJI.do";  // 새로운 프로젝트 생성 선택
+						else location.href = "MJS.do";  // 기존 프로젝트 수정 선택
+						break;
+					case false :
 						var createNewProj = confirm("새로운 프로젝트를 생성하시겠습니까?");
-						if(createNewProj == true){
-							location.href = "JJI.do";  // 새로운 프로젝트 생성 선택
-						}
-						else{
-							lodation.href = "MAIN.do";  // 기존 프로젝트 수정 선택
-						}
+						if(createNewProj == true) location.href = "JJI.do";  // 새로운 프로젝트 생성 선택
+						break;
 					}
 				},
 				error : function(){
