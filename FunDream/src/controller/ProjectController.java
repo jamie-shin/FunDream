@@ -621,7 +621,7 @@ public class ProjectController {
 			}
 			
 			else if(keyword !=null && ct_int ==0) {
-				session.setAttribute("keyword", keyword);
+//				session.setAttribute("keyword", keyword);
 				System.out.println("controller <키워드: "+ keyword +">");
 				System.out.println("controller <카테고리: >"+ct_int);
 				projectlist =  projectService.selectProjectByKeywordOrCt(keyword, ct_int);
@@ -629,7 +629,7 @@ public class ProjectController {
 				
 			}
 			else if(keyword != null && ct_int != 0) {
-				session.setAttribute("keyword", keyword);
+//				session.setAttribute("keyword", keyword);
 				System.out.println("controller <카테고리: "+ ct_int +">");
 				projectlist = projectService.selectProjectByKeywordOrCt(keyword, ct_int);
 			}

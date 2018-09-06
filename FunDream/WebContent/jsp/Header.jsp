@@ -106,7 +106,7 @@ $(function(){
 				
 				<li><div class="search-container">
 					<form action="JJS_FORM.do">
-						<input type="text" name="keyword" id="keyword" placeholder="Search" value=<c:choose><c:when test="${keyword==null}">"" </c:when><c:otherwise>${keyword }</c:otherwise></c:choose>>
+						<input type="text" name="keyword" id="keyword" placeholder="Search" <c:if test="${param.keyword != null}">value="${param.keyword}"</c:if>>
 						<button type="submit" id="submitBtn"><i class="fa fa-search"></i></button>
 					</form></div></li>
 			</ul>
