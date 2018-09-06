@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
 	<script src="js/makeProject.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/addProject.css">
-	<script src="js/summernote-ko-KR.js"></script>
+	<!-- <script src="js/summernote-ko-KR.js"></script> -->
 
 <script type="text/javascript">
 	$(function(){
@@ -101,8 +101,8 @@
 		
 		// 리워드 바 선택 시
 		$(document).on('click', "[id=rewardBar]", function() {
-			$(this).siblings('[class=menu]').removeAttr('style');
-			$(this).siblings('[class=menu]').not($(this).siblings('[class=menu]').slideToggle("slow")); // 현재 선택한 항목 다음의 하위 항목을 제외한 모든 항목을 축소합니다.
+			$(this).removeAttr('style');
+			$(this).siblings('[class=menu]').not($(this).next('[class=menu]').slideToggle("slow")); // 현재 선택한 항목 다음의 하위 항목을 제외한 모든 항목을 축소합니다.
 		});
 		
 		// 리워드 옵션 체크 시
@@ -295,8 +295,7 @@
 					// 리워드 생성 성공 시 리워드 인덱스 리턴
 					if(data == "success"){
 						element.hide();
-						r_index_element.val(data);
-						alert(data + " 리워드가 저장되었습니다.");
+						alert(r_index_element + " 리워드가 저장되었습니다.");
 					}
 					else{
 						alert("리워드 저장 실패!");
@@ -309,25 +308,22 @@
 	 		$('[class=menu]').slideUp();
 	    });
 	 
+		//이미지 미리보기
+	    $(document).on('change',"#r_img", function(){
+	        readURL1(this);
+	    });
+		
+		function readURL1(input) {
+		    if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+		
+		    reader.onload = function (e) {
+		            $('#blah2').attr('src', e.target.result);
+		        }
+		      reader.readAsDataURL(input.files[0]);
+		    }
+		}
 	});
-</script>
-<script>
-//이미지 미리보기
-$(function() {
-    $(document).on('change',"#r_img", function(){
-        readURL1(this);
-    });
-});
-function readURL1(input) {
-    if (input.files && input.files[0]) {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-            $('#blah2').attr('src', e.target.result);
-        }
-      reader.readAsDataURL(input.files[0]);
-    }
-}
 </script>
 </head>
 
