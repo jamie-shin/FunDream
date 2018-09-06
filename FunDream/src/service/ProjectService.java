@@ -130,7 +130,7 @@ public class ProjectService {
 		}
 		
 		//검색 
-		public List<Project> selectProjectByKeywordOrCt(String keyword, String ct_index) {
+		public List<Project> selectProjectByKeywordOrCt(String keyword, int ct_index) {
 			// TODO Auto-generated method stub
 			System.out.println("service <키워드:"+keyword+">");
 			System.out.println("service <카테고리: "+ct_index+">");

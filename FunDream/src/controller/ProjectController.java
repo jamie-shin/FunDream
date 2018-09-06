@@ -592,28 +592,32 @@ public class ProjectController {
 			ModelAndView mav = new ModelAndView();
 			List<Project> projectlist= null;
 			List<Category> categoryList=categoryService.getCategoryListByType(1);
+			int ct_int=0;
+			if(ct_index != null) {
+				ct_int = Integer.parseInt(ct_index);
+			}
 			if(keyword ==null) {
 				projectlist = projectService.selectProject_accept();
 				System.out.println("controller <키워드: 없음>");
-				if(ct_index != null) {
-					System.out.println("controller <카테고리: "+ ct_index +">");
-					projectlist = projectService.selectProjectByKeywordOrCt(null, ct_index);
+				if(ct_int != 0) {
+					System.out.println("controller <카테고리: "+ ct_int +">");
+					projectlist = projectService.selectProjectByKeywordOrCt(null, ct_int);
 				}
 				
 			}
 			
-			else if(keyword !=null && ct_index ==null) {
+			else if(keyword !=null && ct_int ==0) {
 				session.setAttribute("keyword", keyword);
 				System.out.println("controller <키워드: "+ keyword +">");
-				System.out.println("controller <카테고리: >"+ct_index);
-				projectlist =  projectService.selectProjectByKeywordOrCt(keyword, ct_index);
+				System.out.println("controller <카테고리: >"+ct_int);
+				projectlist =  projectService.selectProjectByKeywordOrCt(keyword, ct_int);
 				
 				
 			}
-			else if(keyword != null && ct_index != null) {
+			else if(keyword != null && ct_int != 0) {
 				session.setAttribute("keyword", keyword);
-				System.out.println("controller <카테고리: "+ ct_index +">");
-				projectlist = projectService.selectProjectByKeywordOrCt(keyword, ct_index);
+				System.out.println("controller <카테고리: "+ ct_int +">");
+				projectlist = projectService.selectProjectByKeywordOrCt(keyword, ct_int);
 			}
 			
 			for(int i=0;i<projectlist.size();i++) {
