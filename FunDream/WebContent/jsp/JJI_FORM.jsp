@@ -101,14 +101,12 @@
 		
 		// 리워드 바 선택 시
 		$(document).on('click', "[id=rewardBar]", function() {
-			$(this).removeAttr('style');
-			$(this).siblings('[class=menu]').not($(this).next('[class=menu]').slideToggle("slow")); // 현재 선택한 항목 다음의 하위 항목을 제외한 모든 항목을 축소합니다.
+			$(this).siblings('[class=menu]').removeAttr('style');
+			$(this).siblings('[class=menu]').not($(this).siblings('[class=menu]').slideToggle("slow")); // 현재 선택한 항목 다음의 하위 항목을 제외한 모든 항목을 축소합니다.
 		});
 		
 		// 리워드 옵션 체크 시
 		$(document).on('click', "[id=optCheck]", function() {
-			/* var sel_id = $(this).attr('id');
-			var sel_num = sel_id.substring(8); */
 			$(this).siblings('#r_option').slideToggle();
 		});
 		
@@ -116,13 +114,15 @@
 	 	$(document).on('click', "[id^=r_del]", function() {
 			var del_id = $(this).attr('id');
 			alert(del_id);
-			if (del_id == 'r_delY'){
+			switch(del_id){
+			case 'r_delY' :
 				$(this).parent().siblings('#del').show();
 				$(this).parent().siblings('#del').children('#input_del').val("");
-			}
-			if (del_id == 'r_delN'){
+				break;
+			case 'r_delN' :
 				$(this).parent().siblings('#del').hide();
 				$(this).parent().siblings('#del').children('#input_del').val("0");
+				break;
 			}
 		});
 
@@ -139,16 +139,6 @@
 				$(this).parent().siblings('#amt').children('#input_amt').val("");
 			}
 		});
-		
-	/* 	$(document).on('select', "[id=r_amtY]", function(){
-			var sel_id = $(this).attr('id');
-			var sel_num = sel_id.substring(6); 
-		});
-		$(document).on('select', "[id=r_amtN]", function(){
-			var sel_id = $(this).attr('id');
-			var sel_num = sel_id.substring(6);
-			$(this).siblings('#r_amtY').next().attr('disabled', true);
-		}); */
 		
 	 	$(document).on('click', "[id=r_insertbtn]", function(){
 	 		///////////////////////////////////
@@ -256,11 +246,10 @@
 	        }
 	     });
 	    
-	    $(document.on('click', "[id=r_updatebtn]"), function(){
-///////////////////////////////////
+	    $(document.on('click', "[id=r_updatebtn]", function(){
 	 		var form = $(this).parent('#rewardInfoForm')[0];
 	 		var formData = new FormData(form);
-	 		///////////////////////////////////
+
 	 		var r_index = "";
 			var p_index = $(this).siblings('#p_index').val();
 			var r_name = $(this).siblings('#inputR_name').val();
@@ -278,14 +267,14 @@
 			var r_amt = $(this).siblings('#amt').children('#input_amt').val();
 			if(r_amt == "") r_amt=0;
 			
-	 		var delYear = $(this).siblings('#delyear').val();
+	 		/* var delYear = $(this).siblings('#delyear').val();
 	 		if(delYear == "") alert("발송 시작 연도를 선택하세요.");
 			var delMonth = $(this).siblings('#delmonth').val();
 			if(delMonth == "") alert("방송 시작 월을 선택하세요.");
 			var delDay = $(this).siblings('#delday').val();
 			if(delDay == "") alert("발송 시작 일을 선택하세요.");
 			$(this).siblings("#r_start").val(r_start);
-			var r_start = delYear+'-'+delMonth+'-'+delDay;
+			var r_start = delYear+'-'+delMonth+'-'+delDay; */
 		
 			$(this).parent().parent().siblings('#rewardBar').children("#rTitle").text(r_name);
 			var aaa = $(this).parent().parent().siblings('#rewardBar').children("#rTitle").text();
@@ -542,68 +531,68 @@ function readURL1(input) {
 									<button class='ap-reward-deletebtn' id="r_deletebtn"> X </button>
 								</div>
 								<div class='menu' id='ap-reward-container' style="display: none;">
-								<form id="rewardInfoForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8" action="">
-									<input type="hidden" id="p_index" name="p_index" value="${rew.p_index}">
-									<input type="hidden" id="r_index" name="r_index" value="${rew.r_index}">
-									<input type="hidden" id="r_start" name="r_start" value="${rew.r_start}">
-									
-									<h3>리워드 이미지</h3>
-									<div class='ap-contents-box'>
-										<span>
-											<input type='file' id="r_img" name='r_img' class='ap-reward-img-addbtn'/><img src='#' class='ap-reward-img' id='blah2'  alt="이미지를 선택하세요">
-										</span>
-									</div>
-									
-									<h3>리워드명</h3>
-									<input type='text' id="inputR_name" name='r_name' class='ap-reward-name' value="${rew.r_name}">
-									
-									<h3>금액</h3>
-									<div class="jji-fee"><input type='number' id="r_price" name='r_price' class='ap-reward-price' value="${rew.r_price}"><span class="ap-span">&emsp;원</span></div>
-									
-									<h3>카테고리</h3>
-									<select id="ct_index" name='ct_index' class='ap-reward-sel-category'>
-										<c:forEach items="${rCategoryList}" var="category">
-											<option value="${category.ct_index}" <c:if test="${category.ct_index == rew.ct_index}">selected='selected'</c:if>>${category.ct_name}</option>		
-										</c:forEach>
-									</select>
-									
-									<h3>상세설명</h3>
-									<textarea id="r_contents" name='r_contents' class='ap-reward-ta1'>${rew.r_contents}</textarea>
-									
-									<h3>옵션조건</h3>
-									<input type='checkbox' id="optCheck" class='ap-reward-checkbox' <c:if test="${(rew.r_option != '' && rew.r_option != null)}">checked='checked'</c:if>>옵션 입력이 필요한 리워드 입니다.<br>
-									<textarea name='r_option' id="r_option" class='ap-reward-ta2' <c:if test="${(rew.r_option == '' || rew.r_option == null)}">style='display:none;'</c:if> placeholder='옵션 내용을 입력해주세요.'>${rew.r_option}</textarea>
-									
-									<h3>배송조건</h3>
-									<label><input type='radio' class='ap-reward-radio' id="r_delN" name='delivery' value='0' <c:if test="${rew.r_del == 0}">checked='checked'</c:if> />배송정보 불필요</label>
-									<label><input type='radio' class='ap-reward-radio' id="r_delY" name='delivery' <c:if test="${rew.r_del > 0}">checked='checked'</c:if> />배송정보 필요</label><br>
-									<span id='del' <c:if test="${rew.r_del == 0}">style='display:none;'</c:if>><p>배송비</p><input type='text' name='r_del' class='ap-reward-delpay' id='input_del' value="${rew.r_del}" /> 원</span>
-									
-									<h3>제한수량</h3>
-									<label for='r_amtN'>
-									<input type='radio' class='ap-reward-radio' id='r_amtN' name='re-num' <c:if test="${(rew.r_amt == 0 || rew.r_amt == '')}">checked='checked'</c:if> /> 제한없음</label>
-									<label for='r_amtY' id="amt">
-									<input type='radio' class='ap-reward-radio' name='re-num' id='r_amtY' <c:if test="${(rew.r_amt != 0 && rew.r_amt != '')}">checked='checked'</c:if> />리워드를
-									<input type='text' name='r_amt' id='input_amt' class='ap-reward-amt' <c:if test="${(rew.r_amt == 0 || rew.r_amt == '')}">disabled='true'</c:if> value="${rew.r_amt}"> 개로 제한합니다.</label>
-									
-									<h3>발송시작일</h3>
-									<select id="delyear" name='delyear' class='ap-reward-delyear'>
-										<option value='2018'>2018년</option>
-										<option value='2019'>2019년</option>
-										<option value='2020'>2020년</option>
-									</select>
-									<select id="delmonth" name="delmonth" class='ap-reward-delmonth'>
-										<c:forEach begin="1" end="12" varStatus="s">
-											<option value='${s.count}'>${s.count}월</option>
-										</c:forEach>
-									</select>
-									<select id="delday" name="delday" class='ap-reward-delday'>
-										<option value='1'>초(1~10)</option>
-										<option value='11'>중순(11~20)</option>
-										<option value='21'>말(21~말일)</option>
-									</select>
-									<br> <br> <br>
-									<button id="r_updatebtn" class='ap-reward-savebtn'>수정</button>
+									<form id="rewardInfoForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8" action="">
+										<input type="hidden" id="p_index" name="p_index" value="${rew.p_index}">
+										<input type="hidden" id="r_index" name="r_index" value="${rew.r_index}">
+										<input type="hidden" id="r_start" name="r_start" value="${rew.r_start}">
+										
+										<h3>리워드 이미지</h3>
+										<div class='ap-contents-box'>
+											<span>
+												<input type='file' id="r_img" name='r_img' class='ap-reward-img-addbtn'/><img src='#' class='ap-reward-img' id='blah2'  alt="이미지를 선택하세요">
+											</span>
+										</div>
+										
+										<h3>리워드명</h3>
+										<input type='text' id="inputR_name" name='r_name' class='ap-reward-name' value="${rew.r_name}">
+										
+										<h3>금액</h3>
+										<div class="jji-fee"><input type='number' id="r_price" name='r_price' class='ap-reward-price' value="${rew.r_price}"><span class="ap-span">&emsp;원</span></div>
+										
+										<h3>카테고리</h3>
+										<select id="ct_index" name='ct_index' class='ap-reward-sel-category'>
+											<c:forEach items="${rCategoryList}" var="category">
+												<option value="${category.ct_index}" <c:if test="${category.ct_index == rew.ct_index}">selected='selected'</c:if>>${category.ct_name}</option>		
+											</c:forEach>
+										</select>
+										
+										<h3>상세설명</h3>
+										<textarea id="r_contents" name='r_contents' class='ap-reward-ta1'>${rew.r_contents}</textarea>
+										
+										<h3>옵션조건</h3>
+										<input type='checkbox' id="optCheck" class='ap-reward-checkbox' <c:if test="${(rew.r_option != '' && rew.r_option != null)}">checked='checked'</c:if>>옵션 입력이 필요한 리워드 입니다.<br>
+										<textarea name='r_option' id="r_option" class='ap-reward-ta2' <c:if test="${(rew.r_option == '' || rew.r_option == null)}">style='display:none;'</c:if> placeholder='옵션 내용을 입력해주세요.'>${rew.r_option}</textarea>
+										
+										<h3>배송조건</h3>
+										<label><input type='radio' class='ap-reward-radio' id="r_delN" name='delivery' value='0' <c:if test="${rew.r_del == 0}">checked='checked'</c:if> />배송정보 불필요</label>
+										<label><input type='radio' class='ap-reward-radio' id="r_delY" name='delivery' <c:if test="${rew.r_del > 0}">checked='checked'</c:if> />배송정보 필요</label><br>
+										<span id='del' <c:if test="${rew.r_del == 0}">style='display:none;'</c:if>><p>배송비</p><input type='number' name='r_del' class='ap-reward-delpay' id='input_del' value="${rew.r_del}" /> 원</span>
+										
+										<h3>제한수량</h3>
+										<label for='r_amtN'>
+										<input type='radio' class='ap-reward-radio' id='r_amtN' name='re-num' <c:if test="${(rew.r_amt == 0 || rew.r_amt == '')}">checked='checked'</c:if> /> 제한없음</label>
+										<label for='r_amtY' id="amt">
+										<input type='radio' class='ap-reward-radio' name='re-num' id='r_amtY' <c:if test="${(rew.r_amt != 0 && rew.r_amt != '')}">checked='checked'</c:if> />리워드를
+										<input type='number' name='r_amt' id='input_amt' class='ap-reward-amt' <c:if test="${(rew.r_amt == 0 || rew.r_amt == '')}">disabled='true'</c:if> value="${rew.r_amt}"> 개로 제한합니다.</label>
+										
+										<h3>발송시작일</h3>
+										<select id="delyear" name='delyear' class='ap-reward-delyear'>
+											<option value='2018'>2018년</option>
+											<option value='2019'>2019년</option>
+											<option value='2020'>2020년</option>
+										</select>
+										<select id="delmonth" name="delmonth" class='ap-reward-delmonth'>
+											<c:forEach begin="1" end="12" varStatus="s">
+												<option value='${s.count}'>${s.count}월</option>
+											</c:forEach>
+										</select>
+										<select id="delday" name="delday" class='ap-reward-delday'>
+											<option value='1'>초(1~10)</option>
+											<option value='11'>중순(11~20)</option>
+											<option value='21'>말(21~말일)</option>
+										</select>
+										<br> <br> <br>
+										<button id="r_updatebtn" class='ap-reward-savebtn'>수정</button>
 									</form>
 								</div>
 							</div>
