@@ -539,7 +539,7 @@ function readURL1(input) {
 							<div id="setReward"> 
 								<div class='ap-reward' id="rewardBar">
 									<h2 id="rTitle">${rew.r_name}</h2>
-									<button class='ap-reward-deletebtn' id="deletebtn"> X </button>
+									<button class='ap-reward-deletebtn' id="r_deletebtn"> X </button>
 								</div>
 								<div class='menu' id='ap-reward-container' style="display: none;">
 								<form id="rewardInfoForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8" action="">
