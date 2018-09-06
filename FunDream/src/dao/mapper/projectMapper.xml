@@ -71,7 +71,8 @@
 	<select id="selectProjectByKeywordOrCt" resultType="project" parameterType="java.util.HashMap">
 		<![CDATA[
 			select * from project where (p_startdate <= now() or p_enddate <= now()) and p_approval=2]]>
-		<if test="keyword != null or keyword !='' "> AND p_name like '%${keyword}%'</if>
-		<if test="ct_index != null or ct_index != '' "> AND ct_index =#{ct_index} </if> order by p_startdate desc limit 0,9
+				<if test="ct_index != null or ct_index != '' "> AND ct_index= #{ct_index} </if> 
+				<if test="keyword != null or keyword !='' "> AND p_name like '%${keyword}%' </if>
+				order by p_startdate desc limit 0,9
 	</select>
 </mapper>

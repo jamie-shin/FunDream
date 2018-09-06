@@ -602,19 +602,20 @@ public class ProjectController {
 				
 			}
 			
-			else if(keyword !=null) {
+			else if(keyword !=null && ct_index ==null) {
 				session.setAttribute("keyword", keyword);
 				System.out.println("controller <키워드: "+ keyword +">");
-				System.out.println("controller <카테고리: 없음>");
-				projectlist =  projectService.selectProjectByKeywordOrCt(keyword, null);
+				System.out.println("controller <카테고리: >"+ct_index);
+				projectlist =  projectService.selectProjectByKeywordOrCt(keyword, ct_index);
 				
-				if(ct_index != null) {
-					System.out.println("controller <카테고리: "+ ct_index +">");
-					projectlist = projectService.selectProjectByKeywordOrCt(keyword, ct_index);
-				}
-					
 				
 			}
+			else if(keyword != null && ct_index != null) {
+				session.setAttribute("keyword", keyword);
+				System.out.println("controller <카테고리: "+ ct_index +">");
+				projectlist = projectService.selectProjectByKeywordOrCt(keyword, ct_index);
+			}
+			
 			for(int i=0;i<projectlist.size();i++) {
 				int status = projectlist.get(i).getP_status();
 				int target = projectlist.get(i).getP_target();
@@ -622,9 +623,9 @@ public class ProjectController {
 				double per = Double.parseDouble(String.format("%.2f",per2));
 				projectlist.get(i).setPer(per);
 			}
-			/*for(Project p: projectlist) {
+			for(Project p: projectlist) {
 				System.out.println("project: "+p);
-			}*/
+			}
 			mav.addObject("list", projectlist);
 			mav.addObject("cList", categoryList);
 			mav.setViewName("JJS_FORM");

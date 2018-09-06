@@ -137,6 +137,8 @@ public class ProjectService {
 			HashMap<String, Object> params = new HashMap<>();
 			params.put("keyword", keyword);
 			params.put("ct_index", ct_index);
+			
+			System.out.println(params);
 			List<Project> list = projectDao.selectProjectByKeywordOrCt(params);
 			System.out.println("service 리스트 사이즈 : " + list.size());
 			
