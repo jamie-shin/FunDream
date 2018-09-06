@@ -27,7 +27,7 @@
 				<div id="setReward"> 
 					<div class='ap-reward' id="rewardBar">
 						<h2 id="rTitle">리워드</h2>
-						<button class='ap-reward-deletebtn' id="deletebtn"> X </button>
+						<button class='ap-reward-deletebtn' id="r_deletebtn"> X </button>
 					</div>
 					<div class='menu' id='ap-reward-container'>
 					<form id="rewardInfoForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8" action="">
@@ -91,7 +91,7 @@
 							<option value='21'>말(21~말일)</option>
 						</select>
 						<br> <br> <br>
-						<button id="r_submit" class='ap-reward-savebtn'>저장</button>
+						<button id="r_insertbtn" class='ap-reward-savebtn'>저장</button>
 					</form>
 					</div>
 				</div>
@@ -150,7 +150,7 @@
 			$(this).siblings('#r_amtY').next().attr('disabled', true);
 		}); */
 		
-	 	$(document).on('click', "[class=ap-reward-savebtn]", function(){
+	 	$(document).on('click', "[id=r_insertbtn]", function(){
 	 		///////////////////////////////////
 	 		var form = $(this).parent('#rewardInfoForm')[0];
 	 		var formData = new FormData(form);
@@ -229,7 +229,7 @@
 	 		$('[class=menu]').slideUp();
 		});
 	 	
-	    $(document).on('click', "[id=deletebtn]", function(){
+	    $(document).on('click', "[id=r_deletebtn]", function(){
 	        var delete_index = $(this).parent().siblings('#ap-reward-container').children("#rewardInfoForm").children('#r_index').val();
 	        var r_del_con = confirm("선택한 리워드를 삭제하시겠습니까?");
 	        var head = $(this).parent();
@@ -255,6 +255,70 @@
 	           });
 	        }
 	     });
+	    
+	    $(document.on('click', "[id=r_updatebtn]"), function(){
+///////////////////////////////////
+	 		var form = $(this).parent('#rewardInfoForm')[0];
+	 		var formData = new FormData(form);
+	 		///////////////////////////////////
+	 		var r_index = "";
+			var p_index = $(this).siblings('#p_index').val();
+			var r_name = $(this).siblings('#inputR_name').val();
+			if(r_name == "") alert("리워드명을 입력하세요.");
+			var r_price = $(this).siblings('#r_price').val();
+			if(r_price == "" || r_price == 0) alert("리워드 금액을 입력하세요.");
+			var ct_index = $(this).siblings('#ct_index').val();
+			if(ct_index == "") alert("리워드 카테고리를 선택하세요.");
+			var r_contents = $(this).siblings('#r_contents').val();
+			if(r_contents == "") alert("리워드 상세설명을 입력하세요.");
+			var r_option = $(this).siblings('#r_option').text();
+			if(r_option == "") r_option = null;
+			var r_del = $(this).siblings('#del').children('#input_del').val();
+			if(r_del == "") alert("리워드 배송조건을 선택하세요.");
+			var r_amt = $(this).siblings('#amt').children('#input_amt').val();
+			if(r_amt == "") r_amt=0;
+			
+	 		var delYear = $(this).siblings('#delyear').val();
+	 		if(delYear == "") alert("발송 시작 연도를 선택하세요.");
+			var delMonth = $(this).siblings('#delmonth').val();
+			if(delMonth == "") alert("방송 시작 월을 선택하세요.");
+			var delDay = $(this).siblings('#delday').val();
+			if(delDay == "") alert("발송 시작 일을 선택하세요.");
+			$(this).siblings("#r_start").val(r_start);
+			var r_start = delYear+'-'+delMonth+'-'+delDay;
+		
+			$(this).parent().parent().siblings('#rewardBar').children("#rTitle").text(r_name);
+			var aaa = $(this).parent().parent().siblings('#rewardBar').children("#rTitle").text();
+	 		alert("^^* " + aaa);
+	 		
+	 		var element = $(this);
+	 		var r_index_element = $(this).siblings('#r_index');
+	 		
+	 		$.ajax({
+				url: 'JRU_MODIFIED.do',
+				type: "POST",
+				enctype: 'multipart/form-data',
+				data : formData,
+				processData: false,
+		        contentType: false,
+		        cache: false,
+				success: function(data){
+					// 리워드 생성 성공 시 리워드 인덱스 리턴
+					if(data == "success"){
+						element.hide();
+						r_index_element.val(data);
+						alert(data + " 리워드가 저장되었습니다.");
+					}
+					else{
+						alert("리워드 저장 실패!");
+					}
+				},
+				error: function(){
+					alert('리워드 저장 에러');
+				}
+			});
+	 		$('[class=menu]').slideUp();
+	    });
 	 
 	});
 </script>
@@ -523,23 +587,23 @@ function readURL1(input) {
 									<input type='text' name='r_amt' id='input_amt' class='ap-reward-amt' <c:if test="${(rew.r_amt == 0 || rew.r_amt == '')}">disabled='true'</c:if> value="${rew.r_amt}"> 개로 제한합니다.</label>
 									
 									<h3>발송시작일</h3>
-									<select id="delyear" class='ap-reward-delyear'>
+									<select id="delyear" name='delyear' class='ap-reward-delyear'>
 										<option value='2018'>2018년</option>
 										<option value='2019'>2019년</option>
 										<option value='2020'>2020년</option>
 									</select>
-									<select id="delmonth" class='ap-reward-delmonth'>
+									<select id="delmonth" name="delmonth" class='ap-reward-delmonth'>
 										<c:forEach begin="1" end="12" varStatus="s">
 											<option value='${s.count}'>${s.count}월</option>
 										</c:forEach>
 									</select>
-									<select id="delday" class='ap-reward-delday'>
+									<select id="delday" name="delday" class='ap-reward-delday'>
 										<option value='1'>초(1~10)</option>
 										<option value='11'>중순(11~20)</option>
 										<option value='21'>말(21~말일)</option>
 									</select>
 									<br> <br> <br>
-									<button id="r_submit" class='ap-reward-savebtn'>저장</button>
+									<button id="r_updatebtn" class='ap-reward-savebtn'>수정</button>
 									</form>
 								</div>
 							</div>
