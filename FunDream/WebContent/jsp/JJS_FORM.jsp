@@ -75,9 +75,9 @@
 
 		<div class="ct-container">
 		  <ul>
-	        <li><a class="ct-menu" href="#">전체</a>
+	        <li><a class="ct-menu" href='JJS_FORM.do<c:if test="${keyword != null}">?keyword=${keyword}</c:if>'>전체</a>
 		  <c:forEach var="ct" items="${cList }" varStatus="status">
-	        <li><a class="ct-menu" href="#" >${ct.ct_name}</a></li>
+	        <li><a style="cursor:pointer" class="ct-menu" id="ctName" href="JJS_FORM.do?ct_index=${ct.ct_index}<c:if test="${keyword != null}">&keyword=${keyword}</c:if>">${ct.ct_name}</a><input type="hidden" value="${ct.ct_index }" name="ct_index" id="ct_index"></li>
 	      </c:forEach>
 		  </ul>
 		</div>

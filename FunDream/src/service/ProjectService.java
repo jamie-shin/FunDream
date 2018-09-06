@@ -130,13 +130,15 @@ public class ProjectService {
 		}
 		
 		//검색 
-		public List<Project> selectProjectByKeyword(String keyword) {
+		public List<Project> selectProjectByKeywordOrCt(String keyword, String ct_index) {
 			// TODO Auto-generated method stub
-			System.out.println("키워드:"+keyword);
-			HashMap<String, String> params = new HashMap<>();
+			System.out.println("service <키워드:"+keyword+">");
+			System.out.println("service <카테고리: "+ct_index+">");
+			HashMap<String, Object> params = new HashMap<>();
 			params.put("keyword", keyword);
-			List<Project> list = projectDao.selectProjectByKeyword(params);
-			System.out.println("리스트 사이즈 : " + list.size());
+			params.put("ct_index", ct_index);
+			List<Project> list = projectDao.selectProjectByKeywordOrCt(params);
+			System.out.println("service 리스트 사이즈 : " + list.size());
 			
 			return list;
 		}

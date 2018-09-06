@@ -57,7 +57,8 @@ public class ProjectController {
 	private Story_MemberService story_MemberService;
 	
 	@RequestMapping("MAIN.do") // 메인화면 요청
-	public ModelAndView MAIN() {
+	public ModelAndView MAIN(HttpSession session) {
+		session.removeAttribute("keyword");
 		ModelAndView mav = new ModelAndView();
 		//최신 프로젝트 3개
 		List<Project> newlist = projectService.getNewProject();
@@ -587,17 +588,32 @@ public class ProjectController {
 		}
 		// 프로젝트 리스트 첫 화면 요청(최신순)
 		@RequestMapping("JJS_FORM.do")
-		public ModelAndView projectList(@RequestParam(required=false)String keyword, HttpSession session) {
+		public ModelAndView projectList(@RequestParam(required=false)String keyword, HttpSession session, @RequestParam(required=false) String ct_index) {
 			ModelAndView mav = new ModelAndView();
 			List<Project> projectlist= null;
 			List<Category> categoryList=categoryService.getCategoryListByType(1);
 			if(keyword ==null) {
 				projectlist = projectService.selectProject_accept();
+				System.out.println("controller <키워드: 없음>");
+				if(ct_index != null) {
+					System.out.println("controller <카테고리: "+ ct_index +">");
+					projectlist = projectService.selectProjectByKeywordOrCt(null, ct_index);
+				}
 				
 			}
-			else {
+			
+			else if(keyword !=null) {
 				session.setAttribute("keyword", keyword);
-				projectlist =  projectService.selectProjectByKeyword(keyword);
+				System.out.println("controller <키워드: "+ keyword +">");
+				System.out.println("controller <카테고리: 없음>");
+				projectlist =  projectService.selectProjectByKeywordOrCt(keyword, null);
+				
+				if(ct_index != null) {
+					System.out.println("controller <카테고리: "+ ct_index +">");
+					projectlist = projectService.selectProjectByKeywordOrCt(keyword, ct_index);
+				}
+					
+				
 			}
 			for(int i=0;i<projectlist.size();i++) {
 				int status = projectlist.get(i).getP_status();
@@ -606,6 +622,9 @@ public class ProjectController {
 				double per = Double.parseDouble(String.format("%.2f",per2));
 				projectlist.get(i).setPer(per);
 			}
+			/*for(Project p: projectlist) {
+				System.out.println("project: "+p);
+			}*/
 			mav.addObject("list", projectlist);
 			mav.addObject("cList", categoryList);
 			mav.setViewName("JJS_FORM");

@@ -25,5 +25,5 @@ public interface IProjectDao {
 	public List<Project> selectProject_accept();
 	public List<Project> selectProject_more(int num);
 	
-	public List<Project> selectProjectByKeyword(HashMap<String, String> params);
+	public List<Project> selectProjectByKeywordOrCt(HashMap<String, Object> params);
 }
