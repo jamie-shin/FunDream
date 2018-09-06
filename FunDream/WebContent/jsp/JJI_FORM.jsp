@@ -305,6 +305,23 @@
 	    }
 	}
 </script>
+<script>
+$(function() {
+    $("#imgInp2").on('change', function(){
+        readURL(this);
+    });
+});
+function readURL(input) {
+    if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+            $('#blah3').attr('src', e.target.result);
+        }
+      reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
 </head>
 
 <body>
@@ -515,7 +532,7 @@
 										<h3>리워드 이미지</h3>
 										<div class='ap-contents-box'>
 											<span>
-												<input type='file' id="r_img" name='r_img' class='ap-reward-img-addbtn'/><img src='#' class='ap-reward-img' id='blah2'  alt="이미지를 선택하세요">
+												<input type='file' id="imgInp2" name='r_img' class='ap-reward-img-addbtn'/><img src='#' class='ap-reward-img' id='blah3'  alt="이미지를 선택하세요">
 											</span>
 										</div>
 										
