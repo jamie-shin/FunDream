@@ -140,11 +140,11 @@
 			}
 		});
 		
+		// 리워드 생성
 	 	$(document).on('click', "[id=r_insertbtn]", function(){
-	 		///////////////////////////////////
 	 		var form = $(this).parent('#rewardInfoForm')[0];
 	 		var formData = new FormData(form);
-	 		///////////////////////////////////
+
 	 		var r_index = "";
 			var p_index = $(this).siblings('#p_index').val();
 			var r_name = $(this).siblings('#inputR_name').val();
@@ -155,12 +155,6 @@
 			if(ct_index == "") alert("리워드 카테고리를 선택하세요.");
 			var r_contents = $(this).siblings('#r_contents').val();
 			if(r_contents == "") alert("리워드 상세설명을 입력하세요.");
-			var r_option = $(this).siblings('#r_option').text();
-			if(r_option == "") r_option = null;
-			var r_del = $(this).siblings('#del').children('#input_del').val();
-			if(r_del == "") alert("리워드 배송조건을 선택하세요.");
-			var r_amt = $(this).siblings('#amt').children('#input_amt').val();
-			if(r_amt == "") r_amt=0;
 			
 	 		var delYear = $(this).siblings('#delyear').val();
 	 		if(delYear == "") alert("발송 시작 연도를 선택하세요.");
@@ -179,7 +173,6 @@
 	 		var r_index_element = $(this).siblings('#r_index');
 	 		
 	 		$.ajax({
-	 			/////////////////////////////////////
 				url: 'JRI_INSERT.do',
 				type: "POST",
 				enctype: 'multipart/form-data',
@@ -187,18 +180,6 @@
 				processData: false,
 		        contentType: false,
 		        cache: false,
-		        ///////////////////////////////////////
- 				/* data: {
- 					p_index : p_index,
-					r_name : r_name,
-					r_price : r_price,
-					ct_index : ct_index,
-					r_contents : r_contents,
-					r_start : r_start,
-					r_option : r_option,
-					r_del : r_del,
-					r_amt : r_amt
-				}, */
 				success: function(data){
 					// 리워드 생성 성공 시 리워드 인덱스 리턴
 					if(data != "0"){
@@ -219,6 +200,7 @@
 	 		$('[class=menu]').slideUp();
 		});
 	 	
+		// 리워드 삭제
 	    $(document).on('click', "[id=r_deletebtn]", function(){
 	        var delete_index = $(this).parent().siblings('#ap-reward-container').children("#rewardInfoForm").children('#r_index').val();
 	        var r_del_con = confirm("선택한 리워드를 삭제하시겠습니까?");
@@ -246,11 +228,12 @@
 	        }
 	     });
 	    
-	    $(document.on('click', "[id=r_updatebtn]", function(){
-	 		var form = $(this).parent('#rewardInfoForm')[0];
-	 		var formData = new FormData(form);
+		// 리워드 수정
+	    $(document).on('click', "[id=r_updatebtn]", function(){
+			var form = $(this).parent('#rewardInfoForm')[0];
+			var formData = new FormData(form);
 
-	 		var r_index = "";
+			var r_index = "";
 			var p_index = $(this).siblings('#p_index').val();
 			var r_name = $(this).siblings('#inputR_name').val();
 			if(r_name == "") alert("리워드명을 입력하세요.");
@@ -260,70 +243,67 @@
 			if(ct_index == "") alert("리워드 카테고리를 선택하세요.");
 			var r_contents = $(this).siblings('#r_contents').val();
 			if(r_contents == "") alert("리워드 상세설명을 입력하세요.");
-			var r_option = $(this).siblings('#r_option').text();
-			if(r_option == "") r_option = null;
-			var r_del = $(this).siblings('#del').children('#input_del').val();
-			if(r_del == "") alert("리워드 배송조건을 선택하세요.");
-			var r_amt = $(this).siblings('#amt').children('#input_amt').val();
-			if(r_amt == "") r_amt=0;
 			
-	 		/* var delYear = $(this).siblings('#delyear').val();
-	 		if(delYear == "") alert("발송 시작 연도를 선택하세요.");
+			var delYear = $(this).siblings('#delyear').val();
+			if(delYear == "") alert("발송 시작 연도를 선택하세요.");
 			var delMonth = $(this).siblings('#delmonth').val();
 			if(delMonth == "") alert("방송 시작 월을 선택하세요.");
 			var delDay = $(this).siblings('#delday').val();
 			if(delDay == "") alert("발송 시작 일을 선택하세요.");
 			$(this).siblings("#r_start").val(r_start);
-			var r_start = delYear+'-'+delMonth+'-'+delDay; */
-		
+			var r_start = delYear+'-'+delMonth+'-'+delDay;
+			
 			$(this).parent().parent().siblings('#rewardBar').children("#rTitle").text(r_name);
 			var aaa = $(this).parent().parent().siblings('#rewardBar').children("#rTitle").text();
-	 		alert("^^* " + aaa);
-	 		
-	 		var element = $(this);
-	 		var r_index_element = $(this).siblings('#r_index');
-	 		
-	 		$.ajax({
+			alert("^^* " + aaa);
+			
+			var element = $(this);
+			var r_index_element = $(this).siblings('#r_index');
+			
+			$.ajax({
 				url: 'JRU_MODIFIED.do',
 				type: "POST",
 				enctype: 'multipart/form-data',
 				data : formData,
 				processData: false,
-		        contentType: false,
-		        cache: false,
+				contentType: false,
+				cache: false,
 				success: function(data){
-					// 리워드 생성 성공 시 리워드 인덱스 리턴
-					if(data == "success"){
+					alert("리워드 수정 결과 : " +data);
+					switch(data){
+					case "success":
 						element.hide();
 						alert(r_index_element + " 리워드가 저장되었습니다.");
-					}
-					else{
+						break;
+					case "fail":
 						alert("리워드 저장 실패!");
+						break;
 					}
 				},
 				error: function(){
 					alert('리워드 저장 에러');
 				}
 			});
-	 		$('[class=menu]').slideUp();
-	    });
+			$(this).parent().parent('[class=menu]').slideUp();
+		});
 	 
 		//이미지 미리보기
 	    $(document).on('change',"#r_img", function(){
 	        readURL1(this);
 	    });
 		
-		function readURL1(input) {
-		    if (input.files && input.files[0]) {
-		    var reader = new FileReader();
-		
-		    reader.onload = function (e) {
-		            $('#blah2').attr('src', e.target.result);
-		        }
-		      reader.readAsDataURL(input.files[0]);
-		    }
-		}
 	});
+
+	function readURL1(input) {
+	    if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	
+	    reader.onload = function (e) {
+	            $('#blah2').attr('src', e.target.result);
+	        }
+	      reader.readAsDataURL(input.files[0]);
+	    }
+	}
 </script>
 </head>
 
