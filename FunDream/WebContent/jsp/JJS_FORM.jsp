@@ -72,8 +72,11 @@
 </head>
 <body>
 <div class="mcontainer">
-
 		<div class="ct-container">
+			<div>
+				<c:if test="${param.keyword != null}"><h1>"${param.keyword}" (으)로 검색된 결과 </h1>
+				<button onclick="location.href = 'JJS_FORM.do'">전체보기</button></c:if>
+			</div>
 		  <ul>
 	        <li><a class="ct-menu" href='JJS_FORM.do<c:if test="${param.keyword != null}">?keyword=${param.keyword}</c:if>'>전체</a>
 		  <c:forEach var="ct" items="${cList }" varStatus="status">
