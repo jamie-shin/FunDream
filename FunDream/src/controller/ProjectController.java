@@ -387,12 +387,20 @@ public class ProjectController {
 				reward.setR_start(Timestamp.valueOf(r_start + " 00:00:00"));
 				
 				reward.setR_option(multi.getParameter("r_option"));
+
+				try {
+					int r_del = Integer.parseInt(multi.getParameter("r_del"));
+					reward.setR_del(r_del);
+				}catch (Exception e) {
+					reward.setR_del(0);
+				}
 				
-				int r_del = Integer.parseInt(multi.getParameter("r_del"));
-				reward.setR_del(r_del);
-				
-				int r_amt = Integer.parseInt(multi.getParameter("r_amt"));
-				reward.setR_amt(r_amt);
+				try {
+					int r_amt = Integer.parseInt(multi.getParameter("r_amt"));
+					reward.setR_amt(r_amt);
+				}catch (Exception e) {
+					reward.setR_amt(0);
+				}
 				
 				Enumeration<?> files = multi.getFileNames();
 				String file1 = (String) files.nextElement();
