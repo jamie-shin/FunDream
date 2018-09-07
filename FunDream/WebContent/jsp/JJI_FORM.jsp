@@ -18,10 +18,8 @@
 
 <script type="text/javascript">
 	$(function(){
+		var docu = $(document);
 		$('#addReward').on('click', function(){
-			alert('click');
-			// var value = parseInt($('#num').val());
-			// value += 1;
 			$('#reward').append(
 				`
 				<div id="setReward"> 
@@ -185,9 +183,10 @@
 					if(data != "0"){
 						element.val(data);
 						element.append(`<button id="r_update" class='ap-reward-savebtn'>수정</button>`);
-						element.hide();
 						r_index_element.val(data);
 						alert(data + " 리워드가 저장되었습니다.");
+						docu.find('#item04').attr('checked', 'checked');
+						element.hide();
 					}
 					else{
 						alert("리워드 저장 실패!");
@@ -272,8 +271,9 @@
 					alert("리워드 수정 결과 : " +data);
 					switch(data){
 					case "success":
-						element.hide();
 						alert(r_index_element + " 리워드가 저장되었습니다.");
+						docu.find('#item04').attr('checked', 'checked');
+						element.hide();
 						break;
 					case "fail":
 						alert("리워드 저장 실패!");
