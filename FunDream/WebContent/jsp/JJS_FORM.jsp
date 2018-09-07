@@ -71,8 +71,14 @@
 		
 		$('#sort').on('change', function(){
 			var sort = $(this).val();
-			alert(sort);
-			location.href = "JJS_FORM.do?sort=" + sort;
+			var keyword = "<%=request.getParameter("keyword")%>";
+			if (keyword == null || keyword =="" || keyword=="null") {
+				
+				location.href = "JJS_FORM.do?sort=" + sort;
+			}
+			else if(keyword !=null || keyword !="" ){
+				location.href="JJS_FORM.do?sort="+sort+"&keyword="+keyword;
+			}
 		 	
 		});
 	});
@@ -93,7 +99,7 @@
 		  </ul>
 		</div>
 		<div class="">
-			<div class="ct-select" <c:if test="${param.keyword != null}">style="display:none;"</c:if>>
+			<div class="ct-select">
 			  <select class="ct-select-box" name="sort" id="sort" >
 			    <option value="1" <c:if test="${param.sort==1 }">selected</c:if>>최신순</option>
 			    <option value="2" <c:if test="${param.sort==2 }">selected</c:if>>마감임박순</option>
