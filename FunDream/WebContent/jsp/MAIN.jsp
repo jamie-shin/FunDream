@@ -53,7 +53,7 @@
 			<h2 class="left-h2">마감 임박 프로젝트</h2>
 		</span> <span class="right-allview">
 			<h5 href="" class="right-h5">
-				<a href="JJS_FORM.do">전체보기</a>
+				<a href="JJS_FORM.do?sort=2">전체보기</a>
 			</h5>
 		</span>
 		<!-- 카드 하나당 게시물 한개 -->
@@ -112,7 +112,7 @@
 			<h2 class="left-h2">신규 프로젝트</h2>
 		</span> <span class="right-allview">
 			<h5 href="" class="right-h5">
-				<a href="">전체보기</a>
+				<a href="JJS_FORM.do?sort=1">전체보기</a>
 			</h5>
 		</span>
 		<div class="cards">
@@ -161,10 +161,10 @@
 
 	<div class="mcontainer">
 		<span class="left-subtitle">
-			<h2 class="left-h2">목표 달성 완료 프로젝트</h2>
+			<h2 class="left-h2">목표 달성률 높은 프로젝트</h2>
 		</span> <span class="right-allview">
 			<h5 href="" class="right-h5">
-				<a href="">전체보기</a>
+				<a href="JJS_FORM.do?sort=3">전체보기</a>
 			</h5>
 		</span>
 		<div class="cards">

@@ -72,7 +72,7 @@ $(function(){
 		<div class="Hlogo"><a href="MAIN.do">FunDream</a></div>
 		<nav>
 			<ul>
-				<li><a href="JJS_FORM.do">프로젝트</a></li>
+				<li><a href="JJS_FORM.do?sort=1">프로젝트</a></li>
 				<li class="sub-menu"><a href="#">프레젠테이션</a>
 					<ul>
 						<li><a href="#">프레젠테이션 일정</a></li>
@@ -106,6 +106,7 @@ $(function(){
 				
 				<li><div class="search-container">
 					<form action="JJS_FORM.do">
+					<input type="hidden" name="sort" value="1">
 						<input type="text" name="keyword" id="keyword" placeholder="Search" <c:if test="${param.keyword != null}">value="${param.keyword}"</c:if>>
 						<button type="submit" id="submitBtn"><i class="fa fa-search"></i></button>
 					</form></div></li>

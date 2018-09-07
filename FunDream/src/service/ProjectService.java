@@ -120,8 +120,12 @@ public class ProjectService {
 		}
 		
 		//p_approval=2인 모든 프로젝트 받아오기
-		public List<Project> selectProject_accept(){
-			return projectDao.selectProject_accept();
+		public List<Project> selectProject_accept(String sort){
+			HashMap<String, Object> params = new HashMap<>();
+			params.put("sort", sort);
+			List<Project> list = projectDao.selectProject_accept(params);
+			System.out.println("service 리스트 사이즈 : " + list.size());
+			return list;
 		}
 		
 		public List<Project> selectProject_more(int num){
@@ -129,14 +133,15 @@ public class ProjectService {
 			return projectDao.selectProject_more(number);
 		}
 		
-		//검색 
-		public List<Project> selectProjectByKeywordOrCt(String keyword, int ct_index) {
+		//검색 & 카테고리
+		public List<Project> selectProjectByKeywordOrCt(String keyword, int ct_index, String sort) {
 			// TODO Auto-generated method stub
 			System.out.println("service <키워드:"+keyword+">");
 			System.out.println("service <카테고리: "+ct_index+">");
 			HashMap<String, Object> params = new HashMap<>();
 			params.put("keyword", keyword);
 			params.put("ct_index", ct_index);
+			params.put("sort", sort);
 			
 			System.out.println(params);
 			List<Project> list = projectDao.selectProjectByKeywordOrCt(params);

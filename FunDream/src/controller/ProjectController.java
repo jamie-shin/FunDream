@@ -611,36 +611,35 @@ public class ProjectController {
 		
 		// 프로젝트 리스트 첫 화면 요청(최신순)
 		@RequestMapping("JJS_FORM.do")
-		public ModelAndView projectList(@RequestParam(required=false)String keyword, HttpSession session, @RequestParam(required=false) String ct_index) {
+		public ModelAndView projectList(@RequestParam(required=false)String keyword, HttpSession session, @RequestParam(required=false) String ct_index, @RequestParam String sort) {
 			ModelAndView mav = new ModelAndView();
 			List<Project> projectlist= null;
 			List<Category> categoryList=categoryService.getCategoryListByType(1);
 			
 			int ct_int=0;
+			
 			if(ct_index != null) {
 				ct_int = Integer.parseInt(ct_index);
 			}
 			
 			if(keyword ==null) {
-				projectlist = projectService.selectProject_accept();
+				projectlist = projectService.selectProject_accept(sort);
 				System.out.println("controller <키워드: 없음>");
 				if(ct_int != 0) {
 					System.out.println("controller <카테고리: "+ ct_int +">");
-					projectlist = projectService.selectProjectByKeywordOrCt(null, ct_int);
+					projectlist = projectService.selectProjectByKeywordOrCt(null, ct_int, sort);
 				}
-				
 			}
 			
 			else if(keyword !=null && ct_int ==0) {
 				System.out.println("controller <키워드: "+ keyword +">");
 				System.out.println("controller <카테고리: >"+ct_int);
-				projectlist =  projectService.selectProjectByKeywordOrCt(keyword, ct_int);
-				
+				projectlist =  projectService.selectProjectByKeywordOrCt(keyword, ct_int, sort);
 				
 			}
 			else if(keyword != null && ct_int != 0) {
 				System.out.println("controller <카테고리: "+ ct_int +">");
-				projectlist = projectService.selectProjectByKeywordOrCt(keyword, ct_int);
+				projectlist = projectService.selectProjectByKeywordOrCt(keyword, ct_int, sort);
 			}
 			
 			for(int i=0;i<projectlist.size();i++) {
@@ -650,9 +649,11 @@ public class ProjectController {
 				double per = Double.parseDouble(String.format("%.2f",per2));
 				projectlist.get(i).setPer(per);
 			}
+			
 			for(Project p: projectlist) {
 				System.out.println("project: "+p);
 			}
+			
 			mav.addObject("list", projectlist);
 			mav.addObject("cList", categoryList);
 			mav.setViewName("JJS_FORM");

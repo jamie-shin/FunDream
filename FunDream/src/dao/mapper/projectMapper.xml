@@ -11,19 +11,19 @@
 	
 	<select id="selectEndProject" resultType="project">
 	<![CDATA[
-		select * from project where p_startdate <= now() and p_enddate >= now() and p_approval=2 order by p_enddate limit 3
+		select * from project where (p_startdate <= now() or p_enddate <= now()) and p_approval=2 order by p_enddate limit 3
 		]]>
 	</select>
 
 	<select id="selectNewProject" resultType="project">
 		<![CDATA[
-		select * from project where p_startdate <= now() and p_approval=2 order by p_startdate desc limit 3
+		select * from project where (p_startdate <= now() or p_enddate <= now()) and p_approval=2 order by p_startdate desc limit 3
 		]]>
 	</select>
 	
 	<select id="selectSuccessProject" resultType="project">
 	<![CDATA[
-		select * from project where p_target <= p_status and p_approval=2 order by p_startdate desc limit 3
+		select * from project where (p_startdate <= now() or p_enddate <= now()) and p_approval=2 and p_target/p_status not in ('0') order by (p_target/p_status) limit 3
 		]]>
 	</select>
 	
@@ -56,10 +56,13 @@
 		update Project set p_policy=#{p_policy} where p_index=#{p_index}
 	</update>
 	
-	<select id="selectProject_accept" resultType="project">
-		<![CDATA[
-			select * from project where (p_startdate <= now() or p_enddate <= now()) and p_approval=2 order by p_startdate desc limit 0,9
-		]]>
+	<select id="selectProject_accept" resultType="project" parameterType="java.util.HashMap">
+		
+			select * from project where 
+			<if test="sort==1"><![CDATA[(p_startdate <= now() or p_enddate <= now())]]> and p_approval=2 order by p_startdate desc </if>
+			<if test="sort==2"><![CDATA[(p_startdate <= now() or p_enddate <= now())]]> and p_approval=2 order by p_enddate</if>
+			<if test="sort==3"><![CDATA[(p_startdate <= now() or p_enddate <= now()) and p_approval=2 and p_target/p_status not in ('0') order by (p_target/p_status)]]></if> limit 0,9
+		
 	</select>
 	
 	<select id="selectProject_more" resultType="project" parameterType="int">
@@ -71,8 +74,21 @@
 	<select id="selectProjectByKeywordOrCt" resultType="project" parameterType="java.util.HashMap">
 		<![CDATA[
 			select * from project where (p_startdate <= now() or p_enddate <= now()) and p_approval=2]]>
+				<if test="sort == 1">
 				<if test="ct_index != 0 "> AND ct_index= #{ct_index} </if> 
 				<if test="keyword != null or keyword !='' "> AND p_name like '%${keyword}%' </if>
-				order by p_startdate desc limit 0,9
+				order by p_startdate desc limit 0,9</if>
+				
+				<if test="sort == 2">
+				<if test="ct_index != 0 "> AND ct_index= #{ct_index} </if> 
+				<if test="keyword != null or keyword !='' "> AND p_name like '%${keyword}%' </if>
+				order by p_enddate limit 0,9</if>
+				
+				<if test="sort==3">
+				<if test="ct_index != 0 "> AND ct_index= #{ct_index} </if> 
+				<if test="keyword != null or keyword !='' "> AND p_name like '%${keyword}%' </if>
+				and p_target/p_status not in ('0') order by (p_target/p_status) limit 0,9
+				</if>
+				
 	</select>
 </mapper>

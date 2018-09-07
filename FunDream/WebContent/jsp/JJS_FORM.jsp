@@ -67,6 +67,14 @@
 			}); 
 			
 		});
+		
+		
+		$('#sort').on('change', function(){
+			var sort = $(this).val();
+			alert(sort);
+			location.href = "JJS_FORM.do?sort=" + sort;
+		 	
+		});
 	});
 </script>
 </head>
@@ -75,23 +83,23 @@
 		<div class="ct-container">
 			<div>
 				<c:if test="${param.keyword != null}"><h1>"${param.keyword}" (으)로 검색된 결과 </h1>
-				<button onclick="location.href = 'JJS_FORM.do'">전체보기</button></c:if>
+				<a href = 'JJS_FORM.do?sort=1'>검색 전으로 돌아가기</a></c:if>
 			</div>
 		  <ul>
-	        <li><a class="ct-menu" href='JJS_FORM.do<c:if test="${param.keyword != null}">?keyword=${param.keyword}</c:if>'>전체</a>
+	        <li><a class="ct-menu" href='JJS_FORM.do?sort=${param.sort }<c:if test="${param.keyword != null}">?keyword=${param.keyword}</c:if>'>전체</a>
 		  <c:forEach var="ct" items="${cList }" varStatus="status">
-	        <li><a style="cursor:pointer" class="ct-menu" id="ctName" href="JJS_FORM.do?ct_index=${ct.ct_index}<c:if test="${param.keyword != null}">&keyword=${param.keyword}</c:if>">${ct.ct_name}</a><input type="hidden" value="${ct.ct_index }" name="ct_index" id="ct_index"></li>
+	        <li><a style="cursor:pointer" class="ct-menu" id="ctName" href="JJS_FORM.do?sort=${param.sort }&ct_index=${ct.ct_index}<c:if test="${param.keyword != null}">&keyword=${param.keyword}</c:if>">${ct.ct_name}</a><input type="hidden" value="${ct.ct_index }" name="ct_index" id="ct_index"></li>
 	      </c:forEach>
 		  </ul>
 		</div>
 		<div class="">
-			<div class="ct-select">
-			  <select class="ct-select-box">
-			    <option>최신순</option>
-			    <option>마감임박순</option>
-			    <option>목표달성율순</option>
-			    <option>추천순</option>
-			    <option>인기순</option>
+			<div class="ct-select" <c:if test="${param.keyword != null}">style="display:none;"</c:if>>
+			  <select class="ct-select-box" name="sort" id="sort" >
+			    <option value="1" <c:if test="${param.sort==1 }">selected</c:if>>최신순</option>
+			    <option value="2" <c:if test="${param.sort==2 }">selected</c:if>>마감임박순</option>
+			    <option value="3" <c:if test="${param.sort==3 }">selected</c:if>>목표달성율순</option>
+			    <!-- <option>추천순</option>
+			    <option>인기순</option> -->
 			  </select>
 	
 			</div>
