@@ -451,107 +451,107 @@ public class ProjectController {
 		@RequestMapping(value="JRU_MODIFIED.do", method=RequestMethod.POST)
 		public @ResponseBody String JRU_MODIFIED(HttpServletRequest req) {
 			System.out.println("리워드 수정 요청 실행중....");
+		
 			// 파일 업로드 부분
+			try {
+				req.setCharacterEncoding("UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String realFolder = "";
+			String filename1 = "";
+			int maxSize = 1024 * 1024 * 5;
+			String savefile = "img";
+			ServletContext scontext = req.getServletContext();
+			realFolder = scontext.getRealPath(savefile);
+			System.out.println("realFolder : " + realFolder);
 
-				try {
-					req.setCharacterEncoding("UTF-8");
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			MultipartRequest multi = null;
+			try {
+				multi = new MultipartRequest(req, realFolder, maxSize, "UTF-8", new DefaultFileRenamePolicy());
+				
+				int r_index = Integer.parseInt(multi.getParameter("r_index"));
+				// DB에 저장된 리워드 가져오기
+				Reward reward = rewardService.getOneRewardByIndex(r_index);
+				
+				if(!multi.getParameter("r_name").isEmpty()) {
+					String r_name = multi.getParameter("r_name");
+					reward.setR_name(r_name);
 				}
-				String realFolder = "";
-				String filename1 = "";
-				int maxSize = 1024 * 1024 * 5;
-				String savefile = "img";
-				ServletContext scontext = req.getServletContext();
-				realFolder = scontext.getRealPath(savefile);
-				System.out.println("realFolder : " + realFolder);
-
-				MultipartRequest multi = null;
+				
+				if(!multi.getParameter("r_price").isEmpty()) {
+					int r_price = Integer.parseInt(multi.getParameter("r_price"));
+					reward.setR_price(r_price);
+				}
+				
+				Enumeration<?> files = multi.getFileNames();
+				String file1 = (String) files.nextElement();
+				filename1 = multi.getFilesystemName(file1);
+				String fullpath = realFolder + "\\" + filename1;
+				String applicationPath = req.getServletContext().getRealPath("img");
+				String path = "img/" + filename1;
+				
+				if(filename1 != null) {
+					System.out.println("이미지 파일 : " + filename1);
+					String s = filename1.replace(".", ",");
+					String[] f = s.split(",");
+					if (f[f.length - 1].equalsIgnoreCase("jpg") || f[f.length - 1].equalsIgnoreCase("png") || f[f.length - 1].equalsIgnoreCase("jpeg")) {
+						reward.setR_img(path);
+					}
+				}
+				
+				if(!multi.getParameter("r_contents").isEmpty()) {
+					String r_contents = multi.getParameter("r_contents");
+					reward.setR_contents(r_contents);
+				}
+				
+				if(!multi.getParameter("ct_index").isEmpty()) {
+					int ct_index = Integer.parseInt(multi.getParameter("ct_index"));
+					reward.setCt_index(ct_index);
+				}
+				
+				if(!multi.getParameter("delyear").isEmpty() && !multi.getParameter("delmonth").isEmpty() && !multi.getParameter("delday").isEmpty()) {
+					String r_start = multi.getParameter("delyear")+"-"+multi.getParameter("delmonth")+"-"+multi.getParameter("delday");
+					reward.setR_start(Timestamp.valueOf(r_start + " 00:00:00"));
+					System.out.println("r_start : "+ r_start);
+				}
+				
+				if(!multi.getParameter("r_option").isEmpty()) {
+					String r_option = multi.getParameter("r_option");
+					reward.setR_option(r_option);
+				}
+				
 				try {
-					multi = new MultipartRequest(req, realFolder, maxSize, "UTF-8", new DefaultFileRenamePolicy());
-					
-					int r_index = Integer.parseInt(multi.getParameter("r_index"));
-					// DB에 저장된 리워드 가져오기
-					Reward reward = rewardService.getOneRewardByIndex(r_index);
-					
-					if(!multi.getParameter("r_name").isEmpty()) {
-						String r_name = multi.getParameter("r_name");
-						reward.setR_name(r_name);
-					}
-					
-					if(!multi.getParameter("r_price").isEmpty()) {
-						int r_price = Integer.parseInt(multi.getParameter("r_price"));
-						reward.setR_price(r_price);
-					}
-					
-					Enumeration<?> files = multi.getFileNames();
-					String file1 = (String) files.nextElement();
-					filename1 = multi.getFilesystemName(file1);
-					String fullpath = realFolder + "\\" + filename1;
-					String applicationPath = req.getServletContext().getRealPath("img");
-					String path = "img/" + filename1;
-					
-					if(filename1 != null) {
-						System.out.println("이미지 파일 : " + filename1);
-						String s = filename1.replace(".", ",");
-						String[] f = s.split(",");
-						if (f[f.length - 1].equalsIgnoreCase("jpg") || f[f.length - 1].equalsIgnoreCase("png") || f[f.length - 1].equalsIgnoreCase("jpeg")) {
-							reward.setR_img(path);
-						}
-					}
-					
-					if(!multi.getParameter("r_contents").isEmpty()) {
-						String r_contents = multi.getParameter("r_contents");
-						reward.setR_contents(r_contents);
-					}
-					
-					if(!multi.getParameter("ct_index").isEmpty()) {
-						int ct_index = Integer.parseInt(multi.getParameter("ct_index"));
-						reward.setCt_index(ct_index);
-					}
-					
-					if(!multi.getParameter("delyear").isEmpty() && !multi.getParameter("delmonth").isEmpty() && !multi.getParameter("delday").isEmpty()) {
-						String r_start = multi.getParameter("delyear")+"-"+multi.getParameter("delmonth")+"-"+multi.getParameter("delday");
-						reward.setR_start(Timestamp.valueOf(r_start + " 00:00:00"));
-						System.out.println("r_start : "+ r_start);
-					}
-					
-					if(!multi.getParameter("r_option").isEmpty()) {
-						String r_option = multi.getParameter("r_option");
-						reward.setR_option(r_option);
-					}
-					
-					try {
-						int r_del = Integer.parseInt(multi.getParameter("r_del"));
-						reward.setR_del(r_del);
-					}catch (Exception e) {
-						reward.setR_del(reward.getR_del());
-					}
+					int r_del = Integer.parseInt(multi.getParameter("r_del"));
+					reward.setR_del(r_del);
+				}catch (Exception e) {
+					reward.setR_del(reward.getR_del());
+				}
 
-					try {
-						int r_amt = Integer.parseInt(multi.getParameter("r_amt"));
-						reward.setR_amt(r_amt);
-					}catch (Exception e) {
-						reward.setR_amt(reward.getR_amt());
-					}
-					
-					System.out.println("업데이트 전 : " + reward);
-					int result = rewardService.updateOneReward(reward);
-					
-					if(result == 1) {
-						System.out.println("리워드 수정 성공 " + reward);
-						return "success";
-					}
-					else {
-						System.out.println("리워드 수정 실패 " + reward);
-						return "fail";
-					}
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					System.out.println("리워드 수정 오류....");
+				try {
+					int r_amt = Integer.parseInt(multi.getParameter("r_amt"));
+					reward.setR_amt(r_amt);
+				}catch (Exception e) {
+					reward.setR_amt(reward.getR_amt());
+				}
+				
+				System.out.println("업데이트 전 : " + reward);
+				int result = rewardService.updateOneReward(reward);
+				
+				if(result == 1) {
+					System.out.println("리워드 수정 성공 " + reward);
+					return "success";
+				}
+				else {
+					System.out.println("리워드 수정 실패 " + reward);
 					return "fail";
 				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("리워드 수정 오류....");
+				return "fail";
+			}
 		
 		}
 		
@@ -608,16 +608,19 @@ public class ProjectController {
 			mav.setViewName("JPS_DETAIL");
 			return mav;
 		}
+		
 		// 프로젝트 리스트 첫 화면 요청(최신순)
 		@RequestMapping("JJS_FORM.do")
 		public ModelAndView projectList(@RequestParam(required=false)String keyword, HttpSession session, @RequestParam(required=false) String ct_index) {
 			ModelAndView mav = new ModelAndView();
 			List<Project> projectlist= null;
 			List<Category> categoryList=categoryService.getCategoryListByType(1);
+			
 			int ct_int=0;
 			if(ct_index != null) {
 				ct_int = Integer.parseInt(ct_index);
 			}
+			
 			if(keyword ==null) {
 				projectlist = projectService.selectProject_accept();
 				System.out.println("controller <키워드: 없음>");
@@ -629,7 +632,6 @@ public class ProjectController {
 			}
 			
 			else if(keyword !=null && ct_int ==0) {
-//				session.setAttribute("keyword", keyword);
 				System.out.println("controller <키워드: "+ keyword +">");
 				System.out.println("controller <카테고리: >"+ct_int);
 				projectlist =  projectService.selectProjectByKeywordOrCt(keyword, ct_int);
@@ -637,7 +639,6 @@ public class ProjectController {
 				
 			}
 			else if(keyword != null && ct_int != 0) {
-//				session.setAttribute("keyword", keyword);
 				System.out.println("controller <카테고리: "+ ct_int +">");
 				projectlist = projectService.selectProjectByKeywordOrCt(keyword, ct_int);
 			}
@@ -661,8 +662,6 @@ public class ProjectController {
 		// 프로젝트 리스트에서 더보기 클릭 시
 		@RequestMapping(value="more.do",  method=RequestMethod.POST)		
 		public @ResponseBody Map more(int num){
-//			String number = (String)map.get("num");
-//			int num = Integer.parseInt(number);
 			System.out.println("num : "+ num);
 			List<Project> p_list = projectService.selectProject_more(num);
 			for(int i=0;i<p_list.size();i++) {
@@ -679,9 +678,6 @@ public class ProjectController {
 			}
 			return plist;
 		}
-		
-		
-		
 		
 		// 내 프로젝트 관리 화면에 필요한 해당 아이디로 만든 프로젝트 조회
 		@RequestMapping("MJS.do")

@@ -146,12 +146,7 @@ public class MemberController {
 	}
 
 	@RequestMapping("MSI_JOIN.do") // 회원가입완료 버튼
-	public String MSI_JOIN(/*
-							 * String m_email, @RequestParam String m_pwd, @RequestParam String
-							 * m_name, @RequestParam String m_phone, @RequestParam String
-							 * m_birth, @RequestParam String m_gender, @RequestParam String
-							 * m_nick, @RequestParam String m_img,
-							 */HttpServletRequest request) throws Exception {
+	public String MSI_JOIN(HttpServletRequest request) throws Exception {
 		String url = null;
 		// 파일 업로드 부분
 		request.setCharacterEncoding("UTF-8");
@@ -209,10 +204,6 @@ public class MemberController {
 		}
 		return url;
 
-	}
-
-	@RequestMapping("alert1.do")
-	public void alert1() {
 	}
 
 	@RequestMapping("MSE_SETPWFORM.do") // 비밀번호 찾기화면 요청
@@ -285,11 +276,6 @@ public class MemberController {
 		return redirect;
 	}
 
-
-	@RequestMapping("alert.do")
-	public void alert() {
-	}
-
 	@RequestMapping("MIE_LOGINFORM.do") // 메뉴바에서 로그인버튼 눌렀을떄
 	public String MIE_LOGINFORM(HttpServletRequest req, HttpServletResponse repo) {
 		String url = "";
@@ -298,14 +284,6 @@ public class MemberController {
 		if (loginEmail == null) {
 			url = "MIE_LOGINFORM";
 		} else {
-			// try {
-			// PrintWriter pw;
-			// pw = repo.getWriter();
-			// pw.println("");
-			// } catch (IOException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
 			url = "MAIN";
 		}
 		return url;
@@ -331,7 +309,8 @@ public class MemberController {
 	                checkEmail="6"; //"msg", "이용 정지된 아이디입니다.");
 	            }
 
-	        } else {
+	        } 
+	        else {
 	            session.setAttribute("m_email", m_email);
 	            Member m = memberService.selectOneMemberByEmail(m_email);
 	            String m_img = m.getM_img();
@@ -380,7 +359,8 @@ public class MemberController {
 			mav.addObject("phone", array);
 			mav.addObject("member", member);
 			mav.setViewName("MUS_CHECKPW");
-		} else {
+		} 
+		else {
 			mav.addObject("msg", "비밀번호가 일치하지 않습니다.");
 			mav.addObject("url", "MUE_CHECKPW.do");
 			mav.setViewName("alert");
@@ -454,13 +434,14 @@ public class MemberController {
 		System.out.println("성공1");
 		return "redirect:MAIN.do";
 	}
+	
 	//해당 아이디에 만든프로젝트가 존재하는지
-	  @RequestMapping("checkProject.do")
-	    public @ResponseBody String checkProject(int m_id) {
-	    	List<Project> projectList = projectService.getProjectById(m_id);
-	    	if(projectList.size() > 0) {
-	    		return "1";
-	    	}
-	    	return "null";
-	    }
+	@RequestMapping("checkProject.do")
+	public @ResponseBody String checkProject(int m_id) {
+		List<Project> projectList = projectService.getProjectById(m_id);
+		if(projectList.size() > 0) {
+			return "1";
+		}
+		return "null";
+	}
 }
