@@ -214,6 +214,17 @@ ul, ol {
 	text-decoration: none;
 	color: #000;
 }
+
+
+.cards .card .card-toggle {
+    padding: 0 0 0 3%;
+    text-transform: uppercase;
+    position: absolute;
+    top: 0;
+    width: 15%;
+}
+
+
 .card-part {
 	margin-left: 66%;
 }

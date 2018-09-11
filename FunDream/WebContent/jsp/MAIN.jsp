@@ -75,6 +75,8 @@
 				<!-- 한줄 내용 입력창 -->
 				<small class="card-part">00명 참여</small>
 				<!-- 참여자 수  -->
+				<input type="hidden" value="${list.gap }">
+				<h3 class="card-toggle" style="background:red; color:white" <c:if test="${list.gap >259200000 }">hidden='hidden'</c:if>>마감임박</h3>
 				<!-- 프로그레스 바 -->
 				<div class="candidatos color">
 					<div class="parcial">
@@ -130,6 +132,8 @@
 					<h3>${list.p_name}</h3>
 				</span>
 				<small class="card-part">00명 참여</small>
+				<input type="hidden" value="${list.gap }">
+				<h3 class="card-toggle" style="background:red; color:white" <c:if test="${list.gap >259200000 }">hidden='hidden'</c:if>>마감임박</h3>
 				<!-- 프로그레스 바 -->
 				<div class="candidatos color">
 					<div class="parcial">
@@ -182,6 +186,8 @@
 					<h3>${list.p_name}</h3>
 				</span>
 				<small class="card-part">00명 참여</small>
+				<input type="hidden" value="${list.gap }">
+				<h3 class="card-toggle" style="background:red; color:white" <c:if test="${list.gap >259200000 }">hidden='hidden'</c:if>>마감임박</h3>
 				<!-- 프로그레스 바 -->
 				<div class="candidatos color">
 					<div class="parcial">

@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +61,8 @@ public class ProjectController {
 	public ModelAndView MAIN(HttpSession session) {
 		session.removeAttribute("keyword");
 		ModelAndView mav = new ModelAndView();
+		Date today = new Date();
+		long gap=0;
 		//최신 프로젝트 3개
 		List<Project> newlist = projectService.getNewProject();
 		for(int i=0;i<3;i++) {
@@ -67,7 +70,9 @@ public class ProjectController {
 			int target = newlist.get(i).getP_target();
 			double per2 = (double)status/(double)target*100;
 			double per = Double.parseDouble(String.format("%.2f",per2));
+			gap = newlist.get(i).getP_enddate().getTime()-today.getTime();
 			newlist.get(i).setPer(per);
+			newlist.get(i).setGap(gap);
 		}
 		mav.addObject("newlist", newlist);
 		//마감임박 프로젝트 3개
@@ -77,7 +82,9 @@ public class ProjectController {
 			int target = endlist.get(i).getP_target();
 			double per2 = (double)status/(double)target*100;
 			double per = Double.parseDouble(String.format("%.2f",per2));
+			gap = endlist.get(i).getP_enddate().getTime()-today.getTime();
 			endlist.get(i).setPer(per);
+			endlist.get(i).setGap(gap);
 		}
 		mav.addObject("endlist", endlist);
 		//목표 달성 완료 프로젝트 3개
@@ -87,7 +94,9 @@ public class ProjectController {
 			int target = successlist.get(i).getP_target();
 			double per2 = (double)status/(double)target*100;
 			double per = Double.parseDouble(String.format("%.2f",per2));
+			gap = successlist.get(i).getP_enddate().getTime()-today.getTime();
 			successlist.get(i).setPer(per);
+			successlist.get(i).setGap(gap);
 		}
 		mav.addObject("successlist", successlist);
 		
@@ -611,47 +620,61 @@ public class ProjectController {
 		
 		// 프로젝트 리스트 첫 화면 요청(최신순)
 		@RequestMapping("JJS_FORM.do")
-		public ModelAndView projectList(@RequestParam(required=false)String keyword, HttpSession session, @RequestParam(required=false) String ct_index, @RequestParam String sort) {
+		public ModelAndView projectList(@RequestParam(required=false)String keyword, HttpSession session, @RequestParam(required=false) String ct_index,
+				@RequestParam String sort, @RequestParam(defaultValue="0") int num, @RequestParam(required=false) String option) {
+			
 			ModelAndView mav = new ModelAndView();
 			List<Project> projectlist= null;
 			List<Category> categoryList=categoryService.getCategoryListByType(1);
+			long gap=0;
+			Date today = new Date();
 			
 			int ct_int=0;
 			
 			if(ct_index != null) {
 				ct_int = Integer.parseInt(ct_index);
 			}
-			
-			if(keyword ==null) {
-				projectlist = projectService.selectProject_accept(sort);
-				System.out.println("controller <키워드: 없음>");
-				if(ct_int != 0) {
-					System.out.println("controller <카테고리: "+ ct_int +">");
-					projectlist = projectService.selectProjectByKeywordOrCt(null, ct_int, sort);
+				if(keyword ==null) {
+					projectlist = projectService.selectProject_more(0, keyword, ct_int, sort, option);
+					System.out.println("controller <키워드: 없음>");
+					if(ct_int != 0) {
+						System.out.println("controller <카테고리: "+ ct_int +">");
+						projectlist = projectService.selectProject_more(0, keyword, ct_int, sort, option);
+					}
 				}
-			}
 			
-			else if(keyword !=null && ct_int ==0) {
-				System.out.println("controller <키워드: "+ keyword +">");
-				System.out.println("controller <카테고리: >"+ct_int);
-				projectlist =  projectService.selectProjectByKeywordOrCt(keyword, ct_int, sort);
+				else if(keyword !=null && ct_int ==0) {
+					System.out.println("controller <키워드: "+ keyword +">");
+					System.out.println("controller <카테고리: >"+ct_int);
+					projectlist =  projectService.selectProject_more(0, keyword, ct_int, sort, option);
 				
-			}
-			else if(keyword != null && ct_int != 0) {
-				System.out.println("controller <카테고리: "+ ct_int +">");
-				projectlist = projectService.selectProjectByKeywordOrCt(keyword, ct_int, sort);
-			}
+				}
+				else if(keyword != null && ct_int != 0) {
+					System.out.println("controller <카테고리: "+ ct_int +">");
+					projectlist = projectService.selectProject_more(0, keyword, ct_int, sort, option);
+				}
 			
-			for(int i=0;i<projectlist.size();i++) {
-				int status = projectlist.get(i).getP_status();
-				int target = projectlist.get(i).getP_target();
-				double per2 = (double)status/(double)target*100;
-				double per = Double.parseDouble(String.format("%.2f",per2));
-				projectlist.get(i).setPer(per);
-			}
 			
-			for(Project p: projectlist) {
-				System.out.println("project: "+p);
+			if(projectlist !=null) {
+				for(int i=0;i<projectlist.size();i++) {
+					int status = projectlist.get(i).getP_status();
+					int target = projectlist.get(i).getP_target();
+					double per2 = (double)status/(double)target*100;
+					double per = Double.parseDouble(String.format("%.2f",per2));
+					gap = projectlist.get(i).getP_enddate().getTime()-today.getTime();
+					projectlist.get(i).setPer(per);
+					projectlist.get(i).setGap(gap);
+				}
+				
+				
+				for(Project p: projectlist) {
+					System.out.println("project: "+p);
+					System.out.println("끝나는 날: "+p.getP_enddate());
+					gap = p.getP_enddate().getTime()-today.getTime();
+					
+					System.out.println("차이:"+gap);
+				}
+		
 			}
 			
 			mav.addObject("list", projectlist);
@@ -662,23 +685,52 @@ public class ProjectController {
 		
 		// 프로젝트 리스트에서 더보기 클릭 시
 		@RequestMapping(value="more.do",  method=RequestMethod.POST)		
-		public @ResponseBody Map more(int num){
-			System.out.println("num : "+ num);
-			List<Project> p_list = projectService.selectProject_more(num);
-			for(int i=0;i<p_list.size();i++) {
-				int status = p_list.get(i).getP_status();
-				int target = p_list.get(i).getP_target();
-				double per2 = (double)status/(double)target*100;
-				double per = Double.parseDouble(String.format("%.2f",per2));
-				p_list.get(i).setPer(per);
+		public @ResponseBody Map more(String num1,@RequestParam(required=false)String keyword,@RequestParam(required=false)String sort,
+				@RequestParam(required=false)String ct_index1, @RequestParam String option){
+			Date today = new Date();
+			long gap=0;
+			int num = Integer.parseInt(num1);
+			int ct_index=0;
+			if(ct_index1!="") {
+				ct_index=Integer.parseInt(ct_index1);
 			}
+			if(keyword.equals("null")) {
+				keyword="";
+			}
+			System.out.println("option : "+option);
+			System.out.println("num : "+ num);
+			System.out.println("keyword :" + keyword);
+			System.out.println("ct_index :" + ct_index);
+			System.out.println("sort: "+ sort);
+			System.out.println("-------------------------");
+			
+			List<Project> p_list = projectService.selectProject_more(num,keyword,ct_index,sort,option);
+
+				for(int i=0;i<p_list.size();i++) {
+					int status = p_list.get(i).getP_status();
+					int target = p_list.get(i).getP_target();
+					double per2 = (double)status/(double)target*100;
+					double per = Double.parseDouble(String.format("%.2f",per2));
+					gap = p_list.get(i).getP_enddate().getTime()-today.getTime();
+					p_list.get(i).setPer(per);
+					p_list.get(i).setGap(gap);
+				}
+				
+			for(Project p: p_list)
+			{
+				System.out.println(p.getP_enddate());
+			}
+			
+			
 			Map<String, Object> plist = new HashMap<String, Object>();
 			plist.put("p_list", p_list);
 			if(p_list.size()/9!=1) {
 				plist.put("code","empty");
 			}
+			
 			return plist;
 		}
+		
 		
 		// 내 프로젝트 관리 화면에 필요한 해당 아이디로 만든 프로젝트 조회
 		@RequestMapping("MJS.do")

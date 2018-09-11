@@ -22,8 +22,6 @@ public interface IProjectDao {
 	public List<Project> selectProjectsById(int m_id);
 	public int updatePolicy(Project project);
 	
-	public List<Project> selectProject_accept(HashMap<String, Object> params);
-	public List<Project> selectProjectByKeywordOrCt(HashMap<String, Object> params);
-	public List<Project> selectProject_more(int num);
+	public List<Project> selectProject_more(HashMap<String, Object> params);
 	
 }

@@ -77,7 +77,9 @@
 
 				<!-- 스토리 -->
 
-				<li class="pv-contents-list item01">${project.p_contents}
+				<li class="pv-contents-list item01">
+				<div>프로젝트 진행기간: ${project.p_startdate } ~ ${project.p_enddate }</div>
+				<div>${project.p_contents}</div>
 
 					<div class="pv-creator-box">
 						<div class="pv-creator-box-left">
