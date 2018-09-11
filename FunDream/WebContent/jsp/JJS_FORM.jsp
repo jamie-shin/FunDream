@@ -74,10 +74,7 @@
 								html += '<h3 class="card-toggle" style="background:white; color:red">성공</h3>'
 							}
 						}
-						if(option=="2"){
-							html += '<input type="hidden" value="${list.gap }">';
-							html += '<h3 class="card-toggle" style="background:red; color:white" <c:if test="${list.gap >259200000 }">hidden="hidden"</c:if>>마감임박</h3>';
-						}
+						
 						html += '<div class="candidatos color">';
 						html += '<div class="parcial">';
 						html += '<div class="info">';
