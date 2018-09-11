@@ -74,6 +74,12 @@
 								html += '<h3 class="card-toggle" style="background:white; color:red">성공</h3>'
 							}
 						}
+						if(sort=='2' && gap > 30000){
+							html += '<h3 class="card-toggle" style="background:red; color:white hidden="hidden">마감임박</h3>';
+						}
+						if(sort=='2' && gap <= 30000){
+							html += '<h3 class="card-toggle" style="background:red; color:white>마감임박</h3>';
+						}
 						
 						html += '<div class="candidatos color">';
 						html += '<div class="parcial">';
@@ -304,7 +310,7 @@
 				<!-- 참여자 수  -->
 				
 				<input type="hidden" value="${list.gap }">
-				<h3 class="card-toggle" style="background:red; color:white" <c:if test="${list.gap >259200000 }">hidden='hidden'</c:if>>마감임박</h3>
+				<h3 class="card-toggle" style="background:red; color:white" <c:if test="${list.gap >30000 }">hidden='hidden'</c:if>>마감임박</h3>
 				<!-- 프로그레스 바 -->
 				<div class="candidatos color">
 					<div class="parcial">

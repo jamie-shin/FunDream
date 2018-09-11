@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -57,12 +59,17 @@ public class ProjectController {
 	@Autowired
 	private Story_MemberService story_MemberService;
 	
+	int gap=0;
+	Date today = new Date();
+	Date end = new Date();
+	String t = null;
+	String e= null;
+	
 	@RequestMapping("MAIN.do") // 메인화면 요청
 	public ModelAndView MAIN(HttpSession session) {
 		session.removeAttribute("keyword");
 		ModelAndView mav = new ModelAndView();
-		Date today = new Date();
-		long gap=0;
+
 		//최신 프로젝트 3개
 		List<Project> newlist = projectService.getNewProject();
 		for(int i=0;i<3;i++) {
@@ -70,7 +77,15 @@ public class ProjectController {
 			int target = newlist.get(i).getP_target();
 			double per2 = (double)status/(double)target*100;
 			double per = Double.parseDouble(String.format("%.2f",per2));
-			gap = newlist.get(i).getP_enddate().getTime()-today.getTime();
+			t = new SimpleDateFormat("yyyyMMddHHmm").format(today);
+			end = newlist.get(i).getP_enddate();
+			e = new SimpleDateFormat("yyyyMMddHHmm").format(end);
+			
+			long e_int = Long.parseLong(e);
+			long t_int = Long.parseLong(t);
+			
+			gap = (int)(e_int - t_int);
+
 			newlist.get(i).setPer(per);
 			newlist.get(i).setGap(gap);
 		}
@@ -82,7 +97,15 @@ public class ProjectController {
 			int target = endlist.get(i).getP_target();
 			double per2 = (double)status/(double)target*100;
 			double per = Double.parseDouble(String.format("%.2f",per2));
-			gap = endlist.get(i).getP_enddate().getTime()-today.getTime();
+			t = new SimpleDateFormat("yyyyMMddHHmm").format(today);
+			end = endlist.get(i).getP_enddate();
+			e = new SimpleDateFormat("yyyyMMddHHmm").format(end);
+			
+			long e_int = Long.parseLong(e);
+			long t_int = Long.parseLong(t);
+			
+			gap = (int)(e_int - t_int);
+
 			endlist.get(i).setPer(per);
 			endlist.get(i).setGap(gap);
 		}
@@ -94,7 +117,15 @@ public class ProjectController {
 			int target = successlist.get(i).getP_target();
 			double per2 = (double)status/(double)target*100;
 			double per = Double.parseDouble(String.format("%.2f",per2));
-			gap = successlist.get(i).getP_enddate().getTime()-today.getTime();
+			t = new SimpleDateFormat("yyyyMMddHHmm").format(today);
+			end = successlist.get(i).getP_enddate();
+			e = new SimpleDateFormat("yyyyMMddHHmm").format(end);
+			
+			long e_int = Long.parseLong(e);
+			long t_int = Long.parseLong(t);
+			
+			gap = (int)(e_int - t_int);
+
 			successlist.get(i).setPer(per);
 			successlist.get(i).setGap(gap);
 		}
@@ -621,14 +652,13 @@ public class ProjectController {
 		// 프로젝트 리스트 첫 화면 요청(최신순)
 		@RequestMapping("JJS_FORM.do")
 		public ModelAndView projectList(@RequestParam(required=false)String keyword, HttpSession session, @RequestParam(required=false) String ct_index,
-				@RequestParam String sort, @RequestParam(defaultValue="0") int num, @RequestParam(required=false) String option) {
+				@RequestParam String sort, @RequestParam(defaultValue="0") int num, @RequestParam(required=false) String option) throws ParseException {
 			
 			ModelAndView mav = new ModelAndView();
 			List<Project> projectlist= null;
 			List<Category> categoryList=categoryService.getCategoryListByType(1);
-			long gap=0;
-			Date today = new Date();
-			
+
+
 			int ct_int=0;
 			
 			if(ct_index != null) {
@@ -661,19 +691,30 @@ public class ProjectController {
 					int target = projectlist.get(i).getP_target();
 					double per2 = (double)status/(double)target*100;
 					double per = Double.parseDouble(String.format("%.2f",per2));
-					gap = projectlist.get(i).getP_enddate().getTime()-today.getTime();
+					t = new SimpleDateFormat("yyyyMMddHHmm").format(today);
+					end = projectlist.get(i).getP_enddate();
+					e = new SimpleDateFormat("yyyyMMddHHmm").format(end);
+					
+					long e_int = Long.parseLong(e);
+					long t_int = Long.parseLong(t);
+					
+					gap = (int)(e_int - t_int);
+					//days= gap/(24*60*60*1000);
+					
 					projectlist.get(i).setPer(per);
 					projectlist.get(i).setGap(gap);
-				}
-				
-				
-				for(Project p: projectlist) {
-					System.out.println("project: "+p);
-					System.out.println("끝나는 날: "+p.getP_enddate());
-					gap = p.getP_enddate().getTime()-today.getTime();
 					
-					System.out.println("차이:"+gap);
+					/*for(Project p: projectlist) {
+						System.out.println("t나라"+t);
+						System.out.println("끝나는날짜"+e);
+						System.out.println("project: "+p);
+						//System.out.println("날짜 차이:"+days);
+						System.out.println("gap:"+gap);
+						
+					}*/
 				}
+				
+				
 		
 			}
 			
@@ -687,8 +728,7 @@ public class ProjectController {
 		@RequestMapping(value="more.do",  method=RequestMethod.POST)		
 		public @ResponseBody Map more(String num1,@RequestParam(required=false)String keyword,@RequestParam(required=false)String sort,
 				@RequestParam(required=false)String ct_index1, @RequestParam String option){
-			Date today = new Date();
-			long gap=0;
+		
 			int num = Integer.parseInt(num1);
 			int ct_index=0;
 			if(ct_index1!="") {
@@ -711,7 +751,15 @@ public class ProjectController {
 					int target = p_list.get(i).getP_target();
 					double per2 = (double)status/(double)target*100;
 					double per = Double.parseDouble(String.format("%.2f",per2));
-					gap = p_list.get(i).getP_enddate().getTime()-today.getTime();
+					t = new SimpleDateFormat("yyyyMMddHHmm").format(today);
+					end = p_list.get(i).getP_enddate();
+					e = new SimpleDateFormat("yyyyMMddHHmm").format(end);
+					
+					long e_int = Long.parseLong(e);
+					long t_int = Long.parseLong(t);
+					
+					gap = (int)(e_int - t_int);
+
 					p_list.get(i).setPer(per);
 					p_list.get(i).setGap(gap);
 				}
