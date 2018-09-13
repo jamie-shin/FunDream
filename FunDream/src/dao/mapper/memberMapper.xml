@@ -57,5 +57,19 @@
      <select id="shaPwd" parameterType="String" resultType="String">
         select sha(#{m_pwd})
     </select>
-
+    
+    <select id="selectMembersByManager" parameterType="java.util.HashMap" resultType="member">
+    	select * from Member where m_manager=#{m_manager}<if test="keyword != null"> and (m_email like '%${keyword}%' or m_name like '%${keyword}%')</if>
+    </select>
+    
+    <select id="selectMembersByValid" parameterType="java.util.HashMap" resultType="member">
+    	select * from Member where m_valid=#{m_valid}<if test="keyword != null"> and (m_email like '%${keyword}%' or m_name like '%${keyword}%')</if>
+    </select>
+    
+    <select id="selectMembersByKeyword" parameterType="String" resultType="member">
+    	select * from Member where (m_email like '%${keyword}%' or m_name like '%${keyword}%') 
+    	<if test="m_manager > 0">and (m_manager=#{m_manager})</if>
+    	<if test="m_valid > 0">and (m_valid=#{m_valid})</if>
+    </select>
+    
 </mapper>

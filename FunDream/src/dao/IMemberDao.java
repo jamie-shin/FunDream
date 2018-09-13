@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import model.Member;
@@ -14,5 +15,8 @@ public interface IMemberDao {
 	public int deleteMember(int m_id);
 	public String shaPwd(String m_pwd);
 	public void updateMemberForLeave(String m_email);
+	public List<Member> selectMembersByManager(HashMap<String, Object> searchMap);
+	public List<Member> selectMembersByValid(HashMap<String, Object> searchMap);
+	public List<Member> selectMembersByKeyword(HashMap<String, Object> searchMap);
 
 }

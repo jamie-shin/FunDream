@@ -1,5 +1,8 @@
 package service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -94,4 +97,26 @@ public class MemberService {
 	public Member selectOneMemberById(int m_id) {
 		return memberDao.selectOneMemberById(m_id);
 	}
+	
+
+	public List<Member> getAllMembers() {
+		// TODO Auto-generated method stub
+		return memberDao.selectAllMember();
+	}
+
+	public List<Member> getMembersByManager(HashMap<String, Object> searchMap) {
+		// TODO Auto-generated method stub
+		return memberDao.selectMembersByManager(searchMap);
+	}
+
+	public List<Member> getMembersByValid(HashMap<String, Object> searchMap) {
+		// TODO Auto-generated method stub
+		return memberDao.selectMembersByValid(searchMap);
+	}
+
+	public List<Member> getMembersByKeyword(HashMap<String, Object> searchMap) {
+		// TODO Auto-generated method stub
+		return memberDao.selectMembersByKeyword(searchMap);
+	}
+	
 }
