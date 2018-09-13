@@ -132,6 +132,11 @@ public class ProjectService {
 			List<Project> list = projectDao.selectProject_more(params);
 			return list;
 		}
+		
+		public List<Project> getProjectsByCategory(int ct_index) {
+			// TODO Auto-generated method stub
+			return projectDao.selectProjectsByCategory(ct_index);
+		}
 	
 		
 }

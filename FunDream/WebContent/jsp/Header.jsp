@@ -88,7 +88,7 @@ $(function(){
 					</ul>
 				</li>
 				<c:if test="${(m_manager != 1 && m_email!=null)}"><li><a id="createNewProjBtn" onclick="checkProject()">신규프로젝트신청</a></li></c:if> <!-- 0829(주리) - 클릭 경로 / 조건(|| m_email==null 삭제) 수정 및 아이디 추가(0830) -->
-				<c:if test="${m_manager == 1 && m_email !=null}"><li><a href="#">관리자 메인</a></li></c:if>
+				<c:if test="${m_manager == 1 && m_email !=null}"><li><a href="IBE_MANAGER.do">관리자 메인</a></li></c:if>
 				<li> <c:if test="${m_email==null}"> <a href="MIE_LOGINFORM.do"><img src="img/user.png" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px;"></a></c:if> </li>
 				
 				<li><c:if test="${m_email!=null}"><img src="${m_img}" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px; border-radius: 50%">

@@ -56,38 +56,40 @@
 		update Project set p_policy=#{p_policy} where p_index=#{p_index}
 	</update>
 	
-	
 	<select id="selectProject_more" resultType="project" parameterType="java.util.HashMap">
 		<!-- <![CDATA[
 			select * from project where (p_startdate <= now() or p_enddate <= now()) and p_approval=2 order by p_startdate desc limit #{num},9
 		]]> -->
 		
-			select * from project where 
+		select * from project where 
+		
+		<choose>
+		<when test="option==1">
+			<![CDATA[p_enddate < now() and p_approval=2]]></when>
+		<otherwise>
+			<![CDATA[(p_startdate <= now() and p_enddate >= now()) and p_approval=2]]></otherwise>
 			
-			<choose>
-			<when test="option==1">
-				<![CDATA[p_enddate < now() and p_approval=2]]></when>
-			<otherwise>
-				<![CDATA[(p_startdate <= now() and p_enddate >= now()) and p_approval=2]]></otherwise>
-				
-			
-			</choose>
-				<if test="sort == 1">
-				<if test="ct_index != 0 "> AND ct_index= #{ct_index} </if> 
-				<if test="keyword != null or keyword !='' "> AND p_name like '%${keyword}%' </if>
-				order by p_startdate desc limit #{num},9</if>
-				
-				<if test="sort == 2">
-				<if test="ct_index != 0 "> AND ct_index= #{ct_index} </if> 
-				<if test="keyword != null or keyword !='' "> AND p_name like '%${keyword}%' </if>
-				order by p_enddate limit #{num},9</if>
-				
-				<if test="sort==3">
-				<if test="ct_index != 0 "> AND ct_index= #{ct_index} </if> 
-				<if test="keyword != null or keyword !='' "> AND p_name like '%${keyword}%' </if>
-				order by (p_status/p_target) desc limit #{num},9
-				</if>
-			
-
+		
+		</choose>
+		<if test="sort == 1">
+		<if test="ct_index != 0 "> AND ct_index= #{ct_index} </if> 
+		<if test="keyword != null or keyword !='' "> AND p_name like '%${keyword}%' </if>
+		order by p_startdate desc limit #{num},9</if>
+		
+		<if test="sort == 2">
+		<if test="ct_index != 0 "> AND ct_index= #{ct_index} </if> 
+		<if test="keyword != null or keyword !='' "> AND p_name like '%${keyword}%' </if>
+		order by p_enddate limit #{num},9</if>
+		
+		<if test="sort==3">
+		<if test="ct_index != 0 "> AND ct_index= #{ct_index} </if> 
+		<if test="keyword != null or keyword !='' "> AND p_name like '%${keyword}%' </if>
+		order by (p_status/p_target) desc limit #{num},9
+		</if>
 	</select>
+		
+	<select id="selectProjectsByCategory" parameterType="int" resultType="project">
+		select * from Project where ct_index=#{ct_index}
+	</select>
+	
 </mapper>

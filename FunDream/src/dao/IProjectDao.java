@@ -24,4 +24,6 @@ public interface IProjectDao {
 	
 	public List<Project> selectProject_more(HashMap<String, Object> params);
 	
+	public List<Project> selectProjectsByCategory(int ct_index);
+	
 }

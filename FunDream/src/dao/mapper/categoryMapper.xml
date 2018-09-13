@@ -12,5 +12,17 @@
  	<select id="selectCategoriesByType" parameterType="int" resultType="category">
  		select * from Category where ct_type=#{ct_type}
  	</select>
+ 	 
+ 	<delete id="deleteOneCategory" parameterType="int">
+ 		delete from Category where ct_index=#{ct_index}
+ 	</delete>
+ 	
+ 	<update id="updateOneCategory" parameterType="category">
+ 		update Category set ct_name=#{ct_name} where ct_index=#{ct_index}
+ 	</update>
+ 	
+ 	<insert id="insertCategory" parameterType="category" useGeneratedKeys="true" keyProperty="ct_index">
+ 		insert into Category (ct_index, ct_name, ct_type) values(default, #{ct_name}, #{ct_type})
+ 	</insert>
  
  </mapper>
