@@ -205,26 +205,34 @@
 	        var delete_index = $(this).parent().siblings('#ap-reward-container').children("#rewardInfoForm").children('#r_index').val();
 	        var r_del_con = confirm("선택한 리워드를 삭제하시겠습니까?");
 	        var head = $(this).parent();
-	        if (r_del_con == true){
-	           $.ajax({
-	              url: 'JRD_DELETE.do',
-	              data: {r_index : delete_index},
-	              type: "post",
-	              success: function(data){
-		               alert(data);
-		               if(data == "success"){
-		            	   alert("리워드가 삭제되었습니다.");
-				           head.next('[class^=menu]').remove();
-				           head.remove(); //id=reward   
-		               }
-		               else{
-		            	   alert("리워드 삭제를 실패하였습니다.");
-		               }
-	              },
-	              error: function(){
-	                 alert('리워드 삭제 에러!');
-	              }
-	           });
+	        if(delete_index != ""){
+		        if (r_del_con == true){
+		           $.ajax({
+		              url: 'JRD_DELETE.do',
+		              data: {r_index : delete_index},
+		              type: "post",
+		              success: function(data){
+			               if(data == "success"){
+			            	   alert("리워드가 삭제되었습니다.");
+					           head.next('[class^=menu]').remove();
+					           head.remove(); //id=reward   
+			               }
+			               else{
+			            	   alert("리워드 삭제를 실패하였습니다.");
+			               }
+		              },
+		              error: function(){
+		                 alert('리워드 삭제 에러!');
+		              }
+		           });
+		        }
+	        }
+	        else{
+	        	if(r_del_con == true){
+            	   alert("리워드가 삭제되었습니다.");
+		           head.next('[class^=menu]').remove();
+		           head.remove(); //id=reward   
+	        	}
 	        }
 	     });
 	    
