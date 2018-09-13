@@ -63,38 +63,38 @@ $(function() {
     		if (confirm("로그인이 필요합니다. 로그인페이지로 이동하시겠습니까?")==true){
     			location.href="MIE_LOGINFORM.do";
     		}
-    		else{
-    			return false;
-    		}
     	}
     });
      
-    $('#newComment').on('click', function(){
+    $(document).on('click','#newComment', function(){
     	var contents = $(this).parent().siblings('#inputComment').val();
-
+    	var m_id = <%=request.getParameter("m_id")%>;
+    	var p_index =<%=request.getParameter("p_index")%>;
     	alert(contents);
     	if (contents == null || contents==''){
     		alert('입력된 값이 없습니다.');
     	}
-    	if(contents !=null || contents!=''){
-    		$.ajax({
-    			url : "JCI_COMMENT.do",
-    			type : "POST",
-    			data : {contents: contents,
-    					m_id : m_id,
-    					p_index : p_index},
-    			dataType : 'json',
-    			success: function(){
-
-    				alert("댓글이 입력되었습니다. '프로젝트 스토리'로 이동합니다.");
-    				//location.href='JPS_DETAIL.do?p_index='+p_index+'&m_id='+m_id+'#3';
-    				location.reload();
-    				
-    			},
-    			error: function(){
-    				alert("oh no");
-    			}
-    		});
+    	else{
+	    	if(contents !=null || contents!=''){
+	    		$.ajax({
+	    			url : "JCI_COMMENT.do",
+	    			type : "POST",
+	    			data : {contents: contents,
+	    					m_id : m_id,
+	    					p_index : p_index},
+	    			success: function(){
+	    				alert("댓글이 입력되었습니다. '프로젝트 스토리'로 이동합니다.");
+	    				//location.href='JPS_DETAIL.do?p_index='+p_index+'&m_id='+m_id+'#3';
+	    				location.reload();
+	    			},
+	    			error: function(request,status,error){
+	    				//alert("oh no");
+	    				//alert("댓글이 입력되었습니다. '프로젝트 스토리'로 이동합니다.");
+	    				//location.reload();
+	    				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	    			}
+	    		});
+	    	}
     	}
     });
     
@@ -120,21 +120,23 @@ $(function() {
     	if (updatedComment == null || updatedComment==''){
     		alert('입력된 값이 없습니다.');
     	}
-    	if(updatedComment !=null || updatedComment!=''){
-    		$.ajax({
-    			url : "JCU_COMMENT.do",
-    			type : "POST",
-    			data :{contents : updatedComment,
-    					c_index : c_index},
-    			success: function(){
-    				alert("댓글이 수정되었습니다. '프로젝트 스토리'로 이동합니다.");
-    				location.reload();
-    				
-    			},
-    			error: function(){
-    				alert("oh no");
-    			}
-    		});
+    	else{
+	    	if(updatedComment !=null || updatedComment!=''){
+	    		$.ajax({
+	    			url : "JCU_COMMENT.do",
+	    			type : "POST",
+	    			data :{contents : updatedComment,
+	    					c_index : c_index},
+	    			success: function(){
+	    				alert("댓글이 수정되었습니다. '프로젝트 스토리'로 이동합니다.");
+	    				location.reload();
+	    				
+	    			},
+	    			error: function(){
+	    				alert("oh no");
+	    			}
+	    		});
+	    	}
     	}
 	    			
     });
@@ -180,7 +182,7 @@ $(function() {
     	if (c_re_con == null || c_re_con==''){
     		alert('입력된 값이 없습니다.');
     	}
-    	if(c_re_con !=null || c_re_con!=''){
+    	else if(c_re_con !=null || c_re_con!=''){
     		$.ajax({
     			url : "JCI_REPLY.do",
     			type : "POST",

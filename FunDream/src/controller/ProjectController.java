@@ -695,7 +695,6 @@ public class ProjectController {
 			System.out.println("프로젝트:"+p_index);
 			System.out.println("댓글:" + contents);
 			commentService.insertComment(m_id, p_index, contents);
-			
 		}
 		
 		//댓글 수정
