@@ -9,7 +9,6 @@
 <title>header</title>
 <link rel="stylesheet" type="text/css" href="css/Header.css">
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 		var sessionEmail = "<%=session.getAttribute("m_email")%>";
 		function checkProject(){
@@ -114,7 +113,6 @@ $(function(){
 		</nav>
 		<div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
 	</header>
-	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('.menu-toggle').click(function(){

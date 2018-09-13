@@ -9,7 +9,6 @@
 <meta charset="UTF-8">
 <title>addProject</title>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
 	<script src="js/makeProject.js"></script>

@@ -1,11 +1,6 @@
 @charset "UTF-8";
-.hbody {
-	margin:0;
-	padding: 0;
-	font-family: sans-serif;
-}
 
-header {
+.FD-header {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -15,7 +10,7 @@ header {
 	box-sizing: border-box;
 }
 
-header .Hlogo {
+.FD-header .Hlogo {
 	color: #fff;
 	height: 50px;
 	line-height: 50px;
@@ -24,29 +19,29 @@ header .Hlogo {
 	font-weight: bold;
 	border-radius: 50%
 }
-header .Hlogo a {
+.FD-header .Hlogo a {
 	text-decoration: none;
 	color: #fff;
 }
 
-header nav {
+.FD-header nav {
 	float: right;
 }
 
-header nav ul {
+.FD-header nav ul {
 	margin: 0;
 	padding: 0;
 	display: flex;
 	z-index: 101;
 }
 
-header nav ul li {
+.FD-header nav ul li {
 	list-style: none;
 	position: relative;
 	z-index: 102;
 }
 
-header nav ul li.sub-menu:before {
+.FD-header nav ul li.sub-menu:before {
 	content: '\f0d7';
 	font-family: fontAwesome;
 	position: absolute;
@@ -56,11 +51,11 @@ header nav ul li.sub-menu:before {
 	z-index: 103;
 }
 
-header nav ul li.active.sub-menu:before {
+.FD-header nav ul li.active.sub-menu:before {
 	content: '\f0d8';
 }
 
-header nav ul li ul {
+.FD-header nav ul li ul {
 	position: absolute;
 	left: 0;
 	background: #333;
@@ -68,16 +63,16 @@ header nav ul li ul {
 	z-index: 104;
 }
 
-header nav ul li.active ul {
+.FD-header nav ul li.active ul {
 	display: block;
 }
 
-header nav ul li ul li {
+.FD-header nav ul li ul li {
 	display: block;
 	width: 200px;
 }
 
-header nav ul li a {
+.FD-header nav ul li a {
 	height: 50px;
 	line-height: 50px;
 	padding: 0 20px;
@@ -86,13 +81,13 @@ header nav ul li a {
 	display: block;
 }
 
-header nav ul li a:hover,
-header nav ul li a.active {
+.FD-header nav ul li a:hover,
+.FD-header nav ul li a.active {
 	color: #fff;
 	background: #2196f3;
 }
 
-.menu-toggle {
+.FD-menu-toggle {
 	color : #fff;
 	float : right;
 	line-height: 50px;
@@ -133,13 +128,13 @@ header nav ul li a.active {
 
 
 @media ( max-width: 1400px) {
-	header {
+	.FD-header {
 		padding: 0 20px;
 	}
-	.menu-toggle {
+	.FD-menu-toggle {
 		display: block;
 	}
-	header nav {
+	.FD-header nav {
 		position: absolute;
 		width: 100%;
 		height: calc(100vh - 50px);
@@ -148,22 +143,22 @@ header nav ul li a.active {
 		left: -100%;
 		transition: 0.5s;
 	}
-	header nav.active {
+	.FD-header nav.active {
 		left: 0;
 	} 
-	header nav ul {
+	.FD-header nav ul {
 		display: block;
 		text-align: center;
 	}
-	header nav ul li a {
+	.FD-header nav ul li a {
 		border-bottom: 1px solid rgba(0,0,0,.2);
 	}
 
-	header nav ul li.active ul {
+	.FD-header nav ul li.active ul {
 		position: relative;
 		background: #003e6f;
 	}
-	header nav ul li ul li {
+	.FD-header nav ul li ul li {
 		width: 100%;
 	}
 
