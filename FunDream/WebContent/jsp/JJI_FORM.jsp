@@ -237,7 +237,7 @@
 	     });
 	    
 		// 리워드 수정
-	    $(document).on('click', "[id=r_updatebtn]", function(){
+	    $(document).on('click', "[id=r_updatebtn]", function(e){
 			var form = $(this).parent('#rewardInfoForm')[0];
 			var formData = new FormData(form);
 
@@ -293,6 +293,7 @@
 					alert('리워드 저장 에러');
 				}
 			});
+			e.preventDefault();
 			$(this).parent().parent('[class=menu]').slideUp();
 		});
 	 
