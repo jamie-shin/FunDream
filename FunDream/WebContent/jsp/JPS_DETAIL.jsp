@@ -79,7 +79,7 @@ $(function() {
 	    		$.ajax({
 	    			url : "JCI_COMMENT.do",
 	    			type : "POST",
-	    			data : {contents: contents,
+	    			data : {contents: contents, 
 	    					m_id : m_id,
 	    					p_index : p_index},
 	    			success: function(){
