@@ -86,7 +86,7 @@ $(function() {
     			dataType : 'json',
     			success: function(){
 
-    				alert("댓글이 입력되었습니다.");
+    				alert("댓글이 입력되었습니다. '프로젝트 스토리'로 이동합니다.");
     				//location.href='JPS_DETAIL.do?p_index='+p_index+'&m_id='+m_id+'#3';
     				location.reload();
     				
@@ -127,7 +127,7 @@ $(function() {
     			data :{contents : updatedComment,
     					c_index : c_index},
     			success: function(){
-    				alert("댓글이 수정되었습니다.");
+    				alert("댓글이 수정되었습니다. '프로젝트 스토리'로 이동합니다.");
     				location.reload();
     				
     			},
@@ -149,7 +149,7 @@ $(function() {
     			type : "POST",
     			data : {c_index : index},
     			success: function(){
-    				alert("댓글이 삭제되었습니다.");
+    				alert("댓글이 삭제되었습니다. '프로젝트 스토리'로 이동합니다.");
     				location.reload();
     			},
     			error: function(){
@@ -188,7 +188,7 @@ $(function() {
     					c_index: c_index},
     			dataType : 'json',
     			success: function(){
-    				alert("답글이 입력되었습니다.");
+    				alert("답글이 입력되었습니다. '프로젝트 스토리'로 이동합니다.");
     				location.reload();
     				
     			},
@@ -209,7 +209,7 @@ $(function() {
 	  			type : "POST",
 	  			data : {c_index : index},
 	  			success: function(){
-	  				alert("답글이 삭제되었습니다.");
+	  				alert("답글이 삭제되었습니다. '프로젝트 스토리'로 이동합니다.");
 	  				location.reload();
 				},
 				error: function(){
@@ -245,7 +245,7 @@ $(function() {
     		data:{c_re_con: updatedReply,
     			c_index: c_index},
     			success: function(){
-	  				alert("답글이 수정되었습니다.");
+	  				alert("답글이 수정되었습니다. '프로젝트 스토리'로 이동합니다.");
 	  				
 	  				location.reload();
 				},
