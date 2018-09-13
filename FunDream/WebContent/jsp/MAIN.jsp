@@ -132,7 +132,9 @@
 				<span class="card-summary">
 					<h3>${list.p_name}</h3>
 				</span>
-				<small class="card-part">00명 참여</small>
+				<div class="card-part">
+				<small>00명 참여</small>
+				</div>
 				<input type="hidden" value="${list.gap }">
 				<h3 class="card-toggle" style="background:red; color:white" <c:if test="${list.gap >30000 }">hidden='hidden'</c:if>>마감임박</h3>
 				<!-- 프로그레스 바 -->
@@ -186,7 +188,9 @@
 				<span class="card-summary">
 					<h3>${list.p_name}</h3>
 				</span>
-				<small class="card-part">00명 참여</small>
+				<div class="card-part">
+				<small>00명 참여</small>
+				</div>
 				<input type="hidden" value="${list.gap }">
 				<h3 class="card-toggle" style="background:red; color:white" <c:if test="${list.gap >30000 }">hidden='hidden'</c:if>>마감임박</h3>
 				<!-- 프로그레스 바 -->
