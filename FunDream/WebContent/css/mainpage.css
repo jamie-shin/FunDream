@@ -234,19 +234,17 @@ ul, ol {
     left: 0;
 }
 
-
 .card-part {
-	margin-left: 66%;
+	text-align:right;
+	padding: 0;
+	padding-right:28px;
+	padding-bottom:8px;
 }
-
 
 .card span {
   display: block;
 }
 .card .card-summary {
-  padding: 5% 5% 3% 5%;
-}
-.card .card-part {
   padding: 5% 5% 3% 5%;
 }
 .card .card-header {
