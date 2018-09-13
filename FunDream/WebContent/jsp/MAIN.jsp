@@ -16,21 +16,20 @@
 <body class="mainPage">
 	<div class="slideshow">
 		<ul class="slider">
-			<li><a href=""><img class="banner" src="img/애완동물.jpg"
-					alt="1">
+			<li><a href=""><div class="banner" style="background-image: url('img/애완동물.jpg');"></div>
 					<section class="caption">
 						<h1>프로젝트13</h1>
 						<!-- 프로젝트 제목  -->
 					</section></a></li>
-			<li><a href=""><img class="banner" src="img/레저.jpg" alt="2">
+			<li><a href=""><div class="banner" style="background-image: url('img/레저.jpg');"></div>
 					<section class="caption">
 						<h1>프로젝트12</h1>
 					</section></a></li>
-			<li><a href=""><img class="banner" src="img/화장품.jpg" alt="3">
+			<li><a href=""><div class="banner" style="background-image: url('img/화장품.jpg');"></div>
 					<section class="caption">
 						<h1>프로젝트2</h1>
 					</section></a></li>
-			<li><a href=""><img class="banner" src="img/뷰티.jpg" alt="4">
+			<li><a href=""><div class="banner" style="background-image: url('img/뷰티.jpg');"></div>
 					<section class="caption">
 						<h1>프로젝트11</h1>
 					</section></a></li>
