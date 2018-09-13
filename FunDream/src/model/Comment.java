@@ -8,25 +8,23 @@ public class Comment {
 	private int m_id;
 	private Timestamp c_writedate;
 	private String c_contents;
-	private String c_image;
 	private int c_status;
 	private String c_report;
 	private String c_re_con;
-	private String c_re_image;
+	private Timestamp c_re_writedate;
+	private String m_nick;
 	
-	public Comment(int c_index, int p_index, int m_id, Timestamp c_writedate, String c_contents, String c_image,
-			int c_status, String c_report, String c_re_con, String c_re_image) {
-		this.c_index = c_index;
-		this.p_index = p_index;
-		this.m_id = m_id;
-		this.c_writedate = c_writedate;
-		this.c_contents = c_contents;
-		this.c_image = c_image;
-		this.c_status = c_status;
-		this.c_report = c_report;
-		this.c_re_con = c_re_con;
-		this.c_re_image = c_re_image;
+	
+	
+	
+	public String getM_nick() {
+		return m_nick;
 	}
+
+	public void setM_nick(String m_nick) {
+		this.m_nick = m_nick;
+	}
+
 	
 	public Comment() {
 		// TODO Auto-generated constructor stub
@@ -62,12 +60,7 @@ public class Comment {
 	public void setC_contents(String c_contents) {
 		this.c_contents = c_contents;
 	}
-	public String getC_image() {
-		return c_image;
-	}
-	public void setC_image(String c_image) {
-		this.c_image = c_image;
-	}
+
 	public int getC_status() {
 		return c_status;
 	}
@@ -86,16 +79,37 @@ public class Comment {
 	public void setC_re_con(String c_re_con) {
 		this.c_re_con = c_re_con;
 	}
-	public String getC_re_image() {
-		return c_re_image;
+	
+
+	public Timestamp getC_re_writedate() {
+		return c_re_writedate;
 	}
-	public void setC_re_image(String c_re_image) {
-		this.c_re_image = c_re_image;
+
+	public void setC_re_writedate(Timestamp c_re_writedate) {
+		this.c_re_writedate = c_re_writedate;
 	}
+
 	@Override
 	public String toString() {
 		return "Comment [c_index=" + c_index + ", p_index=" + p_index + ", m_id=" + m_id + ", c_writedate="
-				+ c_writedate + ", c_contents=" + c_contents + ", c_image=" + c_image + ", c_status=" + c_status
-				+ ", c_report=" + c_report + ", c_re_con=" + c_re_con + ", c_re_image=" + c_re_image + "]";
+				+ c_writedate + ", c_contents=" + c_contents + ", c_status=" + c_status + ", c_report=" + c_report
+				+ ", c_re_con=" + c_re_con + ", c_re_writedate=" + c_re_writedate + ", m_nick=" + m_nick + "]";
 	}
+
+	public Comment(int c_index, int p_index, int m_id, Timestamp c_writedate, String c_contents, int c_status,
+			String c_report, String c_re_con, Timestamp c_re_writedate, String m_nick) {
+		super();
+		this.c_index = c_index;
+		this.p_index = p_index;
+		this.m_id = m_id;
+		this.c_writedate = c_writedate;
+		this.c_contents = c_contents;
+		this.c_status = c_status;
+		this.c_report = c_report;
+		this.c_re_con = c_re_con;
+		this.c_re_writedate = c_re_writedate;
+		this.m_nick = m_nick;
+	}
+
+	
 }

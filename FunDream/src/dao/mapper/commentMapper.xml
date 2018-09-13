@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="dao.ICommentDao">
+ 
+ 	<insert id="insertComment" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="c_index">
+ 		insert into Comment (c_index, p_index, m_id, c_writedate, c_contents, c_status, c_report, c_re_con, c_re_writedate) values (0, #{p_index}, #{m_id}, now(), #{c_contents}, 1, null, null, null);
+ 	</insert>
+ 	
+ 	<select id="selectCommentByProject" parameterType="int" resultType="comment">
+ 		select * from comment where p_index = #{p_index} order by c_index desc 
+ 	</select>
+ 	
+ 	<update id="insertReply" parameterType="java.util.HashMap">
+ 		update comment set c_re_con=#{c_re_con}, c_re_writedate=current_time where c_index=#{c_index}
+ 	</update>
+ 	
+ 	<update id="updateComment" parameterType="java.util.HashMap">
+ 		update comment set c_contents=#{c_contents}, c_writedate=current_time where c_index=#{c_index}
+ 	</update>
+ 
+ 	<update id="updateCommentforDelete" parameterType="int">
+ 		update comment set c_contents='삭제된 댓글입니다' where c_index = #{c_index}
+ 	</update>
+ 	
+ 	<update id="deleteReply" parameterType="int">
+		update comment set c_re_con=null where c_index = #{c_index}	
+ 	</update>
+ 	
+ 	<update id="updateReply" parameterType="java.util.HashMap">
+ 		update comment set c_re_con=#{c_re_con} where c_index = #{c_index}
+ 	</update>
+ 	
+ 	<select id="selectOneCommentByIndex" parameterType="int" resultType="comment">
+ 		select * from Comment where c_index=#{c_index}
+ 	</select>
+ 	
+ </mapper>

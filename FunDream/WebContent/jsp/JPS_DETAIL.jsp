@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>makeProject</title>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css"
 	rel="stylesheet">
@@ -15,41 +14,253 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
 <link rel="stylesheet" type="text/css" href="css/projectView.css">
 <!-- <script type="text/javascript" src="js/projectView.js"></script> -->
+ 
+
 <script>
-	$(function() {
-		//공지사항 등록
-		$('#insert_notice').on('click', function() {
-			$('#write_notice').show();
-			$('#notice').hide();
-		});
-
-		$('#return').on('click', function() {
-			$('#write_notice').hide();
-			$('#notice').show();
-		});
-		
-		//후원자 목록 보기
-		$('#sponlistbtn').on('click', function() {
-			$('#grape').hide();
-			$('#sponlist').show();
-		});
-
-		$('#sponprevbtn').on('click', function() {
-			$('#grape').show();
-			$('#sponlist').hide();
-		});
-		
-		//글자수 카운터
-		 $('#inputComment').keyup(function (e){
-	        var content = $(this).val();
-	        $(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
-	        $('#counter').html(content.length + '/200');
-	     });
-	     $('#inputComment').keyup();
+$(function() {
+	
+	
+	var m_id = <%=request.getParameter("m_id")%>;
+	var p_index =<%=request.getParameter("p_index")%>;
+	
+	var type = "";
+	var c_index =0;
+	//공지사항 등록
+	$('#insert_notice').on('click', function() {
+		$('#write_notice').show();
+		$('#notice').hide();
 	});
+
+	$('#return').on('click', function() {
+		$('#write_notice').hide();
+		$('#notice').show();
+	});
+	
+	//후원자 목록 보기
+	$('#sponlistbtn').on('click', function() {
+		$('#grape').hide();
+		$('#sponlist').show();
+	});
+
+	$('#sponprevbtn').on('click', function() {
+		$('#grape').show();
+		$('#sponlist').hide();
+	});
+	
+	//글자수 카운터
+	$('#inputComment').keyup(function (e){
+        var content = $(this).val();
+        $(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
+        $('#counter').html(content.length + '/200');
+    });
+    $('#inputComment').keyup();
+     
+     
+     //댓글 입력 버튼 클릭시
+    $('#inputComment').on('click', function(){
+    	type = $(this).siblings('#type').val();
+    	if ( type=='none'){
+    		if (confirm("로그인이 필요합니다. 로그인페이지로 이동하시겠습니까?")==true){
+    			location.href="MIE_LOGINFORM.do";
+    		}
+    		else{
+    			return false;
+    		}
+    	}
+    });
+     
+    $('#newComment').on('click', function(){
+    	var contents = $(this).parent().siblings('#inputComment').val();
+
+    	alert(contents);
+    	if (contents == null || contents==''){
+    		alert('입력된 값이 없습니다.');
+    	}
+    	if(contents !=null || contents!=''){
+    		$.ajax({
+    			url : "JCI_COMMENT.do",
+    			type : "POST",
+    			data : {contents: contents,
+    					m_id : m_id,
+    					p_index : p_index},
+    			dataType : 'json',
+    			success: function(){
+
+    				alert("댓글이 입력되었습니다.");
+    				//location.href='JPS_DETAIL.do?p_index='+p_index+'&m_id='+m_id+'#3';
+    				location.reload();
+    				
+    			},
+    			error: function(){
+    				alert("oh no");
+    			}
+    		});
+    	}
+    });
+    
+    $('[id^=updateComment').on('click', function(){
+    	var index = $(this).val();
+    	alert("댓글 번호"+index);
+    	var html ='';
+    	html += '<button class="pv-comment-modbtn" id="updateCommentBtn">저장</button>';
+    	$(this).parent().parent().siblings('[id^=comment]').attr('disabled', false);
+    	$(this).parent().parent().siblings('[id^=comment]').attr('style', 'border:1px solid darkgray');
+    	
+    	$(this).parent('#buttonBox').hide();
+    	$(this).parent().siblings('#newbutton').append(html);
+    	
+    });
+    
+    $(document).on('click', '#updateCommentBtn', function(){
+	    var updatedComment=	$(this).parent().parent().siblings('[id^=comment]').val();
+    	c_index = $(this).parent().parent().parent().parent().siblings('.commentIndex').val();
+    	//alert(c_index);
+    	//alert(updatedComment);
+    	
+    	if (updatedComment == null || updatedComment==''){
+    		alert('입력된 값이 없습니다.');
+    	}
+    	if(updatedComment !=null || updatedComment!=''){
+    		$.ajax({
+    			url : "JCU_COMMENT.do",
+    			type : "POST",
+    			data :{contents : updatedComment,
+    					c_index : c_index},
+    			success: function(){
+    				alert("댓글이 수정되었습니다.");
+    				location.reload();
+    				
+    			},
+    			error: function(){
+    				alert("oh no");
+    			}
+    		});
+    	}
+	    			
+    });
+    
+    $('[id^=deleteComment]').on('click', function(){
+    	var index = $(this).val();
+    	//alert("댓글 번호"+index);
+    	
+    	if(confirm('댓글을 삭제하시겠습니까?')==true){
+    		$.ajax({
+    			url : "JCD_COMMENT.do",
+    			type : "POST",
+    			data : {c_index : index},
+    			success: function(){
+    				alert("댓글이 삭제되었습니다.");
+    				location.reload();
+    			},
+    			error: function(){
+    				alert("oh no");
+    			}
+    		});
+    	}
+    	
+    });
+    
+    $('[id^=replyContents]').on('click', function(){
+    	var html ='';
+    	html +='<br><div class="pv-comment-box">';
+    	html += '<textarea class="pv-comment-textarea" maxlength="200" id="replyComment"></textarea>';
+    	html += '<div class="pv-comment-right">';
+    	html += '<input type="button" class="pv-comment-addbtn" id="newReplyComment" value="입력"></div>';
+    	html +='</div>';
+    	$('#replyBox').append(html);
+    	
+    	c_index =$(this).siblings('#commentIndex').val();
+    });
+    
+    $(document).on('click','#newReplyComment', function(){
+    	var c_re_con = $(this).parent().siblings('#replyComment').val();
+    	alert(c_re_con);
+    	c_index =$(this).parent().parent().parent().parent().siblings('.commentIndex').val();
+    	alert(c_index);
+    	if (c_re_con == null || c_re_con==''){
+    		alert('입력된 값이 없습니다.');
+    	}
+    	if(c_re_con !=null || c_re_con!=''){
+    		$.ajax({
+    			url : "JCI_REPLY.do",
+    			type : "POST",
+    			data : {c_re_con: c_re_con,
+    					c_index: c_index},
+    			dataType : 'json',
+    			success: function(){
+    				alert("답글이 입력되었습니다.");
+    				location.reload();
+    				
+    			},
+    			error: function(){
+    				alert("oh no");
+    			}
+    		});
+    	} 
+    	
+    });
+    
+    $('#deleteReply').on('click', function(){
+    	var index = $(this).val();
+	  	//alert(index);
+	  	if(confirm('답글을 삭제하시겠습니까?')==true){
+	  		$.ajax({
+	  			url : "JCD_REPLY.do",
+	  			type : "POST",
+	  			data : {c_index : index},
+	  			success: function(){
+	  				alert("답글이 삭제되었습니다.");
+	  				location.reload();
+				},
+				error: function(){
+					alert("oh no");
+				}
+	  		});
+	  	}
+  	});
+    
+    $('#updateReply').on('click', function(){
+    	var index = $(this).val();
+    	//alert(index);
+    	
+    	var html ='';
+    	html += '<button class="pv-comment-modbtn" id="replyUpdateBtn">저장</button>';
+    	$(this).parent().parent().siblings('[id^=reply]').attr('disabled', false);
+    	$(this).parent().parent().siblings('[id^=reply]').attr('style', 'border:1px solid darkgray');
+    	
+    	$(this).parent('#buttonBoxR').hide();
+    	$(this).parent().siblings('#newbuttonR').append(html);
+    	
+    });
+    
+    $(document).on('click', '#replyUpdateBtn', function(){
+    	alert('수정버튼');
+    	var updatedReply = $(this).parent().parent().siblings('[id^=reply]').val();
+    	//alert(updatedReply);
+    	var c_index = $(this).parent().parent().parent().parent().siblings('.commentIndex').val();
+    	//alert(c_index);
+    	$.ajax({
+    		url: "JCU_REPLY.do",
+    		type : "POST",
+    		data:{c_re_con: updatedReply,
+    			c_index: c_index},
+    			success: function(){
+	  				alert("답글이 수정되었습니다.");
+	  				
+	  				location.reload();
+				},
+				error: function(){
+					alert("oh no");
+				}
+    	});
+    });
+
+
+});
 </script>
 </head>
 <body>
+
 	<div class="pv-banner-image"
 		style="background-image: url(${project.p_mainimg})">
 		<h1 class="pv-banner-text">${project.p_name}${type}</h1>
@@ -61,10 +272,10 @@
 
 	<div class="pv-container">
 		<div class="pv-main">
-			<input id="item01" type="radio" name="tab" checked="checked">
-			<input id="item02" type="radio" name="tab"> <input
-				id="item03" type="radio" name="tab"> <input id="item04"
-				type="radio" name="tab">
+			<input id="item01" type="radio" name="tab" checked="checked" >
+			<input id="item02" type="radio" name="tab" >
+			<input id="item03" type="radio" name="tab" >
+			<input id="item04" type="radio" name="tab">
 			<ul class="pv-menu">
 				<li><label for="item01">스토리</label></li>
 				<li><label for="item02">교환/환불</label></li>
@@ -105,15 +316,14 @@
 				</li>
 
 				<!-- 커뮤니티  -->
-
 				<li class="pv-contents-list item03">
+			<div id="reload">
 					<div id="notice">
 
 						<h2>공지사항</h2>
 						<div class="pv-notice-right">
 							<c:if test="${type eq 'producer'}">
-								<input type="button" value="새 공지사항 등록" class="pv-new-noticebtn"
-									id="insert_notice">
+								<input type="button" value="새 공지사항 등록" class="pv-new-noticebtn" id="insert_notice">
 							</c:if>
 						</div>
 						<div class="pv-notice-box">
@@ -184,68 +394,99 @@
 
 							</div>
 						</div>
-
 						<h2>댓글</h2>
-						<c:if test="${type eq 'none' || type eq 'normal'}">
+						<c:if test="${type eq 'none' ||type eq 'normal'}"> 
 						<div class="pv-comment-box">
-							<textarea class="pv-comment-textarea" maxlength="200"
+							<input type="hidden" value="${type }" id='type'>
+							
+								<textarea class="pv-comment-textarea" maxlength="200"
 								placeholder="저작권 등 다른 사람의 권리를 침해하거나 명예를 훼손하는 게시물은 관련 법률에 의해 제재를 받을 수 있습니다." id="inputComment"></textarea>
+							
 							<div class="pv-comment-right">
-								<span id="counter">###</span> &emsp;<input type="button" class="pv-comment-addbtn"
+								<span id="counter">###</span> &emsp;<input type="button" class="pv-comment-addbtn" id="newComment"
 									value="입력">
 							</div>
+							<%-- <div class="pv-comment-cards">
+							<div class="pv-comment-card-1">
+								<div class="pv-comment-topleft"><%=request.getParameter("m_id")%></div>
+								<div class="pv-comment-topright" id="writedate" style="display: none"></div>
+							</div>
+							<textarea class="pv-comment-contents" id="inputComment" placeholder="저작권 등 다른 사람의 권리를 침해하거나 명예를 훼손하는 게시물은 관련 법률에 의해 제재를 받을 수 있습니다."></textarea>
+							<div class="pv-comment-btnbox">
+								<div id='newbutton'>
+									<input type="button" class="pv-comment-addbtn" id="newComment" value="입력">
+								</div>
+								<div id='buttonBox'>
+									<button hidden="hidden" class="pv-comment-modbtn" id="updateComment" value="">수정</button>
+									<button hidden="hidden" class="pv-comment-delbtn" id="deleteComment" value="">삭제</button>
+									<button hidden="hidden" class="pv-comment-decbtn" id="report" value="">신고</button>
+									<button hidden="hidden" class="pv-comment-recbtn" id="replyContents" value="">답글</button>
+								</div>
+							</div> --%>
 						</div>
 						</c:if>
 						<br> <br>
 						<!-- 작성된 댓글들이 들어갈 가장 큰 컨테이너div -->
+					
+						<!-- 댓글이 있을때만 보이기-->
+						<c:if test="${commentList !=null }">
+						<c:forEach var="comment" items="${commentList}" varStatus="status">
 						<div class="pv-comment-cards">
-							<div class="pv-comment-card">
-								<!-- 댓글로 작성된 카드 -->
+						<input type="hidden" value="${comment.c_index}" class="commentIndex">
+						<div class="pv-comment-card">
+							<!-- 댓글로 작성된 카드 -->
+							<div id="replyBox">
 								<div class="pv-comment-card-1">
-									<div class="pv-comment-topleft">닉네임</div>
-									<div class="pv-comment-topright">2018-08-13 10:51:30</div>
+									<div class="pv-comment-topleft" <c:if test="${comment.c_contents=='삭제된 댓글입니다'}">style="display: none"</c:if>>${comment.m_nick}</div>
+									<div class="pv-comment-topright" <c:if test="${comment.c_contents=='삭제된 댓글입니다'}">style="display: none"</c:if>>${comment.c_writedate }</div>
 								</div>
-								<textarea class="pv-comment-contents">
-									asdasdasdasdasdsadas
-									asdsadasdas<br>
-									asdasdasd<br>
-									asdasdas
-								</textarea>
+								<textarea class="pv-comment-contents" id="comment${comment.c_index}" disabled>${comment.c_contents}</textarea>
 								<div class="pv-comment-btnbox">
-									<input type="button" class="pv-comment-modbtn" value="수정">
-									<input type="button" class="pv-comment-delbtn" value="삭제">
+									<div id='newbutton'></div>
+								<div id='buttonBox'>
+									<c:if test="${comment.m_id == m_id && comment.c_contents!='삭제된 댓글입니다'}">
+									<button class="pv-comment-modbtn" id="updateComment${comment.c_index}" value="${comment.c_index}">수정</button>
+									<button class="pv-comment-delbtn" id="deleteComment${comment.c_index}" value="${comment.c_index}">삭제</button>
+									</c:if>
+								
 									<c:if test="${type eq 'producer'}">
-									<input type="button" class="pv-comment-decbtn" value="신고">
-									<input type="button" class="pv-comment-recbtn" value="답글">
+									<button class="pv-comment-decbtn" id="report${comment.c_index}" value="${comment.c_index}">신고</button>
+									<button <c:if test="${comment.c_re_con !=null }">hidden="hidden"</c:if> class="pv-comment-recbtn" id="replyContents${comment.c_index}" value="${comment.c_index}">답글</button>
 									</c:if>
 								</div>
 							</div>
-							<div class="pv-comment-recommentcard">
-								<!-- 답글 카드 -->
-								<div class="pv-comment-card-1">
-									<div class="pv-comment-topleft">└ ${m.m_nick}</div>
-									<div class="pv-comment-topright">2018-08-13 10:51:30</div>
-								</div>
-								<textarea class="pv-comment-contents">
-									asdasdasdasdasdsadas
-									asdsadasdas<br>
-									asdasdasd<br>
-									asdasdas
-								</textarea>
-								<c:if test="${type eq 'producer'}">
-								<div class="pv-comment-btnbox">
-									<input type="button" class="pv-comment-modbtn" value="수정">
-									<input type="button" class="pv-comment-delbtn" value="삭제">
-								</div>
-								</c:if>
-							</div>
 						</div>
-
+							
+							
+							<!--답글이 있을때만 보이기  -->
+							
+							<div class="pv-comment-recommentcard" <c:if test="${comment.c_re_con == null || comment.c_re_con == '' }">style="display:none"</c:if>>
+								<!-- 답글 카드 -->
+									<div class="pv-comment-card-1">
+										<div class="pv-comment-topleft">└ ${m.m_nick}</div>
+										<div class="pv-comment-topright">${comment.c_re_writedate}</div>
+									</div>
+									<textarea class="pv-comment-contents" disabled id="reply${comment.c_index}">${comment.c_re_con }</textarea>
+									<c:if test="${type eq 'producer'}">
+									<div class="pv-comment-btnbox">
+										<div id='newbuttonR'></div>
+										<div id='buttonBoxR'>
+										<button  class="pv-comment-modbtn" id="updateReply" value="${comment.c_index }">수정</button>
+										<button class="pv-comment-delbtn" id="deleteReply" value="${comment.c_index }">삭제</button>
+									</div>
+									</div>
+									</c:if>
+							</div>
+							
+						</div>
+						</div>
+						</c:forEach>
+						</c:if>
+					
 
 
 					</div>
-					<div class="pv-creator-notice-crebox" id="write_notice"
-						style="display: none;">
+					<div class="pv-creator-notice-crebox" id="write_notice" style="display: none;">
 						<h2>공지사항 작성</h2>
 						<div id="summernote"></div>
 						<script>
@@ -262,6 +503,7 @@
 					</div>
 
 
+				</div>	
 				</li>
 
 				<!-- 제작자용 -->
@@ -462,84 +704,41 @@
 
 			<div class="pv-reward-box">
 				<div class="reward-menu">
+				<c:if test="${reward != null }">
+				<c:forEach items="${reward }" var="rew">
 					<div class="reward-tab">
-						<input id="reward-one" type="checkbox" name="tabs"> <label
-							for="reward-one">리워드1</label>
+						<input id="rewardNum" value="${rew.r_index }">
+						<input id="reward${rew.r_index }" type="checkbox" name="tabs"> <label
+							for="reward${rew.r_index}">${rew.r_name }</label>
 						<div class="reward-tab-content">
 							<div class="reward-tab-imagebox">
-								<img src="img/wadiz.jpg" id="" class="reward-tab-img">
+								<img src="${rew.r_img }" id="" class="reward-tab-img">
 							</div>
 							<div class="reward-tab-contentsbox">
 								<div>
-									<span>설명 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
+									<span>설명 :</span> ${rew.r_contents }
 								</div>
-								<div>
-									<span>남은수량 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
+								<div <c:if test="${rew.r_amt==0 }">style="display: none;"</c:if>>
+									<span>남은수량 :</span> ${rew.r_amt }
 								</div>
-								<div>
-									<span>옵션 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
+								<div <c:if test="${rew.r_option== null || rew.r_option=='' }">style="display: none;"</c:if>>
+									<span>옵션 :</span> ${rew.r_option }
 								</div>
-								<div>
-									<span>배송료 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
+								
+								<div <c:if test="${rew.r_del==0 }">style="display: none;"</c:if>>
+									<span>배송료 :</span> ${rew.r_del }원
 								</div>
+								
 								<div>
-									<span>배송기간 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
+									<span>리워드 제공예상 날짜 :</span>
+									<br>${rew.r_start }
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="reward-tab">
-						<input id="reward-two" type="checkbox" name="tabs"> <label
-							for="reward-two">리워드2</label>
-						<div class="reward-tab-content">
-							<div class="reward-tab-imagebox">
-								<img src="img/wadiz.jpg" id="" class="reward-tab-img">
-							</div>
-							<div class="reward-tab-contentsbox">
-								<div>
-									<span>설명 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
-								</div>
-								<div>
-									<span>남은수량 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
-								</div>
-								<div>
-									<span>옵션 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
-								</div>
-								<div>
-									<span>배송료 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
-								</div>
-								<div>
-									<span>배송기간 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="reward-tab">
-						<input id="reward-three" type="checkbox" name="tabs"> <label
-							for="reward-three">리워드3</label>
-						<div class="reward-tab-content">
-							<div class="reward-tab-imagebox">
-								<img src="img/wadiz.jpg" id="" class="reward-tab-img">
-							</div>
-							<div class="reward-tab-contentsbox">
-								<div>
-									<span>설명 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
-								</div>
-								<div>
-									<span>남은수량 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
-								</div>
-								<div>
-									<span>옵션 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
-								</div>
-								<div>
-									<span>배송료 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
-								</div>
-								<div>
-									<span>배송기간 :</span> ㅁㅇㄴㅁㅇㅁㅁㅇㄹㄴㅇㄹㄴㄹㅇㅁㄻㅇ
-								</div>
-							</div>
-						</div>
-					</div>
+				</c:forEach>
+				</c:if>	
+					
 				</div>
 			</div>
 
@@ -549,7 +748,7 @@
 
 
 	</div>
-	</div>
+	
 
 	<jsp:include page="Header.jsp"></jsp:include>
 </body>

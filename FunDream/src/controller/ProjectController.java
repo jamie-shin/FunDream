@@ -31,11 +31,13 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import model.Category;
+import model.Comment;
 import model.Member;
 import model.Project;
 import model.Reward;
 import model.Story_Member;
 import service.CategoryService;
+import service.CommentService;
 import service.MemberService;
 import service.ProjectService;
 import service.RewardService;
@@ -58,6 +60,9 @@ public class ProjectController {
 	
 	@Autowired
 	private Story_MemberService story_MemberService;
+	
+	@Autowired
+	private CommentService commentService;
 	
 	int gap=0;
 	Date today = new Date();
@@ -478,13 +483,23 @@ public class ProjectController {
 		// 리워드 삭제
 		@RequestMapping("JRD_DELETE.do")
 		public @ResponseBody String JRD_DELETE(String r_index) {
-			int result = rewardService.deleteOneReward(Integer.parseInt(r_index));
-			if(result == 1) {
-				return "success";
+			if(r_index != null || r_index != "") {
+				System.out.println(r_index);
+				int result = rewardService.deleteOneReward(Integer.parseInt(r_index));
+				
+				if(result == 1) {
+					return "success";
+				}
+				else {
+					return "fail";
+				}
 			}
-			else {
-				return "fail";
+			
+			else if (r_index ==null || r_index =="") {
+				return "noIndex";
 			}
+			else return "";
+			
 		}
 		
 		// 리워드 수정
@@ -601,6 +616,25 @@ public class ProjectController {
 			System.out.println("id : "+id);
 			ModelAndView mav = new ModelAndView();
 			Project project = projectService.getOneProject(p_index);
+			List<Reward> reward = rewardService.getRewardsByProject(p_index);
+			System.out.println("리워드정뵈:"+reward);
+			
+			//댓글 불러오기
+			List<Comment> comment = commentService.selectCommentByProject(p_index);
+			String m_name =null;
+			String m_nick = null;
+			for(int i=0; i<comment.size() ;i++) {
+				int m_id = comment.get(i).getM_id();
+				Member member = memberService.selectOneMemberById(m_id);
+				m_name = member.getM_name();
+				m_nick = member.getM_nick();
+				if (m_nick == null) {
+					comment.get(i).setM_nick(m_name);
+				}
+				else if(m_nick !=null) {
+					comment.get(i).setM_nick(m_nick);
+				}
+			}
 			
 			//퍼센트 구하기
 			int status = project.getP_status(); 
@@ -639,6 +673,11 @@ public class ProjectController {
 			else {
 				type = "none";
 			}
+			//리워드 정보
+			mav.addObject("reward", reward);
+			//댓글정보
+			mav.addObject("commentList", comment);
+			
 			//들어오는사람이 누구인지
 			mav.addObject("type", type);
 			//프로젝트정보
@@ -647,6 +686,56 @@ public class ProjectController {
 			mav.addObject("m", m);
 			mav.setViewName("JPS_DETAIL");
 			return mav;
+		}
+		
+		//댓글 등록
+		@RequestMapping(value="JCI_COMMENT.do", method=RequestMethod.POST)
+		public @ResponseBody void JCI_COMMENT(String m_id, String p_index, String contents) {
+			System.out.println("아이디: "+m_id);
+			System.out.println("프로젝트:"+p_index);
+			System.out.println("댓글:" + contents);
+			commentService.insertComment(m_id, p_index, contents);
+			
+		}
+		
+		//댓글 수정
+		@RequestMapping(value="JCU_COMMENT.do", method=RequestMethod.POST)
+		public @ResponseBody void JCU_COMMENT(String contents, int c_index) {
+			System.out.println("수정내용: " +contents);
+			System.out.println("댓글번호: "+ c_index);
+			commentService.updateComment(c_index, contents);
+		}
+		//댓글 삭제
+		@RequestMapping(value="JCD_COMMENT.do", method=RequestMethod.POST)
+		public @ResponseBody void JCD_COMMENT(int c_index) {
+			System.out.println("댓글번호: "+ c_index);
+			commentService.updateCommentforDelete(c_index);
+		}
+		
+		//댓글의 답글 등록
+		@RequestMapping(value="JCI_REPLY.do", method=RequestMethod.POST)
+		public @ResponseBody int JCI_REPLY(String c_re_con, int c_index) {
+			System.out.println("controller: "+c_index+","+c_re_con);
+			
+			commentService.insertReply(c_re_con, c_index);
+			
+			return 1;
+		}
+		
+		//댓글의 답글 삭제
+		@RequestMapping(value="JCD_REPLY.do", method=RequestMethod.POST)
+		public @ResponseBody void JCD_REPLY(int c_index) {
+			System.out.println("삭제할거:"+c_index);
+			
+			commentService.deleteReply(c_index);
+		}
+		
+		//댓글의 답글 수정
+		@RequestMapping(value="JCU_REPLY.do", method=RequestMethod.POST)
+		public @ResponseBody void JCU_REPLY(int c_index, String c_re_con) {
+			System.out.println("수정할거: "+c_index+","+c_re_con);
+			
+			commentService.updateReply(c_index, c_re_con);
 		}
 		
 		// 프로젝트 리스트 첫 화면 요청(최신순)
