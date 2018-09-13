@@ -67,7 +67,7 @@ $(function(){
 </script>
 </head>
 <body class="hbody">
-	<header>
+	<header class="FD-header">
 		<div class="Hlogo"><a href="MAIN.do">FunDream</a></div>
 		<nav>
 			<ul>
@@ -111,11 +111,11 @@ $(function(){
 					</form></div></li>
 			</ul>
 		</nav>
-		<div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
+		<div class="FD-menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
 	</header>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('.menu-toggle').click(function(){
+			$('.FD-menu-toggle').click(function(){
 				$('nav').toggleClass('active')
 			})
 			$('ul li').click(function(){
