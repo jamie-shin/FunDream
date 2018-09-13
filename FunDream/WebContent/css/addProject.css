@@ -88,7 +88,7 @@ label { display: block; }
 .ap-SMadd-btn { border:none; outline:none; height:30px; background:orange; color:#fff; font-size:12pt; border-radius:15px; }
 .ap-reward-addbtn {border:none; outline:none; height:30px; background: #D28484; color:#fff; font-size:13pt; border-radius: 14px; }
 .ap-reward-savebtn { border:none; outline: none; height:40px; background:tomato; color:#fff; font-size:12pt; border-radius:30%; }
-.ap-reward-deletebtn { border:none; outline:none; height:auto; width:40px; margin-left:40%; font-size:15pt; background-color:transparent; }
+.ap-reward-deletebtn { border:none; outline:none; height:auto; width:40px; font-size:15pt; background-color:transparent; }
 .ap-main-btn:hover { cursor: pointer; background: darkblue; color: #fff; }
 .ap-prev-btn:hover { cursor: pointer; background: darkblue; color: #fff; }
 .ap-next-btn:hover { cursor: pointer; background: darkblue; color: #fff; }
@@ -99,8 +99,9 @@ label { display: block; }
 /* */
 
 /* REWARD */
-.ap-reward { margin:0; margin-top:5px; color:#282828; border:3px solid #E56D29; width:100%; border-radius: 15px; display:inline-flex;}
-.ap-reward:hover { cursor:pointer; color:#fff; background: #E56D29}
+.ap-reward { margin:0; text-align:center; margin-top:5px; color:#282828; border:2px solid #E56D29; width:100%; border-radius: 15px; display:inline-flex;}
+.ap-reward:hover { cursor:pointer; color:#E56D29; font-weight: bold; }
+.ap-reward h2 { margin: 4px auto; }
 #ap-reward-container { padding:15px; marging:0; }
 .ap-reward-img { position: relative; height: 150px; display: block; margin-left: auto; margin-right: auto; margin-bottom:5px; border-radius: 10px; }
 .ap-reward-img-addbtn { margin:0; padding:0; margin-left:30%; margin-right:auto; }
