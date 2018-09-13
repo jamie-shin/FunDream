@@ -11,11 +11,11 @@
 <script type="text/javascript">
 	$(function(){
 		$(document).find("#member").on('click', function(){
-			
+			location.href = "IMS_LISTFORM.do";
 		});
 		
 		$(document).find("#project").on('click', function(){
-			
+			location.href = "IJS_PROJECTFORM.do";
 		});
 		
 		$(document).find("#presentation").on('click', function(){

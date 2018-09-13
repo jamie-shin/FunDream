@@ -98,6 +98,11 @@
 				}
 			});
 		});
+
+		$(document).on('click', '#sel_project', function(){
+			var p_index = $(this).siblings("#sel_p_index").val();
+			location.href = "JPS_DETAIL.do?p_index_str=" + p_index;
+		});
 	});
 </script>
 </head>
@@ -267,7 +272,8 @@
 			    <c:forEach items="${projectList}" var="project">
 					<div class="row">
 				    	<div class="cell" data-title="프로젝트 명">
-				    		<p class="text-p">${project.p_name}</p>
+				    		<input type="hidden" id="sel_p_index" value="${project.p_index}">
+				    		<p class="text-p" id="sel_project">${project.p_name}</p>
 				      	</div>
 				    	<div class="cell" data-title="승인여부">
 				    	<p class="text-p">
@@ -278,10 +284,10 @@
 				    	</p>
 				      	</div>
 				    	<div class="cell" data-title="목표액">
-				    		<p class="text-p">${project.p_target} 원</p>
+				    		<p class="text-p">${project.p_target} 만원</p>
 				      	</div>
 				    	<div class="cell" data-title="모금액">
-				    		<p class="text-p">${project.p_status} 원</p>
+				    		<p class="text-p">${project.p_status} 만원</p>
 				   	   	</div>
 				      	<div class="cell" data-title="성공여부">
 				      	<p class="text-p">

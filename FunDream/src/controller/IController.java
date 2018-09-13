@@ -229,4 +229,67 @@ public class IController {
 		return 0;
 	}
 	
+	// 관리자 - 프로젝트 목록
+	@RequestMapping("IJS_PROJECTFORM.do")
+	public ModelAndView IJS_PROJECTFORM() {
+		ModelAndView mav = new ModelAndView();
+		// 승인 대기 중(1)
+		mav.addObject("waitList", projectService.getProjectsByApproval(1));
+		// 승인 완료(2) - 프로젝트 시작 전(1)
+		mav.addObject("approveListBefore", projectService.getProjectsByApproval(2));
+		// 승인 완료(2) - 프로젝트 진행 중(2)
+		mav.addObject("approveListProgress", projectService.getProjectsByApproval(2));
+		// 반려(3)
+		mav.addObject("rejectList", projectService.getProjectsByApproval(3));
+		
+		HashMap<String, Object> selectMap1 = new HashMap<>();
+		// 승인 완료(2) - 프로젝트 종료 - 정산 대기(1)
+		selectMap1.put("calculate", 1);
+		mav.addObject("calculateBeforeList", projectService.getProjectsByCalculate(selectMap1));
+		// 승인 완료(2) - 프로젝트 종료 - 정산 완료(2)
+		HashMap<String, Object> selectMap2 = new HashMap<>();
+		selectMap2.put("calculate", 2);
+		mav.addObject("completeList", projectService.getProjectsByCalculate(selectMap2));
+		// 승인 완료(2) - 프로젝트 종료 - 모금 실패(3)
+		HashMap<String, Object> selectMap3 = new HashMap<>();
+		selectMap3.put("calculate", 3);
+		mav.addObject("failList", projectService.getProjectsByCalculate(selectMap3));
+		
+		mav.setViewName("IJS_PROJECTFORM");
+		return mav;
+	}
+	
+	// 프로젝트 승인 처리
+	@RequestMapping("IJU_APPROVE.do")
+	public @ResponseBody String IJU_APPROVE(int p_index) {
+		Map<String, Object> changeMap = new HashMap<>();
+		changeMap.put("p_index", p_index);
+		changeMap.put("p_approval", 2);  // 프로젝트 승인 완료로 변경(2)
+		int result = projectService.updateApproval(changeMap);
+		if(result == 1) return "success";
+		return "fail";
+	}
+	
+	// 프로젝트 반려 처리
+	@RequestMapping("IJU_REJECT.do")
+	public @ResponseBody String IJU_REJECT(int p_index) {
+		Map<String, Object> changeMap = new HashMap<>();
+		changeMap.put("p_index", p_index);
+		changeMap.put("p_approval", 3);  // 프로젝트 반려로 변경(3)
+		int result = projectService.updateApproval(changeMap);
+		if(result == 1) return "success";
+		return "fail";
+	}
+	
+	// 프로젝트 승인/반쳐 처리 취소(승인 대기로 변경)
+	@RequestMapping("IJU_CANCEL.do")
+	public @ResponseBody String IJU_CANCEL(int p_index) {
+		Map<String, Object> changeMap = new HashMap<>();
+		changeMap.put("p_index", p_index);
+		changeMap.put("p_approval", 1);  // 프로젝트 승인 대기로 변경(1)
+		int result = projectService.updateApproval(changeMap);
+		if(result == 1) return "success";
+		return "fail";
+	}
+	
 }

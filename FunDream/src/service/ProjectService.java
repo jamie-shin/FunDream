@@ -3,6 +3,7 @@ package service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -137,6 +138,25 @@ public class ProjectService {
 			// TODO Auto-generated method stub
 			return projectDao.selectProjectsByCategory(ct_index);
 		}
-	
+
+		public List<Project> getProjectsByApproval(int p_approval) {
+			// TODO Auto-generated method stub
+			return projectDao.selectProjectsByApproval(p_approval);
+		}
+
+		public List<Project> getProjectsByProgress(int progress) {
+			// TODO Auto-generated method stub
+			return projectDao.selectProjectsByProgress(progress);
+		}
+
+		public List<Project> getProjectsByCalculate(HashMap<String, Object> selectMap) {
+			// TODO Auto-generated method stub
+			return projectDao.selectProjectsByCalculate(selectMap);
+		}
+
+		public int updateApproval(Map<String, Object> changeMap) {
+			// TODO Auto-generated method stub
+			return projectDao.updateApproval(changeMap);
+		}
 		
 }

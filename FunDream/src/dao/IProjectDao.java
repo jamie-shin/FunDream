@@ -2,6 +2,7 @@ package dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import model.Project;
 
@@ -25,5 +26,9 @@ public interface IProjectDao {
 	public List<Project> selectProject_more(HashMap<String, Object> params);
 	
 	public List<Project> selectProjectsByCategory(int ct_index);
+	public List<Project> selectProjectsByApproval(int p_approval);
+	public List<Project> selectProjectsByProgress(int progress);
+	public List<Project> selectProjectsByCalculate(HashMap<String, Object> selectMap);
+	public int updateApproval(Map<String, Object> changeMap);
 	
 }

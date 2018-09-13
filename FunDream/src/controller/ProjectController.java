@@ -612,7 +612,13 @@ public class ProjectController {
 		
 		// 프로젝트 상세보기
 		@RequestMapping("JPS_DETAIL.do")
-		public ModelAndView JPS_DETAIL(int p_index,@RequestParam(value="m_id", required=false) String id) {
+		public ModelAndView JPS_DETAIL(@RequestParam(required=false, defaultValue="0") int p_index, @RequestParam(required=false) String p_index_str,/*@RequestParam(value="m_id", required=false) String id*/ HttpServletRequest req) {
+
+			if(!p_index_str.isEmpty() && p_index == 0) {
+				p_index = Integer.parseInt(p_index_str);
+			}
+			
+			String id = Integer.toString((int)req.getSession().getAttribute("m_id"));
 			System.out.println("id : "+id);
 			ModelAndView mav = new ModelAndView();
 			Project project = projectService.getOneProject(p_index);

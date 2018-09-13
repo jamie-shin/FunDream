@@ -91,5 +91,28 @@
 	<select id="selectProjectsByCategory" parameterType="int" resultType="project">
 		select * from Project where ct_index=#{ct_index}
 	</select>
+		
+	<select id="selectProjectsByApproval" parameterType="int" resultType="project">
+		select * from Project where p_approval=#{p_approval}
+	</select>
+	
+	<select id="selectProjectsByProgress" parameterType="int" resultType="project">
+		select * from Project where p_approval = 2 and
+		<if test="progress == 1"><![CDATA[(p_startdate < now())]]></if>
+		<if test="progress == 2"><![CDATA[(p_startdate >= now())]]></if> 
+		order by p_startdate desc
+	</select>
+	
+	<select id="selectProjectsByCalculate" parameterType="java.util.HashMap" resultType="project">
+		select * from Project where p_approval = 2 and <![CDATA[(p_enddate < now())]]> and
+		<if test="calculate == 1"><![CDATA[(p_calculate = 0)]]></if>
+		<if test="calculate == 2"><![CDATA[(p_calculate > 0)]]></if>
+		<if test="calculate == 3"><![CDATA[(p_calculate < 0)]]></if>
+		order by p_enddate desc
+	</select>
+	
+	<update id="updateApproval" parameterType="java.util.HashMap">
+		update Project set p_approval=#{p_approval} where p_index=#{p_index}
+	</update>
 	
 </mapper>
