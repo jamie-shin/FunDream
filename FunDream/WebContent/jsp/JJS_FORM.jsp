@@ -343,9 +343,11 @@
 		<div class="cards" id="append"></div>
 		</div>
 		
-		<button id="moreproject" <c:if test="${fn:length(list) <9}">hidden="hidden"</c:if>>더보기</button>
-		<!-- 검색후 동적생성된 마감 list를 못 읽어옴 -> 진행중인 리스트 갯수가 9개 미만이면 더보기 버튼이 안나옴 -->
-		<input type="hidden" id="num" value="0">
+		<div class="jjs-morebtn">
+			<button id="moreproject" <c:if test="${fn:length(list) <9}">hidden="hidden"</c:if>>더보기</button>
+			<!-- 검색후 동적생성된 마감 list를 못 읽어옴 -> 진행중인 리스트 갯수가 9개 미만이면 더보기 버튼이 안나옴 -->
+			<input type="hidden" id="num" value="0">
+		</div>
 	</div>
 
 
