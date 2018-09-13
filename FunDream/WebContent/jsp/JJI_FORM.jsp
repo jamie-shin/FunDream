@@ -139,7 +139,7 @@
 		});
 		
 		// 리워드 생성
-	 	$(document).on('click', "[id=r_insertbtn]", function(){
+	 	$(document).on('click', "[id=r_insertbtn]", function(e){
 	 		var form = $(this).parent('#rewardInfoForm')[0];
 	 		var formData = new FormData(form);
 
@@ -196,6 +196,7 @@
 					alert('리워드 저장 에러');
 				}
 			});
+			e.preventDefault();
 	 		$('[class=menu]').slideUp();
 		});
 	 	
