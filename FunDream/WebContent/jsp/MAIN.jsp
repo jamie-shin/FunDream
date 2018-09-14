@@ -73,7 +73,7 @@
 				</span>
 				<!-- 한줄 내용 입력창 -->
 				<div class="card-part">
-				<small>00명 참여</small>
+				<small>${list.p_count}명 참여</small>
 				</div>
 				<!-- 참여자 수  -->
 				<input type="hidden" value="${list.gap }">
@@ -133,7 +133,7 @@
 					<h3>${list.p_name}</h3>
 				</span>
 				<div class="card-part">
-				<small>00명 참여</small>
+				<small>${list.p_count}명 참여</small>
 				</div>
 				<input type="hidden" value="${list.gap }">
 				<h3 class="card-toggle" style="background:red; color:white" <c:if test="${list.gap >30000 }">hidden='hidden'</c:if>>마감임박</h3>
@@ -189,7 +189,7 @@
 					<h3>${list.p_name}</h3>
 				</span>
 				<div class="card-part">
-				<small>00명 참여</small>
+				<small>${list.p_count}명 참여</small>
 				</div>
 				<input type="hidden" value="${list.gap }">
 				<h3 class="card-toggle" style="background:red; color:white" <c:if test="${list.gap >30000 }">hidden='hidden'</c:if>>마감임박</h3>
