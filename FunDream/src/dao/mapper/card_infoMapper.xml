@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="dao.ICard_InfoDao">
+	
+	<insert id="insertCard_info" parameterType="card_info" useGeneratedKeys="true" keyProperty="cd_index">
+		insert into card_info values(#{f_index},0,#{cd_num},#{cd_valid},#{cd_cvc},#{cd_cardname})
+	</insert>
+	
+	<select id="selectOneCard_infoByF_index" resultType="card_info" parameterType="int">
+		select * from card_info where f_index=#{f_index}
+	</select>
+	
+	<delete id="deleteOneCard_infoByF_index" parameterType="int">
+		delete from card_info where f_index=#{f_index}
+	</delete>
+</mapper>

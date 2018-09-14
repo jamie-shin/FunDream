@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="dao.IDeliveryDao">
+	
+	<insert id="insertDelivery" parameterType="delivery">
+		insert into delivery values(#{f_index},#{v_name},#{v_phone},#{v_add},#{v_msg},#{m_id},#{p_index},#{v_postnum})
+	</insert>
+	
+	<select id="selectOneDeliveryByF_index" resultType="delivery" parameterType="int">
+		select * from delivery where f_index=#{f_index}
+	</select>
+	
+	<delete id="deleteOneDeliveryByF_index" parameterType="int">
+		delete from delivery where f_index=#{f_index}
+	</delete>
+</mapper>

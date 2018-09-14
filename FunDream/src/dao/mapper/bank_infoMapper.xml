@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="dao.IBank_InfoDao">
+	
+	<insert id="insertBank_info" parameterType="bank_info" useGeneratedKeys="true" keyProperty="b_index">
+		insert into bank_info(f_index, b_owner, b_account, b_bankname) values(#{f_index},#{b_owner},#{b_account},#{b_bankname})
+	</insert>
+	
+	<select id="selectOneBank_infoByF_index" parameterType="int" resultType="bank_info">
+		select * from bank_info where f_index=#{f_index}
+	</select>
+	
+	<delete id="deleteOneBank_infoByF_index" parameterType="int">
+		delete from bank_info where f_index=#{f_index}
+	</delete>
+</mapper>

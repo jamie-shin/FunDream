@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="dao.IFundDao">
+	
+	<insert id="insertFund" parameterType="fund" useGeneratedKeys="true" keyProperty="f_index">
+		insert into fund(p_index, m_id, f_price, f_payment, f_cancel) values(#{p_index},#{m_id},#{f_price},#{f_payment},1)
+	</insert>
+	
+	<update id="updateFund" parameterType="fund">
+		update fund set <if test="f_payment==1">b_index=#{b_index}</if>
+					    <if test="f_payment==2">cd_index =#{cd_index}</if>
+					    where f_index = ${f_index}
+	</update>
+	
+	<select id="selectAllFundByM_id" resultType="fund" parameterType="int">
+		select * from fund where m_id=#{m_id}
+	</select>
+	
+	<select id="checkFund" parameterType="java.util.HashMap" resultType="fund">
+		select * from fund where m_id=#{m_id} and p_index=#{p_index} and f_cancel=1
+	</select>
+	
+	<select id="selectOneFindByF_index" parameterType="int" resultType="fund">
+		select * from fund where f_index=#{f_index}
+	</select>
+	
+	<delete id="deleteOneFundByF_index" parameterType="int">
+		delete from fund where f_index=#{f_index}
+	</delete>
+	
+	<select id="fundcount" parameterType="int" resultType="int">
+		select count(*) from fund where p_index=#{p_index} and f_cancel=1
+	</select>
+	
+	<update id="update_cancel" parameterType="int">
+		update fund set f_cancel=2 where f_index=#{f_index}
+	</update>
+	
+	<select id="updateP_status" resultType="String" parameterType="int">
+		select sum(f_price) from fund where p_index=#{p_index} and f_cancel=1
+	</select>
+</mapper>

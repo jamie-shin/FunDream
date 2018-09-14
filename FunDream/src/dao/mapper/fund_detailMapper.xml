@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="dao.IFund_detailDao">
+  
+  	<insert id="insertFund_detail" parameterType="fund_detail">
+  		insert into fund_detail values(0,#{f_index},#{r_index},#{fd_amt},#{fd_r_option})
+  	</insert>
+  	
+  	<select id="selectAllFund_DetailByF_index" resultType="fund_detail" parameterType="int">
+  		select * from fund_detail where f_index=#{f_index}
+  	</select>
+  	
+  	<delete id="deleteOneFund_DetailByF_index" parameterType="int">
+  		delete from fund_detail where f_index=#{f_index}
+  	</delete>
+</mapper>
