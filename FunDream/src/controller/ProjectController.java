@@ -624,11 +624,19 @@ public class ProjectController {
 		@RequestMapping("JPS_DETAIL.do")
 		public ModelAndView JPS_DETAIL(@RequestParam(required=false, defaultValue="0") int p_index, @RequestParam(required=false) String p_index_str,/*@RequestParam(value="m_id", required=false) String id*/ HttpServletRequest req) {
 
-			if(!p_index_str.isEmpty() && p_index == 0) {
+			if(p_index_str != null && p_index == 0) {
 				p_index = Integer.parseInt(p_index_str);
 			}
 			
-			String id = Integer.toString((int)req.getSession().getAttribute("m_id"));
+			String id= null;
+			int id_int = 0;
+			try {
+				id_int = (Integer)req.getSession().getAttribute("m_id");
+				id = Integer.toString(id_int);
+			} catch (Exception e) {
+				System.out.println("아이디 문자열 변환 불가(숫자가 아닌듯...)");
+			}
+			
 			System.out.println("id : "+id);
 			ModelAndView mav = new ModelAndView();
 			Project project = projectService.getOneProject(p_index);
