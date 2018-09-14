@@ -73,7 +73,7 @@
 				</span>
 				<!-- 한줄 내용 입력창 -->
 				<div class="card-part">
-				<small>${list.p_count}명 참여</small>
+					<small>${list.p_count}명 참여</small>
 				</div>
 				<!-- 참여자 수  -->
 				<input type="hidden" value="${list.gap }">

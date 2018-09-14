@@ -91,6 +91,8 @@ public class ProjectController {
 			t = new SimpleDateFormat("yyyyMMddHHmm").format(today);
 			end = newlist.get(i).getP_enddate();
 			e = new SimpleDateFormat("yyyyMMddHHmm").format(end);
+			int count = fundService.fundcount(newlist.get(i).getP_index());
+			newlist.get(i).setP_count(count);
 			
 			long e_int = Long.parseLong(e);
 			long t_int = Long.parseLong(t);
@@ -118,6 +120,8 @@ public class ProjectController {
 			long t_int = Long.parseLong(t);
 			
 			gap = (int)(e_int - t_int);
+			int count = fundService.fundcount(endlist.get(i).getP_index());
+			endlist.get(i).setP_count(count);
 
 			endlist.get(i).setPer(per);
 			endlist.get(i).setGap(gap);
@@ -140,6 +144,8 @@ public class ProjectController {
 			long t_int = Long.parseLong(t);
 			
 			gap = (int)(e_int - t_int);
+			int count = fundService.fundcount(successlist.get(i).getP_index());
+			successlist.get(i).setP_count(count);
 
 			successlist.get(i).setPer(per);
 			successlist.get(i).setGap(gap);
