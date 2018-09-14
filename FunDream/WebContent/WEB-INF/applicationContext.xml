@@ -48,4 +48,29 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 		<property name="mapperInterface" value="dao.ICommentDao"/>
 	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="fundDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="mapperInterface" value="dao.IFundDao"/>
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="fund_detailDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="mapperInterface" value="dao.IFund_detailDao"/>
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="deliveryDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="mapperInterface" value="dao.IDeliveryDao"/>
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="bank_InfoDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="mapperInterface" value="dao.IBank_InfoDao"/>
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="card_InfoDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="mapperInterface" value="dao.ICard_InfoDao"/>
+	</bean>
 </beans>
