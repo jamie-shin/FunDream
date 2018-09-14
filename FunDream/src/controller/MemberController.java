@@ -398,13 +398,7 @@ public class MemberController {
 			String path = "img/" + filename1;
 
 			Member member = memberService.selectOneMemberByEmail(m_email);
-			int result_pwd = 0;
 			member.setM_email(m_email);
-			// 사용자가 변경할 비밀번호를 입력했을 경우, 비밀번호만 변경하는 메소드 호출
-			if(!m_pwd.isEmpty() || m_pwd != null) {
-				member.setM_pwd(m_pwd);
-				result_pwd = memberService.updatePassword(member);
-			}
 			member.setM_phone(m_phone);
 			member.setM_nick(m_nick);
 			if (filename1 != null) {
@@ -418,6 +412,16 @@ public class MemberController {
 				}
 			}
 			int result = memberService.updateMember(member);
+			int result_pwd = 0;
+			// 사용자가 변경할 비밀번호를 입력했을 경우, 비밀번호만 변경하는 메소드 호출
+			if(!m_pwd.trim().isEmpty()) {
+				member.setM_pwd(m_pwd.trim());
+				result_pwd = memberService.updatePassword(member);
+			}
+			else {
+				result_pwd = 1;
+			}
+			
 			if(result == 1 && result_pwd == 1) {
 				session.setAttribute("m_img", path);
 				return "success";  // 정보 수정 성공
