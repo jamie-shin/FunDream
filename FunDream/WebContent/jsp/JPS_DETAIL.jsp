@@ -14,7 +14,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
 <link rel="stylesheet" type="text/css" href="css/projectView.css">
 <!-- <script type="text/javascript" src="js/projectView.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
  
 
 <script>
@@ -364,10 +363,13 @@ $(function() {
 
 						<h2>공지사항</h2>
 						<div class="pv-notice-right">
+						
 							<c:if test="${type eq 'producer'}">
 								<input type="button" value="새 공지사항 등록" class="pv-new-noticebtn" id="insert_notice">
 							</c:if>
 						</div>
+						<!--  공지사항이 있을때만 보이기 -->
+						<c:if test="${notice !=null }">
 						<div class="pv-notice-box">
 							<div class="pv-notice-menu">
 								<div class="pv-notice-tab">
@@ -391,51 +393,9 @@ $(function() {
 										</div>
 									</div>
 								</div>
-								<div class="pv-notice-tab">
-									<input id="pv-notice-two" type="checkbox" name="tabs">
-									<label for="pv-notice-two">공지사항1</label>
-									<div class="pv-notice-content">
-										<div class="pv-notice-topright">2018-08-13 10:51:30</div>
-										<div class="pv-notice-btnbox">
-											<a class="pv-notice-modbtn">수정</a> <a
-												class="pv-notice-delbtn">삭제</a>
-										</div>
-										<div class="pv-notice-contents">
-											asdasdasdasdasdsadas asdsadasdas<br> asdasdasd<br>
-											asdsadasdas<br> asdasdasd<br> asdsadasdas<br>
-											asdasdasd<br> asdsadasdas<br> asdasdasd<br>
-											asdsadasdas<br> asdasdasd<br> asdsadasdas<br>
-											asdasdasd<br> asdsadasdas<br> asdasdasd<br>
-											asdsadasdas<br> asdasdasd<br> asdsadasdas<br>
-											asdasdasd<br> asdsadasdas<br> asdasdasd<br>
-											asdsadasdas<br> asdasdasd<br> asdasdas
-										</div>
-									</div>
-								</div>
-								<div class="pv-notice-tab">
-									<input id="pv-notice-three" type="checkbox" name="tabs">
-									<label for="pv-notice-three">공지사항1</label>
-									<div class="pv-notice-content">
-										<div class="pv-notice-topright">2018-08-13 10:51:30</div>
-										<div class="pv-notice-btnbox">
-											<a class="pv-notice-modbtn">수정</a> <a
-												class="pv-notice-delbtn">삭제</a>
-										</div>
-										<div class="pv-notice-contents">
-											asdasdasdasdasdsadas asdsadasdas<br> asdasdasd<br>
-											asdsadasdas<br> asdasdasd<br> asdsadasdas<br>
-											asdasdasd<br> asdsadasdas<br> asdasdasd<br>
-											asdsadasdas<br> asdasdasd<br> asdsadasdas<br>
-											asdasdasd<br> asdsadasdas<br> asdasdasd<br>
-											asdsadasdas<br> asdasdasd<br> asdsadasdas<br>
-											asdasdasd<br> asdsadasdas<br> asdasdasd<br>
-											asdsadasdas<br> asdasdasd<br> asdasdas
-										</div>
-									</div>
-								</div>
-
 							</div>
 						</div>
+						</c:if>
 						<h2>댓글</h2>
 						<c:if test="${type eq 'none' ||type eq 'normal'}"> 
 						<div class="pv-comment-box">
