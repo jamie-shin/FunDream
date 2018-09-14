@@ -38,6 +38,7 @@ import model.Reward;
 import model.Story_Member;
 import service.CategoryService;
 import service.CommentService;
+import service.FundService;
 import service.MemberService;
 import service.ProjectService;
 import service.RewardService;
@@ -64,6 +65,9 @@ public class ProjectController {
 	@Autowired
 	private CommentService commentService;
 	
+	@Autowired
+	private FundService fundService;
+	
 	int gap=0;
 	Date today = new Date();
 	Date end = new Date();
@@ -78,6 +82,8 @@ public class ProjectController {
 		//최신 프로젝트 3개
 		List<Project> newlist = projectService.getNewProject();
 		for(int i=0;i<3;i++) {
+			int p_status = fundService.updateP_status(newlist.get(i).getP_index());
+			newlist.get(i).setP_status(p_status);
 			int status = newlist.get(i).getP_status();
 			int target = newlist.get(i).getP_target();
 			double per2 = (double)status/(double)target*100;
@@ -98,6 +104,8 @@ public class ProjectController {
 		//마감임박 프로젝트 3개
 		List<Project> endlist = projectService.getEndProject();
 		for(int i=0;i<3;i++) {
+			int p_status = fundService.updateP_status(endlist.get(i).getP_index());
+			endlist.get(i).setP_status(p_status);
 			int status = endlist.get(i).getP_status();
 			int target = endlist.get(i).getP_target();
 			double per2 = (double)status/(double)target*100;
@@ -118,6 +126,8 @@ public class ProjectController {
 		//목표 달성 완료 프로젝트 3개
 		List<Project> successlist = projectService.getSuccessProject();
 		for(int i=0;i<3;i++) {
+			int p_status = fundService.updateP_status(successlist.get(i).getP_index());
+			successlist.get(i).setP_status(p_status);
 			int status = successlist.get(i).getP_status(); 
 			int target = successlist.get(i).getP_target();
 			double per2 = (double)status/(double)target*100;
