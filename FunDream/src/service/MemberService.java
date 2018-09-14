@@ -44,7 +44,7 @@ public class MemberService {
 
 	public int updateMember(Member member) {
 		// TODO Auto-generated method stub
-		return memberDao.updateMember(m);
+		return memberDao.updateMember(member);
 	}
 	
 	public int MIS_LOGIN(String m_email, String m_pwd) {
