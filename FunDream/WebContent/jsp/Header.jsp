@@ -63,6 +63,15 @@ $(function(){
 				}
 			}
 		});
+		$.ajax({
+			url : "FundCheck.do",
+			data : {m_id : sessionId},
+			success : function(data){
+				if(data != "have"){
+					$(document).find('#myFund').attr("style", "display: none;");
+				}
+			}
+		});
 	});
 </script>
 </head>
@@ -95,7 +104,7 @@ $(function(){
 						<li><a href="MUE_CHECKPW.do">내 정보 수정</a></li>
 						<c:if test="${m_manager != 1 && m_email !=null}">
 						<li><a href="#">관심 프로젝트</a></li>
-						<li><a href="#">내가 후원한 내역</a></li>
+						<li id="myFund"><a href="MS_MYFUND.do">내가 후원한 내역</a></li>
 						<li id="myProject"><a href="MJS.do">내 프로젝트 관리</a></li>
 						</c:if>
 						<li><a href="MOE.do">로그아웃</a></li>
