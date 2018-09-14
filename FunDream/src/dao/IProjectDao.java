@@ -31,4 +31,6 @@ public interface IProjectDao {
 	public List<Project> selectProjectsByCalculate(HashMap<String, Object> selectMap);
 	public int updateApproval(Map<String, Object> changeMap);
 	
+	public void update_P_status(Project project);
+	
 }

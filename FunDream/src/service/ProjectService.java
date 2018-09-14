@@ -159,4 +159,8 @@ public class ProjectService {
 			return projectDao.updateApproval(changeMap);
 		}
 		
+		public void update_P_status(Project project) {
+			projectDao.update_P_status(project);
+		}
+		
 }

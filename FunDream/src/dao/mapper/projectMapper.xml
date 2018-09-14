@@ -115,4 +115,8 @@
 		update Project set p_approval=#{p_approval} where p_index=#{p_index}
 	</update>
 	
+	<update id="update_P_status" parameterType="project">
+		update project set p_status=#{p_status} where p_index=#{p_index}
+	</update>
+	
 </mapper>
