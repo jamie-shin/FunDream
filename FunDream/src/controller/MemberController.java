@@ -268,8 +268,8 @@ public class MemberController {
 			Member member = memberService.selectOneMemberByEmail(email);
 			System.out.println("비번새설정 : " + member);
 			member.setM_pwd(inputPwd);
-			int result = memberService.updateMember(member);
-			if (result == 1) {
+			int result_pwd = memberService.updatePassword(member);
+			if (result_pwd == 1) {
 				System.out.println("변경 성공!");
 				redirect = "redirect:MSE_NEWPWFORM.do";
 			} else {
@@ -400,9 +400,12 @@ public class MemberController {
 			String path = "img/" + filename1;
 
 			Member member = memberService.selectOneMemberByEmail(m_email);
+			int result_pwd = 0;
 			member.setM_email(m_email);
+			// 사용자가 변경할 비밀번호를 입력했을 경우, 비밀번호만 변경하는 메소드 호출
 			if(!m_pwd.isEmpty() || m_pwd != null) {
 				member.setM_pwd(m_pwd);
+				result_pwd = memberService.updatePassword(member);
 			}
 			member.setM_phone(m_phone);
 			member.setM_nick(m_nick);
@@ -416,8 +419,8 @@ public class MemberController {
 					return "error";
 				}
 			}
-			int result = memberService.MUU_MODIFY(member);
-			if(result == 1) {
+			int result = memberService.updateMember(member);
+			if(result == 1 && result_pwd == 1) {
 				session.setAttribute("m_img", path);
 				return "success";  // 정보 수정 성공
 			}

@@ -18,5 +18,6 @@ public interface IMemberDao {
 	public List<Member> selectMembersByManager(HashMap<String, Object> searchMap);
 	public List<Member> selectMembersByValid(HashMap<String, Object> searchMap);
 	public List<Member> selectMembersByKeyword(HashMap<String, Object> searchMap);
+	public int updatePassword(Member member);
 
 }

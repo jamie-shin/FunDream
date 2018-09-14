@@ -6,9 +6,6 @@
 <mapper namespace="dao.IMemberDao">
 
 	<sql id="updateColumn">
-		<if test="m_pwd != null">
-			,m_pwd=sha(#{m_pwd})
-		</if>
 		<if test="m_nick != null">
 			, m_nick=#{m_nick}
 		</if>
@@ -71,5 +68,9 @@
     	<if test="m_manager > 0">and (m_manager=#{m_manager})</if>
     	<if test="m_valid > 0">and (m_valid=#{m_valid})</if>
     </select>
+    
+    <update id="updatePassword" parameterType="member">
+    	update Member set m_pwd=sha(#{m_pwd}) where m_id=#{m_id}
+    </update>
     
 </mapper>

@@ -44,11 +44,7 @@ public class MemberService {
 
 	public int updateMember(Member member) {
 		// TODO Auto-generated method stub
-		if(member !=null) {
-			memberDao.updateMember(member);
-			return 1;
-		}
-		return 2;
+		return memberDao.updateMember(m);
 	}
 	
 	public int MIS_LOGIN(String m_email, String m_pwd) {
@@ -82,13 +78,6 @@ public class MemberService {
 		else return 2;
 	}
 
-	public int MUU_MODIFY(Member m) {
-		// TODO Auto-generated method stub
-		System.out.println(m);
-		return memberDao.updateMember(m);
-		//md.updateMember(m);
-	}
-
 	public void MUU_LEAVE(String m_email) {
 		// TODO Auto-generated method stub
 		memberDao.updateMemberForLeave(m_email);
@@ -117,6 +106,10 @@ public class MemberService {
 	public List<Member> getMembersByKeyword(HashMap<String, Object> searchMap) {
 		// TODO Auto-generated method stub
 		return memberDao.selectMembersByKeyword(searchMap);
+	}
+
+	public int updatePassword(Member member) {
+		return memberDao.updatePassword(member);
 	}
 	
 }
