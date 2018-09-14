@@ -36,8 +36,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import model.Fund;
 import model.Member;
 import model.Project;
+import service.FundService;
 import service.MemberService;
 import service.ProjectService;
 
@@ -52,6 +54,9 @@ public class MemberController {
 	
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private FundService fundService;
 	
 	@RequestMapping("MSE_JOINFORM.do") // 회원가입창 요청
 	public void MSE_JOINFORM() {
@@ -443,5 +448,15 @@ public class MemberController {
 			return "1";
 		}
 		return "null";
+	}
+	
+	//해당 아이디에 후원한프로젝트가 있는지
+	@RequestMapping("FundCheck.do")
+	public @ResponseBody String FundCheck(int m_id) {
+		List<Fund> f_list = fundService.selectAllFundByM_id(m_id);
+		if(f_list.size()>0) {
+			return "have";
+		}
+		return"none";
 	}
 }
