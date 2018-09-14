@@ -256,7 +256,47 @@ $(function() {
 				}
     	});
     });
-
+    //후원하기 버튼 누를시
+    $('#FundBtn').on('click',function(){
+   	var data ={};
+   	var type = "${type}";
+   	data["p_index"]=$('#p_index').val();
+   	data["m_id"]=$('#m_id').val();
+   	var p_index = $('#p_index').val();
+   	if(type=='none'){
+   		var con = confirm("로그인이 필요합니다. 로그인창으로 이동하시겠습니까?");
+   		if(con==true){
+   			location.href="MIE_LOGINFORM.do";
+   		}
+   	}
+   	else{
+   		$.ajax({
+   			contentType: 'application/json',
+				processData: false,
+				url : "checkFund.do",
+				type : 'POST',
+				data : JSON.stringify(data),
+				dataType : 'json',
+				success : function(data){
+					alert(data.msg);
+					if(data.msg=="able"){
+						location.href="JFI_FORM.do?p_index="+p_index;
+					}
+					else if(data.msg=="unable"){
+			    		var con2= confirm("이미 이 프로젝트에 후원하셨습니다. 후원목록으로 이동하시겠습니까?");
+						if(con2==true){
+							location.href="MS_MYFUND.do";
+						}
+					}
+				},
+				error : function(){
+					alert("실패");
+				}
+   		});
+   	}
+   	
+   	
+    });
 
 });
 </script>
@@ -268,9 +308,8 @@ $(function() {
 		<h1 class="pv-banner-text">${project.p_name}${type}</h1>
 	</div>
 
-	<!--  -->
-
-	<!--  -->
+	<input type="hidden" id="m_id" value="<%=session.getAttribute("m_id")%>">
+	<input type="hidden" id="p_index" value="${project.p_index}">
 
 	<div class="pv-container">
 		<div class="pv-main">
@@ -675,7 +714,7 @@ $(function() {
 
 		<div class="pv-side">
 			<c:if test="${type eq 'none' || type eq 'normal'}">
-				<input type="button" value="후원하기" class="pv-reward-btn">
+				<input type="button" value="후원하기" class="pv-reward-btn" id="FundBtn">
 			</c:if>
 			<c:if test="${type eq 'producer' || type eq 'manager'}">
 			<div style="height:50px; width:100%;">
