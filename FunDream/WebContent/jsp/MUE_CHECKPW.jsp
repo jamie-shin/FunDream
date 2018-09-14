@@ -9,19 +9,46 @@
 	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="js/mainpage.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('#checkBtn').on('click', function(){
+				var m_email = $('#m_email').val();
+				var m_pwd_input = $('#m_pwd_input').val();
+				$.ajax({
+					url : "MUS_CHECKPW.do",
+					data : {m_email : m_email,
+							m_pwd_input : m_pwd_input},
+					success : function(data){
+						switch(data){
+						case "success":
+							location.href = "MUE_MODIFYFORM.do?m_email="+m_email;
+							break;
+						case "fail":
+							alert("비밀번호를 확인해주세요.");
+							break;
+						default:
+							alert("비밀번호 확인 실패!");
+							break;
+						}
+					},
+					error : function(){
+						alert("비밀번호 확인 오류!");
+					}
+				});
+			});
+		});	
+	</script>
 </head>
 <body class="checkbody">
 <% String m_email = (String)session.getAttribute("m_email"); %>
 
-<form action="MUS_CHECKPW.do">
 <div class="checkbox">
 <p>본인 확인을 위한 비밀번호 입력</p>
-	<input type="hidden" name="m_email" value="<%=m_email%>">
-	<input type="password" name="m_pwd_input" placeholder="password">
-	<input type="submit" value="확인">
+	<input type="hidden" name="m_email" id="m_email" value="<%=m_email%>">
+	<input type="password" name="m_pwd_input" id="m_pwd_input" placeholder="password">
+	<input type="button" id="checkBtn" value="확인">
 	<input type="button" value="취소" onclick="location.href='MAIN.do'">
 </div>
-</form>
 
 </div>
 <jsp:include page="Header.jsp"/>

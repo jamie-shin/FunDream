@@ -347,29 +347,27 @@ public class MemberController {
 	}
 
 	@RequestMapping("MUE_CHECKPW.do") // 내정보 수정 눌렀을 시 비밀번호 확인창
-	public String MUE_CHECKPW() {
-		return "MUE_CHECKPW";
-	}
+	public void MUE_CHECKPW() {}
 
-	@RequestMapping("MUS_CHECKPW.do") // 비밀번호 확인 버튼
-	public ModelAndView MUS_CHECKPW(@RequestParam String m_pwd_input, @RequestParam String m_email) {
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping("MUS_CHECKPW.do")  // DB에 저장된 비밀번호와 사용자가 입력한 비밀번호가 일치하는지 확인
+	public @ResponseBody String MUS_CHECKPW(String m_email, String m_pwd_input) {
+		System.out.println(m_email + " : " + m_pwd_input);
 		int result = memberService.MUS_CHECKPW(m_pwd_input, m_email);
+		System.out.println("비빌번호 확인 결과 : " + result);
+		if (result == 1) return "success";
+		else return "fail";
+	}
+	
+	@RequestMapping("MUE_MODIFYFORM.do") // 내정보수정 화면 이동
+	public ModelAndView MUE_MODIFYFORM(String m_email) {
+		ModelAndView mav = new ModelAndView();
 		Member member = memberService.selectOneMemberByEmail(m_email);
 		System.out.println("member: " + member);
 		String phone = member.getM_phone();
 		String[] array = phone.split("-");
-
-		if (result == 1) {
-			mav.addObject("phone", array);
-			mav.addObject("member", member);
-			mav.setViewName("MUS_CHECKPW");
-		} 
-		else {
-			mav.addObject("msg", "비밀번호가 일치하지 않습니다.");
-			mav.addObject("url", "MUE_CHECKPW.do");
-			mav.setViewName("alert");
-		}
+		mav.addObject("phone", array);
+		mav.addObject("member", member);
+		mav.setViewName("MUE_MODIFYFORM");
 		return mav;
 	}
 
