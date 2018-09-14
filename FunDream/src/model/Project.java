@@ -22,6 +22,7 @@ public class Project {
 	private double per;
 	private long gap;
 	private String p_policy;
+	private int p_count;
 
 	public Project() {
 		// TODO Auto-generated constructor stub
@@ -163,14 +164,6 @@ public class Project {
 		this.per = per;
 	}
 
-	public String getP_policy() {
-		return p_policy;
-	}
-
-	public void setP_policy(String p_policy) {
-		this.p_policy = p_policy;
-	}
-
 	public long getGap() {
 		return gap;
 	}
@@ -179,20 +172,36 @@ public class Project {
 		this.gap = gap;
 	}
 
+	public String getP_policy() {
+		return p_policy;
+	}
+
+	public void setP_policy(String p_policy) {
+		this.p_policy = p_policy;
+	}
+
+	public int getP_count() {
+		return p_count;
+	}
+
+	public void setP_count(int p_count) {
+		this.p_count = p_count;
+	}
+
 	@Override
 	public String toString() {
 		return "Project [p_index=" + p_index + ", m_id=" + m_id + ", p_approval=" + p_approval + ", ct_index="
 				+ ct_index + ", p_name=" + p_name + ", p_createdate=" + p_createdate + ", p_startdate=" + p_startdate
 				+ ", p_enddate=" + p_enddate + ", p_target=" + p_target + ", p_status=" + p_status + ", p_s_link="
 				+ p_s_link + ", p_contents=" + p_contents + ", p_mainimg=" + p_mainimg + ", p_age=" + p_age
-				+ ", p_calculate=" + p_calculate + ", p_type=" + p_type + ", per=" + per + ", p_policy=" + p_policy
-				+ ", gap=" + gap + "]";
+				+ ", p_calculate=" + p_calculate + ", p_type=" + p_type + ", per=" + per + ", gap=" + gap
+				+ ", p_policy=" + p_policy + ", p_count=" + p_count + "]";
 	}
 
 	public Project(int p_index, int m_id, int p_approval, int ct_index, String p_name, Timestamp p_createdate,
 			Timestamp p_startdate, Timestamp p_enddate, int p_target, int p_status, String p_s_link, String p_contents,
-			String p_mainimg, int p_age, int p_calculate, int p_type, double per, String p_policy, long gap) {
-		super();
+			String p_mainimg, int p_age, int p_calculate, int p_type, double per, long gap, String p_policy,
+			int p_count) {
 		this.p_index = p_index;
 		this.m_id = m_id;
 		this.p_approval = p_approval;
@@ -210,8 +219,10 @@ public class Project {
 		this.p_calculate = p_calculate;
 		this.p_type = p_type;
 		this.per = per;
-		this.p_policy = p_policy;
 		this.gap = gap;
+		this.p_policy = p_policy;
+		this.p_count = p_count;
 	}
-
+	
+	
 }
