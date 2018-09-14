@@ -33,6 +33,10 @@
  		update comment set c_re_con=#{c_re_con} where c_index = #{c_index}
  	</update>
  	
+ 	<update id="updateCommentforReport" parameterType="java.util.HashMap">
+ 		update comment set c_report=#{c_report}, c_status=2 where c_index=#{c_index}
+ 	</update>
+ 	
  	<select id="selectOneCommentByIndex" parameterType="int" resultType="comment">
  		select * from Comment where c_index=#{c_index}
  	</select>

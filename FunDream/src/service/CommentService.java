@@ -76,4 +76,12 @@ public class CommentService {
 		// TODO Auto-generated method stub
 		return commentDao.selectOneCommentByIndex(c_index);
 	}
+
+	public void updateCommentforReport(int c_index, String c_report) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> report = new HashMap<>();
+		report.put("c_index", c_index);
+		report.put("c_report", c_report);
+		commentDao.updateCommentforReport(report);
+	}
 }

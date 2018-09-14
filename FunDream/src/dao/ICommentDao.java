@@ -15,5 +15,6 @@ public interface ICommentDao {
 	public void deleteReply(int c_index);
 	public void updateReply(HashMap<String, Object> updatedReply);
 	public Comment selectOneCommentByIndex(int c_index);
+	public void updateCommentforReport(HashMap<String, Object> report);
 	
 }

@@ -753,6 +753,29 @@ public class ProjectController {
 			commentService.updateReply(c_index, c_re_con);
 		}
 		
+		
+		//댓글 신고창
+		@RequestMapping(value="JCE_REPORTFORM.do", method=RequestMethod.GET)
+		public ModelAndView JCE_REPORTFORM(int c_index, int p_index) {
+			ModelAndView mav = new ModelAndView();
+			System.out.println("신고할거:"+c_index);
+			System.out.println("p:"+p_index);
+			String title = projectService.getOneProject(p_index).getP_name();
+			
+			mav.addObject("title", title);
+			mav.setViewName("JCE_REPORTFORM");
+			return mav;
+		}
+		
+		@RequestMapping(value="JCE_REPORT.do", method=RequestMethod.POST)
+		public @ResponseBody void JCE_REPORT(int c_index, String c_report) {
+			System.out.println("신고할거:"+c_index);
+			System.out.println("내용:"+c_report);
+			
+			commentService.updateCommentforReport(c_index, c_report);
+		}
+		
+		
 		// 프로젝트 리스트 첫 화면 요청(최신순)
 		@RequestMapping("JJS_FORM.do")
 		public ModelAndView projectList(@RequestParam(required=false)String keyword, HttpSession session, @RequestParam(required=false) String ct_index,

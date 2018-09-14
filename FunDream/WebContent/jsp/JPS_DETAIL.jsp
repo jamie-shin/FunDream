@@ -448,23 +448,7 @@ $(function() {
 								<span id="counter">###</span> &emsp;<input type="button" class="pv-comment-addbtn" id="newComment"
 									value="입력">
 							</div>
-							<%-- <div class="pv-comment-cards">
-							<div class="pv-comment-card-1">
-								<div class="pv-comment-topleft"><%=request.getParameter("m_id")%></div>
-								<div class="pv-comment-topright" id="writedate" style="display: none"></div>
-							</div>
-							<textarea class="pv-comment-contents" id="inputComment" placeholder="저작권 등 다른 사람의 권리를 침해하거나 명예를 훼손하는 게시물은 관련 법률에 의해 제재를 받을 수 있습니다."></textarea>
-							<div class="pv-comment-btnbox">
-								<div id='newbutton'>
-									<input type="button" class="pv-comment-addbtn" id="newComment" value="입력">
-								</div>
-								<div id='buttonBox'>
-									<button hidden="hidden" class="pv-comment-modbtn" id="updateComment" value="">수정</button>
-									<button hidden="hidden" class="pv-comment-delbtn" id="deleteComment" value="">삭제</button>
-									<button hidden="hidden" class="pv-comment-decbtn" id="report" value="">신고</button>
-									<button hidden="hidden" class="pv-comment-recbtn" id="replyContents" value="">답글</button>
-								</div>
-							</div> --%>
+							
 						</div>
 						</c:if>
 						<br> <br>
@@ -479,21 +463,28 @@ $(function() {
 							<!-- 댓글로 작성된 카드 -->
 							<div id="replyBox">
 								<div class="pv-comment-card-1">
-									<div class="pv-comment-topleft" <c:if test="${comment.c_contents=='삭제된 댓글입니다'}">style="display: none"</c:if>>${comment.m_nick}</div>
-									<div class="pv-comment-topright" <c:if test="${comment.c_contents=='삭제된 댓글입니다'}">style="display: none"</c:if>>${comment.c_writedate }</div>
+									<div class="pv-comment-topleft" <c:if test="${comment.c_contents=='삭제된 댓글입니다' || comment.c_contents =='관리자에 의해 삭제된 댓글입니다'}">style="display: none"</c:if>>${comment.m_nick}</div>
+									<div class="pv-comment-topright" <c:if test="${comment.c_contents=='삭제된 댓글입니다'  || comment.c_contents =='관리자에 의해 삭제된 댓글입니다'}">style="display: none"</c:if>>${comment.c_writedate }</div>
 								</div>
 								<textarea class="pv-comment-contents" id="comment${comment.c_index}" disabled>${comment.c_contents}</textarea>
 								<div class="pv-comment-btnbox">
 									<div id='newbutton'></div>
 								<div id='buttonBox'>
-									<c:if test="${comment.m_id == m_id && comment.c_contents!='삭제된 댓글입니다'}">
+									<c:if test="${comment.m_id == m_id && comment.c_contents!='삭제된 댓글입니다'  || comment.c_contents =='관리자에 의해 삭제된 댓글입니다'}">
 									<button class="pv-comment-modbtn" id="updateComment${comment.c_index}" value="${comment.c_index}">수정</button>
 									<button class="pv-comment-delbtn" id="deleteComment${comment.c_index}" value="${comment.c_index}">삭제</button>
 									</c:if>
 								
 									<c:if test="${type eq 'producer'}">
-									<button class="pv-comment-decbtn" id="report${comment.c_index}" value="${comment.c_index}">신고</button>
-									<button <c:if test="${comment.c_re_con !=null }">hidden="hidden"</c:if> class="pv-comment-recbtn" id="replyContents${comment.c_index}" value="${comment.c_index}">답글</button>
+									<button onclick="window.open('http://localhost:8080/FunDream/JCE_REPORTFORM.do?c_index=${comment.c_index}&p_index=${comment.p_index}', 
+										'댓글 신고하기', 'width=500, height=420')" class="pv-comment-decbtn" id="report${comment.c_index}" value="${comment.c_index}" 
+										<c:if test="${comment.c_status!=1 }">hidden='hidden'</c:if>>신고
+									</button>
+									</c:if>
+									<c:if test="${type eq 'producer' || type eq 'manager' }">
+									<button <c:if test="${comment.c_re_con !=null }">hidden="hidden"</c:if> class="pv-comment-recbtn" id="replyContents${comment.c_index}" value="${comment.c_index}" <c:if test="${comment.c_status!=1 }">hidden='hidden'</c:if>>답글</button>
+									<c:if test="${comment.c_status ==2 }"><small >관리자에게 신고된 댓글</small></c:if>
+									<c:if test="${comment.c_status ==3 }"><small >신고처리 완료</small></c:if>
 									</c:if>
 								</div>
 							</div>
