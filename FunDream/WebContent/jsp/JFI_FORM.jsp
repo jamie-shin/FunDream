@@ -202,7 +202,7 @@
 								<c:if test="${r.r_amt<=-1}">
 									<h3>수량<small>(수량 제한 없음)</small></h3>
 								</c:if>
-								<c:if test="${r.r_amt!=-1}">
+								<c:if test="${r.r_amt>-1}">
 									<h3>수량<small>(남은수량</small><small><span id="amt${status.index}">${r.r_amt}</span></small><small>개)</small></h3>
 								</c:if>
 									<span class="spon-project-spantag"><input type="number" class="spon-project-reward-amount" id="amount${status.index}" maxlength="6" name="" value="0"></span>개
