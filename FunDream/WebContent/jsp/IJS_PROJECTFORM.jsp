@@ -102,11 +102,6 @@
 			});
 		});
 		
-/* 		$(document).on('click', '[name=sel_project]', function(){
-			var p_index = $(this).children('#sel_index').text();
-			location.href = "" + p_index;
-		}); */
-		
 		$(document).on('click', '#member', function(){
 			var m_id = $(this).text();
 			location.href = "IMS_DETAILFORM.do?m_id_str=" + m_id;
@@ -116,7 +111,6 @@
 			var p_index = $(this).text();
 			location.href = "JPS_DETAIL.do?p_index_str=" + p_index;
 		});
-		
 	});
 </script>
 <title>FunDream</title>
