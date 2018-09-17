@@ -23,7 +23,7 @@
 				data : {p_index : p_index,
 						bankname : bankname,
 						bankaccount : bankaccount,
-						bankowner : bankowner.
+						bankowner : bankowner,
 						p_calculate : p_calculate},
 				type : "POST",
 				success : function(data){
