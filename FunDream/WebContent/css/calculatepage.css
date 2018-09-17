@@ -1,0 +1,106 @@
+@charset "UTF-8";
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-moz-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -moz-transform;
+  	-o-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -o-transform;
+ 	 -webkit-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -webkit-transform;
+ 	 transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, transform;
+ 	 -moz-transition-duration: 0.2s;
+ 	 -o-transition-duration: 0.2s;
+ 	 -webkit-transition-duration: 0.2s;
+ 	 transition-duration: 0.2s;
+ 	 -moz-transition-timing-function: linear;
+ 	 -o-transition-timing-function: linear;
+ 	 -webkit-transition-timing-function: linear;
+ 	 transition-timing-function: linear;
+}
+
+.calbody { margin-top: 80px; margin-bottom:20px;}
+.cal-container { max-width: 900px; height:auto; margin: 0 auto; background-color:white; }
+.cal-title-center { text-align: center; }
+.cal-imgbox { max-width:500px; height:auto; margin:0 auto; }
+.cal-img { position: relative; width:100%; display: flex; margin-left: auto; margin-right: auto; border-radius: 10px; }
+.cal-textbox { max-width:500px; height:auto; margin:0 auto;}
+.cal-textbox-1 { width:100%; height:30px; padding:0; margin:0; border:0; display:flex; flex-wrap:wrap; margin-bottom:10px; }
+.cal-textbox-left { margin:0; padding:0; flex:40%; text-align:right; font-size:15pt; border:none; font-weight: bold;}
+.cal-textbox-right { margin:0; padding:0; flex:60%; text-align:center; font-size:13pt; border:none; align-content: center;}
+.cal-accountbox { max-width:500px; height:auto; margin:0 auto; border:1px solid black; margin-bottom: 30px; padding:15px;}
+.cal-accountbox-1 { width:100%; height:30px; padding:0; margin:0; border:0; display:flex; flex-wrap:wrap; margin-bottom:10px; }
+.cal-accountbox-left { margin:0; padding:0; flex:20px; text-align:right; font-size:15pt; border:none; font-weight: bold; margin-right:15px; }
+.cal-accountbox-right { margin:0; padding:0; flex:200px;; text-align:left; font-size:13pt; border:none; align-content: left; }
+.cal-bankname { margin:0; padding:0; height:100%; border:none; width:50%; outline: none; padding-left:8px; font-size: 13pt;}
+.cal-accountnumber { margin:0; padding:0; height:100%; width:100%; outline:none; border:none; border-bottom:1px solid black; font-size:13pt; padding-left:8px; padding-right:8px; }
+.cal-accountname { margin:0; padding:0; height:100%; width:100%; outline:none; border:none; border-bottom:1px solid black; font-size:13pt; padding-left:8px; padding-right:8px; }
+.cal-btn-center { text-align: center; margin-bottom:20px; margin-top:30px; }
+.cal-applybtn { margin:0; padding:5px; border:1px solid black; background:#fff; }
+.cal-applybtn:hover { cursor:pointer; background:tomato; color:white; border-color: tomato; }
+.cal-cancelbtn { margin:0; padding:5px; border:1px solid black; background:#fff; }
+.cal-cancelbtn:hover { cursor:pointer; background:orange; color:white; border-color: orange; }
+
+
+/*  */
+
+a {
+  color: #000;
+}
+
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]:before,
+[data-tooltip]:after {
+  display: none;
+  position: absolute;
+  top: 0;
+}
+
+[data-tooltip]:before {
+  border-bottom: .6em solid black;
+  border-bottom: .6em solid black;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  content: "";
+  left: 20px;
+  margin-top: 1em;
+}
+
+[data-tooltip]:after {
+  background-color: black;
+  background-color: darkgray;
+  border: 4px solid black;
+  border: 4px solid black;
+  border-radius: 7px;
+  color: #ffffff;
+  content: attr(data-tooltip-label) ":\A" attr(data-tooltip-message);
+  left: 0;
+  margin-top: 1.5em;
+  padding: 5px 15px;
+  white-space: pre-wrap;
+  width: 100px;
+}
+
+[data-tooltip]:hover:after,
+[data-tooltip]:hover:before {
+  display: block;
+}
+
+/*  */
+
+/* PROGRESS BAR */
+.cal-progress { margin:0 auto; padding:0; width:90%; height:30px; overflow:hidden; background:#e5e5e5; border-radius:6px; }
+.cal-bar { position:relative; float:left; min-width:1%; height:100%; background:cornflowerblue; }
+.cal-percent { position:absolute; top:45%; left:50%; transform:translate(-50%,-50%); margin:0; font-size:14pt; color:white; }
+/*  */
+
+@media ( max-width: 600px){
+	.cal-accountbox-left { display: none; }
+}
+@media ( max-width: 400px){
+	.cal-textbox-left { font-size:13pt; }
+	.cal-textbox-right { font-size:11pt; }
+}

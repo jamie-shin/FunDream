@@ -113,8 +113,15 @@
 		});
 		
 		$(document).on('click', '#projectName', function(){
-			var p_index = $(this).siblings('#project').text();
+			var p_index = $(this).parent().siblings('[class=cell]').children('#project').text();
+			console.log("p_index : " + p_index);
 			location.href = "JPS_DETAIL.do?p_index_str=" + p_index;
+		});
+		
+		$(document).on('click', '#calculateBtn', function(){
+			var p_index = $(this).val();
+			console.log(p_index);
+			location.href = "IJE_FORM.do?p_index_str="+p_index;
 		});
 	});
 </script>

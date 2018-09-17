@@ -326,4 +326,13 @@ public class IController {
 		if(result == 1) return "success";
 		return "fail";
 	}
+	
+	// 관리자 - 프로젝트 정산 화면 요청
+	@RequestMapping("IJE_FORM.do")
+	public ModelAndView IJE_FORM(String p_index_str) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("project", projectService.getOneProject(Integer.parseInt(p_index_str)));
+		mav.setViewName("IJE_FORM");
+		return mav;
+	}
 }
