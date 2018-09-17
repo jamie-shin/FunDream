@@ -199,7 +199,7 @@
 						<div class="spon-project-cards">
 							<div class="spon-project-card">
 								<div class="spon-project-left">
-								<c:if test="${r.r_amt==-1}">
+								<c:if test="${r.r_amt<=-1}">
 									<h3>수량<small>(수량 제한 없음)</small></h3>
 								</c:if>
 								<c:if test="${r.r_amt!=-1}">
