@@ -42,4 +42,20 @@
 	<select id="updateP_status" resultType="String" parameterType="int">
 		select sum(f_price) from fund where p_index=#{p_index} and f_cancel=1
 	</select>
+	
+	<select id="fund_pop" resultType="int" parameterType="int">
+		select count(*) from fund where p_index=#{p_index} and f_cancel=1
+	</select>
+	
+	<select id="total_fund" resultType="String" parameterType="int">
+		select sum(f_price) from fund where p_index=#{p_index} and f_cancel=1
+	</select>
+	
+	<select id="fund_list" parameterType="int" resultType="java.util.HashMap">
+		select * from member m, fund f where m.m_id=f.m_id and f.f_cancel=1 and p_index=#{p_index}
+	</select>
+	
+	<select id="selectAllFundByP_index" parameterType="int" resultType="fund">
+		select * from fund where p_index=#{p_index} and f_cancel=1
+	</select>
 </mapper>

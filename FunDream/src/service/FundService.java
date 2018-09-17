@@ -62,4 +62,28 @@ public class FundService {
 		}
 		return p_status;
 	}
+	
+	public int fund_pop(int p_index) {
+		return fundDao.fund_pop(p_index);
+	}
+	
+	public int total_fund(int p_index) {
+		String total_str=fundDao.total_fund(p_index);
+		int total=0;
+		if(total_str !=null) {
+			total = Integer.parseInt(total_str);
+		}
+		if(total==0) {
+			return 0;
+		}
+		return total;
+	}
+	
+	public List<HashMap<String, Object>>  fund_list(int p_index){
+		return fundDao.fund_list(p_index);
+	}
+	
+	public List<Fund> selectAllFundByP_index(int p_index){
+		return fundDao.selectAllFundByP_index(p_index);
+	}
 }
