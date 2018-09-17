@@ -362,7 +362,9 @@
 				      		<c:if test="${member.m_valid == 3}">이용정지</c:if>
 				      	</div>
 				      	<div class="cell" data-title="신고여부">
-				      		<a href="" class="IMS-bomb"><i class="fa fa-bomb"></i></a><a href="" class="IMS-bomb"><i class="fa fa-bomb"></i></a>
+				      	<c:forEach items="${reportComment}" var="report">
+					      	<c:if test="${member.m_id == report.m_id}"><i class="fa fa-bomb"></i></c:if>
+				      	</c:forEach>
 				      	</div>
 				    </div>
 				</c:forEach>
