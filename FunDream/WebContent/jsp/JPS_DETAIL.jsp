@@ -297,7 +297,20 @@ $(function() {
    	
    	
     });
-
+	
+    $('#item04').on('click',function(){
+    	var total = 0;
+    	var per=0;
+    	for(var i=0;i<$("[id^=amt]").length;i++){
+    		total += Number($('#amt'+i).html());
+    	}
+    	for(var i=0;i<$("[id^=amt]").length;i++){
+    		 per= Number($('#amt'+i).html())/total*100;
+    		 //alert("per : "+per.toFixed(1));
+    		 $('#per'+i).val(per.toFixed(1));
+    		 $('#v_per'+i).html(per.toFixed(1));
+    	}
+    });
 });
 </script>
 </head>
@@ -512,15 +525,15 @@ $(function() {
 										<div class="cell">총금액</div>
 									</div>
 									<div class="row">
-										<div class="cell" data-title="총원">10</div>
-										<div class="cell" data-title="총금액">1000000</div>
+										<div class="cell" data-title="총원">${fund_pop}</div>
+										<div class="cell" data-title="총금액">${total_fund}원</div>
 									</div>
 								</div>
 							</div>
 							<br> <br>
 
 							<!-- 그래프1  -->
-							<h2>연령별 신청현황</h2>
+							<h2>성별 신청현황</h2>
 							<br>
 							<div class="grid">
 								<section class="pv-circle-section">
@@ -530,7 +543,7 @@ $(function() {
 											stroke-width="2" fill="none" cx="16.91549431"
 											cy="16.91549431" r="15.91549431" />
 							      <circle class="circle-chart__circle" stroke="#00acc1"
-											stroke-width="2" stroke-dasharray="57,100"
+											stroke-width="2" stroke-dasharray='${param_per["m_per"]},100'
 											stroke-linecap="round" fill="none" cx="16.91549431"
 											cy="16.91549431" r="15.91549431" />
 							      <g class="circle-chart__info">
@@ -539,7 +552,7 @@ $(function() {
 											font-size="8">남자</text>
 							        <text class="circle-chart__subline" x="16.91549431"
 											y="20.5" alignment-baseline="central" text-anchor="middle"
-											font-size="3">57%</text>
+											font-size="3">${param_per["m_per"]} %</text>
 							      </g>
 							    </svg>
 								</section>
@@ -550,7 +563,7 @@ $(function() {
 											stroke-width="2" fill="none" cx="16.91549431"
 											cy="16.91549431" r="15.91549431" />
 							      <circle class="circle-chart__circle" stroke="#FF7043"
-											stroke-width="2" stroke-dasharray="43,100"
+											stroke-width="2" stroke-dasharray='${param_per["f_per"]},100'
 											stroke-linecap="round" fill="none" cx="16.91549431"
 											cy="16.91549431" r="15.91549431" />
 							      <g class="circle-chart__info">
@@ -559,7 +572,7 @@ $(function() {
 											font-size="8">여자</text>
 							        <text class="circle-chart__subline" x="16.91549431"
 											y="20.5" alignment-baseline="central" text-anchor="middle"
-											font-size="3">43%</text>
+											font-size="3">${param_per["f_per"]}%</text>
 							      </g>
 							    </svg>
 								</section>
@@ -581,20 +594,15 @@ $(function() {
 							<!-- 그래프2  -->
 							<h2>리워드별 신청현황</h2>
 							<ul class="skill-list">
+								<c:forEach items="${l}" var="l" varStatus="status">
 								<li class="skill">
 									<h5 class="progressbar-count">
-										Reward1<br> 23%
-									</h5> <progress class="skill-1" max="100" value="23">
+										${l["r_name"]}<br><span id="amt${status.index}">${l["sum(fd_amt)"]}</span>개<span id="v_per${status.index}"></span>
+									</h5> <progress class="skill-1" max="100" id="per${status.index}" value="">
 										<strong>Skill Level: 50%</strong>
 									</progress>
 								</li>
-								<li class="skill">
-									<h5 class="progressbar-count">
-										Reward2<br> 123%
-									</h5> <progress class="skill-1" max="100" value="123">
-										<strong>Skill Level: 50%</strong>
-									</progress>
-								</li>
+							</c:forEach>
 							</ul>
 							<!--  -->
 
@@ -612,8 +620,8 @@ $(function() {
 										<div class="cell">총금액</div>
 									</div>
 									<div class="row">
-										<div class="cell" data-title="총원">10</div>
-										<div class="cell" data-title="총금액">1000000</div>
+										<div class="cell" data-title="총원">${fund_pop}</div>
+										<div class="cell" data-title="총금액">${total_fund}원</div>
 									</div>
 								</div>
 							</div>
@@ -632,23 +640,51 @@ $(function() {
 										<div class="cell">배송지</div>
 									</div>
 
+									<!--여길 누르면  -->
+								<c:forEach items="${test}" var="t">
 									<div class="row">
-										<div class="cell" data-title="후원자">후원자1</div>
-										<div class="cell" data-title="금액">10000원</div>
-										<div class="cell" data-title="리워드">리워드1</div>
-										<div class="cell" data-title="옵션">red</div>
-										<div class="cell" data-title="배송지">서울시 강남구 테헤란로 10</div>
+										<div class="cell" data-title="후원자">${t[0].m_name} / ${t[0].m_nick}</div>
+										<div class="cell" data-title="금액">${t[0].m_gender}</div>
+										<div class="cell" data-title="리워드">${t[0].m_phone}</div>
+										<div class="cell" data-title="옵션">${t[0].m_email}</div>
+										<div class="cell" data-title="배송지">${t[1].f_price}</div>
 									</div>
-
+									
+								<!--여길 아코디언으로 하고 싶다  -->
+									<!--배송지정보  -->
+									<c:if test="${t[2] != null }">
+									<div class="row header backcolor">
+										<div class="cell">인수자</div>
+										<div class="cell">인수자 번호</div>
+										<div class="cell">우편번호</div>
+										<div class="cell">주소</div>
+										<div class="cell">배송옵션</div>
+									</div>
 									<div class="row">
-										<div class="cell" data-title="후원자">후원자1</div>
-										<div class="cell" data-title="금액">10000원</div>
-										<div class="cell" data-title="리워드">리워드1</div>
-										<div class="cell" data-title="옵션">red</div>
-										<div class="cell" data-title="배송지">서울특별시 서초구 강남대로53길 8
-											비트아카데미빌딩</div>
+										<div class="cell" data-title="후원자">${t[2].v_name}</div>
+										<div class="cell" data-title="금액">${t[2].v_phone}</div>
+										<div class="cell" data-title="리워드">${t[2].v_postnum}</div>
+										<div class="cell" data-title="옵션">${t[2].v_add}</div>
+										<div class="cell" data-title="배송지">${t[2].v_msg}</div>
 									</div>
-
+									</c:if>
+									<!--펀드 디테일 정보  -->
+									<c:if test="${t[3] != '[]'}">
+									<div class="row header backcolor">
+										<div class="cell">리워드명</div>
+										<div class="cell">개수</div>
+										<div class="cell">옵션</div>
+									</div>
+									<c:forEach items="${t[3]}" var="fd">
+									<div class="row">
+										<div class="cell" data-title="후원자">${fd.r_name}</div>
+										<div class="cell" data-title="금액">${fd.fd_amt}</div>
+										<div class="cell" data-title="리워드">${fd.fd_r_option}</div>
+									</div>	
+									</c:forEach>
+									</c:if>
+								</c:forEach>
+								<!--여그까지 -->
 								</div>
 							</div>
 

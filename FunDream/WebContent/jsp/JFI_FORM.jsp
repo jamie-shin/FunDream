@@ -36,6 +36,7 @@
 			//갯수 입력한 리워드 정보
 			for(var i=0;i<$('[id^=price]').length;i++){
 				if($('#amount'+i).val()!=0 && $('#amount'+i).val()!='' && $('#amount'+i).val()!=null){
+					data["r_name"+i]=$('#r_name'+i).html();
 					data["r_index"+i]=$('#index'+i).val();
 					data["fd_amt"+i]=$('#amount'+i).val();
 					data["fd_r_option"+i]=$('#option'+i).val();
@@ -112,6 +113,11 @@
 				total+=price*amt;
 			}
 			for(var i=0;i<$('[id^=price]').length;i++){
+				if($('#amount'+i).val() > Number($('#amt'+i).html())){
+					alert("리워드 제한수량을 확인하세요");
+					$('#amount'+i).val(0);
+					location.go(-1);
+				}
 				if($('#amount'+i).val()!=0 && $('#amount'+i).val()!='' && $('#amount'+i).val()!=null){
 					list.push($('#del_price'+i).html());
 				}
@@ -187,12 +193,17 @@
 				<dl class="accordion">
 				<c:forEach items="${r_list}" var="r" varStatus="status">
 				<input type="hidden" id="index${status.index}" value="${r.r_index}">
-					<dt>${r.r_name}</dt>
+					<dt><span id="r_name${status.index}"> ${r.r_name}</span></dt>
 						<dd id="dv">
 						<div class="spon-project-cards">
 							<div class="spon-project-card">
 								<div class="spon-project-left">
-									<h3>수량<small>(남은수량 10개)</small></h3>
+								<c:if test="${r.r_amt==0}">
+									<h3>수량<small>(수량 제한 없음)</small></h3>
+								</c:if>
+								<c:if test="${r.r_amt!=0}">
+									<h3>수량<small>(남은수량</small><small><span id="amt${status.index}">${r.r_amt}</span></small><small>개)</small></h3>
+								</c:if>
 									<span class="spon-project-spantag"><input type="number" class="spon-project-reward-amount" id="amount${status.index}" maxlength="6" name="" value="0"></span>개
 								</div>
 								<div class="spon-project-right">
