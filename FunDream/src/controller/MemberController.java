@@ -123,10 +123,15 @@ public class MemberController {
 	}
 
 	@RequestMapping("MSE_SENDC.do") // 이메일 인증 버튼
-	public String MSE_SENDC(@RequestParam("inputEmail") String inputEmail) {
+	public ModelAndView MSE_SENDC(@RequestParam("inputEmail") String inputEmail, Model model) {
 		System.out.println(inputEmail);
 		String code = SendCodeToEmail(inputEmail);
-		return "redirect:MSE_CHECKC.do?inputEmail=" + inputEmail + "&sendCode=" + code;
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("inputEmail", inputEmail);
+		mav.addObject("sendCode", code);
+		mav.setViewName("MSE_CHECKC");
+		System.out.println(code);
+		return mav;
 	}
 
 	@RequestMapping("MSS_CHECKM.do") // 회원가입에서 이메일 인증전 중복검사
@@ -141,13 +146,6 @@ public class MemberController {
 		}
 		System.out.println("가입 가능 : " + checkEmail);
 		return checkEmail;
-	}
-
-	@RequestMapping("MSE_CHECKC.do") // 회원가입에서 이메일 인증
-	public String MSE_CHECKC(Model model, String inputEmail, String sendCode) {
-		model.addAttribute("sendCode", sendCode);
-		model.addAttribute("inputEmail", inputEmail);
-		return "MSE_CHECKC";
 	}
 
 	@RequestMapping("MSI_JOIN.do") // 회원가입완료 버튼
@@ -398,7 +396,16 @@ public class MemberController {
 			String path = "img/" + filename1;
 
 			Member member = memberService.selectOneMemberByEmail(m_email);
-			member.setM_email(m_email);
+			
+			// 사용자가 변경할 비밀번호를 입력했을 경우, 비밀번호만 변경하는 메소드 호출
+			int result_pwd = 0;
+			if(!m_pwd.equals("null")) {
+				System.out.println("비밀번호 변경 : " + m_pwd);
+				member.setM_pwd(m_pwd);
+				result_pwd = memberService.updatePassword(member);
+			}
+			
+			// 비밀번호 외 다른 정보 수정
 			member.setM_phone(m_phone);
 			member.setM_nick(m_nick);
 			if (filename1 != null) {
@@ -408,29 +415,28 @@ public class MemberController {
 				if (f[f.length - 1].equalsIgnoreCase("jpg") || f[f.length - 1].equalsIgnoreCase("png")) {
 					member.setM_img(path);
 				} else {// 형식이 올바르지 않을경우 경고창 이후 history.go(-1)
-					return "error";
+					return "imgFile";
 				}
 			}
 			int result = memberService.updateMember(member);
-			int result_pwd = 0;
-			// 사용자가 변경할 비밀번호를 입력했을 경우, 비밀번호만 변경하는 메소드 호출
-			if(!m_pwd.trim().isEmpty()) {
-				member.setM_pwd(m_pwd.trim());
-				result_pwd = memberService.updatePassword(member);
-			}
-			else {
-				result_pwd = 1;
-			}
 			
-			if(result == 1 && result_pwd == 1) {
-				session.setAttribute("m_img", path);
-				return "success";  // 정보 수정 성공
+			if(result == 1) {
+				// 입력한 비밀번호가 null이 아니고 일반 정보 수정 결과 값과 비밀번호 수정 결과 값이 모두 1인 경우
+				if(!m_pwd.equals("null") && result_pwd == 1) {
+					session.setAttribute("m_img", path);
+					return "success";
+				}
+				// 입력한 비밀번호가 null이고 일반 정보 수정 결과 값이 1일 경우
+				else if(m_pwd.equals("null") && result_pwd == 0) {
+					session.setAttribute("m_img", path);
+					return "success";
+				}
 			}
+			return "fail";
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			return "fail";
 		}
-
-		return "fail";
 	}
 
 	@RequestMapping("MUU_LEAVE.do") // 회원 탈퇴

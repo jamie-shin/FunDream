@@ -18,6 +18,7 @@
 					url : "MUS_CHECKPW.do",
 					data : {m_email : m_email,
 							m_pwd_input : m_pwd_input},
+					type : "POST",
 					success : function(data){
 						switch(data){
 						case "success":
@@ -50,7 +51,6 @@
 	<input type="button" value="취소" onclick="location.href='MAIN.do'">
 </div>
 
-</div>
 <jsp:include page="Header.jsp"/>
 </body>
 </html>

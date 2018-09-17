@@ -62,13 +62,12 @@
 			<br>
 			<p>회원약관</p>
 			<textarea>
-				aasdsadasdadsadsadada
-				asdasdasdasdasdasdasda
-				asdasdasdasdasdasdasda
-				asdasdadsadasdasdasd
-				sdasdasdasdasda
-				asdasdadsadasdasdasd
-				dsadasdasdasd
+				약관 제1항<br>
+				약관 제2항<br>
+				약관 제3항<br>
+				약관 제4항<br>
+				약관 제5항<br>
+				약관 제6항<br>
 			</textarea>
 			<input type="checkbox" name="" id="c1"><label for="c1">상기내용에 동의합니다.</label>
 			<br>
