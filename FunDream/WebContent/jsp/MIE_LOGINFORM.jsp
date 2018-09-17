@@ -78,7 +78,7 @@
 </script>
 
 </head>
-<body>
+<body class="MIE-body">
 	<div class="loginbox">
 		<img src="img/wadiz.jpg" class="logo">
 		<h1>펀드림</h1>
@@ -90,12 +90,13 @@
 			<input type="password" name="m_pwd" id="m_pwd" placeholder="Password">
 			<small id="checkPwd" style="color: red"></small><br>
 			<a id="setPwd" href="">Lost your password?</a><br><br>
-			<input type="submit" name="" value="로그인" id="submitB" disabled="disabled">
-			<input type="button" name="" value="회원가입" onclick="location.href='MSE_JOINFORM.do'">
-			<input type="button" name="" value="네이버로 로그인">
-			<input type="button" name="" value="구글로 로그인">
+			<input type="submit" name="" value="로그인" id="submitB" disabled="disabled" class="MIE-login">
+			<input type="button" name="" value="회원가입" onclick="location.href='MSE_JOINFORM.do'" class="MIE-join">
+			<input type="button" name="" value="네이버로 로그인" class="naverlogin">
+			<input type="button" name="" value="구글로 로그인" class="googlelogin">
 		</form>
 	</div>
-	<jsp:include page="Header.jsp"/>
+	
 </body>
+<jsp:include page="Header.jsp"/>
 </html>

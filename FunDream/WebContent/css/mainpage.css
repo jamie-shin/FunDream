@@ -24,10 +24,10 @@ ul, ol {
 }
 
 .mainPage { /* body */
-	margin-top: 50px;
+	margin-top: 70px;
 	font-family: Open sans;
 	background-color: #eee;
-	background: #f0f0f0;
+	background: #fbfbfb;
   	font-size: 17px;
   	line-height: 1.4;
 }
@@ -168,9 +168,9 @@ ul, ol {
   background: #fefff9;
   color: #363636;
   text-decoration: none;
-  -moz-box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
-  box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
+  -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 0 8px 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 0 8px 0;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 0 8px 0;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -234,17 +234,19 @@ ul, ol {
     left: 0;
 }
 
+
 .card-part {
-	text-align:right;
-	padding: 0;
-	padding-right:28px;
-	padding-bottom:8px;
+	margin-left: 66%;
 }
+
 
 .card span {
   display: block;
 }
 .card .card-summary {
+  padding: 5% 5% 3% 5%;
+}
+.card .card-part {
   padding: 5% 5% 3% 5%;
 }
 .card .card-header {

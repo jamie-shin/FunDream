@@ -32,13 +32,18 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import model.Category;
 import model.Comment;
+import model.Delivery;
+import model.Fund;
+import model.Fund_Detail;
 import model.Member;
 import model.Project;
 import model.Reward;
 import model.Story_Member;
 import service.CategoryService;
 import service.CommentService;
+import service.DeliveryService;
 import service.FundService;
+import service.Fund_DetailService;
 import service.MemberService;
 import service.ProjectService;
 import service.RewardService;
@@ -67,6 +72,12 @@ public class ProjectController {
 	
 	@Autowired
 	private FundService fundService;
+	
+	@Autowired
+	private Fund_DetailService fdservice;
+	
+	@Autowired
+	private DeliveryService deliveryService;
 	
 	int gap=0;
 	Date today = new Date();
@@ -711,6 +722,109 @@ public class ProjectController {
 		mav.addObject("project", project);
 		//제작자 정보
 		mav.addObject("m", m);
+		//후원자 목록
+		
+		//후원한 총원
+		int fund_pop = fundService.fund_pop(p_index);
+		//후원한 총금액
+		int total_fund = fundService.total_fund(p_index);
+		
+		//후원자 목록
+		/*List<HashMap<String, Object>> map = fundService.fund_list(p_index);
+		for(int i=0;i<map.size();i++) {
+			System.out.println("map : m_id = "+ map.get(i).get("m_id"));
+			System.out.println("map : f_index = "+ map.get(i).get("f_index"));
+		}*/
+		
+		List<Fund> f_list = fundService.selectAllFundByP_index(p_index);
+		
+		List<List<Object>> test = new ArrayList<List<Object>>();
+		for(Fund f : f_list) {
+			List<Object> list = new ArrayList<Object>();
+			Member member = memberService.selectOneMemberById(f.getM_id());
+			Delivery d = deliveryService.selectOneDeliveryByF_index(f.getF_index());
+			List<Fund_Detail> fd_list= fdservice.selectAllFund_DetailByF_index(f.getF_index());
+			list.add(member);
+			list.add(f);
+			list.add(d);
+			list.add(fd_list);
+			/*String r_name = null;
+			for(Fund_Detail fd : fd_list) {
+				List<Object> list2 = new ArrayList<Object>();
+				Reward r = rewardService.getOneRewardByIndex(fd.getR_index());
+				r_name=r.getR_name();
+				list2.add(r);
+				list.add(list2);
+				//System.out.println("list2 : "+list2);
+				System.out.println("r_name 안 : "+r_name);
+			}
+			//System.out.println("list : "+ list);
+			System.out.println("r_name 밖 : "+ r_name);*/
+			test.add(list);
+		}
+		
+		mav.addObject("fund_pop", fund_pop);
+		mav.addObject("total_fund", total_fund);
+		mav.addObject("test", test);
+		
+		
+		//그래프
+		//리워드 별 데이터
+		List<Fund> r_fund = fundService.selectAllFundByP_index(p_index);
+		
+		List<List<Object>> Fd_list = new ArrayList<List<Object>>();
+		/*for(Fund ff : r_fund) {
+			List<Object> fd_l = new ArrayList<Object>();
+			List<Fund_Detail> fdfd = fdservice.selectAllFund_DetailByF_index(ff.getF_index());
+			
+			Fd_list.add(fd_l);
+		}*/
+		HashMap<String, Object> map = null;
+		List<Object> L = new ArrayList<Object>();
+		for(int i=0;i<r_fund.size();i++) {
+			List<Fund_Detail> fdfd = fdservice.selectAllFund_DetailByF_index(r_fund.get(i).getF_index());
+			//System.out.println("fdfd : "+fdfd);
+			for(int j=0;j<fdfd.size();j++) {
+				map = fdservice.fd_amt(fdfd.get(j).getR_index());
+			}
+			//System.out.println("map 안 : "+map);
+			L.add(map);
+		}
+		//System.out.println("map 밖 : "+map);
+		if(map!=null) {
+			mav.addObject("l", L);
+		}
+		
+		//성별데이터
+		int F_num = 0;
+		int M_num = 0;
+		int sum =0;
+		double f_per=0;
+		double m_per=0;
+		for(Fund ff : r_fund) {
+			Member mm = memberService.selectOneMemberById(ff.getM_id());
+			if(mm.getM_gender()==1) {
+				//System.out.println("M : "+mm);
+				M_num+=1;
+			}
+			else if(mm.getM_gender()==2) {
+				//System.out.println("F : "+mm);
+				F_num+=1;
+			}
+		}
+		if(F_num!=0 && M_num!=0) {
+			sum = F_num + M_num;
+			f_per = (double)(F_num) / (double)(sum) * 100;
+			m_per = (double)(M_num) / (double)(sum) * 100;
+		}
+		double F_per = Double.parseDouble(String.format("%.1f",f_per));
+		double M_per = Double.parseDouble(String.format("%.1f",m_per));
+		
+		HashMap<String, Object> param = new HashMap<String,Object>();
+		param.put("f_per", F_per);
+		param.put("m_per", M_per);
+		System.out.println("param : "+ param);
+		mav.addObject("param_per", param);
 		mav.setViewName("JPS_DETAIL");
 		return mav;
 	}
