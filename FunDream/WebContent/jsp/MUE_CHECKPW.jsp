@@ -29,12 +29,12 @@
 							alert("비밀번호를 확인해주세요.");
 							break;
 						default:
-							alert("비밀번호 확인 실패!");
+							console.log("비밀번호 확인 실패!");
 							break;
 						}
 					},
 					error : function(){
-						alert("비밀번호 확인 오류!");
+						console.log("비밀번호 확인 오류!");
 					}
 				});
 			});

@@ -16,27 +16,41 @@
 <body class="mainPage">
 	<div class="slideshow">
 		<ul class="slider">
-			<li><a href=""><div class="banner" style="background-image: url('img/애완동물.jpg');"></div>
-					<section class="caption">
+			<li>
+				<a href="">
+					<div class="banner" style="background-image: url('img/애완동물.jpg');"></div>
+					<section class="caption">	
 						<h1>프로젝트13</h1>
 						<!-- 프로젝트 제목  -->
-					</section></a></li>
-			<li><a href=""><div class="banner" style="background-image: url('img/레저.jpg');"></div>
+					</section>
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<div class="banner" style="background-image: url('img/레저.jpg');"></div>
 					<section class="caption">
 						<h1>프로젝트12</h1>
-					</section></a></li>
-			<li><a href=""><div class="banner" style="background-image: url('img/화장품.jpg');"></div>
+					</section>
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<div class="banner" style="background-image: url('img/화장품.jpg');"></div>
 					<section class="caption">
 						<h1>프로젝트2</h1>
-					</section></a></li>
-			<li><a href=""><div class="banner" style="background-image: url('img/뷰티.jpg');"></div>
+					</section>
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<div class="banner" style="background-image: url('img/뷰티.jpg');"></div>
 					<section class="caption">
 						<h1>프로젝트11</h1>
-					</section></a></li>
+					</section>
+				</a>
+			</li>
 		</ul>
-		<ol class="pagination">
-
-		</ol>
+		<ol class="pagination"></ol>
 
 		<div class="left">
 			<span class="fa fa-chevron-left"></span>
@@ -59,8 +73,7 @@
 		<div class="cards">
 			<c:forEach items="${endlist }" var="list">
 				<c:if test="${m_email !=null }">
-					<a class="card"
-						href="JPS_DETAIL.do?p_index=${list.p_index}&m_id=${m_id}")>
+					<a class="card" href="JPS_DETAIL.do?p_index=${list.p_index}&m_id=${m_id}")>
 				</c:if>
 				<c:if test="${m_email ==null }">
 					<a class="card" href="JPS_DETAIL.do?p_index=${list.p_index}")>
@@ -121,8 +134,7 @@
 		<div class="cards">
 			<c:forEach items="${newlist}" var="list">
 				<c:if test="${m_email !=null }">
-					<a class="card"
-						href="JPS_DETAIL.do?p_index=${list.p_index}&m_id=${m_id}")>
+					<a class="card" href="JPS_DETAIL.do?p_index=${list.p_index}&m_id=${m_id}")>
 				</c:if>
 				<c:if test="${m_email ==null }">
 					<a class="card" href="JPS_DETAIL.do?p_index=${list.p_index}")>
@@ -163,8 +175,6 @@
 			</c:forEach>
 		</div>
 	</div>
-
-
 
 	<div class="mcontainer">
 		<span class="left-subtitle">
@@ -219,9 +229,6 @@
 			</c:forEach>
 		</div>
 	</div>
-
-
-
 	<jsp:include page="Header.jsp" />
 </body>
 </html>

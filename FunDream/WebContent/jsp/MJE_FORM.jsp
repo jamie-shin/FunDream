@@ -14,7 +14,7 @@
 		$(document).find('[class=card]').on('click', function(){
 			var p_approval = $(this).children('[name=p_approval]').val();
 			var p_index = $(this).children("[name=p_index]").val();
-			alert("p_index: " + p_index + " / p_approval: " + p_approval);
+			console.log("p_index: " + p_index + " / p_approval: " + p_approval);
 			switch(p_approval){
 			case "4":
 				alert("프로젝트 수정화면으로 이동합니다.");

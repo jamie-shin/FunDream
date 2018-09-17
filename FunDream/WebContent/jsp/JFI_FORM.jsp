@@ -81,7 +81,7 @@
 			data["m_id"]=$('#m_id').val();
 			data["p_index"]=$('#p_index').val();
 			
-			alert("총금액 : "+data["f_price"]);
+			console.log("총금액 : "+data["f_price"]);
 			$.ajax({
 				contentType: 'application/json',
 				processData: false,
@@ -93,7 +93,7 @@
 					location.href=data.code;
 				},
 				error : function(){
-					alert("후원실패");
+					console.log("후원실패");
 				}
 			});
 			

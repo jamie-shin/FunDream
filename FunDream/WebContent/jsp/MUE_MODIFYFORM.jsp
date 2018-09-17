@@ -221,12 +221,12 @@
 	    				alert("이미지 파일이 잘못되었습니다.");
 	    				break;
 	    			case "fail" : 
-	    				alert("정보 수정을 실패하였습니다.");
+	    				console.log("정보 수정을 실패하였습니다.");
 	    				break;
 	    			}
 	    		},
 	    		error : function(){
-	    			alert("정보 수정 에러");
+	    			console.log("정보 수정 에러");
 	    		}
 	    	});
 	    });

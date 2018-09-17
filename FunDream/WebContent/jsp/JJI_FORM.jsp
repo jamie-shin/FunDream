@@ -188,11 +188,11 @@
 						element.hide();
 					}
 					else{
-						alert("리워드 저장 실패!");
+						console.log("리워드 저장 실패!");
 					}
 				},
 				error: function(){
-					alert('리워드 저장 에러');
+					console.log('리워드 저장 에러');
 				}
 			});
 			e.preventDefault();
@@ -217,11 +217,11 @@
 					           head.remove(); //id=reward   
 			               }
 			               else{
-			            	   alert("리워드 삭제를 실패하였습니다.");
+			            	   console.log("리워드 삭제를 실패하였습니다.");
 			               }
 		              },
 		              error: function(){
-		                 alert('리워드 삭제 에러!');
+		            	  console.log('리워드 삭제 에러!');
 		              }
 		           });
 		        }
@@ -276,7 +276,7 @@
 				contentType: false,
 				cache: false,
 				success: function(data){
-					alert("리워드 수정 결과 : " +data);
+					console.log("리워드 수정 결과 : " +data);
 					switch(data){
 					case "success":
 						alert(r_index_element + " 리워드가 저장되었습니다.");
@@ -284,12 +284,12 @@
 						element.hide();
 						break;
 					case "fail":
-						alert("리워드 저장 실패!");
+						console.log("리워드 저장 실패!");
 						break;
 					}
 				},
 				error: function(){
-					alert('리워드 저장 에러');
+					console.log('리워드 저장 에러');
 				}
 			});
 			e.preventDefault();

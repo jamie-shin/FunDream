@@ -93,9 +93,6 @@
 				</div>
 			</a>
 		</c:forEach>
-
-			
-			
 		</div>
 	</div>
 	<jsp:include page="Header.jsp"></jsp:include>

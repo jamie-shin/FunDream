@@ -38,19 +38,19 @@
 					success : function(data){
 						switch(data){
 						case "true":
-							alert(upd_index + "의 카테고리 이름이" + new_name + "으로 수정되었습니다.");
+							alert(upd_index + "의 카테고리 이름이 " + new_name + "으로 수정되었습니다.");
 							input_name.removeAttr('style');
 							modify_btn.removeAttr('style');
 							delete_btn.removeAttr('style');
 							save_btn.attr('style', 'display: none;');
 							break;
 						case "false":
-							alert("카테고리 이름 수정 실패");
+							console.log("카테고리 이름 수정 실패");
 							break;
 						}
 					},
 					error : function(){
-						alert("카테고리 이름 수정 오류");
+						console.log("카테고리 이름 수정 오류");
 					}
 				});
 				break;
@@ -75,10 +75,10 @@
 							del_category.remove();
 							break;
 						case "false":
-							alert(del_index + "삭제 실패!");
+							console.log(del_index + "삭제 실패!");
 							break;
 						case "disable":
-							alert("해당 카테고리에 프로젝트가 존재하여 삭제가 불가능합니다. 카테고리를 수정해주세요.");
+							alert("프로젝트가 존재하는 카테고리는 삭제가 불가능하고, 수정만 가능합니다.");
 							break;
 						}
 					},
@@ -145,14 +145,14 @@
 						alert("새로운 카테고리가 저장되었습니다.");
 					}
 					else if(data == 0){
-						alert("새로운 카테고리 저장 실패!");
+						console.log("새로운 카테고리 저장 실패!");
 					}
 					else{
 						alert("카테고리명은 10자리 이하로만 입력 가능합니다.");
 					}
 				},
 				error : function(){
-					alert("새로운 카테고리 저장 에러!");
+					console.log("새로운 카테고리 저장 에러!");
 				}
 			});
 		});

@@ -30,7 +30,7 @@
 				data : {m_id : m_id,
 						m_manager : new_mgr},
 				success : function(data){
-					alert("관리자 변경 성공 : " + data);
+					alert("관리자 권한이 변경되었습니다.");
 					switch(data){
 					case 1:
 						manager.text('관리자');
@@ -41,12 +41,12 @@
 						m_manager.val(2).text("관리자 권한 부여");
 						break;
 					case 0:
-						alert("관리자 유형 변경 실패");
+						console.log("관리자 유형 변경 실패");
 						break;
 					}
 				},
 				error : function(){
-					alert("관리자 유형 변경 에러");
+					console.log("관리자 유형 변경 에러");
 				}
 			});
 		});
@@ -74,7 +74,7 @@
 				data : {m_id : m_id,
 						m_valid : new_val},
 				success : function(data){
-					alert("회원 유형 변경 성공 : " + data);
+					alert("회원 유형이 변경되었습니다.");
 					switch(data){
 					case 1:
 						valid.text('활동 중');
@@ -89,12 +89,12 @@
 						m_valid.val(3).text("이용 정지 취소");
 						break;
 					case 0:
-						alert("회원 유형 변경 실패!");
+						console.log("회원 유형 변경 실패!");
 						break;
 					}
 				},
 				error : function(){
-					alert("관리자 유형 변경 에러");
+					console.log("관리자 유형 변경 에러");
 				}
 			});
 		});
@@ -117,12 +117,12 @@
 						location.reload();
 						break;
 					case "fail" :
-						alert("댓글 신고 처리 실패!");
+						console.log("댓글 신고 처리 실패!");
 						break;
 					}
 				},
 				error : function(){
-					alert("댓글 신고 처리 오류 발생!!!");
+					console.log("댓글 신고 처리 오류 발생!!!");
 				}
 			});
 		});
@@ -140,12 +140,12 @@
 						location.reload();
 						break;
 					case "fail" :
-						alert("댓글 신고 처리 실패!");
+						console.log("댓글 신고 처리 실패!");
 						break;
 					}
 				},
 				error : function(){
-					alert("댓글 신고 처리 오류 발생!!!");
+					console.log("댓글 신고 처리 오류 발생!!!");
 				}
 			});
 		});
@@ -163,12 +163,12 @@
 						location.reload();
 						break;
 					case "fail" :
-						alert("댓글 신고 처리 취소 실패!");
+						console.log("댓글 신고 처리 취소 실패!");
 						break;
 					}
 				},
 				error : function(){
-					alert("댓글 신고 처리 취소 오류 발생!!!");
+					console.log("댓글 신고 처리 취소 오류 발생!!!");
 				}
 			});
 		});

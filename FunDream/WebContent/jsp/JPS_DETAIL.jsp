@@ -88,10 +88,7 @@ $(function() {
 	    				location.reload();
 	    			},
 	    			error: function(request,status,error){
-	    				//alert("oh no");
-	    				//alert("댓글이 입력되었습니다. '프로젝트 스토리'로 이동합니다.");
-	    				//location.reload();
-	    				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	    				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 	    			}
 	    		});
 	    	}
@@ -100,7 +97,7 @@ $(function() {
     
     $('[id^=updateComment').on('click', function(){
     	var index = $(this).val();
-    	alert("댓글 번호"+index);
+    	console.log("댓글 번호"+index);
     	var html ='';
     	html += '<button class="pv-comment-modbtn" id="updateCommentBtn">저장</button>';
     	$(this).parent().parent().siblings('[id^=comment]').attr('disabled', false);
@@ -114,8 +111,6 @@ $(function() {
     $(document).on('click', '#updateCommentBtn', function(){
 	    var updatedComment=	$(this).parent().parent().siblings('[id^=comment]').val();
     	c_index = $(this).parent().parent().parent().parent().siblings('.commentIndex').val();
-    	//alert(c_index);
-    	//alert(updatedComment);
     	
     	if (updatedComment == null || updatedComment==''){
     		alert('입력된 값이 없습니다.');
@@ -133,7 +128,7 @@ $(function() {
 	    				
 	    			},
 	    			error: function(){
-	    				alert("oh no");
+	    				console.log("oh no");
 	    			}
 	    		});
 	    	}
@@ -155,7 +150,7 @@ $(function() {
     				location.reload();
     			},
     			error: function(){
-    				alert("oh no");
+    				console.log("oh no");
     			}
     		});
     	}
@@ -170,15 +165,14 @@ $(function() {
     	html += '<input type="button" class="pv-comment-addbtn" id="newReplyComment" value="입력"></div>';
     	html +='</div>';
     	$('#replyBox').append(html);
-    	
     	c_index =$(this).siblings('#commentIndex').val();
     });
     
     $(document).on('click','#newReplyComment', function(){
     	var c_re_con = $(this).parent().siblings('#replyComment').val();
-    	alert(c_re_con);
+    	console.log(c_re_con);
     	c_index =$(this).parent().parent().parent().parent().siblings('.commentIndex').val();
-    	alert(c_index);
+    	console.log(c_index);
     	if (c_re_con == null || c_re_con==''){
     		alert('입력된 값이 없습니다.');
     	}
@@ -192,19 +186,16 @@ $(function() {
     			success: function(){
     				alert("답글이 입력되었습니다. '프로젝트 스토리'로 이동합니다.");
     				location.reload();
-    				
     			},
     			error: function(){
-    				alert("oh no");
+    				console.log("oh no");
     			}
     		});
     	} 
-    	
     });
     
     $('#deleteReply').on('click', function(){
     	var index = $(this).val();
-	  	//alert(index);
 	  	if(confirm('답글을 삭제하시겠습니까?')==true){
 	  		$.ajax({
 	  			url : "JCD_REPLY.do",
@@ -215,7 +206,7 @@ $(function() {
 	  				location.reload();
 				},
 				error: function(){
-					alert("oh no");
+					console.log("oh no");
 				}
 	  		});
 	  	}
@@ -223,8 +214,6 @@ $(function() {
     
     $('#updateReply').on('click', function(){
     	var index = $(this).val();
-    	//alert(index);
-    	
     	var html ='';
     	html += '<button class="pv-comment-modbtn" id="replyUpdateBtn">저장</button>';
     	$(this).parent().parent().siblings('[id^=reply]').attr('disabled', false);
@@ -232,15 +221,12 @@ $(function() {
     	
     	$(this).parent('#buttonBoxR').hide();
     	$(this).parent().siblings('#newbuttonR').append(html);
-    	
     });
     
     $(document).on('click', '#replyUpdateBtn', function(){
-    	alert('수정버튼');
+    	console.log('수정버튼');
     	var updatedReply = $(this).parent().parent().siblings('[id^=reply]').val();
-    	//alert(updatedReply);
     	var c_index = $(this).parent().parent().parent().parent().siblings('.commentIndex').val();
-    	//alert(c_index);
     	$.ajax({
     		url: "JCU_REPLY.do",
     		type : "POST",
@@ -248,37 +234,37 @@ $(function() {
     			c_index: c_index},
     			success: function(){
 	  				alert("답글이 수정되었습니다. '프로젝트 스토리'로 이동합니다.");
-	  				
 	  				location.reload();
 				},
 				error: function(){
-					alert("oh no");
+					console.log("oh no");
 				}
     	});
     });
+    
     //후원하기 버튼 누를시
     $('#FundBtn').on('click',function(){
-   	var data ={};
-   	var type = "${type}";
-   	data["p_index"]=$('#p_index').val();
-   	data["m_id"]=$('#m_id').val();
-   	var p_index = $('#p_index').val();
-   	if(type=='none'){
-   		var con = confirm("로그인이 필요합니다. 로그인창으로 이동하시겠습니까?");
-   		if(con==true){
-   			location.href="MIE_LOGINFORM.do";
-   		}
-   	}
-   	else{
-   		$.ajax({
-   			contentType: 'application/json',
+	   	var data ={};
+	   	var type = "${type}";
+	   	data["p_index"]=$('#p_index').val();
+	   	data["m_id"]=$('#m_id').val();
+	   	var p_index = $('#p_index').val();
+	   	if(type=='none'){
+	   		var con = confirm("로그인이 필요합니다. 로그인창으로 이동하시겠습니까?");
+	   		if(con==true){
+	   			location.href="MIE_LOGINFORM.do";
+	   		}
+	   	}
+	   	else{
+	   		$.ajax({
+	   			contentType: 'application/json',
 				processData: false,
 				url : "checkFund.do",
 				type : 'POST',
 				data : JSON.stringify(data),
 				dataType : 'json',
 				success : function(data){
-					alert(data.msg);
+					console.log(data.msg);
 					if(data.msg=="able"){
 						location.href="JFI_FORM.do?p_index="+p_index;
 					}
@@ -290,12 +276,10 @@ $(function() {
 					}
 				},
 				error : function(){
-					alert("실패");
+					console.log("실패");
 				}
-   		});
-   	}
-   	
-   	
+	   		});
+	   	}
     });
 	
     $('#item04').on('click',function(){
@@ -306,7 +290,6 @@ $(function() {
     	}
     	for(var i=0;i<$("[id^=amt]").length;i++){
     		 per= Number($('#amt'+i).html())/total*100;
-    		 //alert("per : "+per.toFixed(1));
     		 $('#per'+i).val(per.toFixed(1));
     		 $('#v_per'+i).html(per.toFixed(1));
     	}
@@ -315,7 +298,6 @@ $(function() {
 </script>
 </head>
 <body>
-
 	<div class="pv-banner-image"
 		style="background-image: url(${project.p_mainimg})">
 		<h1 class="pv-banner-text">${project.p_name}${type}</h1>
@@ -769,18 +751,10 @@ $(function() {
 					</div>
 				</c:forEach>
 				</c:if>	
-					
 				</div>
 			</div>
-
-
-
 		</div>
-
-
 	</div>
-	
-
 	<jsp:include page="Header.jsp"></jsp:include>
 </body>
 </html>
