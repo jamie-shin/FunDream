@@ -343,24 +343,25 @@ public class IController {
 	
 	// 관리자 - 프로젝트 정산 요청
 	@RequestMapping("IJU_APPLY.do")
-	public @ResponseBody String IJU_APPLY(int p_index, int p_calculate, int bankname, String bankaccount, String bankowner) {
+	public @ResponseBody String IJU_APPLY(int p_index, int p_calculate, String bankname, String bankaccount, String bankowner) {
 		Bank_Info bank = new Bank_Info();
 		bank.setP_index(p_index);
 		String b_bankname = "";
 		switch(bankname) {
-		case 1:
+		case "1":
 			b_bankname = "신한은행";
 			break;
-		case 2:
+		case "2":
 			b_bankname = "국민은행";
 			break;
-		case 3: 
+		case "3": 
 			b_bankname = "우리은행";
 			break;
 		}
 		bank.setB_bankname(b_bankname);
 		bank.setB_account(bankaccount);
 		bank.setB_owner(bankowner);
+		System.out.println(bank);
 		int b_result = bank_InfoService.insertBank_Info(bank);
 		
 		Map<String, Object> changeMap = new HashMap<>();
