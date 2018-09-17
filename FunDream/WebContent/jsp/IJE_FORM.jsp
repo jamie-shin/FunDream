@@ -27,7 +27,17 @@
 						p_calculate : p_calculate},
 				type : "POST",
 				success : function(data){
-					
+					switch(data){
+					case "success":
+						alert("정산 처리가 완료되었습니다.");
+						location.href = history.back();
+						break;
+					default : 
+						console.log("정산 처리 실패");
+					}
+				},
+				error : function(){
+					console.log("정산 처리 오류!");
 				}
 			});
 			
