@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -761,8 +762,8 @@ $(function() {
 								</div>
 								
 								<div>
-									<span>리워드 제공예상 날짜 :</span>
-									<br>${rew.r_start }
+									<span>리워드 제공 예상 날짜 :</span>
+									<br><fmt:formatDate value="${rew.r_start}" pattern="yyyy.MM.dd"/>일 경부터 발송 예정
 								</div>
 							</div>
 						</div>

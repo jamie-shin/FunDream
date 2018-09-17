@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -233,7 +234,7 @@
 								</div>
 								<div class="spon-project-right">
 									<h3>발송 예정일</h3>
-									<span class="spon-project-spantag">${r.r_start}경부터 배송시작</span>
+									<span class="spon-project-spantag"><fmt:formatDate value="${r.r_start}" pattern="yyyy.MM.dd"/>일 경부터 발송예정 </span>
 								</div>
 							</div>
 						</div>
