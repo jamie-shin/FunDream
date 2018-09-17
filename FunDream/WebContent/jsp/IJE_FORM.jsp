@@ -10,9 +10,35 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/calculatepage.css">
+<script type="text/javascript">
+	$(function(){
+		$(document).on('click', '#applyCalculate', function(){
+			var p_index = $('#p_index').val();
+			var p_calculate = $('#calculate').val();
+			var bankname = $('#bankname').val();
+			var bankaccount = $('#bankaccount').val();
+			var bankowner = $('#bankowner').val();
+			$.ajax({
+				url : "IJU_APPLY.do",
+				data : {p_index : p_index,
+						bankname : bankname,
+						bankaccount : bankaccount,
+						bankowner : bankowner.
+						p_calculate : p_calculate},
+				type : "POST",
+				success : function(data){
+					
+				}
+			});
+			
+		});
+	});
+</script>
 </head>
 <body class="calbody">
 	<div class="cal-container">
+		<input type="hidden" id="p_index" name="p_index" value="${project.p_index}">
+		<input type="hidden" id="calculate" name="calculate" value="${project.p_status * 10000 * 0.93}">
 		<div class="cal-title-center">
 			<h1>${project.p_name} 정산</h1><br><br>
 			<div class="cal-imgbox">
@@ -36,8 +62,10 @@
 				<div class="cal-textbox-left">달성률</div>
 				<div class="cal-textbox-right">
 					<div class="cal-progress">
-						<div class="cal-bar" style="width:30%">
-							<p class="cal-percent">${project.p_status / project.p_target * 100} %</p>
+						<div class="cal-bar" style=
+							<c:if test="${(project.p_status / project.p_target * 100) <= 100}">"width: ${project.p_status / project.p_target * 100}%;"</c:if>
+							<c:if test="${(project.p_status / project.p_target * 100) > 100}">"width: 100%;"</c:if>>
+							<p class="cal-percent"><fmt:formatNumber pattern="###,###.##%" value="${project.p_status / project.p_target * 100}" /></p>
 						</div>
 					</div>
 				</div>
@@ -74,8 +102,8 @@
 				<div class="cal-accountbox-right"><input type="text" placeholder="ex) 홍길동" class="cal-accountname" id="bankowner" name="bankowner"></div>
 			</div>
 			<div class="cal-btn-center">
-				<input type="button" value="신청" class="cal-applybtn">
-				<input type="button" value="취소" class="cal-cancelbtn">
+				<input type="button" value="신청" class="cal-applybtn" id="applyCalculate">
+				<input type="button" value="취소" class="cal-cancelbtn" id="cancelCalculate">
 			</div>
 		</div>
 	</div>

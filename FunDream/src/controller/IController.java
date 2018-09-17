@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import model.Bank_Info;
 import model.Category;
 import model.Comment;
 import model.Member;
 import model.Project;
+import service.Bank_InfoService;
 import service.CategoryService;
 import service.CommentService;
 import service.FundService;
@@ -48,6 +50,9 @@ public class IController {
 	
 	@Autowired
 	private Fund_DetailService fdservice;
+	
+	@Autowired
+	private Bank_InfoService bank_InfoService;
 	
 	// 관리자 메인 화면 요청
 	@RequestMapping("IBE_MANAGER.do")
@@ -334,5 +339,36 @@ public class IController {
 		mav.addObject("project", projectService.getOneProject(Integer.parseInt(p_index_str)));
 		mav.setViewName("IJE_FORM");
 		return mav;
+	}
+	
+	// 관리자 - 프로젝트 정산 요청
+	@RequestMapping("IJU_APPLY.do")
+	public @ResponseBody String IJU_APPLY(int p_index, int p_calculate, int bankname, String bankaccount, String bankowner) {
+		Bank_Info bank = new Bank_Info();
+		bank.setP_index(p_index);
+		String b_bankname = "";
+		switch(bankname) {
+		case 1:
+			b_bankname = "신한은행";
+			break;
+		case 2:
+			b_bankname = "국민은행";
+			break;
+		case 3: 
+			b_bankname = "우리은행";
+			break;
+		}
+		bank.setB_bankname(b_bankname);
+		bank.setB_account(bankaccount);
+		bank.setB_owner(bankowner);
+		int b_result = bank_InfoService.insertBank_Info(bank);
+		
+		Map<String, Object> changeMap = new HashMap<>();
+		changeMap.put("p_index", p_index);
+		changeMap.put("p_calculate", p_calculate);
+		int p_result = projectService.updateCalculate(changeMap);
+		
+		if(b_result == 1 && p_result == 1) return "success";
+		return "fail";
 	}
 }

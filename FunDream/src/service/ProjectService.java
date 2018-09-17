@@ -162,5 +162,10 @@ public class ProjectService {
 		public void update_P_status(Project project) {
 			projectDao.update_P_status(project);
 		}
+
+		public int updateCalculate(Map<String, Object> changeMap) {
+			// TODO Auto-generated method stub
+			return projectDao.updateCalculate(changeMap);
+		}
 		
 }

@@ -119,4 +119,8 @@
 		update project set p_status=#{p_status} where p_index=#{p_index}
 	</update>
 	
+	<update id="updateCalculate" parameterMap="java.util.HashMap">
+		update Project set p_calculate=#{p_calculate} where p_index=#{p_index}
+	</update>
+	
 </mapper>
