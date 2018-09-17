@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,4 +17,11 @@ public interface IFundDao {
 	public int fundcount(int p_index);
 	public void update_cancel(int f_index);
 	public String updateP_status(int p_index);
+	
+	public int fund_pop(int p_index);
+	public String total_fund(int p_index);
+	
+	public List<HashMap<String, Object>>  fund_list(int p_index);
+	
+	public List<Fund> selectAllFundByP_index(int p_index);
 }

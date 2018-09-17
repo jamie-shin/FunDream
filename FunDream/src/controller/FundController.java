@@ -70,6 +70,7 @@ public class FundController {
 		//리워드 정보
 		List<Reward> r_list = rewardservice.getRewardsByProject(p_index);
 		Map<String, Object> map = new HashMap<String,Object>();
+		
 		for(int i=0;i<r_list.size();i++) {
 			if(r_list.get(i).getR_del()!=0) {
 				map.put("del", "yes");
@@ -78,6 +79,20 @@ public class FundController {
 			else {
 				map.put("del", "no");
 			}
+		}
+		for(int i=0;i<r_list.size();i++) {
+			int fd_amt=0;
+			int limit =0;
+			int r_amt=0;
+			List<Fund_Detail> fd_list = fdservice.selectFDByR_index(r_list.get(i).getR_index());
+			r_amt= r_list.get(i).getR_amt();
+			for(int j=0;j<fd_list.size();j++) {
+				if(r_amt!=0) {
+					fd_amt+=fd_list.get(j).getFd_amt();
+				}
+			}
+			limit=r_amt-fd_amt;
+			r_list.get(i).setR_amt(limit);
 		}
 		mav.addObject("map", map);
 		mav.addObject("project", p);
@@ -120,12 +135,14 @@ public class FundController {
 				String fd_amt_str = (String)map.get("fd_amt"+i);
 				int fd_amt = Integer.parseInt(fd_amt_str);
 				String fd_r_option = (String)map.get("fd_r_option"+i);
+				String r_name =(String)map.get("r_name"+i);
 				
 				fd.setF_index(f_index);
 				fd.setR_index(r_index);
 				fd.setFd_amt(fd_amt);
 				fd.setFd_r_option(fd_r_option);
-		
+				fd.setR_name(r_name);
+				
 				fdservice.insertFund(fd);
 			}
 		}
@@ -313,7 +330,7 @@ public class FundController {
 		mav.setViewName("MS_MYFUNDDETAIL");
 		return mav;
 	}
-	
+	//후원 취소할때
 	@RequestMapping("MD_MYFUND.do")
 	public String MD_MYFUND(int f_index) {
 		//biservice.deleteOneBank_infoByF_index(f_index);
@@ -322,6 +339,7 @@ public class FundController {
 		//fdservice.deleteOneFund_DetailByF_index(f_index);
 		//fundservice.deleteOneFundByF_index(f_index);
 		fundservice.update_cancel(f_index);
+		fdservice.update_cancel(f_index);
 		
 		Fund f = fundservice.selectOneFindByF_index(f_index);
 		int p_index = f.getP_index();
