@@ -605,6 +605,7 @@ function readURL(input) {
 			<!--  -->
 				<div class="ap-btn-center">
 	  				<input type="button" class="ap-prev-btn" name="" value="<이전">
+	  				<input type="button" class="ap-next-btn" id="submitProject" name="" value="승인요청">
 	  			</div>
 			</li>
 		</ul>
