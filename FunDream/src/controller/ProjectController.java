@@ -1021,6 +1021,7 @@ public class ProjectController {
 		List<Project> projectList = projectService.getProjectById(m_id);
 	
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("producer", memberService.selectOneMemberById(m_id));
 		mav.addObject("myProjectList", projectList);
 		mav.setViewName("MJE_FORM");
 		return mav;
