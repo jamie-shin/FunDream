@@ -81,7 +81,6 @@ $(function(){
 		<nav>
 			<ul>
 				<li><a href="JJS_FORM.do?sort=1">프로젝트</a></li>
-				</li>
 				<li class="sub-menu"><a href="#">이용안내</a>
 					<ul>
 						<li><a href="#">공지사항</a></li>
