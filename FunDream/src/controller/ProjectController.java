@@ -827,13 +827,23 @@ public class ProjectController {
 				F_num+=1;
 			}
 		}
-		if(F_num!=0 && M_num!=0) {
-			sum = F_num + M_num;
+		sum = F_num + M_num;
+		double F_per=0;
+		if(F_num!=0) {
 			f_per = (double)(F_num) / (double)(sum) * 100;
-			m_per = (double)(M_num) / (double)(sum) * 100;
+			F_per = Double.parseDouble(String.format("%.1f",f_per));
 		}
-		double F_per = Double.parseDouble(String.format("%.1f",f_per));
-		double M_per = Double.parseDouble(String.format("%.1f",m_per));
+		double M_per=0;
+		if(M_num!=0) {
+			m_per = (double)(M_num) / (double)(sum) * 100;
+			M_per = Double.parseDouble(String.format("%.1f",m_per));
+		}
+		if(m_per==0.0) {
+			f_per=100;
+		}
+		if(f_per==0.0) {
+			m_per=100;
+		}
 		
 		HashMap<String, Object> param = new HashMap<String,Object>();
 		param.put("f_per", F_per);
