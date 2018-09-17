@@ -257,7 +257,7 @@
 <body>
 <div class="mcontainer">
 		<div class="ct-container">
-			<div>
+			<div class="JJS-search">
 				<c:if test="${param.keyword != null}"><h1>"${param.keyword}" (으)로 검색된 결과 </h1>
 				<a href = 'JJS_FORM.do?sort=1'>검색 전으로 돌아가기</a></c:if>
 			</div>
