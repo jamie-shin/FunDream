@@ -732,7 +732,7 @@ $(function() {
 								<div>
 									<span>설명 :</span> ${rew.r_contents }
 								</div>
-								<div <c:if test="${rew.r_amt==0 }">style="display: none;"</c:if>>
+								<div <c:if test="${rew.r_amt==-1 }">style="display: none;"</c:if>>
 									<span>남은수량 :</span> ${rew.r_amt }
 								</div>
 								<div <c:if test="${rew.r_option== null || rew.r_option=='' }">style="display: none;"</c:if>>

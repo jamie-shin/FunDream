@@ -468,7 +468,7 @@ public class ProjectController {
 				int r_amt = Integer.parseInt(multi.getParameter("r_amt"));
 				reward.setR_amt(r_amt);
 			}catch (Exception e) {
-				reward.setR_amt(0);
+				reward.setR_amt(-1);
 			}
 			
 			Enumeration<?> files = multi.getFileNames();
