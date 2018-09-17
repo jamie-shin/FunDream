@@ -683,6 +683,8 @@ $(function() {
 									</div>	
 									</c:forEach>
 									</c:if>
+									<br>
+									<br>
 								</c:forEach>
 								<!--여그까지 -->
 								</div>
