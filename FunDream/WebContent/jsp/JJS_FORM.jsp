@@ -38,7 +38,7 @@
 			}
 			
 			num +=1;
-			alert(num +"-"+keyword+"-"+ct_index+"-"+sort);
+			console.log(num +"-"+keyword+"-"+ct_index+"-"+sort);
 			var m_id ='${m_id}';
 			var m_email = '${m_email}';
 			
@@ -107,7 +107,7 @@
 					}
 				},
 				error : function(){
-					alert("실패");
+					console.log("실패");
 				}
 			}); 
 			
@@ -115,14 +115,6 @@
 		
 		
 		$('#sort').on('change', function(){
-			/* if($('#cbcb1').siblings('#cb1').is(':checked')==true){
-				option="2";
-			}
-			else if($('#cbcb2').siblings('#cb2').is(':checked')==true){
-				option="1"
-			}
-			alert("옵션:"+option); */
-			
 			var sort = $(this).val();
 			var keyword = "<%=request.getParameter("keyword")%>";
 			if (keyword == null || keyword =="" || keyword=="null") {
@@ -131,18 +123,16 @@
 			else if(keyword !=null || keyword !="" ){
 				location.href="JJS_FORM.do?sort="+sort+"&keyword="+keyword;
 			}
-		 	
 		});
 		
 		$('#cb1').on('change', function(){
-
 			if($('#cbcb1').siblings('#cb1').is(':checked')==true){
 				option="2";
 			}
 			else if($('#cbcb2').siblings('#cb2').is(':checked')==true){
 				option="1"
 			}
-			alert("옵션:"+option);
+			console.log("옵션:"+option);
 			
 		
 			if(option=='2'){
@@ -156,26 +146,22 @@
 				$('#cards_on').hide();
 				$('#append').show();
 			}
-			
-		})
+		});
 		
 		$('#cb2').on('change', function(){
-
 			if($('#cbcb1').siblings('#cb1').is(':checked')==true){
 				option="2";
 			}
 			else if($('#cbcb2').siblings('#cb2').is(':checked')==true){
 				option="1"
 			}
-			alert("옵션:"+option);
-			
+			console.log("옵션:"+option);
 			
 			var html='';
 			var m_id ='${m_id}';
 			var m_email = '${m_email}';
 			if(option =="1"){
 				$.ajax({
-					
 					url : "more.do",
 					type: 'POST',
 					data : {option: option,
@@ -185,7 +171,6 @@
 							ct_index1 : ct_index},
 					dataType : 'json',
 					success : function(data){
-						
 						var list = data.p_list;
 						for(var i=0;i < list.length;i++){
 							if(m_email =='' || m_email==null){
@@ -229,28 +214,21 @@
 						}
 						$('#append').append(html);
 						$('#cards_on').hide();
-						/* $('#append').hide();
-						$('#append').empty(); */						
 						$('#num').val(num);
 						if(data.code == "empty"){
 							$('#moreproject').hide();
 						}
 					},
 					error : function(){
-						alert("실패");
-					
-						
+						console.log("실패");
 					}
 				});
 			}
  			else{
 				$('#append').hide();
 				$('#append').empty();
-				
 			} 
 		});
-		
-
 	});
 </script>
 </head>

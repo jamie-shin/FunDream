@@ -27,11 +27,11 @@
 						code = data;
 						email = inputEmail;
 						name = inputName;
-						alert(data + " / 인증번호를 발송하였습니다.");
+						alert("이메일 인증번호 발송이 완료되었습니다.");
 					}
 				},
 				error : function(){
-					alert('error!!!');
+					console.log('error!!!');
 				}
 			});
 		});

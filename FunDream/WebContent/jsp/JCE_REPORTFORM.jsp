@@ -16,7 +16,7 @@ $(function(){
 	
 	$('.JCE-reportbtn').on('click', function(){
 		var c_report =$(this).parent().siblings('#reportContent').val();
-		alert(c_report);
+		console.log(c_report);
 		if (c_report == null || c_report==''){
 			alert("입력된 내용이 없습니다.");
 		}
@@ -34,7 +34,7 @@ $(function(){
 			  		
 				},
 				error: function(){
-					alert("oh no");
+					console.log("oh no");
 				}
 				
 			});

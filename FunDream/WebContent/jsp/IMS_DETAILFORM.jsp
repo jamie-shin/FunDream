@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +31,7 @@
 				data : {m_id : m_id,
 						m_manager : new_mgr},
 				success : function(data){
-					alert("관리자 변경 성공 : " + data);
+					alert("관리자 권한이 변경되었습니다.");
 					switch(data){
 					case 1:
 						manager.text('관리자');
@@ -41,12 +42,12 @@
 						m_manager.val(2).text("관리자 권한 부여");
 						break;
 					case 0:
-						alert("관리자 유형 변경 실패");
+						console.log("관리자 유형 변경 실패");
 						break;
 					}
 				},
 				error : function(){
-					alert("관리자 유형 변경 에러");
+					console.log("관리자 유형 변경 에러");
 				}
 			});
 		});
@@ -68,13 +69,13 @@
 				new_val = 1;
 				break;
 			}
-			alert(new_val);
+			console.log(new_val);
 			$.ajax({
 				url : "IMU_SLEEP.do",
 				data : {m_id : m_id,
 						m_valid : new_val},
 				success : function(data){
-					alert("회원 유형 변경 성공 : " + data);
+					alert("회원 유형이 변경되었습니다.");
 					switch(data){
 					case 1:
 						valid.text('활동 중');
@@ -89,12 +90,12 @@
 						m_valid.val(3).text("이용 정지 취소");
 						break;
 					case 0:
-						alert("회원 유형 변경 실패!");
+						console.log("회원 유형 변경 실패!");
 						break;
 					}
 				},
 				error : function(){
-					alert("관리자 유형 변경 에러");
+					console.log("관리자 유형 변경 에러");
 				}
 			});
 		});
@@ -117,12 +118,12 @@
 						location.reload();
 						break;
 					case "fail" :
-						alert("댓글 신고 처리 실패!");
+						console.log("댓글 신고 처리 실패!");
 						break;
 					}
 				},
 				error : function(){
-					alert("댓글 신고 처리 오류 발생!!!");
+					console.log("댓글 신고 처리 오류 발생!!!");
 				}
 			});
 		});
@@ -140,12 +141,12 @@
 						location.reload();
 						break;
 					case "fail" :
-						alert("댓글 신고 처리 실패!");
+						console.log("댓글 신고 처리 실패!");
 						break;
 					}
 				},
 				error : function(){
-					alert("댓글 신고 처리 오류 발생!!!");
+					console.log("댓글 신고 처리 오류 발생!!!");
 				}
 			});
 		});
@@ -163,14 +164,19 @@
 						location.reload();
 						break;
 					case "fail" :
-						alert("댓글 신고 처리 취소 실패!");
+						console.log("댓글 신고 처리 취소 실패!");
 						break;
 					}
 				},
 				error : function(){
-					alert("댓글 신고 처리 취소 오류 발생!!!");
+					console.log("댓글 신고 처리 취소 오류 발생!!!");
 				}
 			});
+		});
+		
+		$(document).find('[name=projectDetail]').on('click', function(){
+			var p_index = $(this).attr('id');
+			location.href = "JPS_DETAIL.do?p_index_str=" + p_index;
 		});
 	});
 </script>
@@ -253,43 +259,31 @@
 				<div class="row header">
 					<div class="cell">프로젝트 명</div>
 		      		<div class="cell">후원금</div>
+		      		<div class="cell">결제방법</div>
+		      		<div class="cell">정상/취소</div>
 				</div>
-				
+				<c:forEach items="${fundList}" var="fund">
 			    <div class="row">
 			    	<div class="cell" data-title="프로젝트 명">
-			    		프로젝트1
+			    		<c:forEach items="${allProjectList}" var="proj">
+				    		<c:if test="${fund.p_index == proj.p_index}">
+				    			<a id="${fund.p_index}" name="projectDetail" href="#">${proj.p_name}</a>
+				    		</c:if> 
+			    		</c:forEach>
 			      	</div>
-			    	<div class="cell" data-title="후원금">
-			    		10000
+			    	<div class="cell" data-title="후원금">	
+			    		<fmt:formatNumber pattern="###,###" value="${fund.f_price}" /> 원
+			    	</div>
+			      	<div class="cell" data-title="결제방법">
+			      		<c:if test="${fund.f_payment == 1}">신용카드</c:if>
+			      		<c:if test="${fund.f_payment == 2}">계좌이체</c:if>
 			      	</div>
-			    </div>
-			    
-				<div class="row">
-			    	<div class="cell" data-title="프로젝트 명">
-			    		<p class="text-p">프로젝트2</p>
-			      	</div>
-			    	<div class="cell" data-title="후원금">
-			    		30000
-			      	</div>
-			    </div>
-			    
-			    <div class="row">
-			    	<div class="cell" data-title="프로젝트 명">
-			    		<p class="text-p">프로젝트3</p>
-			      	</div>
-			    	<div class="cell" data-title="후원금">
-			    		20000
+			      	<div class="cell" data-title="정상/취소">
+			      		<c:if test="${fund.f_cancel == 1}">정상</c:if>
+			      		<c:if test="${fund.f_cancel == 2}">취소</c:if>
 			      	</div>
 			    </div>
-			    
-			    <div class="row">
-			    	<div class="cell" data-title="프로젝트 명">
-			    		<p class="text-p">프로젝트4</p>
-			      	</div>
-			    	<div class="cell" data-title="후원금">
-			    		50000
-			      	</div>
-			    </div>
+				</c:forEach>
 		    </div>
 		</div>
 		
@@ -365,10 +359,10 @@
 				    	</p>
 				      	</div>
 				    	<div class="cell" data-title="목표액">
-				    		<p class="text-p">${project.p_target} 만원</p>
+				    		<p class="text-p"><fmt:formatNumber pattern="###,###" value="${project.p_target}" /> 만원</p>
 				      	</div>
 				    	<div class="cell" data-title="모금액">
-				    		<p class="text-p">${project.p_status} 만원</p>
+				    		<p class="text-p"><fmt:formatNumber pattern="###,###" value="${project.p_status}" /> 만원</p>
 				   	   	</div>
 				      	<div class="cell" data-title="성공여부">
 				      	<p class="text-p">

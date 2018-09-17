@@ -73,7 +73,7 @@
 						$('#list').append(html);
 					},
 					error : function(){
-						alert("검색 결과 에러!");
+						console.log("검색 결과 에러!");
 					}
 				});
 				break;				
@@ -85,7 +85,7 @@
 			var sc_mg_type = $(this).val();
 			var keyword = $('#input_keyword').val();
 			var html = '<div class="row header"><div class="cell">회원아이디</div><div class="cell">회원이름</div>	<div class="cell">회원이메일</div><div class="cell">관리자여부</div><div class="cell">활동여부</div><div class="cell">신고여부</div></div>';
-			alert("관리자유형 " + sc_mg_type + " : " + keyword);
+			console.log("관리자유형 " + sc_mg_type + " : " + keyword);
 			
 			$.ajax({
 				url : "IMS_SEARCH.do",
@@ -141,7 +141,7 @@
 					$('#list').append(html);
 				},
 				error : function(){
-					alert("검색 결과 에러!");
+					console.log("검색 결과 에러!");
 				}
 			});
 		});
@@ -151,7 +151,7 @@
 			var sc_vd_type = $(this).val();
 			var keyword = $('#input_keyword').val();
 			var html = '<div class="row header"><div class="cell">회원아이디</div><div class="cell">회원이름</div>	<div class="cell">회원이메일</div><div class="cell">관리자여부</div><div class="cell">활동여부</div><div class="cell">신고여부</div></div>';
-			alert("활동유형 " + sc_vd_type + " : " + keyword);
+			console.log("활동유형 " + sc_vd_type + " : " + keyword);
 			
 			$.ajax({
 				url : "IMS_SEARCH.do",
@@ -207,7 +207,7 @@
 					$('#list').append(html);
 				},
 				error : function(){
-					alert("검색 결과 에러!");
+					console.log("검색 결과 에러!");
 				}
 			});
 		});
@@ -284,14 +284,14 @@
 					$('#list').append(html);
 				},
 				error : function(){
-					alert("키워드 검색 결과 에러!");
+					console.log("키워드 검색 결과 에러!");
 				}
 			});
 		});
 		
 		$(document).on('click', '[class=row]' ,function(){
 			var m_id = $(this).children('#id_cell').children('#m_id').text();
-			alert("아이디 : " + m_id);
+			console.log("아이디 : " + m_id);
 			location.href = "IMS_DETAILFORM.do?m_id_str=" + m_id;
 		});
 	});

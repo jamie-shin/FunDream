@@ -18,9 +18,9 @@
 			location.href = "IJS_PROJECTFORM.do";
 		});
 		
-		$(document).find("#presentation").on('click', function(){
+/* 		$(document).find("#presentation").on('click', function(){
 			
-		});
+		}); */
 		
 		$(document).find("#category").on('click', function(){
 			location.href="ICS_LIST.do";
@@ -34,7 +34,7 @@
 		
 			<input type="button" class="main-member-btn" id="member" value="회원">
 			<input type="button" class="main-project-btn" id="project" value="프로젝트">
-			<input type="button" class="main-presentation-btn" id="presentation" value="프레젠테이션">
+			<!-- <input type="button" class="main-presentation-btn" id="presentation" value="프레젠테이션"> -->
 			<input type="button" class="main-category-btn" id="category" value="카테고리">
 			<input type="button" class="main-questions-btn" id="" value="문의사항">
 		

@@ -23,12 +23,12 @@
 						location.reload();
 						break;
 					case "fail":
-						alert("승인 처리 실패!");
+						console.log("승인 처리 실패!");
 						break;
 					}
 				},
 				error : function(){
-					alert("승인 처리 오류!");
+					console.log("승인 처리 오류!");
 				}
 			});
 		});
@@ -46,12 +46,12 @@
 						location.reload();
 						break;
 					case "fail":
-						alert("반려 처리 실패!");
+						console.log("반려 처리 실패!");
 						break;
 					}
 				},
 				error : function(){
-					alert("반려 처리 오류 발생!");
+					console.log("반려 처리 오류 발생!");
 				}
 			});
 		});
@@ -69,12 +69,12 @@
 						location.reload();
 						break;
 					case "fail":
-						alert("승인 취소 실패!");
+						console.log("승인 취소 실패!");
 						break;
 					}
 				},
 				error : function(){
-					alert("승인 취소 오류 발생!");
+					console.log("승인 취소 오류 발생!");
 				}
 			});
 		});
@@ -92,12 +92,12 @@
 						location.reload();
 						break;
 					case "fail":
-						alert("반려 취소 실패!");
+						console.log("반려 취소 실패!");
 						break;
 					}
 				},
 				error : function(){
-					alert("반려 취소 오류 발생!");
+					console.log("반려 취소 오류 발생!");
 				}
 			});
 		});

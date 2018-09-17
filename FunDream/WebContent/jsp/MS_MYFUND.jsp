@@ -24,7 +24,7 @@
 			<a class="card" href="#">
 				<span class="card-header" style="background-image: url(img/bg.jpg);">
 					<span class="card-title">
-						<h3>제목 제목 제목 제목 제목 제목 제목 제목</h3>
+						<h3>제목 제목 제목 제목 </h3>
 					</span>
 				</span>
 				<span class="card-summary">
@@ -52,12 +52,9 @@
 		<c:forEach items="${test}" var="t" varStatus="status">
 			<a class="card" href="MS_MYFUNDDETAIL.do?f_index=${t[0].f_index}">
 				<span class="card-header" style="background-image: url(${t[1].p_mainimg});">
-					<span class="card-title">
-						<h3>${t[1].p_name}</h3>
-					</span>
 				</span>
 				<span class="card-summary">
-					${t[1].p_contents}
+						<h3>${t[1].p_name}</h3>
 				</span>
 				<!-- 프로그레스 바 -->
 				<div class="candidatos color">
@@ -93,9 +90,6 @@
 				</div>
 			</a>
 		</c:forEach>
-
-			
-			
 		</div>
 	</div>
 	<jsp:include page="Header.jsp"></jsp:include>
