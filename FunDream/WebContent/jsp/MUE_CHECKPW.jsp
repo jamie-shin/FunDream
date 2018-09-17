@@ -47,7 +47,7 @@
 <p>본인 확인을 위한 비밀번호 입력</p>
 	<input type="hidden" name="m_email" id="m_email" value="<%=m_email%>">
 	<input type="password" name="m_pwd_input" id="m_pwd_input" placeholder="password">
-	<input type="button" id="checkBtn" value="확인">
+	<input type="submit" id="checkBtn" value="확인">
 	<input type="button" value="취소" onclick="location.href='MAIN.do'">
 </div>
 
