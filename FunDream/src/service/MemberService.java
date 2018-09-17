@@ -74,6 +74,8 @@ public class MemberService {
 		// TODO Auto-generated method stub
 		Member member = memberDao.selectOneMemberByEmail(m_email);
 		String m_pwd_check = memberDao.shaPwd(m_pwd_input);
+		System.out.println("정보수정 비밀번호 : " + m_pwd_check);
+		System.out.println("정보수정 비밀번호 확인 : " + member.getM_pwd());
 		if (m_pwd_check.equals(member.getM_pwd())) return 1;
 		else return 2;
 	}

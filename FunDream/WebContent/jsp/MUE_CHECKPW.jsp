@@ -20,6 +20,7 @@
 							m_pwd_input : m_pwd_input},
 					type : "POST",
 					success : function(data){
+						console.log(data);
 						switch(data){
 						case "success":
 							location.href = "MUE_MODIFYFORM.do?m_email="+m_email;

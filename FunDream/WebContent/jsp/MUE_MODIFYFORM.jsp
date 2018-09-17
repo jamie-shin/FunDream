@@ -167,8 +167,15 @@
 				return false;
 			}
 			
+			switch(m_pwd){
+			case "":
+				$('#m_pwd').val("null");
+				break;
+			default:
+				$('#m_pwd').val(m_pwd);
+				break;
+			}
 			$('#m_email').val(m_email);
-			$('#m_pwd').val(m_pwd);
 			$('#m_name').val(m_name);
 			$('#m_phone').val(m_phone);
 			$('#m_nick').val(m_nick);
@@ -210,7 +217,7 @@
 	    				alert("정보 수정이 완료되었습니다.");
 	    				location.href="MAIN.do";
 	    				break;
-	    			case "error" :
+	    			case "imgFile" :
 	    				alert("이미지 파일이 잘못되었습니다.");
 	    				break;
 	    			case "fail" : 
