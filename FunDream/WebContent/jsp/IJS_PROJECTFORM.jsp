@@ -111,6 +111,11 @@
 			var p_index = $(this).text();
 			location.href = "JPS_DETAIL.do?p_index_str=" + p_index;
 		});
+		
+		$(document).on('click', '#projectName', function(){
+			var p_index = $(this).siblings('#project').text();
+			location.href = "JPS_DETAIL.do?p_index_str=" + p_index;
+		});
 	});
 </script>
 <title>FunDream</title>
@@ -137,7 +142,7 @@
 					<c:forEach items="${waitList}" var="wait">
 					    <div class="row">
 					    	<div class="cell" data-title="프로젝트 번호" id="sel_index"><a href="#" id="project">${wait.p_index}</a></div>
-					    	<div class="cell" data-title="프로젝트 명">${wait.p_name}</div>
+					    	<div class="cell" data-title="프로젝트 명"><a href="#" id="projectName">${wait.p_name}</a></div>
 					      	<div class="cell" data-title="제작자"><a href="#" id="member">${wait.m_id}</a></div>					      	
 					      	<div class="cell" data-title="승인신청일">${wait.p_createdate}</div>
 					      	<div class="cell" data-title="승인여부">
@@ -166,7 +171,7 @@
 					<c:forEach items="${approveListBefore}" var="before">
 					    <div class="row">
 					    	<div class="cell" data-title="프로젝트 번호"><a href="#" id="project">${before.p_index}</a></div>
-					    	<div class="cell" data-title="프로젝트 명">${before.p_name}</div>
+					    	<div class="cell" data-title="프로젝트 명"><a href="#" id="projectName">${before.p_name}</a></div>
 					      	<div class="cell" data-title="제작자">	<a href="#" id="member">${before.m_id}</a></div>
 					      	<div class="cell" data-title="승인신청일">${before.p_createdate}</div>
 					      	<div class="cell" data-title="승인여부">
@@ -192,7 +197,7 @@
 					<c:forEach items="${approveListProgress}" var="progress">
 					    <div class="row">
 					    	<div class="cell" data-title="프로젝트 번호"><a href="#" id="project">${progress.p_index}</a></div>
-					    	<div class="cell" data-title="프로젝트 명">${progress.p_name}</div>
+					    	<div class="cell" data-title="프로젝트 명"><a href="#" id="projectName">${progress.p_name}</a></div>
 					      	<div class="cell" data-title="제작자"><a href="#" id="member">${progress.m_id}</a></div>
 					      	<div class="cell" data-title="승인신청일">${progress.p_createdate}</div>
 					      	<div class="cell" data-title="승인여부">
@@ -220,7 +225,7 @@
 					<c:forEach items="${rejectList}" var="reject">
 					    <div class="row">
 					    	<div class="cell" data-title="프로젝트 번호"><a href="#" id="project">${reject.p_index}</a></div>
-					    	<div class="cell" data-title="프로젝트 명">${reject.p_name}</div>
+					    	<div class="cell" data-title="프로젝트 명"><a href="#" id="projectName">${reject.p_name}</a></div>
 					      	<div class="cell" data-title="제작자">	<a href="#" id="member">${reject.m_id}</a></div>
 					      	<div class="cell" data-title="승인신청일">${reject.p_createdate}</div>
 					      	<div class="cell" data-title="승인여부">
@@ -247,7 +252,7 @@
 					<c:forEach items="${calculateBeforeList}" var="calculate">
 					    <div class="row">
 					    	<div class="cell" data-title="프로젝트 번호"><a href="#" id="project">${calculate.p_index}</a></div>
-					    	<div class="cell" data-title="프로젝트 명">${calculate.p_name}</div>
+					    	<div class="cell" data-title="프로젝트 명"><a href="#" id="projectName">${calculate.p_name}</a></div>
 					      	<div class="cell" data-title="제작자"><a href="#" id="member">${calculate.m_id}</a></div>
 					      	<div class="cell" data-title="승인신청일">${calculate.p_createdate}</div>
 					      	<div class="cell" data-title="정산여부">
@@ -275,7 +280,7 @@
 					<c:forEach items="${completeList}" var="complete">
 					    <div class="row">
 					    	<div class="cell" data-title="프로젝트 번호"><a href="#" id="project">${complete.p_index}</a></div>
-					    	<div class="cell" data-title="프로젝트 명">${complete.p_name}</div>
+					    	<div class="cell" data-title="프로젝트 명"><a href="#" id="projectName">${complete.p_name}</a></div>
 					      	<div class="cell" data-title="제작자">	<a href="#" id="member">${complete.m_id}</a></div>
 					      	<div class="cell" data-title="승인신청일">${complete.p_createdate}</div>
 					      	<div class="cell" data-title="정산여부">
@@ -302,7 +307,7 @@
 					<c:forEach items="${failList}" var="fail">
 					    <div class="row">
 					    	<div class="cell" data-title="프로젝트 번호"><a href="#" id="project">${fail.p_index}</a></div>
-					    	<div class="cell" data-title="프로젝트 명">${fail.p_name}</div>
+					    	<div class="cell" data-title="프로젝트 명"><a href="#" id="projectName">${fail.p_name}</a></div>
 					      	<div class="cell" data-title="제작자"><a href="#" id="member">${fail.m_id}</a></div>
 					      	<div class="cell" data-title="승인신청일">${fail.p_createdate}</div>
 					      	<div class="cell" data-title="정산여부">
