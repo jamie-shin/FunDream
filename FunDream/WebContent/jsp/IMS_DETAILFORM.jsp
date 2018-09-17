@@ -68,7 +68,7 @@
 				new_val = 1;
 				break;
 			}
-			alert(new_val);
+			console.log(new_val);
 			$.ajax({
 				url : "IMU_SLEEP.do",
 				data : {m_id : m_id,
