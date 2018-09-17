@@ -103,6 +103,75 @@
 			var p_index = $(this).siblings("#sel_p_index").val();
 			location.href = "JPS_DETAIL.do?p_index_str=" + p_index;
 		});
+		
+		$(document).on('click', '#report_ok', function(){
+			var c_index = $(this).val();
+			$.ajax({
+				url : "IMU_REPORTCOMM.do",
+				data : {c_index : c_index,
+						c_status : 3},
+				success : function(data){
+					switch(data){
+					case "success" :
+						alert("댓글 신고 처리가 완료되었습니다.");
+						location.reload();
+						break;
+					case "fail" :
+						alert("댓글 신고 처리 실패!");
+						break;
+					}
+				},
+				error : function(){
+					alert("댓글 신고 처리 오류 발생!!!");
+				}
+			});
+		});
+		
+		$(document).on('click', '#report_cancel', function(){
+			var c_index = $(this).val();
+			$.ajax({
+				url : "IMU_REPORTCOMM.do",
+				data : {c_index : c_index,
+						c_status : 4},
+				success : function(data){
+					switch(data){
+					case "success" :
+						alert("댓글 신고 처리가 완료되었습니다.");
+						location.reload();
+						break;
+					case "fail" :
+						alert("댓글 신고 처리 실패!");
+						break;
+					}
+				},
+				error : function(){
+					alert("댓글 신고 처리 오류 발생!!!");
+				}
+			});
+		});
+		
+		$(document).on('click', '#report_re', function(){
+			var c_index = $(this).val();
+			$.ajax({
+				url : "IMU_REPORTCOMM.do",
+				data : {c_index : c_index,
+						c_status : 2},
+				success : function(data){
+					switch(data){
+					case "success" :
+						alert("댓글 신고 처리가 취소되었습니다.");
+						location.reload();
+						break;
+					case "fail" :
+						alert("댓글 신고 처리 취소 실패!");
+						break;
+					}
+				},
+				error : function(){
+					alert("댓글 신고 처리 취소 오류 발생!!!");
+				}
+			});
+		});
 	});
 </script>
 </head>
@@ -231,26 +300,34 @@
 			<div class="table">
 				<div class="row header">
 					<div class="cell">프로젝트 명</div>
-		      		<div class="cell">신고처리</div>
+					<div class="cell">댓글 내용</div>
+					<div class="cell">신고 내용</div>
+		      		<div class="cell">신고 처리</div>
 				</div>
 				
-			    <div class="row">
-			    	<div class="cell" data-title="프로젝트 명">
-			    		<p class="text-p">프로젝트1</p>
-			      	</div>
-			    	<div class="cell" data-title="신고처리">
-			    		신고수리
-			      	</div>
-			    </div>
-			    
-				<div class="row">
-			    	<div class="cell" data-title="프로젝트 명">
-			    		<p class="text-p">프로젝트2</p>
-			      	</div>
-			    	<div class="cell" data-title="신고처리">
-			    		신고수리
-			      	</div>
-			    </div>
+				<c:if test="${commentList != null}">
+				<c:forEach items="${commentList}" var="comment">
+				    <div class="row">
+				    	<div class="cell" data-title="프로젝트 명">
+				    		<c:forEach items="${allProjectList}" var="project">
+					    		<c:if test="${project.p_index == comment.p_index}">
+					    			<p class="text-p">${project.p_name}</p>
+					    		</c:if>
+				    		</c:forEach>
+				      	</div>
+				      	<div class="cell" data-title="댓글 내용">${comment.c_contents}</div>
+				      	<div class="cell" data-title="신고 내용">${comment.c_report}</div>
+				    	<div class="cell" data-title="신고 처리">
+				    		<c:if test="${comment.c_status == 2}">
+				    			<button id="report_ok" value="${comment.c_index}">처리</button>
+				    			<button id="report_cancel" value="${comment.c_index}">반려</button>
+				    		</c:if>
+				    		<c:if test="${comment.c_status == 3}">처리 완료   <button id="report_re" value="${comment.c_index}">취소</button></c:if>
+				    		<c:if test="${comment.c_status == 4}">신고 반려   <button id="report_re" value="${comment.c_index}">취소</button></c:if>
+				      	</div>
+				    </div>
+				</c:forEach>
+				</c:if>
 		    </div>
 		</div>
 		
@@ -261,6 +338,7 @@
 			<div class="table">
 			
 				<div class="row header">
+					<div class="cell">프로젝트 번호</div>
 					<div class="cell">프로젝트 명</div>
 					<div class="cell">승인여부</div>
 		      		<div class="cell">목표액</div>
@@ -271,6 +349,9 @@
 			    <c:if test="${projectList != ''}">
 			    <c:forEach items="${projectList}" var="project">
 					<div class="row">
+				    	<div class="cell" data-title="프로젝트 번호">
+				    		${project.p_index}
+				    	</div>
 				    	<div class="cell" data-title="프로젝트 명">
 				    		<input type="hidden" id="sel_p_index" value="${project.p_index}">
 				    		<p class="text-p" id="sel_project">${project.p_name}</p>
@@ -302,7 +383,7 @@
 		    </div>
 		</div>
 		<div class="IMS-btncenter">
-			<input type="button" value="돌아가기" class="IMS-prev-btn" onclick="location.href='IMS_LISTFORM.do'">
+			<input type="button" value="돌아가기" class="IMS-prev-btn" onclick="window.history.back();">
 		</div>
 	</div>
 	<jsp:include page="Header.jsp" />
