@@ -6,7 +6,7 @@
 <mapper namespace="dao.IFund_detailDao">
   
   	<insert id="insertFund_detail" parameterType="fund_detail">
-  		insert into fund_detail values(0,#{f_index},#{r_index},#{fd_amt},#{fd_r_option})
+  		insert into fund_detail values(0,#{f_index},#{r_index},#{fd_amt},#{fd_r_option},1,#{r_name})
   	</insert>
   	
   	<select id="selectAllFund_DetailByF_index" resultType="fund_detail" parameterType="int">
@@ -16,4 +16,16 @@
   	<delete id="deleteOneFund_DetailByF_index" parameterType="int">
   		delete from fund_detail where f_index=#{f_index}
   	</delete>
+  	
+  	<update id="update_cancel" parameterType="int">
+  		update fund_detail set fd_cancel=2 where f_index=#{f_index}
+  	</update>
+  	
+  	<select id="selectFDByR_index" parameterType="int" resultType="fund_detail">
+  		select * from fund_detail where r_index=#{r_index} and fd_cancel=1
+  	</select>
+  	
+  	<select id="fd_amt" parameterType="int" resultType="java.util.HashMap">
+  		select sum(fd_amt), r_name from fund_detail where fd_cancel=1 and r_index=#{r_index}
+  	</select>
 </mapper>

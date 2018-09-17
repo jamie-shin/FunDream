@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,17 @@ public class Fund_DetailService {
 	}
 	public void deleteOneFund_DetailByF_index(int f_index) {
 		fdDao.deleteOneFund_DetailByF_index(f_index);
+	}
+	public void update_cancel(int f_index) {
+		fdDao.update_cancel(f_index);
+	}
+	public List<Fund_Detail> selectFDByR_index(int r_index){
+		return fdDao.selectFDByR_index(r_index);
+	}
+	
+	public HashMap<String, Object> fd_amt(int r_index) {
+		HashMap<String, Object> map = fdDao.fd_amt(r_index);
+		
+		return map;
 	}
 }
