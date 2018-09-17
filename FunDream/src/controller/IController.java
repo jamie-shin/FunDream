@@ -117,7 +117,9 @@ public class IController {
 	public ModelAndView IMS_LISTFORM() {
 		ModelAndView mav = new ModelAndView();
 		List<Member> memberList = memberService.getAllMembers();
+		List<Comment> reportCommentList = commentService.selectCommentsByReport(2);
 		mav.addObject("memberList", memberList);
+		mav.addObject("reportComment", reportCommentList);
 		mav.setViewName("IMS_LISTFORM");
 		return mav;
 	}
