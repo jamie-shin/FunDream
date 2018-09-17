@@ -19,6 +19,8 @@ import model.Member;
 import model.Project;
 import service.CategoryService;
 import service.CommentService;
+import service.FundService;
+import service.Fund_DetailService;
 import service.MemberService;
 import service.ProjectService;
 import service.RewardService;
@@ -40,6 +42,12 @@ public class IController {
 	
 	@Autowired
 	private CommentService commentService;
+	
+	@Autowired
+	private FundService fundservice;
+	
+	@Autowired
+	private Fund_DetailService fdservice;
 	
 	// 관리자 메인 화면 요청
 	@RequestMapping("IBE_MANAGER.do")
@@ -213,6 +221,7 @@ public class IController {
 		mav.addObject("member", memberService.selectOneMemberById(m_id));
 		mav.addObject("projectList", projectService.getProjectById(m_id));
 		mav.addObject("allProjectList", projectService.getAllProjects());
+		mav.addObject("fundList", fundservice.selectAllFundByM_id(m_id));
 		mav.addObject("commentList", commentService.selectCommentsById(m_id));
 		mav.setViewName("IMS_DETAILFORM");
 		return mav;

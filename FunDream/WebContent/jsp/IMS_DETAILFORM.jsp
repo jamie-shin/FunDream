@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -172,6 +173,11 @@
 				}
 			});
 		});
+		
+		$(document).find('[name=projectDetail]').on('click', function(){
+			var p_index = $(this).attr('id');
+			location.href = "JPS_DETAIL.do?p_index_str=" + p_index;
+		});
 	});
 </script>
 </head>
@@ -253,43 +259,31 @@
 				<div class="row header">
 					<div class="cell">프로젝트 명</div>
 		      		<div class="cell">후원금</div>
+		      		<div class="cell">결제방법</div>
+		      		<div class="cell">정상/취소</div>
 				</div>
-				
+				<c:forEach items="${fundList}" var="fund">
 			    <div class="row">
 			    	<div class="cell" data-title="프로젝트 명">
-			    		프로젝트1
+			    		<c:forEach items="${allProjectList}" var="proj">
+				    		<c:if test="${fund.p_index == proj.p_index}">
+				    			<a id="${fund.p_index}" name="projectDetail" href="#">${proj.p_name}</a>
+				    		</c:if> 
+			    		</c:forEach>
 			      	</div>
-			    	<div class="cell" data-title="후원금">
-			    		10000
+			    	<div class="cell" data-title="후원금">	
+			    		<fmt:formatNumber pattern="###,###" value="${fund.f_price}" /> 원
+			    	</div>
+			      	<div class="cell" data-title="결제방법">
+			      		<c:if test="${fund.f_payment == 1}">신용카드</c:if>
+			      		<c:if test="${fund.f_payment == 2}">계좌이체</c:if>
 			      	</div>
-			    </div>
-			    
-				<div class="row">
-			    	<div class="cell" data-title="프로젝트 명">
-			    		<p class="text-p">프로젝트2</p>
-			      	</div>
-			    	<div class="cell" data-title="후원금">
-			    		30000
-			      	</div>
-			    </div>
-			    
-			    <div class="row">
-			    	<div class="cell" data-title="프로젝트 명">
-			    		<p class="text-p">프로젝트3</p>
-			      	</div>
-			    	<div class="cell" data-title="후원금">
-			    		20000
+			      	<div class="cell" data-title="정상/취소">
+			      		<c:if test="${fund.f_cancel == 1}">정상</c:if>
+			      		<c:if test="${fund.f_cancel == 2}">취소</c:if>
 			      	</div>
 			    </div>
-			    
-			    <div class="row">
-			    	<div class="cell" data-title="프로젝트 명">
-			    		<p class="text-p">프로젝트4</p>
-			      	</div>
-			    	<div class="cell" data-title="후원금">
-			    		50000
-			      	</div>
-			    </div>
+				</c:forEach>
 		    </div>
 		</div>
 		
@@ -365,10 +359,10 @@
 				    	</p>
 				      	</div>
 				    	<div class="cell" data-title="목표액">
-				    		<p class="text-p">${project.p_target} 만원</p>
+				    		<p class="text-p"><fmt:formatNumber pattern="###,###" value="${project.p_target}" /> 만원</p>
 				      	</div>
 				    	<div class="cell" data-title="모금액">
-				    		<p class="text-p">${project.p_status} 만원</p>
+				    		<p class="text-p"><fmt:formatNumber pattern="###,###" value="${project.p_status}" /> 만원</p>
 				   	   	</div>
 				      	<div class="cell" data-title="성공여부">
 				      	<p class="text-p">
