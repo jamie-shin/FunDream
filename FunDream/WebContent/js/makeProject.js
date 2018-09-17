@@ -406,4 +406,151 @@ $(function(){
 	
 	/* 스토리 탭 관련 끝 */
 	
+	/* 승인요청 */
+	
+	$(document).find('#submitProject').on('click', function(){
+		/* 기본정보 */
+		var p_index = $('#p_index').val();
+		var m_id = $('#m_id').val();
+		var p_img = $('#blah').attr('src');
+		var ct_index = $('#inputCtIndex').val();
+		var p_name = $('#inputName').val();
+		var p_type = $('[name=p_type]').val();
+		var p_target = $('#inputTarget').val();
+		var p_startdate = $('#inputStartdate').val();
+		var p_enddate = $('#inputEnddate').val();
+		var p_age = $('#inputAge').val();
+		
+		if(p_img == "") {
+			alert("프로젝트 메인 이미지를 등록하세요.");
+			return false;
+		}
+		if(ct_index == ""){
+			alert("프로젝트 카테고리를 선택하세요.");
+			return false;
+		}
+		if(p_name == ""){
+			alert("프로젝트명을 입력하세요.");
+			return false;
+		}
+		if(p_type == ""){
+			alert("프로젝트 성공 조건을 선택하세요.");
+			return false;
+		}
+		if(p_target == ""){
+			alert("프로젝트 목표 금액을 입력하세요.");
+			return false;
+		}
+		if(p_startdate == ""){
+			alert("프로젝트 시작일을 선택하세요.");
+			return false;
+		}
+		if(p_enddate == ""){
+			alert("프로젝트 종료일을 선택하세요.");
+			return false;
+		}
+		
+		var basicform = $('#basicInfoForm')[0];
+		var basicformData = new FormData(basicform);
+		var basicResult = "";
+		var policyResult = "";
+		var savedBasic = $.ajax({
+			url : "JBU_UPDATE.do",
+			type: "POST",
+			enctype: 'multipart/form-data',
+			data : basicformData,
+			processData: false,
+			contentType: false,
+			cache: false,
+			error : function(){
+				alert("기본정보 저장 오류!");
+			}
+		});
+	
+		/* 정책확인 */
+		var p_policy = $('#inputPolicy').val();
+		if(p_policy == ""){
+			alert("프로젝트의 교환/환불/AS정책을 입력하세요.");
+			return false;
+		}
+		
+		
+		/* 스토리 */
+		var p_contents = "12345";  // 스토리 어떻게 가져와야 하나요...?
+		if(p_contents == ""){
+			alert("프로젝트 스토리를 작성하세요.");
+			return false;
+		}
+		
+		var storyResult = "";
+		if(p_contents != ""){
+			
+		}
+		var savedPolicy = $.ajax({
+			url : "JPU_UPDATE.do",
+			type : "post",
+			data : {p_policy : p_policy,
+				p_index : p_index},
+				error : function(){
+					alert("정책 저장 오류!!!!!!");
+				}
+		});
+		
+		/* 리워드 */
+		var savedRewList = $('[name=r_index]').val();
+		var rewardResult = "";
+		if(savedRewList == ""){
+			var rewardConf = confirm("리워드를 등록하지 않고 승인요청을 진행하시겠습니까?");
+			switch(rewardConf){
+			case false:
+				$(document).find('#list04').attr('checked', true);
+				break;
+			case true:
+				rewardResult = "success";
+				break;
+			}
+		}
+		if(savedRewList != ""){
+			rewardResult = "success";
+		}
+		console.log("rewardResult : " + rewardResult);
+		
+		/* 모든 데이터 DB저장 후 승인 요청 실행 */
+		savedBasic.done(function(data){
+			basicResult = data;
+			console.log("basicResult : " + basicResult);
+			savedPolicy.done(function(data2){
+				policyResult = data;
+				console.log("policyResult : " + policyResult);
+				if(basicResult == "success" && policyResult == "success" && rewardResult == "success"){
+					$.ajax({
+						url : "JJU.do",
+						data : {p_index : p_index,
+							p_approval : 1},
+							success : function(data){
+								switch(data){
+								case "success":
+									alert("승인 요청되었습니다.");
+									console.log("approve result : " +  data);
+									location.href = "MJS.do";
+									break;
+								default :
+									alert("승인요청 실패!");
+								break;
+								}
+							},
+							error : function(){
+								alert("승인요청 오류!");
+							}
+					});
+				}
+				else{
+					console.log("결과 : success 안되서 승인요청 실패함...");
+				}
+			});
+		});
+	});	
+	
+	/* 승인요청 끝 */
+	
 });
