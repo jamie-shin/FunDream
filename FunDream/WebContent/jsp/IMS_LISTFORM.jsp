@@ -371,7 +371,7 @@
 		    </div>
 		</div>
 		<div class="IMS-btncenter">
-			<input type="button" class="IMS-plus-btn" value="더보기">
+			<input type="button" class="IMS-plus-btn" value="더보기" hidden>
 		</div>
 	</div>
 	<jsp:include page="Header.jsp" />
