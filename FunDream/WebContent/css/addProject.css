@@ -42,7 +42,7 @@ label { display: block; }
 .ap-contents-box { margin: 0; width: auto; border: 1px solid; border-color: darkgray; padding: 15px; }
 .ap-image-h4 { padding: 0; margin: 0; text-align: center; }
 .ap-title-img { position: relative; height: 150px; display: block; margin-left: auto; margin-right: auto; border-radius: 10px; }
-.ap-ta { width: 100%; heigh: 60px; padding:10px; resize: none; outline: none; font-size: 12pt; }
+.ap-ta { width: 100%; height: 80px; padding:10px; resize: none; outline: none; font-size: 12pt; overflow:hidden; }
 .ap-txtbox { margin:0; padding:3px; font-size:12pt; text-align:center; width:90%; }
 .ap-select-category { width:100%; height:40px; padding-left:10px; font-size:12pt; outline:none; border:hidden; }
 .ap-txt-title { margin-right:10px; padding:5px; font-size:12pt; text-align:left; width:90%; }
@@ -51,13 +51,14 @@ label { display: block; }
 .ap-txt-pay { margin-right:10px; padding:5px; font-size:12pt; text-align:right; width:90%; }
 .ap-btn-center { margin-top:30px; text-align: center; }
 .ap-btn-right { margin-top:30px; text-align: right; }
-.ap-policy-area1 { width:100%; height:60px; resize:none; outline:none; font-size:12pt; padding:5px;  }
+.ap-policy-area1 { width:100%; height:90px; resize:none; outline:none; font-size:12pt; padding:5px; overflow: hidden; }
 .ap-policy-area2 { width:100%; height:250px; resize:none; outline:none; font-size:12pt; padding:5px; }
 .ap-txt-right { display:block; text-align:right; color:darkgray;}
 .ap-right { text-align:right; }
 
 /* RADIO BUTTON */
 .ap-radios { display: flex; justify-content: center; align-items: center; }
+.ap-radios label { cursor: pointer; font-size: 14px; margin-left: 6px; margin-right: 16px; display: flex; justify-content: center; align-items: center; }
 .ap-radios input + label { border-radius: 50%; border: 2px solid; width: 22px; height: 22px; margin-left: 2px; margin-right: 2px; transition: .3s ease; position: relative; }
 .ap-radios input + label:before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: transparent; transition: .3s ease; position: absolute; }
 .ap-radios input:checked + label{ color: #7db7ff; }
