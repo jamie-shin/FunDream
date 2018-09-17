@@ -45,7 +45,7 @@
 	</select>
 	
 	<select id="selectProjectsById" parameterType="int" resultType="project">
-		select * from Project where m_id=#{m_id}
+		select * from Project where m_id=#{m_id} order by p_index desc
 	</select>
 	
 	<update id="updateBasicInfo" parameterType="project">

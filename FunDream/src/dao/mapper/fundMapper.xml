@@ -16,7 +16,7 @@
 	</update>
 	
 	<select id="selectAllFundByM_id" resultType="fund" parameterType="int">
-		select * from fund where m_id=#{m_id}
+		select * from fund where m_id=#{m_id} order by f_index desc
 	</select>
 	
 	<select id="checkFund" parameterType="java.util.HashMap" resultType="fund">
