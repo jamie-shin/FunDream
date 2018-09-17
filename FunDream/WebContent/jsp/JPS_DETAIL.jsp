@@ -617,7 +617,7 @@ $(function() {
 
 									<div class="row header backcolor">
 										<div class="cell">후원자</div>
-										<div class="cell">금액</div>
+										<div class="cell">성별</div>
 										<div class="cell">리워드</div>
 										<div class="cell">옵션</div>
 										<div class="cell">배송지</div>
@@ -627,7 +627,7 @@ $(function() {
 								<c:forEach items="${test}" var="t">
 									<div class="row">
 										<div class="cell" data-title="후원자">${t[0].m_name} / ${t[0].m_nick}</div>
-										<div class="cell" data-title="금액">${t[0].m_gender}</div>
+										<div class="cell" data-title="금액"><c:if test="${t[0].m_gender==1}">남자</c:if><c:if test="${t[0].m_gender==2}">여자</c:if> </div>
 										<div class="cell" data-title="리워드">${t[0].m_phone}</div>
 										<div class="cell" data-title="옵션">${t[0].m_email}</div>
 										<div class="cell" data-title="배송지">${t[1].f_price}</div>
