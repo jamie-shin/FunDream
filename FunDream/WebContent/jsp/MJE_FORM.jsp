@@ -1,62 +1,96 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>내가 만든 프로젝트</title>
+<link rel="stylesheet" href="css/CreatedProject.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		$(document).find('[id=projectModify]').on('click', function(){
-			var p_index = $(this).parent().siblings("#projectIndex").text();
-			alert("p_index: " + p_index);
-			location.href = "JJI_FORM.do?p_index="+p_index;
+		$(document).find('[class=card]').on('click', function(){
+			var p_approval = $(this).children('[name=p_approval]').val();
+			var p_index = $(this).children("[name=p_index]").val();
+			alert("p_index: " + p_index + " / p_approval: " + p_approval);
+			switch(p_approval){
+			case "4":
+				alert("프로젝트 수정화면으로 이동합니다.");
+				location.href = "JJI_FORM.do?p_index="+p_index;
+				break;
+			default: 
+				alert("프로젝트 상세보기 화면으로 이동합니다.");
+				location.href = "JPS_DETAIL.do?p_index="+p_index;
+				break;
+			}
 		});
 	});
 </script>
 </head>
 <body>
-	<div style="border: 1px solid black">
-	<h1>내 프로젝트 관리</h1>
-		<c:forEach items="${myProjectList}" var="project">
-			<div style="border : 1px solid red">
-				<table>
-					<thead>
-						<tr>
-							<th>프로젝트 번호</th>
-							<th>프로젝트명</th>
-							<th>목표금액</th>
-							<th>시작일</th>
-							<th>종료일</th>
-							<th>승인여부</th>
-							<th>현재 후원 금액</th>
-							<th>프로젝트 상세 내용</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td id="projectIndex">${project.p_index}</td>
-							<td><button id="projectModify">${project.p_name}</button></td>
-							<td>${project.p_target}</td>
-							<td>${project.p_startdate}</td>
-							<td>${project.p_enddate}</td>
-							<td>
-								<c:if test="${project.p_approval == 1}">승인 대기</c:if>
-								<c:if test="${project.p_approval == 2}">승인 완료</c:if>
-								<c:if test="${project.p_approval == 3}">승인 반려</c:if>
-								<c:if test="${project.p_approval == 4}">승인 요청 전</c:if>
-							</td>
-							<td>${project.p_status}</td>
-							<td>${project.p_contents}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</c:forEach>
+	<!-- 오늘 날짜 구하기 -->
+	<jsp:useBean id="now" class="java.util.Date"/>
+	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+	<!-- 오늘 날짜 구하기  끝 -->
+	
+	<div class="cre-container">
+	<img src="${producer.m_img}" class="user-img">
+		<div class="cre-center">
+			<label>
+				<br><br><br><br><br><br><h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${producer.m_name} (${producer.m_nick})</h3>
+			</label>
+		</div>
+		<span class="left-subtitle">
+			<h4>내가 만든 프로젝트</h4>
+		</span>
+		<div class="cards">
+			<c:forEach items="${myProjectList}" var="project">
+				<a class="card" href="#">
+					<input type="hidden" id="p_index" name="p_index" value="${project.p_index}">
+					<input type="hidden" id="p_approval" name="p_approval" value="${project.p_approval}">
+					<span class="card-header" style="background-image: url(${project.p_mainimg});">
+						<span class="card-title">
+							<h3>[${project.p_index}] ${project.p_name}</h3>
+							<div class="right-al">
+								<small>마감</small>
+							</div>
+						</span>
+					</span>
+					<span class="card-summary">
+						프로젝트 - 
+							<c:if test="${project.p_approval == 4}">작성 중</c:if>
+							<c:if test="${project.p_approval == 1}">승인 대기 중</c:if>
+							<fmt:formatDate value="${project.p_startdate}" pattern="yyyy-MM-dd" var="start"/>
+							<fmt:formatDate value="${project.p_enddate}" pattern="yyyy-MM-dd" var="end"/>
+							<c:if test="${project.p_approval == 2 && start < today}">승인 완료</c:if>
+							<c:if test="${project.p_approval == 2 && start >= today && end < today}">진행 중</c:if>
+							<c:if test="${project.p_approval == 2 && end >= today}">마감</c:if>
+							<c:if test="${project.p_approval == 3}">반려</c:if>
+						<br>
+						프레젠테이션 - 승인대기중
+					</span>
+					<!-- 무산과 성공 백그라운드 컬러와 글씨 색상 지정은 여기서  -->
+					<!-- <h3 class="card-toggle" style="background:navy; color:white;">성공</h3>
+					<input type="button" value="정산" class="card-calcul"> -->
+					<!-- 프로그레스 바 -->
+					<div class="candidatos color">
+		    			<div class="parcial">
+		        			<div class="info">
+		            			<div class="percentagem-num">${project.p_status / project.p_target * 100} %</div>
+		       				</div>
+		        			<div class="progressBar">
+		            			<div class="percentagem" style="width: 100%;"></div>
+		        			</div>
+		        			<div class="partidas">정산승인대기중</div>
+		    			</div>
+					</div>
+					<!-- 프로그레스 바 -->
+				</a>
+			</c:forEach>
+		</div>
 	</div>
-
 	<jsp:include page="Header.jsp"></jsp:include>
 </body>
 </html>
