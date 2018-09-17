@@ -40,5 +40,17 @@
  	<select id="selectOneCommentByIndex" parameterType="int" resultType="comment">
  		select * from Comment where c_index=#{c_index}
  	</select>
+ 	 	
+ 	<select id="selectCommentsByReport" parameterType="int" resultType="comment">
+ 		select * from Comment where c_status=#{c_status}
+ 	</select>
+ 	
+ 	<select id="selectCommentsById" parameterType="int" resultType="comment">
+ 		select * from Comment where m_id=#{m_id}
+ 	</select>
+ 	
+ 	<update id="updateCommentforStatus" parameterType="java.util.HashMap">
+ 		update Comment set c_status=#{c_status} where c_index=#{c_index}
+ 	</update>
  	
  </mapper>

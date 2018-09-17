@@ -2,6 +2,7 @@ package dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import model.Comment;
 
@@ -16,5 +17,8 @@ public interface ICommentDao {
 	public void updateReply(HashMap<String, Object> updatedReply);
 	public Comment selectOneCommentByIndex(int c_index);
 	public void updateCommentforReport(HashMap<String, Object> report);
+	public List<Comment> selectCommentsByReport(int c_status);
+	public List<Comment> selectCommentsById(int m_id);
+	public int updateCommentforStatus(Map<String, Object> statusMap);
 	
 }

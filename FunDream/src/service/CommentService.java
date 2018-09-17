@@ -2,6 +2,7 @@ package service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,5 +84,20 @@ public class CommentService {
 		report.put("c_index", c_index);
 		report.put("c_report", c_report);
 		commentDao.updateCommentforReport(report);
+	}
+
+	public List<Comment> selectCommentsByReport(int c_status) {
+		// TODO Auto-generated method stub
+		return commentDao.selectCommentsByReport(c_status);
+	}
+
+	public List<Comment> selectCommentsById(int m_id) {
+		// TODO Auto-generated method stub
+		return commentDao.selectCommentsById(m_id);
+	}
+
+	public int updateCommentforStatus(Map<String, Object> statusMap) {
+		// TODO Auto-generated method stub
+		return commentDao.updateCommentforStatus(statusMap);
 	}
 }

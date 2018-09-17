@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.Category;
+import model.Comment;
 import model.Member;
 import model.Project;
 import service.CategoryService;
+import service.CommentService;
 import service.MemberService;
 import service.ProjectService;
 import service.RewardService;
@@ -35,6 +37,9 @@ public class IController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private CommentService commentService;
 	
 	// 관리자 메인 화면 요청
 	@RequestMapping("IBE_MANAGER.do")
@@ -183,6 +188,12 @@ public class IController {
 			System.out.println(key + " : " + resultMap.get(key));
 		}
 		
+		// 신고처리된 댓글 내역 가져오기
+		List<Comment> reportCommentList = commentService.selectCommentsByReport(2);
+		if(reportCommentList != null) {
+			resultMap.put("reportComment", reportCommentList);
+		}
+		
 		return resultMap;
 	}
 	
@@ -199,6 +210,8 @@ public class IController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("member", memberService.selectOneMemberById(m_id));
 		mav.addObject("projectList", projectService.getProjectById(m_id));
+		mav.addObject("allProjectList", projectService.getAllProjects());
+		mav.addObject("commentList", commentService.selectCommentsById(m_id));
 		mav.setViewName("IMS_DETAILFORM");
 		return mav;
 	}
@@ -292,4 +305,14 @@ public class IController {
 		return "fail";
 	}
 	
+	// 댓글 신고 처리
+	@RequestMapping("IMU_REPORTCOMM.do")
+	public @ResponseBody String IMU_REPORTCOMM(int c_index, int c_status) {
+		Map<String, Object> statusMap = new HashMap<>();
+		statusMap.put("c_index", c_index);
+		statusMap.put("c_status", c_status);
+		int result = commentService.updateCommentforStatus(statusMap);
+		if(result == 1) return "success";
+		return "fail";
+	}
 }
