@@ -657,6 +657,21 @@ public class ProjectController {
 		List<Reward> reward = rewardService.getRewardsByProject(p_index);
 		System.out.println("리워드정뵈:"+reward);
 		
+		for(int i=0;i<reward.size();i++) {
+			int fd_amt=0;
+			int limit =0;
+			int r_amt=0;
+			List<Fund_Detail> fd_list = fdservice.selectFDByR_index(reward.get(i).getR_index());
+			r_amt= reward.get(i).getR_amt();
+			for(int j=0;j<fd_list.size();j++) {
+				if(r_amt!=0) {
+					fd_amt+=fd_list.get(j).getFd_amt();
+				}
+			}
+			limit=r_amt-fd_amt;
+			reward.get(i).setR_amt(limit);
+		}
+		
 		//댓글 불러오기
 		List<Comment> comment = commentService.selectCommentByProject(p_index);
 		String m_name =null;
