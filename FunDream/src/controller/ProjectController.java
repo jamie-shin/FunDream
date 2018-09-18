@@ -1021,7 +1021,8 @@ public class ProjectController {
 			long t_int = Long.parseLong(t);
 			
 			gap = (int)(e_int - t_int);
-
+			int count = fundService.fundcount(p_list.get(i).getP_index());
+			p_list.get(i).setP_count(count);
 			p_list.get(i).setPer(per);
 			p_list.get(i).setGap(gap);
 		}
