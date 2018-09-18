@@ -8,6 +8,10 @@
 		select * from notice where p_index=#{p_index}
 	</select>
 
+	<select id="selectOneNotice" parameterType="int" resultType="notice">
+		select * from notice where n_index =#{n_index}
+	</select>
+	
 	<insert id="insertNotice" parameterType="java.util.HashMap">
 		insert into notice (n_index, p_index, n_title, n_writedate, n_contents, n_image) values (0, #{p_index}, #{n_title}, now(), #{n_contents}, n_image)
 	</insert>
@@ -15,4 +19,10 @@
 	<delete id="deleteNotice" parameterType="int">
 		delete from notice where n_index=#{n_index}
 	</delete>
+	
+	<update id="updateNotice" parameterType="java.util.HashMap">
+		update notice set n_title=#{n_title}, n_writedate=now(), n_contents=#{n_contents} where n_index=#{n_index}
+	</update>
+	
+	
 </mapper>

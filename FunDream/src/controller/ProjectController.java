@@ -782,18 +782,6 @@ public class ProjectController {
 			list.add(f);
 			list.add(d);
 			list.add(fd_list);
-			/*String r_name = null;
-			for(Fund_Detail fd : fd_list) {
-				List<Object> list2 = new ArrayList<Object>();
-				Reward r = rewardService.getOneRewardByIndex(fd.getR_index());
-				r_name=r.getR_name();
-				list2.add(r);
-				list.add(list2);
-				//System.out.println("list2 : "+list2);
-				System.out.println("r_name 안 : "+r_name);
-			}
-			//System.out.println("list : "+ list);
-			System.out.println("r_name 밖 : "+ r_name);*/
 			test.add(list);
 		}
 		
@@ -804,16 +792,49 @@ public class ProjectController {
 		
 		//그래프
 		//리워드 별 데이터
+		// 리워드 reward
 		List<Fund> r_fund = fundService.selectAllFundByP_index(p_index);
+		List<Fund_Detail> r_fund_detail = new ArrayList<>();
 		
-		List<List<Object>> Fd_list = new ArrayList<List<Object>>();
-		/*for(Fund ff : r_fund) {
-			List<Object> fd_l = new ArrayList<Object>();
-			List<Fund_Detail> fdfd = fdservice.selectAllFund_DetailByF_index(ff.getF_index());
-			
-			Fd_list.add(fd_l);
-		}*/
-		HashMap<String, Object> map = null;
+		for(int i = 0; i < r_fund.size(); i++) {
+			List<Fund_Detail> result_fd = fdservice.selectAllFund_DetailByF_index(r_fund.get(i).getF_index());
+			for(int j = 0; j < result_fd.size(); j++) {
+				r_fund_detail.add(result_fd.get(j));
+			}
+		}
+		
+		System.out.println("============= 펀드 디데일 리스트 시작 ===============");
+		for(Fund_Detail f : r_fund_detail) {
+			System.out.println(f);
+		}
+		System.out.println("============= 펀드 디데일 리스트 끝  ===============");
+		
+		List<Fund_Detail> final_result = new ArrayList<>();
+		for(int i = 0; i < reward.size(); i++) {
+			Fund_Detail fd = new Fund_Detail();
+			int sum_amt = 0;
+			int rindex = reward.get(i).getR_index();
+			for(int j = 0; j < r_fund_detail.size(); j++) {
+				if(r_fund_detail.get(j).getR_index() == rindex) {
+					sum_amt += r_fund_detail.get(j).getFd_amt();
+				}
+			}
+			fd.setR_index(rindex);
+			fd.setR_name(reward.get(i).getR_name());
+			fd.setFd_amt(sum_amt);
+			final_result.add(fd);
+		}
+		
+		System.out.println("======== 리워드별 합계 =======");
+		for(Fund_Detail fd : final_result) {
+			System.out.println(fd);
+		}
+		System.out.println("======== 리워드별 합계 끝 =======");
+		
+		mav.addObject("fd_sum", final_result);
+		
+		
+/*		HashMap<String, Object> map = null;
 		List<Object> L = new ArrayList<Object>();
 		for(int i=0;i<r_fund.size();i++) {
 			List<Fund_Detail> fdfd = fdservice.selectAllFund_DetailByF_index(r_fund.get(i).getF_index());
@@ -821,13 +842,11 @@ public class ProjectController {
 			for(int j=0;j<fdfd.size();j++) {
 				map = fdservice.fd_amt(fdfd.get(j).getR_index());
 			}
-			//System.out.println("map 안 : "+map);
 			L.add(map);
 		}
-		//System.out.println("map 밖 : "+map);
 		if(map!=null) {
 			mav.addObject("l", L);
-		}
+		}*/
 		
 		//성별데이터
 		int F_num = 0;
@@ -947,6 +966,20 @@ public class ProjectController {
 	@RequestMapping("JNE_NOTICEFORM.do")
 	public void JNE_NOTICEFORM() {}
 	
+	@RequestMapping("JNU_NOTICEFORM.do")
+	public ModelAndView JNU_NOTICEFORM(String n_index_str){
+		System.out.println(n_index_str);
+		int n_index = Integer.parseInt(n_index_str);
+		Notice n = noticeService.selectOneNotice(n_index);
+		System.out.println(n);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("notice", n);
+		mav.setViewName("JNE_NOTICEFORM");
+		return mav;
+	}
+	
+	//프로젝트 공지사항 등록
 	@RequestMapping(value="JNE_NOTICE.do",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> JNE_NOTICE(@RequestBody Map<String, Object> map) {
@@ -958,10 +991,21 @@ public class ProjectController {
 		String con = n_contents.replace("<img", "<img style=\"max-width: 100%\"");
 		noticeService.insertNotice(p_index, n_title, con);
 		
-		//return "redirect:JNE_NOTICE.do?p_index="+p_int;
 		Map<String, Object> re = new HashMap<String,Object>();
 		re.put("msg", "제발");
 		return re;
+	}
+
+	//프로젝트 공지사항 수정
+	@RequestMapping(value="JNU_NOTICE.do", method=RequestMethod.POST)
+	public @ResponseBody void JNU_NOTICE(@RequestBody Map<String, Object> map) {
+		
+		String n_index_str = (String)map.get("n_index");
+		int n_index = Integer.parseInt(n_index_str);
+		String n_title = (String)map.get("n_title");
+		String n_contents = (String)map.get("n_contents");
+		String con = n_contents.replace("<img", "<img style=\"max-width: 100%\"");
+		noticeService.updateNotice(n_index, n_title, con);
 	}
 	
 	
@@ -1000,7 +1044,7 @@ public class ProjectController {
         }
         return "redirect:" + callback + "?callback_func="+callback_func+file_result;
     }
-    
+    //공지사항 삭제
 	@RequestMapping("JND_NOTICE.do")
 	public @ResponseBody void JND_NOTICE(String n_index_str) {
 		System.out.println(n_index_str);

@@ -12,5 +12,8 @@ public interface INoticeDao {
 	public void insertNotice(HashMap<String, Object> notice);
 
 	public void deleteNotice(int n_index);
+	
+	public Notice selectOneNotice(int n_index);
 
+	public void updateNotice(HashMap<String, Object> notice);
 }

@@ -33,6 +33,19 @@ public class NoticeService {
 		noticeDao.deleteNotice(n_index);
 		
 	}
+	public Notice selectOneNotice(int n_index) {
+		// TODO Auto-generated method stub
+		return noticeDao.selectOneNotice(n_index);
+		
+	}
+	public void updateNotice(int n_index, String n_title, String n_contents) {
+		HashMap<String, Object> notice = new HashMap<>();
+		notice.put("n_index", n_index);
+		notice.put("n_title", n_title);
+		notice.put("n_contents", n_contents);
+		System.out.println("들어갈내용:"+notice);
+		noticeDao.updateNotice(notice);
+	}
 
 
 }

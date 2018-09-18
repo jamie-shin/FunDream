@@ -306,6 +306,12 @@ $(function() {
 			});
 		}
     });
+
+    $(document).on('click', '#notice_modify', function(){
+    	var index = $(this).siblings('#n_index').val();
+    	alert(index);
+		window.open('JNU_NOTICEFORM.do?n_index_str='+index,'공지사항 작성하기', 'width=600, height=500');
+     });
 });
 </script>
 </head>
@@ -390,6 +396,7 @@ $(function() {
 									<div class="pv-notice-content">
 										<div class="pv-notice-topright">${notice.n_writedate }</div>
 										<div class="pv-notice-btnbox">
+											<input type="hidden" id="n_index" value="${notice.n_index }">
 											<a class="pv-notice-modbtn">수정</a>
 											<a class="pv-notice-delbtn" id="notice_delete">삭제</a>
 										</div>
@@ -571,10 +578,11 @@ $(function() {
 							<!-- 그래프2  -->
 							<h2>리워드별 신청현황</h2>
 							<ul class="skill-list">
-								<c:forEach items="${l}" var="l" varStatus="status">
+								<c:forEach items="${fd_sum}" var="l" varStatus="status">
 								<li class="skill">
 									<h5 class="progressbar-count">
-										${l["r_name"]}<br><span id="amt${status.index}">${l["sum(fd_amt)"]}</span>개<span id="v_per${status.index}"></span>
+									${l.r_name } (${l.fd_amt } 개)
+										<%-- ${l["r_name"]}<br><span id="amt${status.index}">${l["sum(fd_amt)"]}</span>개<span id="v_per${status.index}"></span> --%>
 									</h5> <progress class="skill-1" max="100" id="per${status.index}" value="">
 										<strong>Skill Level: 50%</strong>
 									</progress>
