@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.oreilly.servlet.MultipartRequest;
@@ -965,6 +967,62 @@ public class ProjectController {
 		commentService.updateCommentforReport(c_index, c_report);
 	}
 	
+	
+	//summernote부분시작
+	@RequestMapping("JNE_NOTICEFORM2.do")
+	public void JNE_NOTICEFORM2() {}
+	
+	@RequestMapping(value="JNE_NOTICE2.do", method=RequestMethod.POST)
+	public @ResponseBody void JNE_NOTICE2(HttpServletRequest req, String n_title, String n_contents, String p_index) {
+		int p_int = Integer.parseInt(p_index);
+		noticeService.insertNotice(p_int, n_title, n_contents);
+	}
+	
+    // 서머노트 이미지 업로드
+    @RequestMapping("uploadImage.do")
+    public void uploadImage(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int m_id = (Integer)request.getSession().getAttribute("m_id");
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+         
+        // 업로드할 폴더 경로
+        String realFolder = request.getSession().getServletContext().getRealPath("profileUpload");
+        UUID uuid = UUID.randomUUID();
+ 
+        // 업로드할 파일 이름
+        String org_filename = file.getOriginalFilename();
+        String str_filename = uuid.toString() + org_filename;
+ 
+        System.out.println("원본 파일명 : " + org_filename);
+        System.out.println("저장할 파일명 : " + str_filename);
+ 
+        String filepath = realFolder + "\\" + m_id + "\\" + str_filename;
+        System.out.println("파일경로 : " + filepath);
+ 
+        File f = new File(filepath);
+        if (!f.exists()) {
+            f.mkdirs();
+        }
+        file.transferTo(f);
+        out.println("profileUpload/"+m_id+"/"+str_filename);
+        out.close();
+ 
+    }
+    
+    @RequestMapping("JNU_NOTICEFORM2.do")
+	public ModelAndView JNU_NOTICEFORM2(String n_index_str){
+		System.out.println(n_index_str);
+		int n_index = Integer.parseInt(n_index_str);
+		Notice n = noticeService.selectOneNotice(n_index);
+		System.out.println(n);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("notice", n);
+		mav.setViewName("JNE_NOTICEFORM2");
+		return mav;
+	}
+
+	//스마트에디터 시작
 	@RequestMapping("JNE_NOTICEFORM.do")
 	public void JNE_NOTICEFORM() {}
 	
