@@ -165,7 +165,7 @@ $(function() {
     	html += '<div class="pv-comment-right">';
     	html += '<input type="button" class="pv-comment-addbtn" id="newReplyComment" value="입력"></div>';
     	html +='</div>';
-    	$('#replyBox').append(html);
+    	$(this).closest('#replyBox').append(html);
     	c_index =$(this).siblings('#commentIndex').val();
     });
     
@@ -195,7 +195,7 @@ $(function() {
     	} 
     });
     
-    $('#deleteReply').on('click', function(){
+    $(document).on('click', '[id^=deleteReply]', function(){
     	var index = $(this).val();
 	  	if(confirm('답글을 삭제하시겠습니까?')==true){
 	  		$.ajax({
@@ -213,7 +213,7 @@ $(function() {
 	  	}
   	});
     
-    $('#updateReply').on('click', function(){
+    $(document).on('click', '[id^=updateReply]', function(){
     	var index = $(this).val();
     	var html ='';
     	html += '<button class="pv-comment-modbtn" id="replyUpdateBtn">저장</button>';
