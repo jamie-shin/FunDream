@@ -227,6 +227,11 @@ public class ProjectController {
 		Project project = projectService.getOneProject(Integer.parseInt(p_index));
 		if(project.getP_name() != "" && project.getP_name() != null) {
 			project.setP_target((Integer)(project.getP_target()/10000));
+			String policy = project.getP_policy();
+			if(policy != null && policy.contains("<br/>")) {
+				policy = policy.replace("<br/>", "\n");
+			}
+			project.setP_policy(policy);		
 			System.out.println("프로젝트명 : " + project.getP_name());
 			System.out.println("목표금액 : " + project.getP_target());
 			mav.addObject("project", project);

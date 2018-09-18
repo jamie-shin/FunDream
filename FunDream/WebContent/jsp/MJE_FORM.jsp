@@ -53,32 +53,37 @@
 					<span class="card-header" style="background-image: url(${project.p_mainimg});">
 						<span class="card-title">
 							<h3>[${project.p_index}] ${project.p_name}</h3>
-							<div class="right-al">
+							<!-- <div class="right-al">
 								<small>마감</small>
-							</div>
+							</div> -->
 						</span>
 					</span>
 					<span class="card-summary">
 						프로젝트 - 
-							<c:if test="${project.p_approval == 4}">작성 중</c:if>
-							<c:if test="${project.p_approval == 1}">승인 대기 중</c:if>
-							<fmt:formatDate value="${project.p_startdate}" pattern="yyyy-MM-dd" var="start"/>
-							<fmt:formatDate value="${project.p_enddate}" pattern="yyyy-MM-dd" var="end"/>
-							<c:if test="${project.p_approval == 2 && start < today}">승인 완료</c:if>
-							<c:if test="${project.p_approval == 2 && start >= today && end < today}">진행 중</c:if>
-							<c:if test="${project.p_approval == 2 && end >= today}">마감</c:if>
-							<c:if test="${project.p_approval == 3}">반려</c:if>
-						<br>
-						프레젠테이션 - 승인대기중
+						<c:if test="${project.p_approval == 4}">작성 중</c:if>
+						<c:if test="${project.p_approval == 1}">승인 대기 중</c:if>
+						<fmt:formatDate value="${project.p_startdate}" pattern="yyyy-MM-dd" var="start"/>
+						<fmt:formatDate value="${project.p_enddate}" pattern="yyyy-MM-dd" var="end"/>
+						<c:if test="${project.p_approval == 2 && start < today}">승인 완료</c:if>
+						<c:if test="${project.p_approval == 2 && start >= today && end < today}">진행 중</c:if>
+						<c:if test="${project.p_approval == 2 && end >= today}">마감</c:if>
+						<c:if test="${project.p_approval == 3}">반려</c:if>
+						<br><br>
+						<fmt:formatDate pattern="yyyy-MM-dd" value="${project.p_startdate}"/> ~ <fmt:formatDate pattern="yyyy-MM-dd" value="${project.p_enddate}"/>
 					</span>
 					<!-- 무산과 성공 백그라운드 컬러와 글씨 색상 지정은 여기서  -->
-					<!-- <h3 class="card-toggle" style="background:navy; color:white;">성공</h3>
-					<input type="button" value="정산" class="card-calcul"> -->
+					<c:if test="${(project.p_enddate > today) && (project.p_target <= project.p_status)}">
+						<h3 class="card-toggle" style="background:navy; color:white;">성공</h3>
+					</c:if>
+					<!-- <input type="button" value="정산" class="card-calcul"> -->
 					<!-- 프로그레스 바 -->
 					<div class="candidatos color">
 		    			<div class="parcial">
 		        			<div class="info">
-		            			<div class="percentagem-num">${project.p_status / project.p_target * 100} %</div>
+		            			<div class="percentagem-num">
+		            			<c:if test="${project.p_status != 0}"><fmt:formatNumber pattern="###,###.##" value="${project.p_status / project.p_target * 100}" /></c:if>  
+		            			<c:if test="${project.p_status == 0}">0</c:if>
+		            			 %</div>
 		       				</div>
 		        			<div class="progressBar">
 		            			<div class="percentagem" style="width: 100%;"></div>

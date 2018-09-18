@@ -171,7 +171,7 @@
 					<div class="cell">프로젝트 번호</div>
 		      		<div class="cell">프로젝트 명</div>
 		      		<div class="cell">제작자</div>
-		      		<div class="cell">승인신청일</div>
+		      		<div class="cell">프로젝트 시작일</div>
 		      		<div class="cell">승인여부</div>
 				</div>
 				<c:if test="${approveListBefore != ''}">
@@ -180,7 +180,7 @@
 					    	<div class="cell" data-title="프로젝트 번호"><a href="#" id="project">${before.p_index}</a></div>
 					    	<div class="cell" data-title="프로젝트 명"><a href="#" id="projectName">${before.p_name}</a></div>
 					      	<div class="cell" data-title="제작자">	<a href="#" id="member">${before.m_id}</a></div>
-					      	<div class="cell" data-title="승인신청일">${before.p_createdate}</div>
+					      	<div class="cell" data-title="프로젝트 시작일">${before.p_startdate}</div>
 					      	<div class="cell" data-title="승인여부">
 					      		<button value="${before.p_index}" id="cancelApproveBtn" class="IJS-okbtn">승인 취소</button>
 					      	</div>
@@ -206,7 +206,7 @@
 					    	<div class="cell" data-title="프로젝트 번호"><a href="#" id="project">${progress.p_index}</a></div>
 					    	<div class="cell" data-title="프로젝트 명"><a href="#" id="projectName">${progress.p_name}</a></div>
 					      	<div class="cell" data-title="제작자"><a href="#" id="member">${progress.m_id}</a></div>
-					      	<div class="cell" data-title="승인신청일">${progress.p_createdate}</div>
+					      	<div class="cell" data-title="프로젝트 종료일">${progress.p_enddate}</div>
 					      	<div class="cell" data-title="승인여부">
 					      		<c:if test="${progress.p_approval == 1}">대기</c:if>
 					      		<c:if test="${progress.p_approval == 2}">승인 완료</c:if>
@@ -261,7 +261,7 @@
 					    	<div class="cell" data-title="프로젝트 번호"><a href="#" id="project">${calculate.p_index}</a></div>
 					    	<div class="cell" data-title="프로젝트 명"><a href="#" id="projectName">${calculate.p_name}</a></div>
 					      	<div class="cell" data-title="제작자"><a href="#" id="member">${calculate.m_id}</a></div>
-					      	<div class="cell" data-title="승인신청일">${calculate.p_createdate}</div>
+					      	<div class="cell" data-title="프로젝트 종료일">${calculate.p_enddate}</div>
 					      	<div class="cell" data-title="정산여부">
 								<c:if test="${calculate.p_calculate == 0}">대기 중 <button id="calculateBtn" value="${calculate.p_index}" class="IJS-okbtn">정산</button></c:if>
 								<c:if test="${calculate.p_calculate == -1}">모금 실패</c:if>
@@ -289,7 +289,7 @@
 					    	<div class="cell" data-title="프로젝트 번호"><a href="#" id="project">${complete.p_index}</a></div>
 					    	<div class="cell" data-title="프로젝트 명"><a href="#" id="projectName">${complete.p_name}</a></div>
 					      	<div class="cell" data-title="제작자">	<a href="#" id="member">${complete.m_id}</a></div>
-					      	<div class="cell" data-title="승인신청일">${complete.p_createdate}</div>
+					      	<div class="cell" data-title="프로젝트 종료일">${complete.p_enddate}</div>
 					      	<div class="cell" data-title="정산여부">
 								<c:if test="${complete.p_calculate == 0}">대기 중 <button id="calculateBtn" value="${complete.p_index}" class="IJS-okbtn">정산</button></c:if>
 								<c:if test="${complete.p_calculate == -1}">모금 실패</c:if>
@@ -316,7 +316,7 @@
 					    	<div class="cell" data-title="프로젝트 번호"><a href="#" id="project">${fail.p_index}</a></div>
 					    	<div class="cell" data-title="프로젝트 명"><a href="#" id="projectName">${fail.p_name}</a></div>
 					      	<div class="cell" data-title="제작자"><a href="#" id="member">${fail.m_id}</a></div>
-					      	<div class="cell" data-title="승인신청일">${fail.p_createdate}</div>
+					      	<div class="cell" data-title="프로젝트 종료일">${fail.p_enddate}</div>
 					      	<div class="cell" data-title="정산여부">
 								<c:if test="${fail.p_calculate == 0}">대기 중 <button id="calculateBtn" value="${fail.p_index}" class="IJS-okbtn">정산</button></c:if>
 								<c:if test="${fail.p_calculate == -1}">모금 실패</c:if>

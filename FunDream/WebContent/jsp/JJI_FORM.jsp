@@ -342,10 +342,10 @@ function readURL(input) {
 		<input type="hidden" id="p_index" name="p_index" value="${p_index}">
 		<input type="hidden" id="m_id" name="m_id" value="${m_id}">
 		<ul class="ap-menu">
-			<li><label for="item01">기본정보</label></li>
-			<li><label for="item02">정책확인</label></li>
-			<li><label for="item03">스토리</label></li>
-			<li><label for="item04">리워드</label></li>
+			<li><label for="item01" id="item01tab">기본정보</label></li>
+			<li><label for="item02" id="item02tab">정책확인</label></li>
+			<li><label for="item03" id="item03tab">스토리</label></li>
+			<li><label for="item04" id="item04tab">리워드</label></li>
 		</ul>
 		<ul class="ap-contents">
 			<!-- 기본정보 -->
@@ -359,8 +359,15 @@ function readURL(input) {
 				<div class="ap-contents-box">
 					<span>
 						<h4 class="ap-image-h4">대표이미지</h4>
-						<input type="file" id="imgInp" name="p_mainImg">
-						<img id="blah" src="#" alt="이미지를 선택하세요" class="ap-title-img"/>
+						<c:if test="${project.p_mainimg != null}">
+							<a>기존 이미지 </a><input type="file" id="imgInp" name="p_mainImg" style="align-self: center;"><br>
+							<img alt="img/user.png" src="${project.p_mainimg}" class="ap-preimg" width="300px" height="300px">
+							<img id="blah" src="#" alt="이미지를 선택하세요" width="300px" height="300px"/>
+						</c:if>
+						<c:if test="${project.p_mainimg == null}">
+							<input type="file" id="imgInp" name="p_mainImg">
+							<img id="blah" src="#" alt="이미지를 선택하세요" class="ap-title-img"/>
+						</c:if>
 					</span>
 				</div>
 				<h2>프로젝트 번호</h2>
@@ -438,8 +445,8 @@ function readURL(input) {
 					<label class="ap-check-label" for="inputAge">리워드가 19세 이상 이용 가능한 제품/서비스(주류/티켓 등)인 경우, 체크하세요</label>
 				</div><br><br><br>
 				<div class="ap-btn-center">
-					<input type="button" class="ap-prev-btn" id="mainBtn1" name="" value="메인">
-					<input type="button" class="ap-next-btn" id="nextBtn1" name="" value="다음>">
+					<input type="button" class="ap-main-btn" id="mainBtn1" name="" value="메인으로">
+					<input type="button" class="ap-prev-btn" id="saveBtn1" name="" value="임시저장">
 				</div>
 			</form>
 			</li>
@@ -479,8 +486,8 @@ function readURL(input) {
 <c:if test="${project.p_policy != null}">${project.p_policy}</c:if></textarea>
 	  			<span class="ap-txt-right"><small id="policyWords"><c:if test="${project.p_policy == null}">533/1000</c:if></small></span>
 	  			<div class="ap-btn-center">
-	  				<input type="button" class="ap-prev-btn" id="preBtn2" name="" value="<이전">
-					<input type="button" class="ap-next-btn" id="nextBtn2" name="" value="다음>">
+	  				<input type="button" class="ap-prev-btn" id="saveBtn2" name="" value="임시저장">
+					<!-- <input type="button" class="ap-next-btn" id="nextBtn2" name="" value="다음>"> -->
 	  			</div>
 			</li>
 			
@@ -508,10 +515,9 @@ function readURL(input) {
 				   	});
 				</script>
 				
-				
 				<div class="ap-btn-center">
-	  				<input type="button" class="ap-prev-btn" name="" value="<이전">
-					<input type="button" class="ap-next-btn" name="" value="다음>">
+	  				<input type="button" class="ap-prev-btn" id='saveBtn3' name="" value="임시저장">
+					<!-- <input type="button" class="ap-next-btn" id="nextBtn3" name="" value="다음>"> -->
 	  			</div>
 			</li>
 			
@@ -604,8 +610,8 @@ function readURL(input) {
 				
 			<!--  -->
 				<div class="ap-btn-center">
-	  				<input type="button" class="ap-prev-btn" name="" value="<이전">
-	  				<input type="button" class="ap-next-btn" id="submitProject" name="" value="승인요청">
+	  				<input type="button" class="ap-prev-btn" id="saveBtn4" name="" value="임시저장">
+	  				<input type="button" class="ap-main-btn" id="submitProject" name="" value="승인요청">
 	  			</div>
 			</li>
 		</ul>

@@ -189,8 +189,8 @@ $(function(){
 		}
 	});
 	
-	// 다음 버튼 클릭 시  
-	$('#nextBtn1').on('click', function(){
+	// 임시저장 버튼 클릭 시
+	$('#saveBtn1').on('click', function(){
 		var form = $('#basicInfoForm')[0];
 		var formData = new FormData(form);
 		$.ajax({
@@ -204,7 +204,7 @@ $(function(){
 			success : function(data){
 				if(data == 'success'){
 					alert("기본정보가 저장되었습니다.");
-					$(document).find('#item02').attr('checked', 'checked');
+					$(document).find('#item02').attr('checked', true);
 				}
 				if(data == 'fail'){
 					alert("기본정보가 저장되지 않았습니다.");
@@ -216,6 +216,7 @@ $(function(){
 		});
 	});
 	
+	// 메인으로 버튼 클릭 시
 	$('#mainBtn1').on('click', function(){
 		var conf = confirm("저장하시려면 확인, 저장하지 않고 메인화면으로 이동하시려면 취소를 선택하세요.");
 		if(conf == true){
@@ -288,38 +289,8 @@ $(function(){
 		}
 	});
 	
-	// 프로젝트 정책확인 정보 수정 (이전 버튼 클릭 시)
-	$(document).find('#preBtn2').on('click', function(){
-		var p_index = $(document).find('#p_index').val();
-		var m_id = $(document).find('#m_id').val();
-		var policy_value = $('#inputPolicy').val();
-		policy_value = policy_value.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-//		$('#inputPolicy').text(policy_value);
-		$.ajax({
-			url : "JPU_UPDATE.do",
-			type : "post",
-			data : {p_policy : policy_value,
-					p_index : p_index},
-			success : function(data){
-				alert(data);
-				if(data == 'success'){
-					policy_value = policy_value.split('<br/>').join("\r\n");
-					$(document).find('#inputPolicy').val(policy_value);
-					alert("정책확인 정보가 저장되었습니다.");
-					$(document).find('#item01').attr('checked', 'checked');
-				}
-				else{
-					alert('저장 실패!');
-				}
-			},
-			error : function(){
-				alert("error!!!!!");
-			}
-		});
-	});
-	
-	// 프로젝트 정책확인 정보 수정 (다음 버튼 클릭 시)
-	$(document).find('#nextBtn2').on('click', function(){
+	// 프로젝트 정책확인 정보 수정 (임시저장 버튼 클릭 시)
+	$(document).find('#saveBtn2').on('click', function(){
 		var p_index = $(document).find('#p_index').val();
 		var m_id = $(document).find('#m_id').val();
 		var policy_value = $('#inputPolicy').val();
@@ -330,12 +301,12 @@ $(function(){
 			data : {p_policy : policy_value,
 					p_index : p_index},
 			success : function(data){
-				alert(data);
+				console.log(data);
 				if(data == 'success'){
 					policy_value = policy_value.split('<br/>').join("\r\n");
 					$(document).find('#inputPolicy').val(policy_value);
 					alert("정책확인 정보가 저장되었습니다.");
-					$(document).find('#item03').attr('checked', 'checked');
+					$('#item03tab').trigger('click');
 				}
 				else{
 					alert('저장 실패!');
@@ -402,6 +373,12 @@ $(function(){
 				alert("스토리 멤버 삭제 오류!");
 			}
 		});
+	});
+	
+	// 임시 저장 버튼 클릭 시
+	$(document).find('#saveBtn3').on('click', function(){
+		alert("스토리가 저장되었습니다.");
+		$('#item04tab').trigger('click');
 	});
 	
 	/* 스토리 탭 관련 끝 */
@@ -503,7 +480,7 @@ $(function(){
 			var rewardConf = confirm("리워드를 등록하지 않고 승인요청을 진행하시겠습니까?");
 			switch(rewardConf){
 			case false:
-				$(document).find('#list04').attr('checked', true);
+				$('#item04tab').trigger('click');
 				break;
 			case true:
 				rewardResult = "success";
@@ -514,6 +491,10 @@ $(function(){
 			rewardResult = "success";
 		}
 		console.log("rewardResult : " + rewardResult);
+		
+		$('#preBtn4').on('click', function(){
+			$('#item03tab').trigger('click');
+		});
 		
 		/* 모든 데이터 DB저장 후 승인 요청 실행 */
 		savedBasic.done(function(data){
