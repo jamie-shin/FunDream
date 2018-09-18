@@ -14,8 +14,6 @@
 
 <script>
 $(function() {
-	
-	
 	var m_id = <%=request.getParameter("m_id")%>;
 	var p_index =<%=request.getParameter("p_index")%>;
 	
@@ -581,7 +579,7 @@ $(function() {
 								<c:forEach items="${fd_sum}" var="l" varStatus="status">
 								<li class="skill">
 									<h5 class="progressbar-count">
-									${l.r_name } (${l.fd_amt } 개)
+									${fd_sum.r_name } (${fd_sum.fd_amt } 개)
 										<%-- ${l["r_name"]}<br><span id="amt${status.index}">${l["sum(fd_amt)"]}</span>개<span id="v_per${status.index}"></span> --%>
 									</h5> <progress class="skill-1" max="100" id="per${status.index}" value="">
 										<strong>Skill Level: 50%</strong>
