@@ -258,31 +258,24 @@
 			<c:if test="${r_list!='[]' || map.del eq 'no'}">
 			<h2>배송지 정보</h2>
 				<div class="spon-project-address-left">
-					<div class="spon-project-card">
-						<div class="spon-project-left"></div>
-						<div class="spon-project-right">
-							<input type="button" class="spon-new-addressbtn" id="postcodify_search_button" value="주소 검색">
-						</div>
-					</div>
-					<span class="spon-project-spantag">우편번호</span> 
-					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-					<span class="spon-project-spantag">인수자명</span>
-					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-					<span class="spon-project-spantag">받는분 번호</span>
+					<span class="spon-project-spantag">인수자명 : 
+						<input type="text" name="" id="address_name" class="jfi-address-name" value="">
+					</span><br>
+					<span class="spon-project-spantag">받는분 번호 :</span>
+					<select class="jfi-selectbox" id="inputPhone1" name="">
+						<option value="010">010</option>
+						<option value="011">011</option>
+						<option value="016">016</option>
+						<option value="017">017</option>
+						<option value="018">018</option>
+						<option value="019">019</option>
+					</select> 
+					<strong>-</strong> <input type="number" class="jfi-phone" id="inputPhone2" name="" maxlength="4" style="width: 70px;">
+					<strong>-</strong> <input type="number" class="jfi-phone" id="inputPhone3" name="" maxlength="4" style="width: 70px;"><br>
+					<span class="spon-project-spantag">우편번호
+						<input type="button" class="spon-new-addressbtn" id="postcodify_search_button" value="주소 검색">
+					</span> 
 					<br><input type="text" name="" class="postcodify_postcode5" id="spon-address-num" value="" readonly>
-					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-					<input type="text" name="" id="address_name" value="">
-					&emsp;&emsp;&emsp;&emsp;
-					<select id="inputPhone1" name="">
-				<option value="010">010</option>
-				<option value="011">011</option>
-				<option value="016">016</option>
-				<option value="017">017</option>
-				<option value="018">018</option>
-				<option value="019">019</option>
-			</select> 
-			<strong>-</strong> <input type="number" id="inputPhone2" name="" maxlength="4" style="width: 70px;">
-			<strong>-</strong> <input type="number" id="inputPhone3" name="" maxlength="4" style="width: 70px;">
 					<br><br>
 					<span class="spon-project-spantag">주&emsp;&emsp;소</span><br>
 					<input type="text" name="" class="postcodify_address" id="spon-address" value="" readonly><br><br>
