@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class Notice {
 	private int n_index;
 	private int p_index;
-	private String n_totle;
+	private String n_title;
 	private Timestamp n_writedate;
 	private String n_contents;
 	private String n_image;
@@ -14,10 +14,10 @@ public class Notice {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Notice(int n_index, int p_index, String n_totle, Timestamp n_writedate, String n_contents, String n_image) {
+	public Notice(int n_index, int p_index, String n_title, Timestamp n_writedate, String n_contents, String n_image) {
 		this.n_index = n_index;
 		this.p_index = p_index;
-		this.n_totle = n_totle;
+		this.n_title = n_title;
 		this.n_writedate = n_writedate;
 		this.n_contents = n_contents;
 		this.n_image = n_image;
@@ -35,11 +35,11 @@ public class Notice {
 	public void setP_index(int p_index) {
 		this.p_index = p_index;
 	}
-	public String getN_totle() {
-		return n_totle;
+	public String getn_title() {
+		return n_title;
 	}
-	public void setN_totle(String n_totle) {
-		this.n_totle = n_totle;
+	public void setn_title(String n_title) {
+		this.n_title = n_title;
 	}
 	public Timestamp getN_writedate() {
 		return n_writedate;
@@ -62,7 +62,7 @@ public class Notice {
 	
 	@Override
 	public String toString() {
-		return "Notice [n_index=" + n_index + ", p_index=" + p_index + ", n_totle=" + n_totle + ", n_writedate="
+		return "Notice [n_index=" + n_index + ", p_index=" + p_index + ", n_title=" + n_title + ", n_writedate="
 				+ n_writedate + ", n_contents=" + n_contents + ", n_image=" + n_image + "]";
 	}
 }
