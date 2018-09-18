@@ -365,33 +365,31 @@ $(function() {
 							</c:if>
 						</div>
 						<!--  공지사항이 있을때만 보이기 -->
+						
 						<c:if test="${notice !=null }">
+						<c:forEach var="notice" items="${notice }">
 						<div class="pv-notice-box">
+						<input type="hidden" id="index" value="${notice.n_index }">
 							<div class="pv-notice-menu">
 								<div class="pv-notice-tab">
-									<input id="pv-notice-one" type="checkbox" name="tabs">
-									<label for="pv-notice-one">공지사항1</label>
+									<input id="pv-notice-${notice.n_index}" type="checkbox" name="tabs">
+									<label for="pv-notice-${notice.n_index}">${notice.n_title }</label>
 									<div class="pv-notice-content">
-										<div class="pv-notice-topright">2018-08-13 10:51:30</div>
+										<div class="pv-notice-topright">${notice.n_writedate }</div>
 										<div class="pv-notice-btnbox">
-											<a class="pv-notice-modbtn">수정</a> <a
-												class="pv-notice-delbtn">삭제</a>
+											<a class="pv-notice-modbtn">수정</a>
+											<a class="pv-notice-delbtn" id="notice_delete">삭제</a>
 										</div>
 										<div class="pv-notice-contents">
-											asdasdasdasdasdsadas asdsadasdas<br> asdasdasd<br>
-											asdsadasdas<br> asdasdasd<br> asdsadasdas<br>
-											asdasdasd<br> asdsadasdas<br> asdasdasd<br>
-											asdsadasdas<br> asdasdasd<br> asdsadasdas<br>
-											asdasdasd<br> asdsadasdas<br> asdasdasd<br>
-											asdsadasdas<br> asdasdasd<br> asdsadasdas<br>
-											asdasdasd<br> asdsadasdas<br> asdasdasd<br>
-											asdsadasdas<br> asdasdasd<br> asdasdas
+											${notice.n_contents }
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						</c:forEach>
 						</c:if>
+						<h2>댓글</h2>
 						<h2>댓글</h2>
 						<c:if test="${type eq 'none' ||type eq 'normal'}"> 
 						<div class="pv-comment-box">

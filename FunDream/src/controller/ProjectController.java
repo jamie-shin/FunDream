@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -13,6 +14,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +39,7 @@ import model.Delivery;
 import model.Fund;
 import model.Fund_Detail;
 import model.Member;
+import model.PhotoVo;
 import model.Project;
 import model.Reward;
 import model.Story_Member;
@@ -45,6 +49,7 @@ import service.DeliveryService;
 import service.FundService;
 import service.Fund_DetailService;
 import service.MemberService;
+import service.NoticeService;
 import service.ProjectService;
 import service.RewardService;
 import service.Story_MemberService;
@@ -78,6 +83,9 @@ public class ProjectController {
 	
 	@Autowired
 	private DeliveryService deliveryService;
+	
+	@Autowired
+	private NoticeService noticeService;
 	
 	int gap=0;
 	Date today = new Date();
@@ -924,6 +932,64 @@ public class ProjectController {
 		
 		commentService.updateCommentforReport(c_index, c_report);
 	}
+	
+	@RequestMapping("JNE_NOTICEFORM.do")
+	public void JNE_NOTICEFORM() {}
+	
+	@RequestMapping(value="JNE_NOTICE.do",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> JNE_NOTICE(@RequestBody Map<String, Object> map) {
+		
+		String p_index_str = (String)map.get("p_index");
+		int p_index = Integer.parseInt(p_index_str);
+		String n_title = (String)map.get("n_title");
+		String n_contents = (String)map.get("n_contents");
+		String con = n_contents.replace("<img", "<img style=\"max-width: 100%\"");
+		noticeService.insertNotice(p_index, n_title, con);
+		
+		//return "redirect:JNE_NOTICE.do?p_index="+p_int;
+		Map<String, Object> re = new HashMap<String,Object>();
+		re.put("msg", "제발");
+		return re;
+	}
+	
+	 //단일파일업로드
+    @RequestMapping("photoUpload.do")
+    public String photoUpload(HttpServletRequest request, PhotoVo vo){
+        String callback = vo.getCallback();
+        String callback_func = vo.getCallback_func();
+        String file_result = "";
+        try {
+            if(vo.getFiledata() != null && vo.getFiledata().getOriginalFilename() != null && !vo.getFiledata().getOriginalFilename().equals("")){
+                //파일이 존재하면
+                String original_name = vo.getFiledata().getOriginalFilename();
+                String ext = original_name.substring(original_name.lastIndexOf(".")+1);
+                //파일 기본경로
+                String defaultPath = request.getSession().getServletContext().getRealPath("/");
+                //파일 기본경로 _ 상세경로
+                String path = defaultPath + File.separator + "photo_upload" + File.separator;
+                System.out.println("path : "+path);
+                File file = new File(path);
+                System.out.println("path:"+path);
+                //디렉토리 존재하지 않을경우 디렉토리 생성
+                if(!file.exists()) {
+                    file.mkdirs();
+                }
+                //서버에 업로드 할 파일명(한글문제로 인해 원본파일은 올리지 않는것이 좋음)
+                String realname = UUID.randomUUID().toString() + "." + ext;
+            ///////////////// 서버에 파일쓰기 /////////////////
+                vo.getFiledata().transferTo(new File(path+realname));
+                file_result += "&bNewLine=true&sFileName="+original_name+"&sFileURL=photo_upload/"+realname;
+            } else {
+                file_result += "&errstr=error";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:" + callback + "?callback_func="+callback_func+file_result;
+    }
+    
+	
 	
 	// 프로젝트 리스트 첫 화면 요청(최신순)
 	@RequestMapping("JJS_FORM.do")
