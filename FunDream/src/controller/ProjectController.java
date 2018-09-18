@@ -39,6 +39,7 @@ import model.Delivery;
 import model.Fund;
 import model.Fund_Detail;
 import model.Member;
+import model.Notice;
 import model.PhotoVo;
 import model.Project;
 import model.Reward;
@@ -702,6 +703,10 @@ public class ProjectController {
 			}
 		}
 		
+		//공지사항 가져오기
+				List<Notice> notice = noticeService.selectNoticeByProject(p_index);
+				System.out.println("공지사항목록:"+notice);
+		
 		//퍼센트 구하기
 		int status = project.getP_status(); 
 		int target = project.getP_target();
@@ -739,6 +744,7 @@ public class ProjectController {
 		else {
 			type = "none";
 		}
+		mav.addObject("notice", notice);
 		//리워드 정보
 		mav.addObject("reward", reward);
 		//댓글정보
