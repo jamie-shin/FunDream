@@ -8,11 +8,6 @@
 <meta charset="UTF-8">
 <title>makeProject</title>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css"
-	rel="stylesheet">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
 <link rel="stylesheet" type="text/css" href="css/projectView.css">
 <!-- <script type="text/javascript" src="js/projectView.js"></script> -->
  
@@ -26,16 +21,7 @@ $(function() {
 	
 	var type = "";
 	var c_index =0;
-	//공지사항 등록
-	$('#insert_notice').on('click', function() {
-		$('#write_notice').show();
-		$('#notice').hide();
-	});
 
-	$('#return').on('click', function() {
-		$('#write_notice').hide();
-		$('#notice').show();
-	});
 	
 	//후원자 목록 보기
 	$('#sponlistbtn').on('click', function() {
@@ -395,7 +381,6 @@ $(function() {
 						</c:forEach>
 						</c:if>
 						<h2>댓글</h2>
-						<h2>댓글</h2>
 						<c:if test="${type eq 'none' ||type eq 'normal'}"> 
 						<div class="pv-comment-box">
 							<input type="hidden" value="${type }" id='type'>
@@ -478,22 +463,6 @@ $(function() {
 
 
 					</div>
-					<div class="pv-creator-notice-crebox" id="write_notice" style="display: none;">
-						<h2>공지사항 작성</h2>
-						<div id="summernote"></div>
-						<script>
-							$('#summernote').summernote({
-								tabsize : 2,
-								height : 300
-							});
-						</script>
-						<div class="pv-creator-notice-create">
-							<input type="button" value="돌아가기"
-								class="pv-creator-notice-createprevbtn" id="return"> <input
-								type="button" value="작성" class="pv-creator-notice-createbtn">
-						</div>
-					</div>
-
 
 				</div>	
 				</li>
