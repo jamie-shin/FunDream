@@ -183,7 +183,7 @@
 							html += '<span class="card-summary">';
 							html += '<h3>'+list[i].p_name+'</h3>';
 							
-							html += '<small class="card-part">00명 참여</small>';
+							html += '<small class="card-part">'+list[i].p_count+'명 참여</small>';
 							if(list[i].per<100){
 								html += '<h3 class="card-toggle" style="background:black; color:white">무산</h3>';
 							}
