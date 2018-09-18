@@ -16,7 +16,7 @@
 				url : "JJS.do",
 				data : {m_email : sessionEmail},
 				success : function(data){
-					alert(data);
+					console.log(data);
 					switch(data){
 					case true :
 						var moveModiProj = confirm("진행중인 프로젝트가 존재합니다. 새로운 프로젝트를 생성을 원하시면 확인, 진행중인 프로젝트의 수정을 원하시면 취소를 선택하세요.");
@@ -30,7 +30,7 @@
 					}
 				},
 				error : function(){
-					alert("에러입니다.");
+					console.log("에러입니다.");
 				}
 			});
 		}
