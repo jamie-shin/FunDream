@@ -496,14 +496,14 @@ $(function() {
 							<input type="button" class="pv-sponsors-listbtn"
 								value="후원자 목록 상세보기" id="sponlistbtn"> <br> <br>
 							<div class="pv-sponsors-tablewrapper">
-								<div class="pv-sponsors-table">
-									<div class="row header backcolor">
-										<div class="cell">총원</div>
-										<div class="cell">총금액</div>
+								<div class="pv_one-sponsors-table">
+									<div class="row_one header backcolor">
+										<div class="cell_one">총원</div>
+										<div class="cell_one">총금액</div>
 									</div>
-									<div class="row">
-										<div class="cell" data-title="총원">${fund_pop}</div>
-										<div class="cell" data-title="총금액">${total_fund}원</div>
+									<div class="row_one">
+										<div class="cell_one" data-title="총원">${fund_pop}</div>
+										<div class="cell_one" data-title="총금액">${total_fund}원</div>
 									</div>
 								</div>
 							</div>
@@ -606,66 +606,51 @@ $(function() {
 
 							<!-- 배송주소 테이블 -->
 
-							<div class="pv-sponsor-wrapper">
-								<div class="sponsors-address-table">
-
-									<div class="row header backcolor">
-										<div class="cell">후원자</div>
-										<div class="cell">성별</div>
-										<div class="cell">리워드</div>
-										<div class="cell">옵션</div>
-										<div class="cell">배송지</div>
-									</div>
-
-									<!--여길 누르면  -->
+							<!-- test start -->
 								<c:forEach items="${test}" var="t">
-									<div class="row">
-										<div class="cell" data-title="후원자">${t[0].m_name} / ${t[0].m_nick}</div>
-										<div class="cell" data-title="금액"><c:if test="${t[0].m_gender==1}">남자</c:if><c:if test="${t[0].m_gender==2}">여자</c:if> </div>
-										<div class="cell" data-title="리워드">${t[0].m_phone}</div>
-										<div class="cell" data-title="옵션">${t[0].m_email}</div>
-										<div class="cell" data-title="배송지">${t[1].f_price}</div>
+							
+							<div class="pv-delspon-box">
+								<div class="pv-delspon-menu">
+									<div class="pv-delspon-tab">
+										<input id="pv-delspon-${t[0].m_name}(${t[0].m_nick})" type="radio" name="tabs">
+										<label for="pv-delspon-${t[0].m_name}(${t[0].m_nick})"><strong>후원자 : </strong>${t[0].m_name}(${t[0].m_nick})</label>
+										<div class="pv-delspon-content">
+											
+											<div class="pv-sponsor-wrapper">
+												<div class="sponsors-address-table">
+				
+													<div class="row">
+														<div class="cell" data-title="후원한 금액">${t[1].f_price}</div>
+													</div>
+													
+													<!--배송지정보  -->
+													<c:if test="${t[2] != null }">
+													<div class="row">
+														<div class="cell" data-title="인수자">${t[2].v_name}</div>
+														<div class="cell" data-title="인수자 전화번호">${t[2].v_phone}</div>
+														<div class="cell" data-title="우편번호">${t[2].v_postnum}</div>
+														<div class="cell" data-title="주소">${t[2].v_add}</div>
+														<div class="cell" data-title="배송옵션"> ${t[2].v_msg}</div>
+													</div>
+													</c:if>
+													<!--펀드 디테일 정보  -->
+													<c:if test="${t[3] != '[]'}">
+													<c:forEach items="${t[3]}" var="fd">
+													<div class="row">
+														<div class="cell" data-title="리워드명">${fd.r_name}</div>
+														<div class="cell" data-title="갯수">${fd.fd_amt}</div>
+														<div class="cell" data-title="리워드 옵션">${fd.fd_r_option}</div>
+													</div>	
+													</c:forEach>
+													</c:if>
+												</div>
+											</div>
+											
+										</div>
 									</div>
-									
-								<!--여길 아코디언으로 하고 싶다  -->
-									<!--배송지정보  -->
-									<c:if test="${t[2] != null }">
-									<div class="row header backcolor">
-										<div class="cell">인수자</div>
-										<div class="cell">인수자 번호</div>
-										<div class="cell">우편번호</div>
-										<div class="cell">주소</div>
-										<div class="cell">배송옵션</div>
-									</div>
-									<div class="row">
-										<div class="cell" data-title="후원자">${t[2].v_name}</div>
-										<div class="cell" data-title="금액">${t[2].v_phone}</div>
-										<div class="cell" data-title="리워드">${t[2].v_postnum}</div>
-										<div class="cell" data-title="옵션">${t[2].v_add}</div>
-										<div class="cell" data-title="배송지">${t[2].v_msg}</div>
-									</div>
-									</c:if>
-									<!--펀드 디테일 정보  -->
-									<c:if test="${t[3] != '[]'}">
-									<div class="row header backcolor">
-										<div class="cell">리워드명</div>
-										<div class="cell">개수</div>
-										<div class="cell">옵션</div>
-									</div>
-									<c:forEach items="${t[3]}" var="fd">
-									<div class="row">
-										<div class="cell" data-title="후원자">${fd.r_name}</div>
-										<div class="cell" data-title="금액">${fd.fd_amt}</div>
-										<div class="cell" data-title="리워드">${fd.fd_r_option}</div>
-									</div>	
-									</c:forEach>
-									</c:if>
-									<br>
-									<br>
-								</c:forEach>
-								<!--여그까지 -->
 								</div>
 							</div>
+								</c:forEach>
 
 							<!-- 여기까지 -->
 						</div>
