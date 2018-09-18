@@ -505,7 +505,7 @@ public class MemberController {
 	@RequestMapping("MLS_LIKE.do")
 	public ModelAndView MLS_LIKE(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
-		int m_id = Integer.parseInt((String)req.getSession().getAttribute("m_id"));
+		int m_id = (Integer)req.getSession().getAttribute("m_id");
 		
 		Member member = memberService.selectOneMemberById(m_id);
 		mav.addObject("loginMember", member);
@@ -513,7 +513,7 @@ public class MemberController {
 		List<Favorite> favoriteList = favoriteService.selectFavoritesById(m_id);
 		List<Project> myFavoriteList = new ArrayList<>();
 		
-		if(favoriteList != null) {
+		if(!favoriteList.isEmpty()) {
 			mav.addObject("favoriteList", favoriteList);
 			for(int i = 0; i < favoriteList.size(); i++) {
 				int p_index = favoriteList.get(i).getP_index();
@@ -522,6 +522,10 @@ public class MemberController {
 			}
 			mav.addObject("myFavoriteList", myFavoriteList);
 		}
+		else {
+			mav.addObject("msg", "noFavorite");
+		}
+		
 		mav.setViewName("MLS_LIKE");	
 		
 		return mav;
