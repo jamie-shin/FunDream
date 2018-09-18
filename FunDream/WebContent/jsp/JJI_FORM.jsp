@@ -359,8 +359,15 @@ function readURL(input) {
 				<div class="ap-contents-box">
 					<span>
 						<h4 class="ap-image-h4">대표이미지</h4>
-						<input type="file" id="imgInp" name="p_mainImg">
-						<img id="blah" src="#" alt="이미지를 선택하세요" class="ap-title-img"/>
+						<c:if test="${project.p_mainimg != null}">
+							<input type="file" id="imgInp" name="p_mainImg" style="align-self: center;"><br>
+							<img alt="img/user.png" src="${project.p_mainimg}" class="ap-preimg" width="300px" height="300px">
+							<img id="blah" src="#" alt="이미지를 선택하세요" class="ap-title-img" width="300px" height="300px"/>
+						</c:if>
+						<c:if test="${project.p_mainimg == null}">
+							<input type="file" id="imgInp" name="p_mainImg">
+							<img id="blah" src="#" alt="이미지를 선택하세요" class="ap-title-img"/>
+						</c:if>
 					</span>
 				</div>
 				<h2>프로젝트 번호</h2>
