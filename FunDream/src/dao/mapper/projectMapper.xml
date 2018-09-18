@@ -112,7 +112,7 @@
 	</select>
 	
 	<update id="updateApproval" parameterType="java.util.HashMap">
-		update Project set p_approval=#{p_approval} where p_index=#{p_index}
+		update Project set p_approval=#{p_approval} <if test="p_approval == 1"> , p_createdate=now()</if> where p_index=#{p_index}
 	</update>
 	
 	<update id="update_P_status" parameterType="project">
