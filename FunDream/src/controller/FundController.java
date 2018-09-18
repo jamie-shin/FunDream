@@ -1,6 +1,8 @@
 package controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -237,6 +239,11 @@ public class FundController {
 		re.put("code", "MS_MYFUND.do");
 		return re;
 	}
+	int gap=0;
+	Date today = new Date();
+	Date end = new Date();
+	String t = null;
+	String e= null;
 	
 	//내가 후원한 목록
 	@RequestMapping("MS_MYFUND.do")
@@ -254,6 +261,18 @@ public class FundController {
 			int target = p.getP_target();
 			double per2 = (double)status/(double)target*100;
 			double per = Double.parseDouble(String.format("%.2f",per2));
+			t = new SimpleDateFormat("yyyyMMddHHmm").format(today);
+			end = p.getP_enddate();
+			e = new SimpleDateFormat("yyyyMMddHHmm").format(end);
+			
+			long e_int = Long.parseLong(e);
+			long t_int = Long.parseLong(t);
+			
+			gap = (int)(e_int - t_int);
+			int count = fundservice.fundcount(p.getP_index());
+			p.setP_count(count);
+			p.setGap(gap);
+			
 			p.setPer(per);
 			list.add(f);
 			list.add(p);
