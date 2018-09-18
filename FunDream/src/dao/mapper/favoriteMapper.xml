@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.IFavoriteDao">
+
+	<insert id="insertFavorite" parameterType="favorite">
+		insert into Favorite values(default, #{m_id}, #{p_index})
+	</insert>
+	
+	<delete id="deleteFavorite" parameterType="int">
+		delete from Favorite where fv_index=#{fv_index}
+	</delete>
+	
+	<select id="selectFavoritesById" parameterType="int" resultType="favorite">
+		select * from Favorite where m_id=#{m_id}
+	</select>
+
+</mapper>

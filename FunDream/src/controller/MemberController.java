@@ -2,6 +2,7 @@ package controller;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
@@ -36,9 +37,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import model.Favorite;
 import model.Fund;
 import model.Member;
 import model.Project;
+import service.FavoriteService;
 import service.FundService;
 import service.MemberService;
 import service.ProjectService;
@@ -57,6 +60,9 @@ public class MemberController {
 	
 	@Autowired
 	private FundService fundService;
+	
+	@Autowired
+	private FavoriteService favoriteService;
 	
 	@RequestMapping("MSE_JOINFORM.do") // 회원가입창 요청
 	public void MSE_JOINFORM() {
@@ -470,4 +476,56 @@ public class MemberController {
 		}
 		return"none";
 	}
+	
+	
+	// 관심 프로젝트 등록
+	@RequestMapping("DDI_LIKE.do")
+	public @ResponseBody String DDI_LIKE(HttpServletRequest req, int p_index) {
+		int m_id = Integer.parseInt((String)req.getSession().getAttribute("m_id"));
+		
+		Favorite favorite = new Favorite();
+		favorite.setM_id(m_id);
+		favorite.setP_index(p_index);
+		int result = favoriteService.insertFavorite(favorite);
+		
+		if(result == 1) return "success";
+		return "fail";
+	}
+	
+	// 관심 프로젝트 해제
+	@RequestMapping("MLD_UNLIKE.do")
+	public @ResponseBody String MLD_UNLIKE(int fv_index) {
+		int result = favoriteService.deleteFavorite(fv_index);
+		
+		if(result == 1) return "success";
+		return "fail";
+	}
+	
+	// 내 관심 프로젝트 조회
+	@RequestMapping("MLS_LIKE.do")
+	public ModelAndView MLS_LIKE(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView();
+		int m_id = Integer.parseInt((String)req.getSession().getAttribute("m_id"));
+		
+		Member member = memberService.selectOneMemberById(m_id);
+		mav.addObject("loginMember", member);
+		
+		List<Favorite> favoriteList = favoriteService.selectFavoritesById(m_id);
+		List<Project> myFavoriteList = new ArrayList<>();
+		
+		if(favoriteList != null) {
+			mav.addObject("favoriteList", favoriteList);
+			for(int i = 0; i < favoriteList.size(); i++) {
+				int p_index = favoriteList.get(i).getP_index();
+				Project project = projectService.getOneProject(p_index);
+				myFavoriteList.add(project);
+			}
+			mav.addObject("myFavoriteList", myFavoriteList);
+		}
+		mav.setViewName("MLS_LIKE");	
+		
+		return mav;
+		
+	}
+	
 }
