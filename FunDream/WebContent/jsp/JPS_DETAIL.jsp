@@ -591,14 +591,14 @@ $(function() {
 							<input type="button" class="pv-sponsors-prevbtn" value="< 돌아가기"
 								id="sponprevbtn"> <br> <br>
 							<div class="pv-sponsors-tablewrapper">
-								<div class="pv-sponsors-table">
-									<div class="row header backcolor">
-										<div class="cell">총원</div>
-										<div class="cell">총금액</div>
+								<div class="pv_one-sponsors-table">
+									<div class="row_one header backcolor">
+										<div class="cell_one">총원</div>
+										<div class="cell_one">총금액</div>
 									</div>
-									<div class="row">
-										<div class="cell" data-title="총원">${fund_pop}</div>
-										<div class="cell" data-title="총금액">${total_fund}원</div>
+									<div class="row_one">
+										<div class="cell_one" data-title="총원">${fund_pop}</div>
+										<div class="cell_one" data-title="총금액">${total_fund}원</div>
 									</div>
 								</div>
 							</div>
