@@ -211,7 +211,7 @@ $(function(){
 				}
 			},
 			error : function(){
-				alert("오류!");
+				console.log("오류!");
 			}
 		});
 	});
@@ -240,7 +240,7 @@ $(function(){
 					}
 				},
 				error : function(){
-					alert("오류!");
+					console.log("오류!");
 				}
 			});
 		}
@@ -309,11 +309,11 @@ $(function(){
 					$('#item03tab').trigger('click');
 				}
 				else{
-					alert('저장 실패!');
+					console.log('저장 실패!');
 				}
 			},
 			error : function(){
-				alert("error!!!!!");
+				console.log("error!!!!!");
 			}
 		});
 	});
@@ -345,7 +345,7 @@ $(function(){
 				}
 			},
 			error : function(){
-				alert("스토리 멤버 찾기 에러!");
+				console.log("스토리 멤버 찾기 에러!");
 			}
 		});
 	});
@@ -366,11 +366,11 @@ $(function(){
 					delete_storyMember.remove();
 				}
 				else{
-					alert("스토리멤버 삭제 실패!");
+					console.log("스토리멤버 삭제 실패!");
 				}
 			},
 			error : function(){
-				alert("스토리 멤버 삭제 오류!");
+				console.log("스토리 멤버 삭제 오류!");
 			}
 		});
 	});
@@ -440,7 +440,7 @@ $(function(){
 			contentType: false,
 			cache: false,
 			error : function(){
-				alert("기본정보 저장 오류!");
+				console.log("기본정보 저장 오류!");
 			}
 		});
 	
@@ -469,7 +469,7 @@ $(function(){
 			data : {p_policy : p_policy,
 				p_index : p_index},
 				error : function(){
-					alert("정책 저장 오류!!!!!!");
+					console.log("정책 저장 오류!!!!!!");
 				}
 		});
 		
@@ -492,10 +492,6 @@ $(function(){
 		}
 		console.log("rewardResult : " + rewardResult);
 		
-		$('#preBtn4').on('click', function(){
-			$('#item03tab').trigger('click');
-		});
-		
 		/* 모든 데이터 DB저장 후 승인 요청 실행 */
 		savedBasic.done(function(data){
 			basicResult = data;
@@ -516,12 +512,12 @@ $(function(){
 									location.href = "MJS.do";
 									break;
 								default :
-									alert("승인요청 실패!");
-								break;
+									console.log("승인요청 실패!");
+									break;
 								}
 							},
 							error : function(){
-								alert("승인요청 오류!");
+								console.log("승인요청 오류!");
 							}
 					});
 				}

@@ -265,8 +265,6 @@ public class ProjectController {
 	// 신규 프로젝트 생성 후 해당 프로젝트 정보 수정(기본정보)
 	@RequestMapping(value="JBU_UPDATE.do", method=RequestMethod.POST)
 	public @ResponseBody String JBU_UPDATE(HttpServletRequest request) throws UnsupportedEncodingException {
-		
-		// 파일 업로드 부분
 		request.setCharacterEncoding("UTF-8");
 		String realFolder = "";
 		String filename1 = "";
@@ -275,58 +273,79 @@ public class ProjectController {
 		ServletContext scontext = request.getServletContext();
 		realFolder = scontext.getRealPath(savefile);
 		
+		String p_index_str = request.getParameter("p_index");
+		int p_index = Integer.parseInt(p_index_str);
+		String m_id_str = request.getParameter("m_id");
+		int m_id = 0;
+		if(m_id_str!=null) {
+			m_id =Integer.parseInt(m_id_str);
+		}
+		String ct_index_str = request.getParameter("ct_index");
+		int ct_index = Integer.parseInt(ct_index_str);
+		String p_name = request.getParameter("p_name");
+		String p_type_str =request.getParameter("p_type");
+		int p_type = 0;
+		if(p_type_str!=null) {
+			p_type =Integer.parseInt(p_type_str);
+		}
+		String p_target_str =request.getParameter("p_target");
+		System.out.println("p_target_str : " + p_target_str);
+		int p_target = 0;
+		if(p_target_str!=null) {
+			p_target=Integer.parseInt(p_target_str);
+		}
+		System.out.println("p_target : " + p_target);
+		String p_startdate =request.getParameter("p_startdate");
+		String p_enddate =request.getParameter("p_enddate");
+		String p_age_str =request.getParameter("p_age");
+		// 목표금액 만원단위를 원단위로 변경
+		int target = p_target * 10000;
+
+		System.out.println("realFolder : "+realFolder);
+		System.out.println("인덱스 : "+p_index);
+		System.out.println("아이디: "+m_id);
+		System.out.println("카테고리: "+ct_index);
+		System.out.println("프로젝트명: "+p_name);
+		System.out.println("프로젝트타입: "+p_type);
+		System.out.println("목표금액: "+p_target);
+		System.out.println("시작일: "+ p_startdate);
+		System.out.println("종료일: "+ p_enddate);
+		
+		Project project = projectService.getOneProject(p_index);
+		System.out.println("DB 프로젝트 : " + project);
+		System.out.println("DB 카테고리 인덱스 : " + project.getCt_index());
+		project.setCt_index(ct_index);
+		project.setP_name(p_name);
+		
+		project.setP_type(p_type);
+		project.setP_target(target);
+		if(p_startdate!=null) {
+			project.setP_startdate(Timestamp.valueOf(p_startdate + " 00:00:00"));
+		}
+		if(p_enddate!=null) {
+			project.setP_enddate(Timestamp.valueOf(p_enddate + " 00:00:00"));
+		}
+		// 미성년자 가능
+		if(p_age_str == null) {
+			project.setP_age(1);
+		}
+		// 미성년자 불가능
+		if(p_age_str != null) {
+			if(p_age_str.equals("on")){
+				project.setP_age(2);
+			}
+		}
+		
+		// 이미지 업로드
 		try {
 			MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, "UTF-8",
 					new DefaultFileRenamePolicy());
-			String p_index_str = multi.getParameter("p_index");
-			int p_index = Integer.parseInt(p_index_str);
-			String m_id_str = multi.getParameter("m_id");
-			int m_id = 0;
-			if(m_id_str!=null) {
-				m_id =Integer.parseInt(m_id_str);
-			}
-			String ct_index_str = multi.getParameter("ct_index");
-			int ct_index = Integer.parseInt(ct_index_str);
-			String p_name = multi.getParameter("p_name");
-			String p_type_str =multi.getParameter("p_type");
-			int p_type = 0;
-			if(p_type_str!=null) {
-				p_type =Integer.parseInt(p_type_str);
-			}
-			String p_target_str =multi.getParameter("p_target");
-			System.out.println("p_target_str : " + p_target_str);
-			int p_target = 0;
-			if(p_target_str!=null) {
-				p_target=Integer.parseInt(p_target_str);
-			}
-			System.out.println("p_target : " + p_target);
-			String p_startdate =multi.getParameter("p_startdate");
-			String p_enddate =multi.getParameter("p_enddate");
-			String p_age_str =multi.getParameter("p_age");
 			Enumeration<?> files = multi.getFileNames();
 			String file1 = (String) files.nextElement();
 			filename1 = multi.getFilesystemName(file1);
 			String fullpath = realFolder + "\\" + filename1;
 			String applicationPath = request.getServletContext().getRealPath("img");
 			String path = "img/" + filename1;
-			// 목표금액 만원단위를 원단위로 변경
-			int target = p_target * 10000;
-
-			System.out.println("realFolder : "+realFolder);
-			System.out.println("인덱스 : "+p_index);
-			System.out.println("아이디: "+m_id);
-			System.out.println("카테고리: "+ct_index);
-			System.out.println("프로젝트명: "+p_name);
-			System.out.println("프로젝트타입: "+p_type);
-			System.out.println("목표금액: "+p_target);
-			System.out.println("시작일: "+ p_startdate);
-			System.out.println("종료일: "+ p_enddate);
-			
-			Project project = projectService.getOneProject(p_index);
-			System.out.println("DB 프로젝트 : " + project);
-			System.out.println("DB 카테고리 인덱스 : " + project.getCt_index());
-			project.setCt_index(ct_index);
-			project.setP_name(p_name);
 			if(filename1 != null) {
 				System.out.println("이미지 파일 : " + filename1);
 				String s = filename1.replace(".", ",");
@@ -337,33 +356,16 @@ public class ProjectController {
 					/*url = "redirect:alert1.do";*/
 				}
 			}
-			
-			project.setP_type(p_type);
-			project.setP_target(target);
-			if(p_startdate!=null) {
-				project.setP_startdate(Timestamp.valueOf(p_startdate + " 00:00:00"));
-			}
-			if(p_enddate!=null) {
-				project.setP_enddate(Timestamp.valueOf(p_enddate + " 00:00:00"));
-			}
-			// 미성년자 가능
-			if(p_age_str == null) {
-				project.setP_age(1);
-			}
-			// 미성년자 불가능
-			if(p_age_str != null) {
-				if(p_age_str.equals("on")){
-					project.setP_age(2);
-				}
-			}
-			int result = projectService.updateBasicInfo(project);
-			if(result == 1) {
-				return "success";
-			}
-			return "fail";
 		} catch (Exception e) {
-			return "fail";
+			e.printStackTrace();
+			System.out.println("오류오류");
 		}
+		
+		int result = projectService.updateBasicInfo(project);
+		if(result == 1) {
+			return "success";
+		}
+		return "fail";
 	}
 	
 	// 스토리 멤버 검색 및 삽입
