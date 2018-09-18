@@ -83,9 +83,8 @@ label { display: block; }
 /* */
 
 /* BTN */
-.ap-main-btn { border:none; outline: none; height:40px; background:navy; color:#fff; font-size:16pt; border-radius:15px; }
+.ap-main-btn { border:none; outline: none; height:40px; background:tomato; color:#fff; font-size:16pt; border-radius:15px; }
 .ap-prev-btn { border:none; outline: none; height:40px; background:#008cba; color:#fff; font-size:16pt; border-radius:15px; }
-.ap-next-btn { border:none; outline: none; height:40px; background:tomato; color:#fff; font-size:16pt; border-radius:15px; }
 .ap-SMadd-btn { border:none; outline:none; height:30px; background:orange; color:#fff; font-size:12pt; border-radius:15px; }
 .ap-reward-addbtn {border:none; outline:none; height:30px; background: #D28484; color:#fff; font-size:13pt; border-radius: 14px; }
 .ap-reward-savebtn { border:none; outline: none; height:40px; background:tomato; color:#fff; font-size:12pt; border-radius:30%; }
