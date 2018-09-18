@@ -1009,7 +1009,7 @@ public class ProjectController {
 	}
 	
 	
-	 //단일파일업로드
+	//단일파일업로드
     @RequestMapping("photoUpload.do")
     public String photoUpload(HttpServletRequest request, PhotoVo vo){
         String callback = vo.getCallback();
@@ -1021,12 +1021,10 @@ public class ProjectController {
                 String original_name = vo.getFiledata().getOriginalFilename();
                 String ext = original_name.substring(original_name.lastIndexOf(".")+1);
                 //파일 기본경로
-                String defaultPath = request.getSession().getServletContext().getRealPath("/");
+                String defaultPath = request.getSession().getServletContext().getRealPath("img");
                 //파일 기본경로 _ 상세경로
-                String path = defaultPath + File.separator + "photo_upload" + File.separator;
-                System.out.println("path : "+path);
+                String path = defaultPath + File.separator;
                 File file = new File(path);
-                System.out.println("path:"+path);
                 //디렉토리 존재하지 않을경우 디렉토리 생성
                 if(!file.exists()) {
                     file.mkdirs();
@@ -1035,7 +1033,7 @@ public class ProjectController {
                 String realname = UUID.randomUUID().toString() + "." + ext;
             ///////////////// 서버에 파일쓰기 /////////////////
                 vo.getFiledata().transferTo(new File(path+realname));
-                file_result += "&bNewLine=true&sFileName="+original_name+"&sFileURL=photo_upload/"+realname;
+                file_result += "&bNewLine=true&sFileName="+original_name+"&sFileURL=../img/"+realname;
             } else {
                 file_result += "&errstr=error";
             }
