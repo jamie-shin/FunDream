@@ -286,6 +286,26 @@ $(function() {
     	newWin = window.open('JNE_NOTICEFORM.do?p_index=<%=request.getParameter("p_index")%>', 
 				'공지사항 작성하기', 'width=600, height=500');
     });
+    $(document).on('click', '[id^=notice_delete]', function(){
+		var index = $(this).parent().parent().parent().parent().siblings('#index').val();
+		alert(index);
+		var delconfirm = confirm("해당 공지사항을 삭제하시겠습니까?");
+		
+		if(delconfirm == true){
+			$.ajax({
+				url:"JND_NOTICE.do",
+				data : {n_index_str :index},
+				type :"POST",
+				success : function(){
+					alert("공지사항이 등록되었습니다. '프로젝트 스토리'로 이동합니다.")
+					location.reload();
+				},
+				error : function(){
+					alert("실패");
+				}
+			});
+		}
+    });
 });
 </script>
 </head>

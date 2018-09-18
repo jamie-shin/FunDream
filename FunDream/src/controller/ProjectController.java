@@ -964,6 +964,7 @@ public class ProjectController {
 		return re;
 	}
 	
+	
 	 //단일파일업로드
     @RequestMapping("photoUpload.do")
     public String photoUpload(HttpServletRequest request, PhotoVo vo){
@@ -999,6 +1000,13 @@ public class ProjectController {
         }
         return "redirect:" + callback + "?callback_func="+callback_func+file_result;
     }
+    
+	@RequestMapping("JND_NOTICE.do")
+	public @ResponseBody void JND_NOTICE(String n_index_str) {
+		System.out.println(n_index_str);
+		int n_index = Integer.parseInt(n_index_str);
+		noticeService.deleteNotice(n_index);
+	}
     
 	
 	
