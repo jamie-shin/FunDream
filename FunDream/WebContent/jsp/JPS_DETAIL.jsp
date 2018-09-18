@@ -297,7 +297,7 @@ $(function() {
 				data : {n_index_str :index},
 				type :"POST",
 				success : function(){
-					alert("공지사항이 등록되었습니다. '프로젝트 스토리'로 이동합니다.")
+					alert("공지사항이 삭제되었습니다. '프로젝트 스토리'로 이동합니다.")
 					location.reload();
 				},
 				error : function(){
