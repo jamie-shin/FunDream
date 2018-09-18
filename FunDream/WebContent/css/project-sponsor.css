@@ -19,7 +19,7 @@
  	 transition-timing-function: linear;
 }
 
-.JFI-box { border:1px solid black; padding:25px; margin-bottom:20px; }
+.JFI-box { border:1px solid black; padding:25px; margin-bottom:20px; border-radius: 15px; box-shadow: rgba(0,0,0,0.25) 5px 6px 7px 8px; }
 .sponbody { margin-top: 80px; margin-bottom:20px;}
 .spon-container { max-width: 990px; height:auto; margin: 0 auto; background-color:white; padding-left:50px; padding-right:50px; padding-bottom:30px; }
 .spon-project-title { text-align: center; }
@@ -38,7 +38,7 @@
 .spon-accountnumber { margin:0; padding:5px; border:none; outline:none; border-bottom:1px solid black; font-size:12pt; }
 .spon-accountnumber-name { width:100px; margin:0; padding:5px; border:none; outline:none; border-bottom:1px solid black; font-size:12pt; }
 .spon-span { display:inline-block; }
-.spon-new-addressbtn { margin:0; padding:5px; width:auto; border:1px solid black; background:white; color:black; outline:none; }
+.spon-new-addressbtn { margin:0; padding:5px; width:auto; border:1px solid black; background:white; color:black; outline:none; border-radius: 5px; }
 .spon-new-addressbtn:hover { cursor:pointer; background:#000; color:#fff; }
 #spon-address-num { padding:5px; margin:0; border:none; border-bottom:1px solid black; outline:none; width:100px; font-size:13pt; text-align: center;}
 #spon-address { padding:5px; margin:0; border:none; border-bottom:1px solid black; font-size:13pt; width:90%; outline:none; }
@@ -51,6 +51,11 @@
 .prev-story-btn:hover { cursor:pointer; background:#000; color:#fff; }
 .next-spon-btn { margin:0; padding:5px; width:auto; border:1px solid black; background:white; color:black; outline:none; }
 .next-spon-btn:hover { cursor:pointer; background:#000; color:#fff; }
+
+.jfi-address-name { padding:5px; margin:0; border:none; border-bottom:1px solid black; outline:none; width:100px; font-size:13pt; text-align: center; }
+.jfi-selectbox { outline: none; border: none;  }
+.jfi-phone { padding:5px; margin:0; border:none; border-bottom:1px solid black; outline:none; width:100px; font-size:13pt; text-align: center; }
+
 
 /* ACCORDION START */
 .accordion dt{ display:block; clear:both; font-size:14pt; line-height:1em; font-weight:bold; background:#fff; color:#000; padding:12px 50px 10px; position:relative; border-top:1px solid #000; border-bottom:1px solid #fff; }
