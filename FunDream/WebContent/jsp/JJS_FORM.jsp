@@ -284,7 +284,7 @@
 					<!-- 게시물 제목 -->
 				</span>
 				<!-- 한줄 내용 입력창 -->
-				<small class="card-part">00명 참여</small>
+				<small class="card-part">${list.p_count}명 참여</small>
 				<!-- 참여자 수  -->
 				
 				<input type="hidden" value="${list.gap }">
