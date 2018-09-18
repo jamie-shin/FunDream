@@ -295,6 +295,11 @@ $(function() {
     		 $('#v_per'+i).html(per.toFixed(1));
     	}
     });
+    
+    $(document).find('#insert_notice').on('click',function(){
+    	newWin = window.open('JNE_NOTICEFORM.do?p_index=<%=request.getParameter("p_index")%>', 
+				'공지사항 작성하기', 'width=600, height=500');
+    });
 });
 </script>
 </head>
