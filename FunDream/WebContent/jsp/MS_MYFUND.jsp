@@ -19,7 +19,7 @@
 			</label>
 		</div>
 		<span class="left-subtitle">
-			<h4 class="msm_left-h4">내가 참여한 프로젝트</h4>
+			<h4 class="msm_left-h4">내가 후원한 내역</h4>
 		</span>
 		<div class="cards">
 			
