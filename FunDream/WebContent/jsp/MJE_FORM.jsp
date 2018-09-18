@@ -53,9 +53,9 @@
 					<span class="card-header" style="background-image: url(${project.p_mainimg});">
 						<span class="card-title">
 							<h3>[${project.p_index}] ${project.p_name}</h3>
-							<div class="right-al">
+							<!-- <div class="right-al">
 								<small>마감</small>
-							</div>
+							</div> -->
 						</span>
 					</span>
 					<span class="card-summary">
