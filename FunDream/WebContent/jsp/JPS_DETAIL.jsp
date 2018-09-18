@@ -337,7 +337,9 @@ $(function() {
 				<!-- 스토리 -->
 
 				<li class="pv-contents-list item01">
-				<div>프로젝트 진행기간: ${project.p_startdate } ~ ${project.p_enddate }</div>
+				
+				
+				<div>프로젝트 진행기간: <fmt:formatDate value="${project.p_startdate }" pattern="yyyy.MM.dd"/> ~ <fmt:formatDate value="${project.p_enddate }" pattern="yyyy.MM.dd"/></div>
 				<div>${project.p_contents}</div>
 
 					<div class="pv-creator-box">
