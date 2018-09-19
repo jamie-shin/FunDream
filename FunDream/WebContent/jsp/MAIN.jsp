@@ -78,8 +78,10 @@
 				<c:if test="${m_email ==null }">
 					<a class="card" href="JPS_DETAIL.do?p_index=${list.p_index}")>
 				</c:if>
-				<span class="card-header"
-					style="background-image: url('downloadP.do?p_index_str='${list.p_index});"> </span>
+				<span class="card-header" style="background-image: url('downloadP.do?p_index_str='${list.p_index});">
+					<!-- 내가 만든 프로젝트 표시하는 card-title -->
+					<span class="card-title"><h3>내가 만든 프로젝트</h3></span>
+				</span>
 				<span class="card-summary">
 					<h3>${list.p_name}</h3>
 					<!-- 게시물 제목 -->
@@ -139,8 +141,10 @@
 				<c:if test="${m_email ==null }">
 					<a class="card" href="JPS_DETAIL.do?p_index=${list.p_index}")>
 				</c:if>
-				<span class="card-header"
-					style="background-image: url(${list.p_mainimg});"> </span>
+				<span class="card-header" style="background-image: url(${list.p_mainimg});"> 
+					<!-- 내가 만든 프로젝트 표시하는 card-title -->
+					<span class="card-title"><h3>내가 만든 프로젝트</h3></span>
+				</span>
 				<span class="card-summary">
 					<h3>${list.p_name}</h3>
 				</span>
@@ -193,8 +197,10 @@
 				<c:if test="${m_email ==null }">
 					<a class="card" href="JPS_DETAIL.do?p_index=${list.p_index}")>
 				</c:if>
-				<span class="card-header"
-					style="background-image: url(${list.p_mainimg});"> </span>
+				<span class="card-header" style="background-image: url(${list.p_mainimg});">
+					<!-- 내가 만든 프로젝트 표시하는 card-title -->
+					<span class="card-title"><h3>내가 만든 프로젝트</h3></span>
+				</span>
 				<span class="card-summary">
 					<h3>${list.p_name}</h3>
 				</span>
