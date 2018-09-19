@@ -79,7 +79,7 @@
 					<a class="card" href="JPS_DETAIL.do?p_index=${list.p_index}")>
 				</c:if>
 				<span class="card-header"
-					style="background-image: url(${list.p_mainimg});"> </span>
+					style="background-image: url('downloadP.do?p_index_str='${list.p_index});"> </span>
 				<span class="card-summary">
 					<h3>${list.p_name}</h3>
 					<!-- 게시물 제목 -->
