@@ -232,7 +232,7 @@
 	});
 </script>
 </head>
-<body>
+<body class="JJS-body">
 <div class="mcontainer">
 		<div class="ct-container">
 			<div class="JJS-search">
@@ -329,7 +329,7 @@
 	</div>
 
 
-
-<jsp:include page="Header.jsp"/>
 </body>
+<jsp:include page="Footer.jsp"/>
+<jsp:include page="Header.jsp"/>
 </html>
