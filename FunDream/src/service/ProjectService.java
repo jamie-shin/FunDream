@@ -194,7 +194,7 @@ public class ProjectService {
 		// TODO Auto-generated method stub
 		Project project = projectDao.selectOneProjectByIndex(p_index); //번호에 해당하는 게시물 정보 가져오기
 		String fileName = project.getP_mainimg();  //DB안에 있는 파일 정보
-		String path = "C:/Temp/FunDream/"+type+"/";
+		String path = "C:/Temp/FunDream/project/";
 		return new File(path+fileName);
 	}
 		
