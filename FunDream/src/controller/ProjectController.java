@@ -36,6 +36,7 @@ import org.springframework.web.servlet.View;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import model.Bank_Info;
 import model.Category;
 import model.Comment;
 import model.Delivery;
@@ -47,6 +48,7 @@ import model.PhotoVo;
 import model.Project;
 import model.Reward;
 import model.Story_Member;
+import service.Bank_InfoService;
 import service.CategoryService;
 import service.CommentService;
 import service.DeliveryService;
@@ -90,6 +92,9 @@ public class ProjectController {
 	
 	@Autowired
 	private NoticeService noticeService;
+	
+	@Autowired
+	private Bank_InfoService bank_InfoService;
 	
 	int gap=0;
 	Date today = new Date();
@@ -1091,6 +1096,50 @@ public class ProjectController {
 		
 		int result = projectService.updateStory(project);
 		if(result == 1) return "success";
+		return "fail";
+	}
+	//프로젝트 제작자 정산신청
+	@RequestMapping("MAE_FORM.do")
+	public ModelAndView MAE_FORM(String p_index) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("project", projectService.getOneProject(Integer.parseInt(p_index)));
+		mav.setViewName("MAE_FORM");
+		return mav;
+	}
+	//프로젝트 제작자 정산 요청 버튼
+	@RequestMapping("MAI.do")
+	public @ResponseBody String MAI(String p_index, String p_calculate, String bankname, String bankaccount, String bankowner) {
+		System.out.println(p_index);
+		System.out.println(Long.parseLong(p_calculate));
+		
+		Bank_Info bank = new Bank_Info();
+		bank.setP_index(Integer.parseInt(p_index));
+		String b_bankname = "";
+		switch(bankname) {
+		case "1":
+			b_bankname = "신한은행";
+			break;
+		case "2":
+			b_bankname = "국민은행";
+			break;
+		case "3": 
+			b_bankname = "우리은행";
+			break;
+		}
+		bank.setP_index(Integer.parseInt(p_index));
+		bank.setB_bankname(b_bankname);
+		bank.setB_account(bankaccount);
+		bank.setB_owner(bankowner);
+		System.out.println(bank);
+		int b_result = bank_InfoService.insertBank_Info(bank);
+		
+		//오류수정해야함
+		Map<String, Object> changeMap = new HashMap<>();
+		changeMap.put("p_index", Integer.parseInt(p_index));
+		changeMap.put("p_calculate", Long.parseLong(p_calculate));
+		int p_result = projectService.updateCalculate(changeMap);
+		
+		if(b_result == 1 && p_result == 1) return "success";
 		return "fail";
 	}
 

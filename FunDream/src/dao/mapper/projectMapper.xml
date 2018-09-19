@@ -120,7 +120,7 @@
 	</update>
 	
 	<update id="updateCalculate" parameterType="java.util.HashMap">
-		update Project set p_calculate=#{p_calculate} where p_index=#{p_index}
+		update Project set p_calculate=#{p_calculate}, p_approval=5 where p_index=#{p_index}
 	</update>
 	
 	<update id="updateStory" parameterType="project">

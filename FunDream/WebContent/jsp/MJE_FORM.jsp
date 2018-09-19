@@ -11,25 +11,33 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		$(document).find('[class=card]').on('click', function(){
-			var p_approval = $(this).children('[name=p_approval]').val();
-			var p_index = $(this).children("[name=p_index]").val();
+		$(document).find('[class=card-title]').on('click', function(){
+			var p_approval = $(this).parent().siblings('[name=p_approval]').val();
+			var p_index = $(this).parent().siblings("[name=p_index]").val();
 			console.log("p_index: " + p_index + " / p_approval: " + p_approval);
 			switch(p_approval){
 			case "3":
-				alert("프로젝트 수정화면으로 이동합니다.");
+				//alert("프로젝트 수정화면으로 이동합니다.");
 				location.href = "JJI_FORM.do?p_index="+p_index;
 				break;
 			case "4":
-				alert("프로젝트 수정화면으로 이동합니다.");
+				//alert("프로젝트 수정화면으로 이동합니다.");
 				location.href = "JJI_FORM.do?p_index="+p_index;
 				break;
 			default: 
-				alert("프로젝트 상세보기 화면으로 이동합니다.");
+				//alert("프로젝트 상세보기 화면으로 이동합니다.");
 				location.href = "JPS_DETAIL.do?p_index="+p_index;
 				break;
 			}
 		});
+		
+		$(document).on('click', '#request', function(){
+			var p_index=$(this).siblings('#value').val();
+			var reconfirm = confirm("정산 신청 하시겠습니까?");
+			if (reconfirm==true){
+				location.href="MAE_FORM.do?p_index="+p_index;
+			}
+		})
 	});
 </script>
 </head>
@@ -40,7 +48,7 @@
 	<!-- 오늘 날짜 구하기  끝 -->
 	
 	<div class="cre-container">
-	<img src="${producer.m_img}" class="user-img">
+	<img src="downloadM.do?m_id_str=${producer.m_id}" class="user-img">
 		<div class="cre-center">
 			<label>
 				<br><br><br><br><br><br><h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${producer.m_name} (${producer.m_nick})</h3>
@@ -54,9 +62,13 @@
 				<a class="card" href="#">
 					<input type="hidden" id="p_index" name="p_index" value="${project.p_index}">
 					<input type="hidden" id="p_approval" name="p_approval" value="${project.p_approval}">
-					<span class="card-header" style="background-image: url('${project.p_mainimg}');">
+					<span class="card-header" style="background-image: url('downloadP.do?p_index_str=${project.p_index}&type=project');">
 						<span class="card-title">
-							<h3>[${project.p_index}] ${project.p_name}</h3>
+							<h3 class="project-title">[${project.p_index}] ${project.p_name}</h3>
+								<c:choose>
+									<c:when test="${project.p_approval ==4 || project.p_approval ==3 }"><h3>프로젝트 수정하기</h3></c:when>
+									<c:otherwise><h3>프로젝트 상세보기</h3></c:otherwise>
+								</c:choose>
 							<!-- <div class="right-al">
 								<small>마감</small>
 							</div> -->
@@ -67,12 +79,11 @@
 						<c:if test="${project.p_approval == 1}">승인 대기 중</c:if>
 						<fmt:formatDate value="${project.p_startdate}" pattern="yyyy-MM-dd" var="start"/>
 						<fmt:formatDate value="${project.p_enddate}" pattern="yyyy-MM-dd" var="end"/>
-						<c:if test="${project.p_approval == 2 && start < today}">승인 완료
-							<c:if test="${(end < today) && (project.p_target <= project.p_status) && (project.p_approval == 2)}"><input type="button" value="정산요청" class="card-calcul"></c:if>
+						<c:if test="${project.p_approval == 2 && start > today && end >=today}">승인 완료</c:if>
+						<c:if test="${project.p_approval == 2 && start <= today && end > today}">진행 중</c:if>
+						<c:if test="${project.p_approval == 2 && end < today}">마감
+							<c:if test="${(end < today) && (project.p_target <= project.p_status) && (project.p_approval == 2)}"><input type="hidden" id="value" value="${project.p_index}"><input type="button" id="request" value="정산요청"></c:if>
 						</c:if>
-						
-						<c:if test="${project.p_approval == 2 && start >= today && end < today}">진행 중</c:if>
-						<c:if test="${project.p_approval == 2 && end >= today}">마감</c:if>
 						<c:if test="${project.p_approval == 3}">반려</c:if>
 						<br><br>
 						${start} ~ ${end}
@@ -103,7 +114,7 @@
 		            			</c:choose>
 		        			</div>
 		        			<c:choose>
-		        				<c:when test="${(end > today) && (project.p_target <= project.p_status) && (project.p_approval == 2)}">
+		        				<c:when test="${project.p_approval == 5}">
 			        			<div class="partidas">정산승인대기중</div>
 		        				</c:when>
 		        				<c:otherwise>

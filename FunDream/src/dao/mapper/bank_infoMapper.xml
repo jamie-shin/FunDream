@@ -6,7 +6,13 @@
 <mapper namespace="dao.IBank_InfoDao">
 	
 	<insert id="insertBank_info" parameterType="bank_info" useGeneratedKeys="true" keyProperty="b_index">
-		insert into bank_info(f_index, b_owner, b_account, b_bankname) values(#{f_index},#{b_owner},#{b_account},#{b_bankname})
+		insert into bank_info 
+		<if test="p_index == null or p_index==0">
+			(f_index, b_owner, b_account, b_bankname) values(#{f_index}, #{b_owner}, #{b_account}, #{b_bankname})
+		</if>
+		<if test="f_index == null or f_index==0">
+			(p_index, b_owner, b_account, b_bankname) values(#{p_index},#{b_owner}, #{b_account}, #{b_bankname})
+		</if>
 	</insert>
 	
 	<select id="selectOneBank_infoByF_index" parameterType="int" resultType="bank_info">
