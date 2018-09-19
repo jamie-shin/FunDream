@@ -48,7 +48,7 @@
 	<!-- 오늘 날짜 구하기  끝 -->
 	
 	<div class="cre-container">
-	<img src="downloadM.do?m_id_str=${producer.m_id}" class="user-img">
+	<img src="${producer.m_img}" class="user-img">
 		<div class="cre-center">
 			<label>
 				<br><br><br><br><br><br><h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${producer.m_name} (${producer.m_nick})</h3>
@@ -62,7 +62,7 @@
 				<a class="card" href="#">
 					<input type="hidden" id="p_index" name="p_index" value="${project.p_index}">
 					<input type="hidden" id="p_approval" name="p_approval" value="${project.p_approval}">
-					<span class="card-header" style="background-image: url('downloadP.do?p_index_str=${project.p_index}&type=project');">
+					<span class="card-header" style="background-image: url('${project.p_mainimg}');">
 						<span class="card-title">
 							<h3 class="project-title">[${project.p_index}] ${project.p_name}</h3>
 								<c:choose>
