@@ -296,6 +296,7 @@ progress, progress[role] {
 /*  */
 
 .JPS_DETAIL_CONTENTS { width:100%; height:auto; }
+.JPS_DETAIL_CONTENTS img { width:100% !important }
 
 @media (max-width: 800px) {
 	.pv-side {
