@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,9 +55,10 @@ public class ProjectService {
 	}
 	
 	// 프로젝트 기본정보 수정 
-	public int updateBasicInfo(Project project, String type, MultipartFile file) {
+	public int updateBasicInfo(Project project, String type, MultipartFile file,HttpServletRequest req) {
 		// TODO Auto-generated method stub
-		String path = "C:/Temp/FunDream/"+type+"/";
+		String path = req.getServletContext().getRealPath("img/");
+		//String path = "C:/Temp/FunDream/"+type+"/";
 		File dir = new File(path);
 		if(!dir.exists()) dir.mkdirs(); //해당경로에 디렉토리가 없으면 생성
 		String fileName = file.getOriginalFilename();
@@ -65,7 +68,7 @@ public class ProjectService {
 			//파일 복사
 			file.transferTo(attachFile);
 			//파일정보를 db에저장
-			project.setP_mainimg(fileName);
+			project.setP_mainimg("img/"+fileName);
 			System.out.println(path+fileName);
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block

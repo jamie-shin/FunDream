@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,9 +24,9 @@ public class RewardService {
 		return rewardDao.selectAllRewards();
 	}
 
-	public int addOneReward(Reward reward, String type, MultipartFile file) {
-		
-		String path = "C:/Temp/FunDream/"+type+"/";
+	public int addOneReward(Reward reward, String type, MultipartFile file,HttpServletRequest req) {
+		String path = req.getServletContext().getRealPath("img/");
+		//String path = "C:/Temp/FunDream/"+type+"/";
 		File dir = new File(path);
 		if(!dir.exists()) dir.mkdirs(); //해당경로에 디렉토리가 없으면 생성
 		String fileName = file.getOriginalFilename();
@@ -34,7 +36,7 @@ public class RewardService {
 			//파일 복사
 			file.transferTo(attachFile);
 			//파일정보를 db에저장
-			reward.setR_img(fileName);
+			reward.setR_img("img/"+fileName);
 			System.out.println(path+fileName);
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block

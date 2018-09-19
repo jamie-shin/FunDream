@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,9 +30,10 @@ public class MemberService {
 		}
 	}
 
-	public int insertMember(Member member, String type, MultipartFile file) {
+	public int insertMember(Member member, String type, MultipartFile file,HttpServletRequest req) {
 		// TODO Auto-generated method stub
-		String path = "C:/Temp/FunDream/"+type+"/";
+		String path = req.getServletContext().getRealPath("img/");
+		//String path = "C:/Temp/FunDream/"+type+"/";
 		File dir = new File(path);
 		if(!dir.exists()) dir.mkdirs(); //해당경로에 디렉토리가 없으면 생성
 		String fileName = file.getOriginalFilename();
@@ -38,7 +41,7 @@ public class MemberService {
 		
 		try {
 			file.transferTo(attachFile);  //파일 복사
-			member.setM_img(fileName);
+			member.setM_img("img/"+fileName);
 			System.out.println(path+fileName);
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block

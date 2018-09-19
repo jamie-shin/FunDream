@@ -246,7 +246,7 @@ public class MemberController {
 		if(m_nick.equals("null")) member.setM_nick(m_nick);
 		else member.setM_nick(m_name);
 		
-		int result = memberService.insertMember(member, type, file);
+		int result = memberService.insertMember(member, type, file,request);
 		
 		if(result == 1) return "success";
 		return "fail";

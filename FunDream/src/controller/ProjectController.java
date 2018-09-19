@@ -305,7 +305,7 @@ public class ProjectController {
 			project.setP_age(1);
 		}
 		
-		int result = projectService.updateBasicInfo(project, type, file);
+		int result = projectService.updateBasicInfo(project, type, file,request);
 		if(result == 1) return "success";
 		return "fail";
 	}
@@ -412,7 +412,7 @@ public class ProjectController {
 			reward.setR_amt(-1);
 		}
 		
-		int result = rewardService.addOneReward(reward, type, file);
+		int result = rewardService.addOneReward(reward, type, file,request);
 		System.out.println("결과 : " + result + " / " + reward);
 		
 		if(result == 1) return Integer.toString(reward.getR_index());
