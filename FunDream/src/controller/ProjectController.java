@@ -370,95 +370,58 @@ public class ProjectController {
 	
 	// 리워드 삽입
 	@RequestMapping(value="JRI_INSERT.do", method=RequestMethod.POST)
-	public @ResponseBody String JRI_INSERT(HttpServletRequest req) throws UnsupportedEncodingException {
+	public @ResponseBody String JRI_INSERT(HttpServletRequest request, @RequestParam("r_img") MultipartFile file) {
 		
+		String type = "reward";
 		Reward reward = new Reward();
 		
-		// 파일 업로드 부분
-		req.setCharacterEncoding("UTF-8");
-		String realFolder = "";
-		String filename1 = "";
-		int maxSize = 1024 * 1024 * 5;
-		String savefile = "img";
-		ServletContext scontext = req.getServletContext();
-		realFolder = scontext.getRealPath(savefile);
-		System.out.println("realFolder : " + realFolder);
-		try {
-			MultipartRequest multi = new MultipartRequest(req, realFolder, maxSize, "UTF-8",
-					new DefaultFileRenamePolicy());
-			String p_index_str = multi.getParameter("p_index");
-			int p_index = Integer.parseInt(p_index_str);
-			System.out.println("인덱스 : "+p_index);
-			reward.setP_index(p_index);
-			
-			reward.setM_id(memberService.selectOneMemberByEmail((String)req.getSession().getAttribute("m_email")).getM_id());
-			
-			String r_name = multi.getParameter("r_name");
-			reward.setR_name(r_name);
-			
-			int r_price = Integer.parseInt(multi.getParameter("r_price"));
-			reward.setR_price(r_price);
-			
-			String ct_index_str = multi.getParameter("ct_index");
-			int ct_index = Integer.parseInt(ct_index_str);
-			reward.setCt_index(ct_index);
-			
-			String r_contents = multi.getParameter("r_contents");
-			reward.setR_contents(r_contents);
-			
-			String delyear = multi.getParameter("delyear");
-			String delmonth = multi.getParameter("delmonth");
-			String delday = multi.getParameter("delday");
-			String r_start = delyear+"-"+delmonth+"-"+delday;
-			System.out.println("r_start : "+ r_start);
-			reward.setR_start(Timestamp.valueOf(r_start + " 00:00:00"));
-			
-			reward.setR_option(multi.getParameter("r_option"));
+		String p_index_str = request.getParameter("p_index");
+		int p_index = Integer.parseInt(p_index_str);
+		System.out.println("인덱스 : "+p_index);
+		reward.setP_index(p_index);
+		
+		reward.setM_id(memberService.selectOneMemberByEmail((String)request.getSession().getAttribute("m_email")).getM_id());
+		
+		String r_name = request.getParameter("r_name");
+		reward.setR_name(r_name);
+		
+		int r_price = Integer.parseInt(request.getParameter("r_price"));
+		reward.setR_price(r_price);
+		
+		String ct_index_str = request.getParameter("ct_index");
+		int ct_index = Integer.parseInt(ct_index_str);
+		reward.setCt_index(ct_index);
+		
+		String r_contents = request.getParameter("r_contents");
+		reward.setR_contents(r_contents);
+		
+		String delyear = request.getParameter("delyear");
+		String delmonth = request.getParameter("delmonth");
+		String delday = request.getParameter("delday");
+		String r_start = delyear+"-"+delmonth+"-"+delday;
+		System.out.println("r_start : "+ r_start);
+		reward.setR_start(Timestamp.valueOf(r_start + " 00:00:00"));
+		
+		reward.setR_option(request.getParameter("r_option"));
 
-			try {
-				int r_del = Integer.parseInt(multi.getParameter("r_del"));
-				reward.setR_del(r_del);
-			}catch (Exception e) {
-				reward.setR_del(0);
-			}
-			
-			try {
-				int r_amt = Integer.parseInt(multi.getParameter("r_amt"));
-				reward.setR_amt(r_amt);
-			}catch (Exception e) {
-				reward.setR_amt(-1);
-			}
-			
-			Enumeration<?> files = multi.getFileNames();
-			String file1 = (String) files.nextElement();
-			filename1 = multi.getFilesystemName(file1);
-			String fullpath = realFolder + "\\" + filename1;
-			String applicationPath = req.getServletContext().getRealPath("img");
-			String path = "img/" + filename1;
-			
-			if(filename1 != null) {
-				System.out.println("이미지 파일 : " + filename1);
-				String s = filename1.replace(".", ",");
-				String[] f = s.split(",");
-				if (f[f.length - 1].equalsIgnoreCase("jpg") || f[f.length - 1].equalsIgnoreCase("png") || f[f.length - 1].equalsIgnoreCase("jpeg")) {
-					reward.setR_img(path);
-				} else {// 형식이 올바르지 않을경우 경고창 이후 history.go(-1)
-					/*url = "redirect:alert1.do";*/
-				}
-			}
-			
-			int result = rewardService.addOneReward(reward);
-			System.out.println("결과 : " + result + " / " + reward);
-			
-			if(result == 1) {
-				return Integer.toString(reward.getR_index());
-			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			return "0";
+		try {
+			int r_del = Integer.parseInt(request.getParameter("r_del"));
+			reward.setR_del(r_del);
+		}catch (Exception e) {
+			reward.setR_del(0);
 		}
 		
+		try {
+			int r_amt = Integer.parseInt(request.getParameter("r_amt"));
+			reward.setR_amt(r_amt);
+		}catch (Exception e) {
+			reward.setR_amt(-1);
+		}
+		
+		int result = rewardService.addOneReward(reward, type, file);
+		System.out.println("결과 : " + result + " / " + reward);
+		
+		if(result == 1) return Integer.toString(reward.getR_index());
 		return "0";
 	}
 	
@@ -486,110 +449,72 @@ public class ProjectController {
 	
 	// 리워드 수정
 	@RequestMapping(value="JRU_MODIFIED.do", method=RequestMethod.POST)
-	public @ResponseBody String JRU_MODIFIED(HttpServletRequest req) {
+	public @ResponseBody String JRU_MODIFIED(HttpServletRequest request, @RequestParam("r_img") MultipartFile file) throws UnsupportedEncodingException {
 		System.out.println("리워드 수정 요청 실행중....");
-	
-		// 파일 업로드 부분
-		try {
-			req.setCharacterEncoding("UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		String type = "reward";
+		request.setCharacterEncoding("UTF-8");
+			
+		int r_index = Integer.parseInt(request.getParameter("r_index"));
+		// DB에 저장된 리워드 가져오기
+		Reward reward = rewardService.getOneRewardByIndex(r_index);
+		
+		if(!request.getParameter("r_name").isEmpty()) {
+			String r_name = request.getParameter("r_name");
+			reward.setR_name(r_name);
 		}
-		String realFolder = "";
-		String filename1 = "";
-		int maxSize = 1024 * 1024 * 5;
-		String savefile = "img";
-		ServletContext scontext = req.getServletContext();
-		realFolder = scontext.getRealPath(savefile);
-		System.out.println("realFolder : " + realFolder);
-
-		MultipartRequest multi = null;
+		
+		if(!request.getParameter("r_price").isEmpty()) {
+			int r_price = Integer.parseInt(request.getParameter("r_price"));
+			reward.setR_price(r_price);
+		}
+		
+		if(!request.getParameter("r_contents").isEmpty()) {
+			String r_contents = request.getParameter("r_contents");
+			reward.setR_contents(r_contents);
+		}
+		
+		if(!request.getParameter("ct_index").isEmpty()) {
+			int ct_index = Integer.parseInt(request.getParameter("ct_index"));
+			reward.setCt_index(ct_index);
+		}
+		
+		if(!request.getParameter("delyear").isEmpty() && !request.getParameter("delmonth").isEmpty() && !request.getParameter("delday").isEmpty()) {
+			String r_start = request.getParameter("delyear")+"-"+request.getParameter("delmonth")+"-"+request.getParameter("delday");
+			reward.setR_start(Timestamp.valueOf(r_start + " 00:00:00"));
+			System.out.println("r_start : "+ r_start);
+		}
+		
+		if(!request.getParameter("r_option").isEmpty()) {
+			String r_option = request.getParameter("r_option");
+			reward.setR_option(r_option);
+		}
+		
 		try {
-			multi = new MultipartRequest(req, realFolder, maxSize, "UTF-8", new DefaultFileRenamePolicy());
-			
-			int r_index = Integer.parseInt(multi.getParameter("r_index"));
-			// DB에 저장된 리워드 가져오기
-			Reward reward = rewardService.getOneRewardByIndex(r_index);
-			
-			if(!multi.getParameter("r_name").isEmpty()) {
-				String r_name = multi.getParameter("r_name");
-				reward.setR_name(r_name);
-			}
-			
-			if(!multi.getParameter("r_price").isEmpty()) {
-				int r_price = Integer.parseInt(multi.getParameter("r_price"));
-				reward.setR_price(r_price);
-			}
-			
-			Enumeration<?> files = multi.getFileNames();
-			String file1 = (String) files.nextElement();
-			filename1 = multi.getFilesystemName(file1);
-			String fullpath = realFolder + "\\" + filename1;
-			String applicationPath = req.getServletContext().getRealPath("img");
-			String path = "img/" + filename1;
-			
-			if(filename1 != null) {
-				System.out.println("이미지 파일 : " + filename1);
-				String s = filename1.replace(".", ",");
-				String[] f = s.split(",");
-				if (f[f.length - 1].equalsIgnoreCase("jpg") || f[f.length - 1].equalsIgnoreCase("png") || f[f.length - 1].equalsIgnoreCase("jpeg")) {
-					reward.setR_img(path);
-				}
-			}
-			
-			if(!multi.getParameter("r_contents").isEmpty()) {
-				String r_contents = multi.getParameter("r_contents");
-				reward.setR_contents(r_contents);
-			}
-			
-			if(!multi.getParameter("ct_index").isEmpty()) {
-				int ct_index = Integer.parseInt(multi.getParameter("ct_index"));
-				reward.setCt_index(ct_index);
-			}
-			
-			if(!multi.getParameter("delyear").isEmpty() && !multi.getParameter("delmonth").isEmpty() && !multi.getParameter("delday").isEmpty()) {
-				String r_start = multi.getParameter("delyear")+"-"+multi.getParameter("delmonth")+"-"+multi.getParameter("delday");
-				reward.setR_start(Timestamp.valueOf(r_start + " 00:00:00"));
-				System.out.println("r_start : "+ r_start);
-			}
-			
-			if(!multi.getParameter("r_option").isEmpty()) {
-				String r_option = multi.getParameter("r_option");
-				reward.setR_option(r_option);
-			}
-			
-			try {
-				int r_del = Integer.parseInt(multi.getParameter("r_del"));
-				reward.setR_del(r_del);
-			}catch (Exception e) {
-				reward.setR_del(reward.getR_del());
-			}
+			int r_del = Integer.parseInt(request.getParameter("r_del"));
+			reward.setR_del(r_del);
+		}catch (Exception e) {
+			reward.setR_del(reward.getR_del());
+		}
 
-			try {
-				int r_amt = Integer.parseInt(multi.getParameter("r_amt"));
-				reward.setR_amt(r_amt);
-			}catch (Exception e) {
-				reward.setR_amt(reward.getR_amt());
-			}
-			
-			System.out.println("업데이트 전 : " + reward);
-			int result = rewardService.updateOneReward(reward);
-			
-			if(result == 1) {
-				System.out.println("리워드 수정 성공 " + reward);
-				return "success";
-			}
-			else {
-				System.out.println("리워드 수정 실패 " + reward);
-				return "fail";
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("리워드 수정 오류....");
+		try {
+			int r_amt = Integer.parseInt(request.getParameter("r_amt"));
+			reward.setR_amt(r_amt);
+		}catch (Exception e) {
+			reward.setR_amt(reward.getR_amt());
+		}
+		
+		System.out.println("업데이트 전 : " + reward);
+		int result = rewardService.updateOneReward(reward, type, file);
+		
+		if(result == 1) {
+			System.out.println("리워드 수정 성공 " + reward);
+			return "success";
+		}
+		else {
+			System.out.println("리워드 수정 실패 " + reward);
 			return "fail";
 		}
-	
 	}
 	
 	// 프로젝트 상세보기
@@ -706,13 +631,6 @@ public class ProjectController {
 		int fund_pop = fundService.fund_pop(p_index);
 		//후원한 총금액
 		int total_fund = fundService.total_fund(p_index);
-		
-		//후원자 목록
-		/*List<HashMap<String, Object>> map = fundService.fund_list(p_index);
-		for(int i=0;i<map.size();i++) {
-			System.out.println("map : m_id = "+ map.get(i).get("m_id"));
-			System.out.println("map : f_index = "+ map.get(i).get("f_index"));
-		}*/
 		
 		List<Fund> f_list = fundService.selectAllFundByP_index(p_index);
 		
@@ -1152,10 +1070,22 @@ public class ProjectController {
 	}
 	
 	@RequestMapping("downloadP.do")
-	public View downloadP(String p_index_str, String type) {
+	public View downloadP(String p_index_str) {
 		//해당게시물의 파일정보를 이용해서 파일을 가져옴	
 		int p_index = Integer.parseInt(p_index_str);
+		String type = "project";
 		File attachFile = projectService.getAttachFile(p_index, type);
+		//커스텀 뷰인 DownloadView를 이용해서 전달
+		View view = new DownloadView(attachFile);
+		return view;
+	}
+	
+	@RequestMapping("downloadR.do")
+	public View downloadR(String r_index_str) {
+		//해당게시물의 파일정보를 이용해서 파일을 가져옴	
+		int r_index = Integer.parseInt(r_index_str);
+		String type = "reward";
+		File attachFile = rewardService.getAttachFile(r_index, type);
 		//커스텀 뷰인 DownloadView를 이용해서 전달
 		View view = new DownloadView(attachFile);
 		return view;

@@ -279,7 +279,7 @@
 					console.log("리워드 수정 결과 : " +data);
 					switch(data){
 					case "success":
-						alert(r_index_element + " 리워드가 저장되었습니다.");
+						alert(r_index_element + " 리워드가 수정되었습니다.");
 						docu.find('#item04').attr('checked', 'checked');
 						element.hide();
 						break;
@@ -546,9 +546,11 @@ function readURL(input) {
 										<input type="hidden" id="r_start" name="r_start" value="${rew.r_start}">
 										
 										<h3>리워드 이미지</h3>
-										<div class='ap-contents-box'>
+										<div class='ap-contents-box' align="center">
 											<span>
-												<input type='file' id="imgInp2" name='r_img' class='ap-reward-img-addbtn'/><img src='#' class='ap-reward-img' id='blah3'  alt="이미지를 선택하세요">
+												<input type='file' id="imgInp2" name='r_img' class='ap-reward-img-addbtn'/><br>
+												<img src="downloadR.do?r_index_str=${rew.r_index}"  class='ap-reward-img' style="display: inline;">
+												<img src='#' class='ap-reward-img' id='blah3'  alt="이미지를 선택하세요" style="display: inline;">
 											</span>
 										</div>
 										
