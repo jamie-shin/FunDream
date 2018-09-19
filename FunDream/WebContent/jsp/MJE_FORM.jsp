@@ -16,6 +16,10 @@
 			var p_index = $(this).children("[name=p_index]").val();
 			console.log("p_index: " + p_index + " / p_approval: " + p_approval);
 			switch(p_approval){
+			case "3":
+				alert("프로젝트 수정화면으로 이동합니다.");
+				location.href = "JJI_FORM.do?p_index="+p_index;
+				break;
 			case "4":
 				alert("프로젝트 수정화면으로 이동합니다.");
 				location.href = "JJI_FORM.do?p_index="+p_index;
@@ -58,8 +62,7 @@
 							</div> -->
 						</span>
 					</span>
-					<span class="card-summary">
-						프로젝트 - 
+					<span class="card-summary"> 
 						<c:if test="${project.p_approval == 4}">작성 중</c:if>
 						<c:if test="${project.p_approval == 1}">승인 대기 중</c:if>
 						<fmt:formatDate value="${project.p_startdate}" pattern="yyyy-MM-dd" var="start"/>
@@ -80,17 +83,27 @@
 					<div class="candidatos color">
 		    			<div class="parcial">
 		        			<div class="info">
-		            			<div class="percentagem-num">
-		            			<c:if test="${project.p_status != 0}"><fmt:formatNumber pattern="###,###.##" value="${project.p_status / project.p_target * 100}" /></c:if>  
-		            			<c:if test="${project.p_status == 0}">0</c:if>
-		            			 %</div>
+		            			<div class="percentagem-num">${project.per }%</div>
 		       				</div>
 		        			<div class="progressBar">
-		            			<div class="percentagem" style="width: 100%;"></div>
+		        				<c:choose>
+		        					<c:when test="${project.per<=100 }">
+		            					<div class="percentagem" style="width: ${project.per}%;"></div>
+		            				</c:when>
+		            				<c:when test="${project.per>100 }">
+		            					<div class="percentagem" style="width: 100%;"></div>
+		            				</c:when>
+		            				
+		            			</c:choose>
 		        			</div>
-		        			<c:if test="${(end > today) && (project.p_target <= project.p_status) && (project.p_approval == 2)}">
+		        			<c:choose>
+		        				<c:when test="${(end > today) && (project.p_target <= project.p_status) && (project.p_approval == 2)}">
 			        			<div class="partidas">정산승인대기중</div>
-		        			</c:if>
+		        				</c:when>
+		        				<c:otherwise>
+		        				<div class="partidas">${project.p_status }</div>
+		        				</c:otherwise>
+		        			</c:choose>
 		    			</div>
 					</div>
 					<!-- 프로그레스 바 -->

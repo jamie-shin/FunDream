@@ -1016,6 +1016,18 @@ public class ProjectController {
 	public ModelAndView MJS(HttpServletRequest req) {
 		int m_id = (Integer)req.getSession().getAttribute("m_id");
 		List<Project> projectList = projectService.getProjectById(m_id);
+		
+		for(int i=0;i<3;i++) {
+			int p_status = fundService.updateP_status(projectList.get(i).getP_index());
+			projectList.get(i).setP_status(p_status);
+			int status = projectList.get(i).getP_status();
+			int target = projectList.get(i).getP_target();
+			double per2 = (double)status/(double)target*100;
+			double per = Double.parseDouble(String.format("%.2f",per2));
+			
+			projectList.get(i).setPer(per);
+
+		}
 	
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("producer", memberService.selectOneMemberById(m_id));
