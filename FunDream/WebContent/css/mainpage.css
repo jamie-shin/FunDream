@@ -235,11 +235,6 @@ ul, ol {
 }
 
 
-.card-part {
-	margin-left: 66%;
-}
-
-
 .card span {
   display: block;
 }
@@ -247,7 +242,8 @@ ul, ol {
   padding: 5% 5% 3% 5%;
 }
 .card .card-part {
-  padding: 5% 5% 3% 5%;
+  padding: 5% 9% 3% 5%;
+  text-align: right;
 }
 .card .card-header {
   position: relative;
