@@ -19,7 +19,7 @@
 
 $(function(){
     $("#saveButton").click(function(){
-    	alert("reg")
+    	//alert("reg")
         //id가 smarteditor인 textarea에 에디터에서 대입
         var contents = $('#summernote').summernote('code');
         var p_index = $('#p_index').val();

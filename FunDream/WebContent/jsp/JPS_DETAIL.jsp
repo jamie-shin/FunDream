@@ -55,7 +55,7 @@ $(function() {
     	var contents = $(this).parent().siblings('#inputComment').val();
     	var m_id = <%=request.getParameter("m_id")%>;
     	var p_index =<%=request.getParameter("p_index")%>;
-    	alert(contents);
+    	//alert(contents);
     	if (contents == null || contents==''){
     		alert('입력된 값이 없습니다.');
     	}
@@ -286,7 +286,7 @@ $(function() {
     });
     $(document).on('click', '[id^=notice_delete]', function(){
 		var index = $(this).parent().parent().parent().parent().siblings('#index').val();
-		alert(index);
+		//alert(index);
 		var delconfirm = confirm("해당 공지사항을 삭제하시겠습니까?");
 		
 		if(delconfirm == true){
@@ -307,7 +307,7 @@ $(function() {
 
     $(document).on('click', '#notice_modify', function(){
     	var index = $(this).siblings('#n_index').val();
-    	alert(index);
+    	//alert(index);
 		window.open('JNU_NOTICEFORM.do?n_index_str='+index,'공지사항 작성하기', 'width=600, height=500');
      });
     $(document).find('#insert_notice2').on('click',function(){
@@ -318,7 +318,7 @@ $(function() {
     
     $(document).on('click', '#notice_modify2', function(){
     	var index = $(this).siblings('#n_index').val();
-    	alert(index);
+    	//alert(index);
 
 		window.open('JNU_NOTICEFORM2.do?n_index_str='+index,'공지사항 작성하기', 'width=600, height=500');
 

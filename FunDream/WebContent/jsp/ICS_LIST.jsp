@@ -30,7 +30,7 @@
 			var upd_confirm = confirm("카테고리 이름을 수정하시겠습니까?");
 			switch(upd_confirm){
 			case true:
-				alert(upd_index);
+				//alert(upd_index);
 				$.ajax({
 					url : "ICU.do",
 					data : {ct_index : upd_index,
@@ -64,7 +64,7 @@
 			var del_category = $(this).parent().parent();
 			switch(del_confirm){
 			case true:
-				alert(del_index);
+				//alert(del_index);
 				$.ajax({
 					url : "ICD.do",
 					data : {ct_index : del_index},
@@ -135,7 +135,7 @@
 				data : {ct_name : new_ct_name,
 						ct_type : new_ct_type},
 				success : function(data){
-					alert(data);
+					//alert(data);
 					if(data > 0){
 						new_ct.parent().siblings('#index_cell').children('#index').text(data);
 						new_ct.siblings('#modifyBtn').removeAttr('style');
