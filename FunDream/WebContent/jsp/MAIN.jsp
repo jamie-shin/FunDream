@@ -229,6 +229,7 @@
 			</c:forEach>
 		</div>
 	</div>
+	<jsp:include page="Footer.jsp" />
 	<jsp:include page="Header.jsp" />
 </body>
 </html>
