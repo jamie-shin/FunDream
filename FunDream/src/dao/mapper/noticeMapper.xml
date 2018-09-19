@@ -5,7 +5,7 @@
   
 <mapper namespace="dao.INoticeDao">
 	<select id="selectNoticeByProject" parameterType="int" resultType="notice">
-		select * from notice where p_index=#{p_index}
+		select * from notice where p_index=#{p_index} order by r_writedate desc
 	</select>
 
 	<select id="selectOneNotice" parameterType="int" resultType="notice">
@@ -13,7 +13,7 @@
 	</select>
 	
 	<insert id="insertNotice" parameterType="java.util.HashMap">
-		insert into notice (n_index, p_index, n_title, n_writedate, n_contents, n_image) values (0, #{p_index}, #{n_title}, now(), #{n_contents}, n_image)
+		insert into notice (n_index, p_index, n_title, n_writedate, n_contents) values (0, #{p_index}, #{n_title}, now(), #{n_contents})
 	</insert>
 	
 	<delete id="deleteNotice" parameterType="int">
