@@ -36,7 +36,7 @@
 	<!-- 오늘 날짜 구하기  끝 -->
 	
 	<div class="cre-container">
-	<img src="${producer.m_img}" class="user-img">
+	<img src="downloadM.do?m_id_str=${producer.m_id}" class="user-img">
 		<div class="cre-center">
 			<label>
 				<br><br><br><br><br><br><h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${producer.m_name} (${producer.m_nick})</h3>
