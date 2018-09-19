@@ -329,7 +329,8 @@ $(function() {
 <body>
 	<div class="pv-banner-image"
 		style="background-image: url('downloadP.do?p_index_str'${project.p_index})">
-		<h1 class="pv-banner-text">${project.p_name}<c:if test="${type==producer }">  (내가 진행하는 프로젝트)</c:if></h1>
+		<h1 class="pv-banner-text">${project.p_name}</h1>
+		<%-- <c:if test="${type eq 'producer' }"><small>(나의 프로젝트)</small></c:if> --%>
 	</div>
 
 	<input type="hidden" id="m_id" value="<%=session.getAttribute("m_id")%>">
