@@ -110,7 +110,7 @@
 		// 리워드 배송 선택 시
 	 	$(document).on('click', "[id^=r_del]", function() {
 			var del_id = $(this).attr('id');
-			alert(del_id);
+			console.log(del_id);
 			switch(del_id){
 			case 'r_delY' :
 				$(this).parent().siblings('#del').show();
@@ -126,7 +126,7 @@
 		// 리워드 제한 수량 선택 시
 		$(document).on('click', "[id^=r_amt]", function(){
 			var amt_id = $(this).attr('id');
-			alert(amt_id);
+			console.log(amt_id);
 			if(amt_id == "r_amtY"){
 				$(this).siblings('#input_amt').attr('disabled', false);
 				$(this).siblings('#input_amt').focus();
@@ -164,7 +164,7 @@
 		
 			$(this).parent().parent().siblings('#rewardBar').children("#rTitle").text(r_name);
 			var aaa = $(this).parent().parent().siblings('#rewardBar').children("#rTitle").text();
-	 		alert("^^* " + aaa);
+			console.log("^^* " + aaa);
 	 		
 	 		var element = $(this);
 	 		var r_index_element = $(this).siblings('#r_index');
@@ -262,7 +262,7 @@
 			
 			$(this).parent().parent().siblings('#rewardBar').children("#rTitle").text(r_name);
 			var aaa = $(this).parent().parent().siblings('#rewardBar').children("#rTitle").text();
-			alert("^^* " + aaa);
+			console.log("^^* " + aaa);
 			
 			var element = $(this);
 			var r_index_element = $(this).siblings('#r_index');
