@@ -362,7 +362,7 @@ function readURL(input) {
 						<h4 class="ap-image-h4">대표이미지</h4>
 						<c:if test="${project.p_mainimg != null}">
 							<a>기존 이미지 </a><input type="file" id="imgInp" name="p_mainImg" style="align-self: center;"><br>
-							<img src="download.do?p_index_str=${project.p_index}&type=project" class="ap-preimg" width="300px" height="300px">
+							<img src="downloadP.do?p_index_str=${project.p_index}&type=project" class="ap-preimg" width="300px" height="300px">
 							<img id="blah" src="#" alt="이미지를 선택하세요" width="300px" height="300px"/>
 						</c:if>
 						<c:if test="${project.p_mainimg == null}">

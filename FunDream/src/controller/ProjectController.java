@@ -1151,8 +1151,8 @@ public class ProjectController {
 		return "fail";
 	}
 	
-	@RequestMapping("download.do")
-	public View download(String p_index_str, String type) {
+	@RequestMapping("downloadP.do")
+	public View downloadP(String p_index_str, String type) {
 		//해당게시물의 파일정보를 이용해서 파일을 가져옴	
 		int p_index = Integer.parseInt(p_index_str);
 		File attachFile = projectService.getAttachFile(p_index, type);

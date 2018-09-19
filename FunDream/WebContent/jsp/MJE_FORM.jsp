@@ -50,7 +50,7 @@
 				<a class="card" href="#">
 					<input type="hidden" id="p_index" name="p_index" value="${project.p_index}">
 					<input type="hidden" id="p_approval" name="p_approval" value="${project.p_approval}">
-					<span class="card-header" style="background-image: url('download.do?p_index_str=${project.p_index}&type=project');">
+					<span class="card-header" style="background-image: url('downloadP.do?p_index_str=${project.p_index}&type=project');">
 						<span class="card-title">
 							<h3>[${project.p_index}] ${project.p_name}</h3>
 							<!-- <div class="right-al">
