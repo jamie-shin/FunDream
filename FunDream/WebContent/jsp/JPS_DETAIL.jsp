@@ -321,7 +321,7 @@ $(function() {
 </head>
 <body>
 	<div class="pv-banner-image"
-		style="background-image: url('downloadP.do?p_index_str='${project.p_index})">
+		style="background-image: url('downloadP.do?p_index_str=${project.p_index}')">
 		<h1 class="pv-banner-text">${project.p_name}</h1>
 	</div>
 
