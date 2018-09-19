@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -266,8 +267,49 @@ public class ProjectController {
 	
 	// 신규 프로젝트 생성 후 해당 프로젝트 정보 수정(기본정보)
 	@RequestMapping(value="JBU_UPDATE.do", method=RequestMethod.POST)
-	public @ResponseBody String JBU_UPDATE(HttpServletRequest request) throws UnsupportedEncodingException {
-		request.setCharacterEncoding("UTF-8");
+	public @ResponseBody String JBU_UPDATE(HttpServletRequest request, @RequestParam("p_mainImg") MultipartFile file) {
+		
+		int p_index = Integer.parseInt(request.getParameter("p_index"));
+		String type = request.getParameter("type");
+		int m_id = (Integer)(request.getSession().getAttribute("m_id"));
+		int ct_index = Integer.parseInt(request.getParameter("ct_index"));
+		String p_name = request.getParameter("p_name");
+		int p_type = Integer.parseInt(request.getParameter("p_type"));
+		int p_target = Integer.parseInt(request.getParameter("p_target"));
+		String p_startdate = request.getParameter("p_startdate");
+		String p_enddate = request.getParameter("p_enddate");
+		String p_age_str = request.getParameter("p_age");
+	
+		System.out.println("인덱스 : "+p_index);
+		System.out.println("아이디: "+m_id);
+		System.out.println("카테고리: "+ct_index);
+		System.out.println("프로젝트명: "+p_name);
+		System.out.println("프로젝트타입: "+p_type);
+		System.out.println("목표금액: "+p_target);
+		System.out.println("시작일: "+ p_startdate);
+		System.out.println("종료일: "+ p_enddate);
+		System.out.println("나이제한: "+p_age_str);
+		
+		Project project = projectService.getOneProject(p_index);
+		project.setM_id(m_id);
+		project.setCt_index(ct_index);
+		project.setP_name(p_name);
+		project.setP_type(p_type);
+		project.setP_target(p_target);
+		project.setP_startdate(Timestamp.valueOf(p_startdate + " 00:00:00"));
+		project.setP_enddate(Timestamp.valueOf(p_enddate + " 00:00:00"));
+		if(p_age_str != null && p_age_str.equals("on")) {
+			project.setP_age(2);
+		}
+		else {
+			project.setP_age(1);
+		}
+		
+		int result = projectService.updateBasicInfo(project, type, file);
+		if(result == 1) return "success";
+		return "fail";
+
+/*		request.setCharacterEncoding("UTF-8");
 		String realFolder = "";
 		String filename1 = "";
 		int maxSize = 1024 * 1024 * 5;
@@ -355,7 +397,7 @@ public class ProjectController {
 				if (f[f.length - 1].equalsIgnoreCase("jpg") || f[f.length - 1].equalsIgnoreCase("png") || f[f.length - 1].equalsIgnoreCase("jpeg")) {
 					project.setP_mainimg(path);
 				} else {// 형식이 올바르지 않을경우 경고창 이후 history.go(-1)
-					/*url = "redirect:alert1.do";*/
+					url = "redirect:alert1.do";
 				}
 			}
 		} catch (Exception e) {
@@ -367,7 +409,7 @@ public class ProjectController {
 		if(result == 1) {
 			return "success";
 		}
-		return "fail";
+		return "fail";*/
 	}
 	
 	// 스토리 멤버 검색 및 삽입
@@ -978,36 +1020,36 @@ public class ProjectController {
 		noticeService.insertNotice(p_int, n_title, n_contents);
 	}
 	
-    // 서머노트 이미지 업로드
-    @RequestMapping("uploadImage.do")
-    public void uploadImage(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int m_id = (Integer)request.getSession().getAttribute("m_id");
-        response.setContentType("text/html;charset=utf-8");
-        PrintWriter out = response.getWriter();
-         
-        // 업로드할 폴더 경로
-        String realFolder = request.getSession().getServletContext().getRealPath("profileUpload");
-        UUID uuid = UUID.randomUUID();
- 
-        // 업로드할 파일 이름
-        String org_filename = file.getOriginalFilename();
-        String str_filename = uuid.toString() + org_filename;
- 
-        System.out.println("원본 파일명 : " + org_filename);
-        System.out.println("저장할 파일명 : " + str_filename);
- 
-        String filepath = realFolder + "\\" + m_id + "\\" + str_filename;
-        System.out.println("파일경로 : " + filepath);
- 
-        File f = new File(filepath);
-        if (!f.exists()) {
-            f.mkdirs();
-        }
-        file.transferTo(f);
-        out.println("profileUpload/"+m_id+"/"+str_filename);
-        out.close();
- 
-    }
+//    // 서머노트 이미지 업로드
+//    @RequestMapping("uploadImage.do")
+//    public void uploadImage(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        int m_id = (Integer)request.getSession().getAttribute("m_id");
+//        response.setContentType("text/html;charset=utf-8");
+//        PrintWriter out = response.getWriter();
+//         
+//        // 업로드할 폴더 경로
+//        String realFolder = request.getSession().getServletContext().getRealPath("profileUpload");
+//        UUID uuid = UUID.randomUUID();
+// 
+//        // 업로드할 파일 이름
+//        String org_filename = file.getOriginalFilename();
+//        String str_filename = uuid.toString() + org_filename;
+// 
+//        System.out.println("원본 파일명 : " + org_filename);
+//        System.out.println("저장할 파일명 : " + str_filename);
+// 
+//        String filepath = realFolder + "\\" + m_id + "\\" + str_filename;
+//        System.out.println("파일경로 : " + filepath);
+// 
+//        File f = new File(filepath);
+//        if (!f.exists()) {
+//            f.mkdirs();
+//        }
+//        file.transferTo(f);
+//        out.println("profileUpload/"+m_id+"/"+str_filename);
+//        out.close();
+// 
+//    }
     
     @RequestMapping("JNU_NOTICEFORM2.do")
 	public ModelAndView JNU_NOTICEFORM2(String n_index_str){
@@ -1256,6 +1298,16 @@ public class ProjectController {
 		int result = projectService.updateApproval(changeMap);
 		if(result == 1) return "success";
 		return "fail";
+	}
+	
+	@RequestMapping("download.do")
+	public View download(String p_index_str, String type) {
+		//해당게시물의 파일정보를 이용해서 파일을 가져옴	
+		int p_index = Integer.parseInt(p_index_str);
+		File attachFile = projectService.getAttachFile(p_index, type);
+		//커스텀 뷰인 DownloadView를 이용해서 전달
+		View view = new DownloadView(attachFile);
+		return view;
 	}
 
 }

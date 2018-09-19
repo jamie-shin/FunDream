@@ -352,6 +352,7 @@ function readURL(input) {
 			
 			<li class="ap-contents-list item01">
 			<form id="basicInfoForm" method="post" enctype="multipart/form-data" accept-charset="UTF-8" action="JBU_UPDATE.do">
+				<input type="hidden" id="type" name="type" value="project"><!-- 이미지 업로드 시 폴더 설정을 위한 파라미터 -->
 				<input type="hidden" id="p_index" name="p_index" value="${p_index}">
 				<input type="hidden" id="m_id" name="m_id" value="${m_id}">
 				<h2>대표 이미지</h2>
@@ -361,7 +362,7 @@ function readURL(input) {
 						<h4 class="ap-image-h4">대표이미지</h4>
 						<c:if test="${project.p_mainimg != null}">
 							<a>기존 이미지 </a><input type="file" id="imgInp" name="p_mainImg" style="align-self: center;"><br>
-							<img alt="img/user.png" src="${project.p_mainimg}" class="ap-preimg" width="300px" height="300px">
+							<img src="download.do?p_index_str=${project.p_index}&type=project" class="ap-preimg" width="300px" height="300px">
 							<img id="blah" src="#" alt="이미지를 선택하세요" width="300px" height="300px"/>
 						</c:if>
 						<c:if test="${project.p_mainimg == null}">
