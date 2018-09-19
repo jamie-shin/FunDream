@@ -42,7 +42,7 @@
 						<h3 class="card-toggle" style="background:white; color:red">성공</h3></c:when>
 				</c:choose>
 				</c:if>
-				<c:if test="${t[1].gap <=30000}">
+				<c:if test="${t[1].p_enddate >= currTime && t[1].gap <=30000}">
 					<h3 class="card-toggle" style="background:red; color:white">마감임박</h3>
 				</c:if>
 				
