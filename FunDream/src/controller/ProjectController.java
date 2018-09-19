@@ -504,7 +504,7 @@ public class ProjectController {
 		}
 		
 		System.out.println("업데이트 전 : " + reward);
-		int result = rewardService.updateOneReward(reward, type, file);
+		int result = rewardService.updateOneReward(reward, type, file,request);
 		
 		if(result == 1) {
 			System.out.println("리워드 수정 성공 " + reward);

@@ -440,7 +440,7 @@ public class MemberController {
 		System.out.println("m_nick : " + m_nick);
 		System.out.println("========== 회원 수정 정보 끝 =========");
 		
-		int result = memberService.updateMember(member, type, file);
+		int result = memberService.updateMember(member, type, file,request);
 		
 		if(result == 1) {
 			// 입력한 비밀번호가 null이 아니고 일반 정보 수정 결과 값과 비밀번호 수정 결과 값이 모두 1인 경우
