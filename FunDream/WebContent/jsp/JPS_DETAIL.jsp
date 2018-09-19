@@ -329,7 +329,7 @@ $(function() {
 <body>
 	<div class="pv-banner-image"
 		style="background-image: url('downloadP.do?p_index_str'${project.p_index})">
-		<h1 class="pv-banner-text">${project.p_name}${type}</h1>
+		<h1 class="pv-banner-text">${project.p_name}</h1>
 	</div>
 
 	<input type="hidden" id="m_id" value="<%=session.getAttribute("m_id")%>">
@@ -462,7 +462,7 @@ $(function() {
 									</c:if>
 								
 									<c:if test="${type eq 'producer'}">
-									<button onclick="window.open('http://localhost:8080/FunDream/JCE_REPORTFORM.do?c_index=${comment.c_index}&p_index=${comment.p_index}', 
+									<button onclick="window.open('http://192.168.0.10:8080/FunDream/JCE_REPORTFORM.do?c_index=${comment.c_index}&p_index=${comment.p_index}', 
 										'댓글 신고하기', 'width=500, height=420')" class="pv-comment-decbtn" id="report${comment.c_index}" value="${comment.c_index}" 
 										<c:if test="${comment.c_status!=1 }">hidden='hidden'</c:if>>신고
 									</button>
