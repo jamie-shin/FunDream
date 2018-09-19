@@ -255,7 +255,7 @@
 		<div class="changebox">
 			
 			<p>프로필 이미지</p>
-			<br> <img src="downloadM.do?m_id_str=${member.m_id}" name="" id="inputImg" class="logo"> <br>
+			<br> <img src="${member.m_img}" name="" id="inputImg" class="logo"> <br>
 			<br><br><br><br><br><br>
 			<p>변경 이미지</p>
 			<br><input type='file' id="imgInp" name="m_img"/><br>

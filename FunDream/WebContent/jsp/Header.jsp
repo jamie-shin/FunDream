@@ -93,7 +93,7 @@ $(function(){
 				<c:if test="${m_manager == 1 && m_email !=null}"><li><a href="IBE_MANAGER.do">관리자 메인</a></li></c:if>
 				<li> <c:if test="${m_email==null}"> <a href="MIE_LOGINFORM.do"><img src="img/user.png" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px;"></a></c:if> </li>
 				
-				<li><c:if test="${m_email!=null}"><img src="downloadM.do?m_id_str=${m_id}" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px; border-radius: 50%">
+				<li><c:if test="${m_email!=null}"><img src="${m_img}" style="margin:0; margin-top:8px; padding:0; width:35px; height:35px; border-radius: 50%">
 					<ul>
 						<li><a href="MUE_CHECKPW.do">내 정보 수정</a></li>
 						<c:if test="${m_manager != 1 && m_email !=null}">
