@@ -1,9 +1,16 @@
 package controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,13 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import model.Admin_Notice;
 import model.Bank_Info;
 import model.Category;
 import model.Comment;
 import model.Member;
 import model.Project;
+import service.Admin_NoticeService;
 import service.Bank_InfoService;
 import service.CategoryService;
 import service.CommentService;
@@ -53,6 +63,9 @@ public class IController {
 	
 	@Autowired
 	private Bank_InfoService bank_InfoService;
+	
+	@Autowired
+	private Admin_NoticeService admin_NoticeService;
 	
 	// 관리자 메인 화면 요청
 	@RequestMapping("IBE_MANAGER.do")
@@ -372,4 +385,108 @@ public class IController {
 		if(b_result == 1 && p_result == 1) return "success";
 		return "fail";
 	}
+	
+	
+	// 관리자 - 공지사항 목록
+	@RequestMapping("INS_NOTICELIST.do")
+	public ModelAndView INS_NOTICELIST() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("adNoticeList", admin_NoticeService.selectAllAdmin_Notices());
+		mav.setViewName("INS_NOTICELIST");
+		return mav;
+	}
+	
+	// 관리자 - 공지사항 등록 화면 요청
+	@RequestMapping("INE_WRITEFORM.do")
+	public void INE_WRITEFORM() {}
+
+	// 관리자 - 공지사항 등록
+	@RequestMapping(value="INI_WRITENOTICE.do", method=RequestMethod.POST)
+	public @ResponseBody int INI_WRITENOTICE(HttpServletRequest req, String an_title, String an_contents) {
+		Admin_Notice admin_Notice = new Admin_Notice();
+		System.out.println("제목 : " + an_title);
+		System.out.println("내용 : " + an_contents);
+		admin_Notice.setAn_title(an_title);
+		admin_Notice.setAn_contents(an_contents);
+		int result = admin_NoticeService.insertAdmin_Notice(admin_Notice);
+		// 등록 성공 시 인덱스 리턴
+		if(result == 1) return admin_Notice.getAn_index();
+		return 0;
+	}
+	
+	// 관리자 - 공지사항 상세보기
+	@RequestMapping("INS_NOTICEDETAIL.do")
+	public ModelAndView INS_NOTICEDETAIL(int an_index) {
+		ModelAndView mav = new ModelAndView();
+		Admin_Notice ad = admin_NoticeService.selectOneAdmin_Notice(an_index);
+		mav.addObject("ad", ad);
+		mav.addObject("adNoticeList", admin_NoticeService.selectAllAdmin_Notices().subList(0, 2));
+		mav.setViewName("INS_NOTICEDETAIL");
+		return mav;
+	}
+	
+	// 관리자 - 공지사항 수정 화면 요청
+	@RequestMapping("INS_UPDATEFORM.do")
+	public ModelAndView INS_UPDATEFORM(int an_index) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("admin_Notice", admin_NoticeService.selectOneAdmin_Notice(an_index));
+		mav.setViewName("INS_UPDATEFORM");
+		return mav;
+	}
+	
+	// 관리자 - 공지사항 수정
+	@RequestMapping("INU_UPDATENOTICE.do")
+	public @ResponseBody String INU_UPDATENOTICE(HttpServletRequest req) {
+		Admin_Notice admin_Notice = new Admin_Notice();
+		
+		int result = admin_NoticeService.updateAdmin_Notice(admin_Notice);
+		if(result == 1) return "success";
+		return "fail";
+	}
+	
+	// 관리자 - 공지사항 삭제
+	@RequestMapping("IND_DELETENOTICE.do")
+	public @ResponseBody String IND_DELETENOTICE(int an_index) {
+		int result = admin_NoticeService.deleteAdmin_Notice(an_index);
+		if(result == 1) return "success";
+		return "fail";
+	}
+	
+	// 서머노트 이미지 업로드
+	@RequestMapping("uploadImage.do")
+	public void uploadImage(MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		int m_id = (Integer)request.getSession().getAttribute("m_id");
+		response.setContentType("text/html;charset=utf-8");
+		
+		// 어디에서 이미지가 업로드 되는지에 따라 저장...(관리자 공지사항, 제작자 공지사항, 프로젝트 스토리)
+		String type = null;
+		if(request.getParameter("type") == null) {
+			type = request.getParameter("type");
+		}
+		
+		PrintWriter out = response.getWriter();
+		
+		// 업로드할 폴더 경로
+		String realFolder = request.getSession().getServletContext().getRealPath("profileUpload");
+		UUID uuid = UUID.randomUUID();
+
+		// 업로드할 파일 이름
+		String org_filename = file.getOriginalFilename();
+		String str_filename = uuid.toString() + org_filename;
+
+		System.out.println("원본 파일명 : " + org_filename);
+		System.out.println("저장할 파일명 : " + str_filename);
+
+		String filepath = realFolder + "\\" + m_id + "\\" + type  + "\\" + str_filename;
+		System.out.println("파일경로 : " + filepath);
+
+		File f = new File(filepath);
+		if (!f.exists()) {
+			f.mkdirs();
+		}
+		file.transferTo(f);
+		out.println("profileUpload/"+m_id+"/"+type+"/"+str_filename);
+		out.close();
+	}
+	
 }

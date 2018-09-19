@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="dao.IAdmin_NoticeDao">
+
+	<insert id="insertAdmin_Notice" parameterType="admin_Notice" useGeneratedKeys="true" keyProperty="an_index">
+		insert into Admin_Notice values(default, #{an_title}, #{an_contents}, now(), #{an_image})
+	</insert>
+	
+	<update id="updateAdmin_Notice" parameterType="admin_Notice">
+		update Admin_Notice set an_title=#{an_title}, an_contents=#{an_contents}, an_image=#{an_image} where an_index=#{an_index}
+	</update>
+	
+	<delete id="deleteAdmin_Notice" parameterType="int">
+		delete from Admin_Notice where an_index=#{an_index}
+	</delete>
+	
+	<select id="selectAllAdmin_Notices" resultType="admin_Notice">
+		select * from Admin_Notice order by an_index desc
+	</select>
+	
+	<select id="selectOneAdmin_Notice" parameterType="int" resultType="admin_Notice">
+		select * from Admin_Notice where an_index=#{an_index}
+	</select>
+
+</mapper>

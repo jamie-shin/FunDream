@@ -83,7 +83,7 @@ $(function(){
 				<li><a href="JJS_FORM.do?sort=1">프로젝트</a></li>
 				<li class="sub-menu"><a href="#">이용안내</a>
 					<ul>
-						<li><a href="#">공지사항</a></li>
+						<li><a href="INS_NOTICELIST.do">공지사항</a></li>
 						<li><a href="#">문의사항</a></li>
 						<li><a href="#">이용가이드</a></li>
 						<li><a href="#">이벤트</a></li>
