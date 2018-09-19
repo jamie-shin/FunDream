@@ -1017,7 +1017,7 @@ public class ProjectController {
 		int m_id = (Integer)req.getSession().getAttribute("m_id");
 		List<Project> projectList = projectService.getProjectById(m_id);
 		
-		for(int i=0;i<3;i++) {
+		for(int i=0;i<projectList.size();i++) {
 			int p_status = fundService.updateP_status(projectList.get(i).getP_index());
 			projectList.get(i).setP_status(p_status);
 			int status = projectList.get(i).getP_status();
@@ -1025,9 +1025,14 @@ public class ProjectController {
 			double per2 = (double)status/(double)target*100;
 			double per = Double.parseDouble(String.format("%.2f",per2));
 			
+			if (target ==0) {
+				per=0;
+			}
 			projectList.get(i).setPer(per);
+			
 
 		}
+		System.out.println();
 	
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("producer", memberService.selectOneMemberById(m_id));

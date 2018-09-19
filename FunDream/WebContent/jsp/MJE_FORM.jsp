@@ -67,7 +67,10 @@
 						<c:if test="${project.p_approval == 1}">승인 대기 중</c:if>
 						<fmt:formatDate value="${project.p_startdate}" pattern="yyyy-MM-dd" var="start"/>
 						<fmt:formatDate value="${project.p_enddate}" pattern="yyyy-MM-dd" var="end"/>
-						<c:if test="${project.p_approval == 2 && start < today}">승인 완료</c:if>
+						<c:if test="${project.p_approval == 2 && start < today}">승인 완료
+							<c:if test="${(end < today) && (project.p_target <= project.p_status) && (project.p_approval == 2)}"><input type="button" value="정산요청" class="card-calcul"></c:if>
+						</c:if>
+						
 						<c:if test="${project.p_approval == 2 && start >= today && end < today}">진행 중</c:if>
 						<c:if test="${project.p_approval == 2 && end >= today}">마감</c:if>
 						<c:if test="${project.p_approval == 3}">반려</c:if>
@@ -75,9 +78,12 @@
 						${start} ~ ${end}
 					</span>
 					<!-- 무산과 성공 백그라운드 컬러와 글씨 색상 지정은 여기서  -->
-					<c:if test="${(end > today) && (project.p_target <= project.p_status) && (project.p_approval == 2)}">
-						<h3 class="card-toggle" style="background:navy; color:white;">성공</h3>
-						<input type="button" value="정산요청" class="card-calcul">
+					<c:if test="${(end < today) && (project.p_target <= project.p_status) && (project.p_approval == 2)}">
+						<h3 class="card-toggle" style="background:white; color:red;">성공</h3>
+						
+					</c:if>
+					<c:if test="${(end < today) && (project.p_target > project.p_status) && (project.p_approval == 2)}">
+						<h3 class="card-toggle" style="background:navy; color:white;">무산</h3>
 					</c:if>
 					<!-- 프로그레스 바 -->
 					<div class="candidatos color">
