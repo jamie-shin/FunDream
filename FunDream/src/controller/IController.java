@@ -105,18 +105,19 @@ public class IController {
 	public @ResponseBody String ICD(int ct_index) {
 		System.out.println("삭제할 카테고리 인덱스 : " + ct_index);
 		List<Project> projectList = projectService.getProjectsByCategory(ct_index);
-		if(projectList.size() > 0 || projectList != null) {  // 해당 카테고리 인덱스로 조회한 프로젝트가 있을 때
-			return "disable";
-		}
-		else {
+		System.out.println(projectList);
+		if(projectList.size() == 0 || projectList == null || projectList.isEmpty()) {  // 해당 카테고리 인덱스로 조회한 프로젝트가 있을 때
 			int result = categoryService.deleteOneCategory(ct_index);
 			System.out.println("수정 결과 : " + result);
-			if(result == 1) {
-				return "true";
+			if(result == 1) return "true";
+			return "false";
+		}
+		else {
+			System.out.println("프로젝트가 있다고??");
+			for(Project p : projectList) {
+				System.out.println(p);
 			}
-			else {
-				return "false";
-			}
+			return "disabled";
 		}
 	}
 	

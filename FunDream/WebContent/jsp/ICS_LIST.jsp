@@ -64,21 +64,21 @@
 			var del_category = $(this).parent().parent();
 			switch(del_confirm){
 			case true:
-				//alert(del_index);
 				$.ajax({
 					url : "ICD.do",
 					data : {ct_index : del_index},
 					success : function(data){
+						alert(data);
 						switch(data){
 						case "true":
 							alert(del_index + "번의 카테고리 삭제가 완료되었습니다.");
 							del_category.remove();
 							break;
-						case "false":
-							console.log(del_index + "삭제 실패!");
-							break;
-						case "disable":
+						case "disabled":
 							alert("프로젝트가 존재하는 카테고리는 삭제가 불가능하고, 수정만 가능합니다.");
+							break;
+						default:
+							console.log(del_index + "삭제 실패!");
 							break;
 						}
 					},
