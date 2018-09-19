@@ -5,7 +5,7 @@
   
 <mapper namespace="dao.INoticeDao">
 	<select id="selectNoticeByProject" parameterType="int" resultType="notice">
-		select * from notice where p_index=#{p_index} order by r_writedate desc
+		select * from notice where p_index=#{p_index} order by n_writedate desc
 	</select>
 
 	<select id="selectOneNotice" parameterType="int" resultType="notice">
