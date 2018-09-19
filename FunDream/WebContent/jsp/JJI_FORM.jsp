@@ -17,7 +17,6 @@
 
 <script type="text/javascript">
 	$(function(){
-		var docu = $(document);
 		$('#addReward').on('click', function(){
 			$('#reward').append(
 				`
@@ -184,7 +183,7 @@
 						element.append(`<button id="r_update" class='ap-reward-savebtn'>수정</button>`);
 						r_index_element.val(data);
 						alert(data + " 리워드가 저장되었습니다.");
-						docu.find('#item04').attr('checked', 'checked');
+						$('#item04').attr('checked', true);
 						element.hide();
 					}
 					else{
@@ -280,7 +279,7 @@
 					switch(data){
 					case "success":
 						alert(r_index_element + " 리워드가 수정되었습니다.");
-						docu.find('#item04').attr('checked', 'checked');
+						$('#item04').attr('checked', true);
 						element.hide();
 						break;
 					case "fail":
@@ -300,6 +299,36 @@
 	    $(document).on('change',"#r_img", function(){
 	        readURL1(this);
 	    });
+		
+		// 스토리탭 임시 저장 버튼 클릭 시
+		$(document).find('#saveBtn3').on('click', function(){
+			var p_index = $('#p_index').val();
+			var p_contents = $('#summernote').summernote('code');
+			var type = "story";
+			console.log(p_contents);
+			$.ajax({
+				url : "JSU_MODIFY.do",
+				type : "POST",
+				data : {p_index : p_index,
+						p_contents : p_contents,
+						type : type},
+				success : function(data){
+					console.log(data);
+					switch(data){
+					case "success":
+						alert("스토리가 저장되었습니다.");
+						$('#item04').attr('checked', true);
+						break;
+					default:
+						console.log("스토리 저장을 실패하였습니다.");
+						break;
+					}
+				},
+				error : function(){
+					console.log("스토리 저장 오류...");
+				}
+			});
+		});
 		
 	});
 
@@ -507,13 +536,37 @@ function readURL(input) {
 				</div>
 				<h2>프로젝트 상세내용</h2>
 				
-				<div id="summernote" ></div>
+				<textarea id="summernote">${project.p_contents}</textarea>
 				<script>
 					$('#summernote').summernote({
-				        tabsize: 2,
-				        height: 300,
-				        lang: 'ko-KR'
-				   	});
+						tabsize: 2,
+					   	height: 300,
+					   	focus: true,
+					   	callbacks: {
+					   		onImageUpload: function(files, editor, welEditable){
+					   			for(var i = files.length - 1; i >= 0; i--){
+					   				sendFile(files[i], this);
+					   			}
+					   		}
+					   	}
+					});
+					
+					function sendFile(file, el) {
+						var form_data = new FormData();
+				      	form_data.append('file', file);
+				      	$.ajax({
+				        	data: form_data,
+				        	type: "POST",
+				        	url: 'uploadImage.do',
+				        	cache: false,
+				        	contentType: false,
+				        	enctype: 'multipart/form-data',
+				        	processData: false,
+				        	success: function(img_name) {
+				          		$(el).summernote('editor.insertImage', img_name);
+				        	}
+				      	});
+				    }
 				</script>
 				
 				<div class="ap-btn-center">

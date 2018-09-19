@@ -197,5 +197,10 @@ public class ProjectService {
 		String path = "C:/Temp/FunDream/project/";
 		return new File(path+fileName);
 	}
-		
+
+	public int updateStory(Project project) {
+		// TODO Auto-generated method stub
+		return projectDao.updateStory(project);
+	}
+	
 }

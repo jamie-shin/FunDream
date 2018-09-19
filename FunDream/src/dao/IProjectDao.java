@@ -33,5 +33,6 @@ public interface IProjectDao {
 	
 	public void update_P_status(Project project);
 	public int updateCalculate(Map<String, Object> changeMap);
+	public int updateStory(Project project);
 	
 }

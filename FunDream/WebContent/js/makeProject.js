@@ -1,7 +1,5 @@
 $(function(){
 	
-	var document = $(document);
-	 
     /* 기본정보 탭 관련 */
     
     var today = new Date();
@@ -206,7 +204,7 @@ $(function(){
 			success : function(data){
 				if(data == 'success'){
 					alert("기본정보가 저장되었습니다.");
-					document.find('#item02').attr('checked', true);
+					$('#item02').attr('checked', true);
 				}
 				if(data == 'fail'){
 					alert("기본정보가 저장되지 않았습니다.");
@@ -293,8 +291,8 @@ $(function(){
 	
 	// 프로젝트 정책확인 정보 수정 (임시저장 버튼 클릭 시)
 	$(document).find('#saveBtn2').on('click', function(){
-		var p_index = $(document).find('#p_index').val();
-		var m_id = $(document).find('#m_id').val();
+		var p_index = $('#p_index').val();
+		var m_id = $('#m_id').val();
 		var policy_value = $('#inputPolicy').val();
 		policy_value = policy_value.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 		$.ajax({
@@ -306,9 +304,9 @@ $(function(){
 				console.log(data);
 				if(data == 'success'){
 					policy_value = policy_value.split('<br/>').join("\r\n");
-					document.find('#inputPolicy').val(policy_value);
+					$('#inputPolicy').val(policy_value);
 					alert("정책확인 정보가 저장되었습니다.");
-					document.find('#item03tab').trigger('click');
+					$('#item03').attr('checked', true);
 				}
 				else{
 					console.log('저장 실패!');
@@ -336,7 +334,7 @@ $(function(){
 			success : function(data){
 				if(data != "null" && data != "exist"){
 					alert("검색 결과 : " + data);
-					document.find('#storyMemberList').append("<button class='storyMember' value='" + searchStoryMember + "'>" + data + "</button>");
+					$('#storyMemberList').append("<button class='storyMember' value='" + searchStoryMember + "'>" + data + "</button>");
 					$('#searchStoryMember').val("");
 				}
 				else if(data == "exist"){
@@ -377,17 +375,11 @@ $(function(){
 		});
 	});
 	
-	// 임시 저장 버튼 클릭 시
-	$(document).find('#saveBtn3').on('click', function(){
-		alert("스토리가 저장되었습니다.");
-		document.find('#item04tab').trigger('click');
-	});
-	
 	/* 스토리 탭 관련 끝 */
 	
 	/* 승인요청 */
 	
-	document.find('#submitProject').on('click', function(){
+	$('#submitProject').on('click', function(){
 		/* 기본정보 */
 		var p_index = $('#p_index').val();
 		var m_id = $('#m_id').val();

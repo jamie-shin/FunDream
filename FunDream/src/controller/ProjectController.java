@@ -347,12 +347,6 @@ public class ProjectController {
 			return "fail";
 		}
 	}
-	
-	// 신규 프로젝트 생성 후 해당 프로젝트 정보 수정(스토리)
-	@RequestMapping("")
-	public void saveStory() {
-		
-	}
 
 	// 신규 프로젝트 생성 후 해당 프로젝트 정보 수정(정책확인)
 	@RequestMapping("JPU_UPDATE.do")
@@ -1067,6 +1061,20 @@ public class ProjectController {
 		//커스텀 뷰인 DownloadView를 이용해서 전달
 		View view = new DownloadView(attachFile);
 		return view;
+	}
+
+	// 해당 프로젝트의 스토리 수정
+	@RequestMapping("JSU_MODIFY.do")
+	public @ResponseBody String JSU_MODIFY(int p_index, String p_contents, String type) {
+		System.out.println("프로젝트 인덱스 : " + p_index);
+		System.out.println("프로젝트 스토리 : " + p_contents);
+		Project project = new Project();
+		project.setP_index(p_index);
+		project.setP_contents(p_contents);
+		
+		int result = projectService.updateStory(project);
+		if(result == 1) return "success";
+		return "fail";
 	}
 
 }

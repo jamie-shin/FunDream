@@ -123,4 +123,8 @@
 		update Project set p_calculate=#{p_calculate} where p_index=#{p_index}
 	</update>
 	
+	<update id="updateStory" parameterType="project">
+		update Project set p_contents=#{p_contents} where p_index=#{p_index}
+	</update>
+	
 </mapper>
