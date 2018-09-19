@@ -1,0 +1,29 @@
+@charset "UTF-8";
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-moz-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -moz-transform;
+  	-o-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -o-transform;
+ 	 -webkit-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -webkit-transform;
+ 	 transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, transform;
+ 	 -moz-transition-duration: 0.2s;
+ 	 -o-transition-duration: 0.2s;
+ 	 -webkit-transition-duration: 0.2s;
+ 	 transition-duration: 0.2s;
+ 	 -moz-transition-timing-function: linear;
+ 	 -o-transition-timing-function: linear;
+ 	 -webkit-transition-timing-function: linear;
+ 	 transition-timing-function: linear;
+}
+
+.JCE-container { max-width: 600px; height:auto; padding:30px; margin:0; border:1px solid black; }
+.JCE-textarea { border:1px solid black; margin-top:10px; padding:15px; width:100%; height:200px; resize: none; font-size:12pt; }
+.JCE-textlocation { font-size:10pt; text-align:right; margin:0; padding:0; }
+.JCE-centerbox { margin:0; text-align: center; padding:10px; outline:none; }
+.JCE-reportbtn { margin:0; padding:5px; border:1px solid black; color:black; background:white; border-radius: 5px; }
+.JCE-reportbtn:hover { cursor:pointer; color:#388E3C; border-color: #388E3C; }
+.JCE-cancelbtn { margin:0; padding:5px; border:1px solid black; color:black; background:white; border-radius: 5px; }
+.JCE-cancelbtn:hover { cursor:pointer; color:#b71c1c; border-color: #b71c1c; }
