@@ -1,4 +1,6 @@
 $(function(){
+	
+	var document = $(document);
 	 
     /* 기본정보 탭 관련 */
     
@@ -204,7 +206,7 @@ $(function(){
 			success : function(data){
 				if(data == 'success'){
 					alert("기본정보가 저장되었습니다.");
-					$(document).find('#item02').attr('checked', true);
+					document.find('#item02').attr('checked', true);
 				}
 				if(data == 'fail'){
 					alert("기본정보가 저장되지 않았습니다.");
@@ -304,9 +306,9 @@ $(function(){
 				console.log(data);
 				if(data == 'success'){
 					policy_value = policy_value.split('<br/>').join("\r\n");
-					$(document).find('#inputPolicy').val(policy_value);
+					document.find('#inputPolicy').val(policy_value);
 					alert("정책확인 정보가 저장되었습니다.");
-					$('#item03tab').trigger('click');
+					document.find('#item03tab').trigger('click');
 				}
 				else{
 					console.log('저장 실패!');
@@ -334,7 +336,7 @@ $(function(){
 			success : function(data){
 				if(data != "null" && data != "exist"){
 					alert("검색 결과 : " + data);
-					$(document).find('#storyMemberList').append("<button class='storyMember' value='" + searchStoryMember + "'>" + data + "</button>");
+					document.find('#storyMemberList').append("<button class='storyMember' value='" + searchStoryMember + "'>" + data + "</button>");
 					$('#searchStoryMember').val("");
 				}
 				else if(data == "exist"){
@@ -378,14 +380,14 @@ $(function(){
 	// 임시 저장 버튼 클릭 시
 	$(document).find('#saveBtn3').on('click', function(){
 		alert("스토리가 저장되었습니다.");
-		$('#item04tab').trigger('click');
+		document.find('#item04tab').trigger('click');
 	});
 	
 	/* 스토리 탭 관련 끝 */
 	
 	/* 승인요청 */
 	
-	$(document).find('#submitProject').on('click', function(){
+	document.find('#submitProject').on('click', function(){
 		/* 기본정보 */
 		var p_index = $('#p_index').val();
 		var m_id = $('#m_id').val();
