@@ -76,7 +76,7 @@
     	update Member set m_pwd=sha(#{m_pwd}) where m_id=#{m_id}
     </update>
     
-    <update id="updateByManager" parameterMap="member">
+    <update id="updateByManager" parameterType="member">
     	update Member set <include refid="managerUpdate"/> where m_id=#{m_id}
     </update>
     
