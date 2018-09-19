@@ -264,7 +264,7 @@ public class ProjectController {
 	
 	// 신규 프로젝트 생성 후 해당 프로젝트 정보 수정(기본정보)
 	@RequestMapping(value="JBU_UPDATE.do", method=RequestMethod.POST)
-	public @ResponseBody String JBU_UPDATE(HttpServletRequest request) throws UnsupportedEncodingException {
+	public @ResponseBody String JBU_UPDATE(HttpServletRequest request) throws IOException {
 		
 		// 파일 업로드 부분
 		request.setCharacterEncoding("UTF-8");
@@ -275,7 +275,7 @@ public class ProjectController {
 		ServletContext scontext = request.getServletContext();
 		realFolder = scontext.getRealPath(savefile);
 		
-		try {
+		
 			MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, "UTF-8",
 					new DefaultFileRenamePolicy());
 			String p_index_str = multi.getParameter("p_index");
@@ -361,9 +361,7 @@ public class ProjectController {
 				return "success";
 			}
 			return "fail";
-		} catch (Exception e) {
-			return "fail";
-		}
+
 	}
 	
 	// 스토리 멤버 검색 및 삽입
@@ -1042,6 +1040,38 @@ public class ProjectController {
         }
         return "redirect:" + callback + "?callback_func="+callback_func+file_result;
     }
+	/*@RequestMapping("photoUpload.do")
+	public String photoUpload(HttpServletRequest request,PhotoVo vo) throws IOException {
+		System.out.println("tqtqtqtqtqtqtqtq");
+		request.setCharacterEncoding("UTF-8");
+		String realFolder = "";
+		String filename1 = "";
+		int maxSize = 1024 * 1024 * 5;
+		String savefile = "img";
+		ServletContext scontext = request.getServletContext();
+		realFolder = scontext.getRealPath(savefile);
+		String file_result = "";
+		String callback = vo.getCallback();
+	    String callback_func = vo.getCallback_func();
+		
+		
+	    MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, "UTF-8",
+				new DefaultFileRenamePolicy());
+			Enumeration<?> files = multi.getFileNames();
+			String file1 = (String) files.nextElement();
+			filename1 = multi.getFilesystemName(file1);
+			String ext = filename1.substring(filename1.lastIndexOf(".")+1);
+			String fullpath = realFolder + "\\" + filename1;
+			String applicationPath = request.getServletContext().getRealPath("img");
+			String path = "img/" + filename1;
+			String realname = UUID.randomUUID().toString() + "." + ext;
+            ///////////////// 서버에 파일쓰기 /////////////////
+                vo.getFiledata().transferTo(new File(path+realname));
+                file_result += "&bNewLine=true&sFileName="+filename1+"&sFileURL=../img/"+realname;
+                return "redirect:" + callback + "?callback_func="+callback_func+file_result;
+	}*/
+	
+	
     //공지사항 삭제
 	@RequestMapping("JND_NOTICE.do")
 	public @ResponseBody void JND_NOTICE(String n_index_str) {
