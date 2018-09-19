@@ -814,11 +814,6 @@ public class ProjectController {
 	@RequestMapping("JNE_NOTICEFORM2.do")
 	public void JNE_NOTICEFORM2() {}
 	
-	@RequestMapping(value="JNE_NOTICE2.do", method=RequestMethod.POST)
-	public @ResponseBody void JNE_NOTICE2(HttpServletRequest req, String n_title, String n_contents, String p_index) {
-		int p_int = Integer.parseInt(p_index);
-		noticeService.insertNotice(p_int, n_title, n_contents);
-	}
     
     @RequestMapping("JNU_NOTICEFORM2.do")
 	public ModelAndView JNU_NOTICEFORM2(String n_index_str){
@@ -832,23 +827,6 @@ public class ProjectController {
 		mav.setViewName("JNE_NOTICEFORM2");
 		return mav;
 	}
-
-	//스마트에디터 시작
-	@RequestMapping("JNE_NOTICEFORM.do")
-	public void JNE_NOTICEFORM() {}
-	
-	@RequestMapping("JNU_NOTICEFORM.do")
-	public ModelAndView JNU_NOTICEFORM(String n_index_str){
-		System.out.println(n_index_str);
-		int n_index = Integer.parseInt(n_index_str);
-		Notice n = noticeService.selectOneNotice(n_index);
-		System.out.println(n);
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("notice", n);
-		mav.setViewName("JNE_NOTICEFORM");
-		return mav;
-	}
 	
 	//프로젝트 공지사항 등록
 	@RequestMapping(value="JNE_NOTICE.do",method=RequestMethod.POST)
@@ -859,8 +837,8 @@ public class ProjectController {
 		int p_index = Integer.parseInt(p_index_str);
 		String n_title = (String)map.get("n_title");
 		String n_contents = (String)map.get("n_contents");
-		String con = n_contents.replace("<img", "<img style=\"max-width: 100%\"");
-		noticeService.insertNotice(p_index, n_title, con);
+		/*String con = n_contents.replace("<img", "<img style=\"max-width: 100%\"");*/
+		noticeService.insertNotice(p_index, n_title, n_contents);
 		
 		Map<String, Object> re = new HashMap<String,Object>();
 		re.put("msg", "제발");
