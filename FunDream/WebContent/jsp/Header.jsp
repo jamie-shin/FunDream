@@ -85,8 +85,8 @@ $(function(){
 					<ul>
 						<li><a href="INS_NOTICELIST.do">공지사항</a></li>
 						<li><a href="#">문의사항</a></li>
-						<li><a href="#">이용가이드</a></li>
-						<li><a href="#">이벤트</a></li>
+						<!-- <li><a href="#">이용가이드</a></li>
+						<li><a href="#">이벤트</a></li> -->
 					</ul>
 				</li>
 				<c:if test="${(m_manager != 1 && m_email!=null)}"><li><a id="createNewProjBtn" onclick="checkProject()">신규프로젝트신청</a></li></c:if> <!-- 0829(주리) - 클릭 경로 / 조건(|| m_email==null 삭제) 수정 및 아이디 추가(0830) -->
