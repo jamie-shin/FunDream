@@ -33,5 +33,10 @@ public class CategoryService {
 	public int insertCategory(Category category) {
 		return categoryDao.insertCategory(category);
 	}
+
+	public Category getOneCategoryByIndex(int ct_index) {
+		// TODO Auto-generated method stub
+		return categoryDao.selectOneCategoryByIndex(ct_index);
+	}
 	
 }

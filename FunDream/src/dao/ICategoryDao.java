@@ -11,5 +11,6 @@ public interface ICategoryDao {
 	public int deleteOneCategory(int ct_index);
 	public int updateOneCategory(Category category);
 	public int insertCategory(Category category);
+	public Category selectOneCategoryByIndex(int ct_index);
 	
 }

@@ -24,5 +24,9 @@
  	<insert id="insertCategory" parameterType="category" useGeneratedKeys="true" keyProperty="ct_index">
  		insert into Category (ct_index, ct_name, ct_type) values(default, #{ct_name}, #{ct_type})
  	</insert>
+ 	
+ 	<select id="selectOneCategoryByIndex" parameterType="int" resultType="category">
+ 		select * from Category where ct_index=#{ct_index}
+ 	</select>
  
  </mapper>

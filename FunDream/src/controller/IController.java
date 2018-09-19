@@ -27,6 +27,7 @@ import model.Category;
 import model.Comment;
 import model.Member;
 import model.Project;
+import model.Reward;
 import service.Admin_NoticeService;
 import service.Bank_InfoService;
 import service.CategoryService;
@@ -104,21 +105,45 @@ public class IController {
 	@RequestMapping("ICD.do")
 	public @ResponseBody String ICD(int ct_index) {
 		System.out.println("삭제할 카테고리 인덱스 : " + ct_index);
-		List<Project> projectList = projectService.getProjectsByCategory(ct_index);
-		System.out.println(projectList);
-		if(projectList.size() == 0 || projectList == null || projectList.isEmpty()) {  // 해당 카테고리 인덱스로 조회한 프로젝트가 있을 때
-			int result = categoryService.deleteOneCategory(ct_index);
-			System.out.println("수정 결과 : " + result);
-			if(result == 1) return "true";
-			return "false";
-		}
-		else {
-			System.out.println("프로젝트가 있다고??");
-			for(Project p : projectList) {
-				System.out.println(p);
+		Category category = categoryService.getOneCategoryByIndex(ct_index);
+		int ct_type = category.getCt_type();
+		
+		switch(ct_type) {
+		
+		case 1:
+			List<Project> projectList = projectService.getProjectsByCategory(ct_index);
+			System.out.println(projectList);
+			if(projectList.size() == 0 || projectList == null || projectList.isEmpty()) {  // 해당 카테고리 인덱스로 조회한 프로젝트가 있을 때
+				int result = categoryService.deleteOneCategory(ct_index);
+				System.out.println("수정 결과 : " + result);
+				if(result == 1) return "true";
+				return "false";
 			}
-			return "disabled";
+			else {
+				System.out.println("프로젝트가 있다고??");
+				for(Project p : projectList) {
+					System.out.println(p);
+				}
+				return "disabled";
+			}
+		case 2:
+			List<Reward> rewardList = rewardService.getRewardsByCategory(ct_index);
+			System.out.println(rewardList);
+			if(rewardList.size() == 0 || rewardList == null || rewardList.isEmpty()) {  // 해당 카테고리 인덱스로 조회한 프로젝트가 있을 때
+				int result = categoryService.deleteOneCategory(ct_index);
+				System.out.println("수정 결과 : " + result);
+				if(result == 1) return "true";
+				return "false";
+			}
+			else {
+				System.out.println("리워드가 있다고??");
+				for(Reward r : rewardList) {
+					System.out.println(r);
+				}
+				return "disabled";
+			}
 		}
+		return "fail";
 	}
 	
 	// 관리자 - 카테고리명 수정

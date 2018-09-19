@@ -94,5 +94,10 @@ public class RewardService {
 		String path = "C:/Temp/FunDream/reward/";
 		return new File(path+fileName);
 	}
+
+	public List<Reward> getRewardsByCategory(int ct_index) {
+		// TODO Auto-generated method stub
+		return rewardDao.selectRewardsByCategory(ct_index);
+	}
 	
 }
