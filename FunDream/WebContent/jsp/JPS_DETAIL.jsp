@@ -280,10 +280,7 @@ $(function() {
     	}
     });
     
-    $(document).find('#insert_notice').on('click',function(){
-    	newWin = window.open('JNE_NOTICEFORM.do?p_index=<%=request.getParameter("p_index")%>', 
-				'공지사항 작성하기', 'width=600, height=500');
-    });
+
     $(document).on('click', '[id^=notice_delete]', function(){
 		var index = $(this).parent().parent().parent().parent().siblings('#index').val();
 		//alert(index);
@@ -305,14 +302,10 @@ $(function() {
 		}
     });
 
-    $(document).on('click', '#notice_modify', function(){
-    	var index = $(this).siblings('#n_index').val();
-    	//alert(index);
-		window.open('JNU_NOTICEFORM.do?n_index_str='+index,'공지사항 작성하기', 'width=600, height=500');
-     });
+    
     $(document).find('#insert_notice2').on('click',function(){
     	newWin = window.open('JNE_NOTICEFORM2.do?p_index=<%=request.getParameter("p_index")%>', 
-			'공지사항 작성하기', 'width=600, height=500');
+			'공지사항 작성하기', 'width=600, height=600');
 
 });
     
@@ -320,7 +313,7 @@ $(function() {
     	var index = $(this).siblings('#n_index').val();
     	//alert(index);
 
-		window.open('JNU_NOTICEFORM2.do?n_index_str='+index,'공지사항 작성하기', 'width=600, height=500');
+		window.open('JNU_NOTICEFORM2.do?n_index_str='+index,'공지사항 수정하기', 'width=600, height=600');
 
      });
 });
@@ -391,8 +384,7 @@ $(function() {
 						<div class="pv-notice-right">
 						
 							<c:if test="${type eq 'producer'}">
-								<input type="button" value="새 공지사항 등록" class="pv-new-noticebtn" id="insert_notice">
-								<input type="button" value="새 공지사항 등록2" class="pv-new-noticebtn" id="insert_notice2">
+								<input type="button" value="새 공지사항 등록" class="pv-new-noticebtn" id="insert_notice2">
 							</c:if>
 						</div>
 						<!--  공지사항이 있을때만 보이기 -->
@@ -409,7 +401,6 @@ $(function() {
 										<div class="pv-notice-topright">${notice.n_writedate }</div>
 										<div class="pv-notice-btnbox">
 											<input type="hidden" id="n_index" value="${notice.n_index }">
-											<a class="pv-notice-modbtn" id="notice_modify">수정</a>
 											<a class="pv-notice-modbtn" id="notice_modify2">수정2</a>
 											<a class="pv-notice-delbtn" id="notice_delete">삭제</a>
 										</div>
