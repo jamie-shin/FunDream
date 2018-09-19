@@ -1,0 +1,27 @@
+@charset "UTF-8";
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-moz-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -moz-transform;
+  	-o-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -o-transform;
+ 	 -webkit-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -webkit-transform;
+ 	 transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, transform;
+ 	 -moz-transition-duration: 0.2s;
+ 	 -o-transition-duration: 0.2s;
+ 	 -webkit-transition-duration: 0.2s;
+ 	 transition-duration: 0.2s;
+ 	 -moz-transition-timing-function: linear;
+ 	 -o-transition-timing-function: linear;
+ 	 -webkit-transition-timing-function: linear;
+ 	 transition-timing-function: linear;
+}
+.JNE_BODY { margin:0; padding:0; background: url(../img/lgf1.png); background-repeat: no-repeat; background-position: bottom; background-attachment: fixed; }
+#n_title { padding:5px; margin:0; margin-bottom: 10px; border:1px solid darkgray; width:100%; font-size:14pt; outline:none; text-align: center; }
+.JNE_CENTER { text-align: center; }
+#saveButton { padding: 5px; margin:5px; border:1px solid darkgray; color:gray; background:white; box-shadow: rgba(0,0,0,0.23) 0 0 2px 3px; border-radius: 10px; outline:none; }
+#saveButton:hover { border-color: #004e66; color:#004e66; cursor:pointer; }
+#modifyButton { padding: 5px; margin:5px; border:1px solid darkgray; color:gray; background:white; box-shadow: rgba(0,0,0,0.23) 0 0 2px 3px; border-radius: 10px; outline:none; }
+#modifyButton:hover { border-color: #fb2525; color:#fb2525; cursor:pointer; }

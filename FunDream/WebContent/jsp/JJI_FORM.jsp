@@ -386,12 +386,12 @@ function readURL(input) {
 				<input type="hidden" id="m_id" name="m_id" value="${m_id}">
 				<h2>대표 이미지</h2>
 				<p class="ap-p">메이커와 리워드가 함께 있거나, 프로젝트의 성격이 한 눈에 드러나는 사진이 좋습니다.</p>
-				<div class="ap-contents-box">
+				<div class="ap-contents-boximg">
 					<span>
 						<h4 class="ap-image-h4">대표이미지</h4>
 						<c:if test="${project.p_mainimg != null}">
 							<a>기존 이미지 </a><input type="file" id="imgInp" name="p_mainImg" style="align-self: center;"><br>
-							<img src="downloadP.do?p_index_str=${project.p_index}&type=project" class="ap-preimg" width="300px" height="300px">
+							<img src="downloadP.do?p_index_str=${project.p_index}&type=project" class="ap-preimg">
 							<img id="blah" src="#" alt="이미지를 선택하세요" width="300px" height="300px"/>
 						</c:if>
 						<c:if test="${project.p_mainimg == null}">

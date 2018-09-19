@@ -21,7 +21,7 @@
 .INE-WRITE-body { margin-top: 100px; margin-bottom:20px;}
 .INE-WRITE-container { max-width: 600px; height:auto; margin: 0 auto; }
 .INE-WRITE-title { text-align: center; margin-bottom: 30px; }
-.INE-WRITE-noticetitle { margin-bottom:10px; border:1px solid darkgray; width:100%; height:auto; font-size:13pt; padding:10px; }
+.INE-WRITE-noticetitle { margin-bottom:10px; border:1px solid darkgray; width:100%; height:auto; font-size:13pt; padding:10px; outline-color: #F17F42}
 .INE-WRITE-lrbox { display: inline-flex; flex-wrap: wrap; margin:0 auto; padding:5px; width:100%; height:auto;}
 .INE-WRITE-left { flex:50%; text-align: left; margin:0 auto; }
 .INE-WRITE-right { flex:50%; text-align: right; margin:0 auto; }

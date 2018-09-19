@@ -95,8 +95,8 @@
 			<input type="checkbox" name="" id="c1"><label for="c1">상기내용에 동의합니다.</label>
 			<br>
 			<br>
-			<input type="button" id="signupSubmit" name="" value="회원가입"> 
-			<input type="button" id="cancelBtn" name="" value="취소" onclick="location.href='MIE_LOGINFORM.do'">
+			<input type="button" class="MSE_JOIN" id="signupSubmit" name="" value="회원가입"> 
+			<input type="button" class="MSE_CANCEL" id="cancelBtn" name="" value="취소" onclick="location.href='MIE_LOGINFORM.do'">
 		</div>
 	</form>
 	<jsp:include page="Header.jsp"/>

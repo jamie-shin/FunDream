@@ -40,8 +40,10 @@ label { display: block; }
 .ap-container { max-width:700px; margin:0 auto; margin-top:100px; margin-bottom:100px; }
 .ap-p { font-size: 14px; }
 .ap-contents-box { margin: 0; width: auto; border: 1px solid; border-color: darkgray; padding: 15px; }
+.ap-contents-boximg { margin: 0; width: auto; border: 1px solid; border-color: darkgray; padding: 15px; text-align: center; }
 .ap-image-h4 { padding: 0; margin: 0; text-align: center; }
-.ap-title-img { position: relative; height: 150px; display: block; margin-left: auto; margin-right: auto; border-radius: 10px; }
+.ap-title-img { position: relative; width: 300px; display: block; margin-left: auto; margin-right: auto; border-radius: 10px; }
+.ap-preimg { position: relative; width: 300px; display: block; margin-left: auto; margin-right: auto; border-radius: 10px; }
 .ap-ta { width: 100%; height: 80px; padding:10px; resize: none; outline: none; font-size: 12pt; overflow:hidden; }
 .ap-txtbox { margin:0; padding:3px; font-size:12pt; text-align:center; width:90%; }
 .ap-select-category { width:100%; height:40px; padding-left:10px; font-size:12pt; outline:none; border:hidden; }
@@ -83,11 +85,11 @@ label { display: block; }
 /* */
 
 /* BTN */
-.ap-main-btn { border:none; outline: none; height:40px; background:tomato; color:#fff; font-size:16pt; border-radius:15px; }
-.ap-prev-btn { border:none; outline: none; height:40px; background:#008cba; color:#fff; font-size:16pt; border-radius:15px; }
-.ap-SMadd-btn { border:none; outline:none; height:30px; background:orange; color:#fff; font-size:12pt; border-radius:15px; }
-.ap-reward-addbtn {border:none; outline:none; height:30px; background: #D28484; color:#fff; font-size:13pt; border-radius: 14px; }
-.ap-reward-savebtn { border:none; outline: none; height:40px; background:tomato; color:#fff; font-size:12pt; border-radius:30%; }
+.ap-main-btn { border:none; outline: none; height:40px; background:tomato; color:#fff; font-size:16pt; border-radius:10px; }
+.ap-prev-btn { border:none; outline: none; height:40px; background:#008cba; color:#fff; font-size:16pt; border-radius:10px; }
+.ap-SMadd-btn { border:none; outline:none; height:30px; background:orange; color:#fff; font-size:12pt; border-radius:10px; }
+.ap-reward-addbtn {border:none; outline:none; height:30px; background: #D28484; color:#fff; font-size:13pt; border-radius: 10px; }
+.ap-reward-savebtn { border:none; outline: none; height:40px; background:tomato; color:#fff; font-size:12pt; border-radius:10px;; }
 .ap-reward-deletebtn { border:none; outline:none; height:auto; width:40px; font-size:15pt; background-color:transparent; }
 .ap-main-btn:hover { cursor: pointer; background: darkblue; color: #fff; }
 .ap-prev-btn:hover { cursor: pointer; background: darkblue; color: #fff; }
@@ -126,3 +128,5 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 /* */
 
+.storyMember { background:transparent; margin:3px auto; padding:5px; width:auto; height:auto; border:1px solid orange; border-radius: 50px; }
+.storyMember:hover { cursor:pointer; background:orange; color:white; font-weight: 600; }

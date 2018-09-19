@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/JNE_NOTICEFORM.css">
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -97,7 +98,7 @@ $(function(){
 
 </script>
 </head>
-<body>
+<body class="JNE_BODY">
 <div class=""><h1>공지사항 등록</h1></div><br>
 		<form action="" method="post">
 		<input type="hidden" id="n_index" name="n_index" value="${notice.n_index }">
