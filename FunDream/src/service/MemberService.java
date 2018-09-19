@@ -1,10 +1,13 @@
 package service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import dao.IMemberDao;
 import model.Member;
@@ -25,13 +28,27 @@ public class MemberService {
 		}
 	}
 
-	public int insertMember(Member member) {
+	public int insertMember(Member member, String type, MultipartFile file) {
 		// TODO Auto-generated method stub
-		if(member!=null) {
-			memberDao.insertMember(member);
-			return 1;
+		String path = "C:/Temp/FunDream/"+type+"/";
+		File dir = new File(path);
+		if(!dir.exists()) dir.mkdirs(); //해당경로에 디렉토리가 없으면 생성
+		String fileName = file.getOriginalFilename();
+		File attachFile = new File(path + fileName);
+		
+		try {
+			file.transferTo(attachFile);  //파일 복사
+			member.setM_img(fileName);
+			System.out.println(path+fileName);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return 2;
+		
+		return memberDao.insertMember(member);
 	}
 	
 	public Member selectOneMemberByEmail2(String inputEmail,String name) {
@@ -112,6 +129,14 @@ public class MemberService {
 
 	public int updatePassword(Member member) {
 		return memberDao.updatePassword(member);
+	}
+	
+	public File getAttachFile(int m_id, String type) {
+		// TODO Auto-generated method stub
+		Member member = memberDao.selectOneMemberById(m_id); //번호에 해당하는 게시물 정보 가져오기
+		String fileName = member.getM_img();  //DB안에 있는 파일 정보
+		String path = "C:/Temp/FunDream/member/";
+		return new File(path+fileName);
 	}
 	
 }

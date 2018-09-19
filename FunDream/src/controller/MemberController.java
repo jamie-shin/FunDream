@@ -30,8 +30,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.oreilly.servlet.MultipartRequest;
@@ -154,9 +156,9 @@ public class MemberController {
 		return checkEmail;
 	}
 
-	@RequestMapping("MSI_JOIN.do") // 회원가입완료 버튼
-	public String MSI_JOIN(HttpServletRequest request) throws Exception {
-		String url = null;
+	@RequestMapping(value="MSI_JOIN.do", method=RequestMethod.POST) // 회원가입완료 버튼
+	public @ResponseBody String MSI_JOIN(HttpServletRequest request, @RequestParam("m_img") MultipartFile file) throws Exception {
+/*		String url = null;
 		// 파일 업로드 부분
 		request.setCharacterEncoding("UTF-8");
 		String realFolder = "";
@@ -211,8 +213,41 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return url;
-
+		return url;*/
+		
+		String type = request.getParameter("type");
+		String m_email = request.getParameter("m_email");
+		String m_pwd = request.getParameter("m_pwd");
+		String m_name = request.getParameter("m_name");
+		String m_phone = request.getParameter("m_phone");
+		String m_birth = request.getParameter("m_birth");
+		String m_gender_str = request.getParameter("m_gender");
+		String m_nick = request.getParameter("m_nick");
+		
+		System.out.println("========== 회원가입정보 =========");
+		System.out.println("type : " + type);
+		System.out.println("m_email : " + m_email);
+		System.out.println("m_pwd : " + m_pwd);
+		System.out.println("m_name : " + m_name);
+		System.out.println("m_phone : " + m_phone);
+		System.out.println("m_gender : " + m_gender_str);
+		System.out.println("m_nick : " + m_nick);
+		System.out.println("========== 회원가입정보 끝 =========");
+		
+		Member member = new Member();
+		member.setM_email(m_email);
+		member.setM_pwd(m_pwd);
+		member.setM_name(m_name);
+		member.setM_phone(m_phone);
+		member.setM_birth(new SimpleDateFormat("yyyy-MM-dd").parse(m_birth));
+		member.setM_gender(Integer.parseInt(m_gender_str));
+		if(m_nick.equals("null")) member.setM_nick(m_nick);
+		else member.setM_nick(m_name);
+		
+		int result = memberService.insertMember(member, type, file);
+		
+		if(result == 1) return "success";
+		return "fail";
 	}
 
 	@RequestMapping("MSE_SETPWFORM.do") // 비밀번호 찾기화면 요청

@@ -9,8 +9,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			$('#checkBtn').on('click', function(){			
-				if($('#inputCode').val()==$('#sendCode').val()){
+			$('#checkBtn').on('click', function(){	
+				var sc = $('#sendCode').val();
+				var ic = $('#inputCode').val();
+				console.log("sc : " + sc);
+				console.log("ic : " + ic);
+				if(ic==sc){
 					$(opener.document).find('#inputEmail').attr({'readonly':'readonly'});
 					$(opener.document).find('#sendCodeBtn').val("이메일 인증 완료").attr({'disabled':'disabled'});
 					alert('인증이 완료되었습니다.');
@@ -29,7 +33,7 @@
 </head>
 <body class="c_body">
 	<form action="">
-	<input type="hidden" id="sendCode" value="${param.sendCode}">
+	<input type="hidden" id="sendCode" value="${sendCode}">
 		<div class="certifiedbox">
 			<p><Strong>${param.inputEmail}</Strong>에 인증코드를 발송하였습니다.<br>3분 이내에 인증코드를 입력하세요</p><br>
 		<div class="c_timer" id="ViewTimer"></div><br>

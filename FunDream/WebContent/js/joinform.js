@@ -27,7 +27,7 @@ $(function() {
 											inputEmail : $('#inputEmail').val()
 										},
 										success : function(data) {
-											alert(data);
+											console.log(data);
 											if (data == "1") {
 												$("#sendCodeBtn").removeAttr(
 														"disabled");
@@ -203,6 +203,7 @@ $(function() {
 
 	// 회원가입 버튼 클릭 시
 	$(document).find('#signupSubmit').on('click', function() {
+		var m_id = $('#m_id').val();
 		var m_email = $('#inputEmail').val();
 		var email_auth = $('#sendCodeBtn').val();
 		var m_pwd = $('#inputPwd').val();
@@ -256,7 +257,7 @@ $(function() {
 			return false;
 		}
 		if (m_nick == "") {
-			alert('닉네임을 입력하세요.');
+			m_nick = null;
 			return false;
 		}
 		// 체크안하고 회원가입 버튼 누를시
@@ -272,9 +273,34 @@ $(function() {
 		$('#m_birth').val(m_birth);
 		$('#m_gender').val(m_gender);
 		$('#m_nick').val(m_nick);
-		$('#m_img').val(m_img);
-		alert('이미지링크 : ' + $('#m_img').val());
-		return true;
+		
+		var joinform = $('#joinform')[0];
+		var joinFormData = new FormData(joinform);
+
+		$.ajax({
+			url : "MSI_JOIN.do",
+			type : "POST",
+			data : joinFormData,
+			enctype : "multipart/form-data",
+			cache : false,
+			processData: false,
+			contentType: false,
+			success : function(data){
+				switch(data){
+				case "success" :
+					alert("회원가입이 완료되었습니다.");
+					location.href = "MIE_LOGINFORM.do";
+					break;
+				default : 
+					alert("이미지 형식이 올바르지 않습니다.");
+					break;
+				}
+			},
+			error : function(){
+				console.log("회원가입 오류 발생");ㅣ
+			}
+		});
+		
 	});
 	   //이미지 미리보기
     $(function() {

@@ -10,7 +10,8 @@
 <script src="js/joinform.js"></script>
 </head>
 <body class="joinbody">
-	<form action="MSI_JOIN.do" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+	<form action="#" id="joinform" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+		<input type="hidden" name="type" id="type" value="member">
 		<input type="hidden" name="m_email" id="m_email" value="">
 		<input type="hidden" name="m_pwd" id="m_pwd" value="">
 		<input type="hidden" name="m_name" id="m_name" value="">
@@ -18,7 +19,6 @@
 		<input type="hidden" name="m_birth" id="m_birth" value="">
 		<input type="hidden" name="m_gender" id="m_gender" value="">
 		<input type="hidden" name="m_nick" id="m_nick" value="">
-		<input type="hidden" name="m_img" id="m_img" value="">
 		<div class="joinbox">
 			<p>이메일</p>
 			<input type="email" id="inputEmail" name="" placeholder="E-mail">
@@ -72,7 +72,7 @@
 			<input type="checkbox" name="" id="c1"><label for="c1">상기내용에 동의합니다.</label>
 			<br>
 			<br>
-			<input type="submit" id="signupSubmit" name="" value="회원가입"> 
+			<input type="button" id="signupSubmit" name="" value="회원가입"> 
 			<input type="button" id="cancelBtn" name="" value="취소" onclick="location.href='MIE_LOGINFORM.do'">
 		</div>
 	</form>
