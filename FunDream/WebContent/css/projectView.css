@@ -38,7 +38,7 @@ label { display: block; }
 
 /* START */
 .pv-container { max-width:900px; margin:0 auto; margin-top:50px; margin-bottom:100px; display:flex; flex-wrap:wrap; }
-.pv-main { flex:70%; background-color:#fff; padding:20px; }
+.pv-main { flex:70%; background-color:#fff; padding:20px; max-width:630px;}
 .pv-side { flex:20%; background-color:#fff; padding:0; margin-left:5px; margin-top:14px; height:100%;}
 .pv-txtbox { margin:0; padding:3px; font-size:12pt; text-align:center; width:90%; }
 .pv-btn-center { margin-top:30px; text-align: center; }
@@ -294,6 +294,8 @@ progress, progress[role] {
 .pv-delspon-tab input[type=radio] + label::after { content: "\25BC"; }
 .pv-delspon-tab input[type=radio]:checked + label::after { transform: rotateX(180deg); }
 /*  */
+
+.JPS_DETAIL_CONTENTS { width:100%; height:auto; }
 
 @media (max-width: 800px) {
 	.pv-side {

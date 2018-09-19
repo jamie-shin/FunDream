@@ -350,8 +350,7 @@ $(function() {
 				
 				
 				<div>프로젝트 진행기간: <fmt:formatDate value="${project.p_startdate }" pattern="yyyy.MM.dd"/> ~ <fmt:formatDate value="${project.p_enddate }" pattern="yyyy.MM.dd"/></div>
-				<div>${project.p_contents}</div>
-
+				<div class="JPS_DETAIL_CONTENTS">${project.p_contents}</div>
 					<div class="pv-creator-box">
 						<div class="pv-creator-box-left">
 							<img src="downloadM.do?m_id_str=${m.m_id}" class="pv-creator-img">
