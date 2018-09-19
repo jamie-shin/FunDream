@@ -74,8 +74,8 @@
 					<!-- 무산과 성공 백그라운드 컬러와 글씨 색상 지정은 여기서  -->
 					<c:if test="${(end > today) && (project.p_target <= project.p_status) && (project.p_approval == 2)}">
 						<h3 class="card-toggle" style="background:navy; color:white;">성공</h3>
+						<input type="button" value="정산요청" class="card-calcul">
 					</c:if>
-					<!-- <input type="button" value="정산" class="card-calcul"> -->
 					<!-- 프로그레스 바 -->
 					<div class="candidatos color">
 		    			<div class="parcial">
