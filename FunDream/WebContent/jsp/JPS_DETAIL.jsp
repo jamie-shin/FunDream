@@ -328,7 +328,7 @@ $(function() {
 </head>
 <body>
 	<div class="pv-banner-image"
-		style="background-image: url(${project.p_mainimg})">
+		style="background-image: url('downloadP.do?p_index_str'${project.p_index})">
 		<h1 class="pv-banner-text">${project.p_name}${type}</h1>
 	</div>
 
@@ -361,7 +361,7 @@ $(function() {
 
 					<div class="pv-creator-box">
 						<div class="pv-creator-box-left">
-							<img src="${m.m_img}" class="pv-creator-img">
+							<img src="downloadM.do?m_id_str=${m.m_id}" class="pv-creator-img">
 						</div>
 						<div class="pv-creator-box-right">
 							<p class="pv-p">
@@ -726,7 +726,7 @@ $(function() {
 							for="reward${rew.r_index}">${rew.r_name }</label>
 						<div class="reward-tab-content">
 							<div class="reward-tab-imagebox">
-								<img src="${rew.r_img }" id="" class="reward-tab-img">
+								<img src="downloadR.do?r_index_str=${rew.r_index}" id="" class="reward-tab-img">
 							</div>
 							<div class="reward-tab-contentsbox">
 								<div>
