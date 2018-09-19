@@ -69,10 +69,10 @@
 						<c:if test="${project.p_approval == 2 && end >= today}">마감</c:if>
 						<c:if test="${project.p_approval == 3}">반려</c:if>
 						<br><br>
-						<fmt:formatDate pattern="yyyy-MM-dd" value="${project.p_startdate}"/> ~ <fmt:formatDate pattern="yyyy-MM-dd" value="${project.p_enddate}"/>
+						${start} ~ ${end}
 					</span>
 					<!-- 무산과 성공 백그라운드 컬러와 글씨 색상 지정은 여기서  -->
-					<c:if test="${(project.p_enddate > today) && (project.p_target <= project.p_status)}">
+					<c:if test="${(end > today) && (project.p_target <= project.p_status) && (project.p_approval == 2)}">
 						<h3 class="card-toggle" style="background:navy; color:white;">성공</h3>
 					</c:if>
 					<!-- <input type="button" value="정산" class="card-calcul"> -->
@@ -88,7 +88,9 @@
 		        			<div class="progressBar">
 		            			<div class="percentagem" style="width: 100%;"></div>
 		        			</div>
-		        			<div class="partidas">정산승인대기중</div>
+		        			<c:if test="${(end > today) && (project.p_target <= project.p_status) && (project.p_approval == 2)}">
+			        			<div class="partidas">정산승인대기중</div>
+		        			</c:if>
 		    			</div>
 					</div>
 					<!-- 프로그레스 바 -->
