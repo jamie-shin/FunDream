@@ -401,7 +401,7 @@ $(function() {
 										<div class="pv-notice-topright">${notice.n_writedate }</div>
 										<div class="pv-notice-btnbox">
 											<input type="hidden" id="n_index" value="${notice.n_index }">
-											<a class="pv-notice-modbtn" id="notice_modify2">수정2</a>
+											<a class="pv-notice-modbtn" id="notice_modify2">수정</a>
 											<a class="pv-notice-delbtn" id="notice_delete">삭제</a>
 										</div>
 										<div class="pv-notice-contents">
