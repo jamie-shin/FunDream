@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -411,73 +413,43 @@ public class MemberController {
 	}
 
 	@RequestMapping("MUU_MODIFY.do") // 정보수정 확인
-	public @ResponseBody String MUU_MODIFY(HttpServletRequest request, HttpSession session, Model model) throws UnsupportedEncodingException {
-		// 파일 업로드 부분
-		request.setCharacterEncoding("UTF-8");
-		String realFolder = "";
-		String filename1 = "";
-		int maxSize = 1024 * 1024 * 5;
-		String savefile = "img";
-		ServletContext scontext = request.getServletContext();
-		realFolder = scontext.getRealPath(savefile);
+	public @ResponseBody String MUU_MODIFY(HttpServletRequest request, @RequestParam("m_img") MultipartFile file) {
 
-		try {
-			MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, "UTF-8",
-					new DefaultFileRenamePolicy());
-			String m_email = multi.getParameter("m_email");
-			String m_pwd = multi.getParameter("m_pwd");
-			String m_phone = multi.getParameter("m_phone");
-			String m_nick = multi.getParameter("m_nick");
-			Enumeration<?> files = multi.getFileNames();
-			String file1 = (String) files.nextElement();
-			filename1 = multi.getFilesystemName(file1);
+		String type = "member";
+		String m_email = request.getParameter("m_email");
+		Member member = memberService.selectOneMemberByEmail(m_email);
 
-			String fullpath = realFolder + "\\" + filename1;
-			String applicationPath = request.getServletContext().getRealPath("img");
-			String path = "img/" + filename1;
-
-			Member member = memberService.selectOneMemberByEmail(m_email);
-			
-			// 사용자가 변경할 비밀번호를 입력했을 경우, 비밀번호만 변경하는 메소드 호출
-			int result_pwd = 0;
-			if(!m_pwd.equals("null")) {
-				System.out.println("비밀번호 변경 : " + m_pwd);
-				member.setM_pwd(m_pwd);
-				result_pwd = memberService.updatePassword(member);
-			}
-			
-			// 비밀번호 외 다른 정보 수정
-			member.setM_phone(m_phone);
-			member.setM_nick(m_nick);
-			if (filename1 != null) {
-				// 파일형식이 jpg 또느 png일 경우에만 DB저장
-				String s = filename1.replace(".", ",");
-				String[] f = s.split(",");
-				if (f[f.length - 1].equalsIgnoreCase("jpg") || f[f.length - 1].equalsIgnoreCase("png")) {
-					member.setM_img(path);
-				} else {// 형식이 올바르지 않을경우 경고창 이후 history.go(-1)
-					return "imgFile";
-				}
-			}
-			int result = memberService.updateMember(member);
-			
-			if(result == 1) {
-				// 입력한 비밀번호가 null이 아니고 일반 정보 수정 결과 값과 비밀번호 수정 결과 값이 모두 1인 경우
-				if(!m_pwd.equals("null") && result_pwd == 1) {
-					session.setAttribute("m_img", path);
-					return "success";
-				}
-				// 입력한 비밀번호가 null이고 일반 정보 수정 결과 값이 1일 경우
-				else if(m_pwd.equals("null") && result_pwd == 0) {
-					session.setAttribute("m_img", path);
-					return "success";
-				}
-			}
-			return "fail";
-			
-		} catch (Exception e) {
-			return "fail";
+		String m_pwd = request.getParameter("m_pwd");
+		int result_pwd = 0;
+		if(!m_pwd.equals("null")) {
+			member.setM_pwd(m_pwd);
+			result_pwd = memberService.updatePassword(member);
 		}
+		
+		String m_phone = request.getParameter("m_phone");
+		if(!m_phone.isEmpty()) member.setM_phone(m_phone);
+		
+		String m_nick = request.getParameter("m_nick");
+		if(!m_nick.isEmpty()) member.setM_nick(m_nick);
+		
+		System.out.println("========== 회원 수정 정보 =========");
+		System.out.println("type : " + type);
+		System.out.println("m_email : " + m_email);
+		System.out.println("m_pwd : " + m_pwd);
+		System.out.println("m_phone : " + m_phone);
+		System.out.println("m_nick : " + m_nick);
+		System.out.println("========== 회원 수정 정보 끝 =========");
+		
+		int result = memberService.updateMember(member, type, file);
+		
+		if(result == 1) {
+			// 입력한 비밀번호가 null이 아니고 일반 정보 수정 결과 값과 비밀번호 수정 결과 값이 모두 1인 경우
+			if(!m_pwd.equals("null") && result_pwd == 1) return "success";
+			// 입력한 비밀번호가 null이고 일반 정보 수정 결과 값이 1일 경우
+			else if(m_pwd.equals("null") && result_pwd == 0) return "success";
+		}
+		return "fail";
+		
 	}
 
 	@RequestMapping("MUU_LEAVE.do") // 회원 탈퇴
@@ -565,6 +537,18 @@ public class MemberController {
 		
 		return mav;
 		
+	}
+	
+	// 멤버 이미지 다운르도 
+	@RequestMapping("downloadM.do")
+	public View downloadM(String m_id_str) {
+		//해당게시물의 파일정보를 이용해서 파일을 가져옴	
+		int m_id = Integer.parseInt(m_id_str);
+		String type = "member";
+		File attachFile = memberService.getAttachFile(m_id, type);
+		//커스텀 뷰인 DownloadView를 이용해서 전달
+		View view = new DownloadView(attachFile);
+		return view;
 	}
 	
 }

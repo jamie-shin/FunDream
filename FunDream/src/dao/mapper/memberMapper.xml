@@ -15,11 +15,14 @@
 		<if test="m_phone != null">
 			, m_phone=#{m_phone}
 		</if>
+	</sql>
+	
+	<sql id="managerUpdate">
 		<if test="m_manager != 0">
-			, m_manager=#{m_manager}
+			m_manager=#{m_manager}
 		</if>
 		<if test="m_valid != 0">
-			, m_valid=#{m_valid}
+			m_valid=#{m_valid}
 		</if>
 	</sql>
 	
@@ -71,6 +74,10 @@
     
     <update id="updatePassword" parameterType="member">
     	update Member set m_pwd=sha(#{m_pwd}) where m_id=#{m_id}
+    </update>
+    
+    <update id="updateByManager" parameterMap="member">
+    	update Member set <include refid="managerUpdate"/> where m_id=#{m_id}
     </update>
     
 </mapper>

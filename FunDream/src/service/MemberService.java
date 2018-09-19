@@ -59,8 +59,26 @@ public class MemberService {
 		else return null;
 	}
 
-	public int updateMember(Member member) {
+	public int updateMember(Member member, String type, MultipartFile file) {
 		// TODO Auto-generated method stub
+		String path = "C:/Temp/FunDream/"+type+"/";
+		File dir = new File(path);
+		if(!dir.exists()) dir.mkdirs(); //해당경로에 디렉토리가 없으면 생성
+		String fileName = file.getOriginalFilename();
+		File attachFile = new File(path + fileName);
+		
+		try {
+			file.transferTo(attachFile);  //파일 복사
+			member.setM_img(fileName);
+			System.out.println(path+fileName);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return memberDao.updateMember(member);
 	}
 	
@@ -137,6 +155,10 @@ public class MemberService {
 		String fileName = member.getM_img();  //DB안에 있는 파일 정보
 		String path = "C:/Temp/FunDream/member/";
 		return new File(path+fileName);
+	}
+	
+	public int updateByManager(Member member) {
+		return memberDao.updateByManager(member);
 	}
 	
 }

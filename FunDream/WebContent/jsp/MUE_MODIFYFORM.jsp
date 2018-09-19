@@ -180,7 +180,7 @@
 			$('#m_phone').val(m_phone);
 			$('#m_nick').val(m_nick);
 			$('#m_img').val(m_img);
-			alert('이미지링크 : ' + $('#m_img').val());
+			console.log('이미지링크 : ' + $('#m_img').val());
 			return true;
 		});
 		
@@ -217,10 +217,7 @@
 	    				alert("정보 수정이 완료되었습니다.");
 	    				location.href="MAIN.do";
 	    				break;
-	    			case "imgFile" :
-	    				alert("이미지 파일이 잘못되었습니다.");
-	    				break;
-	    			case "fail" : 
+	    			default : 
 	    				console.log("정보 수정을 실패하였습니다.");
 	    				break;
 	    			}
@@ -258,7 +255,7 @@
 		<div class="changebox">
 			
 			<p>프로필 이미지</p>
-			<br> <img src="${member.m_img }" name="" id="inputImg" class="logo"> <br>
+			<br> <img src="downloadM.do?m_id_str=${member.m_id}" name="" id="inputImg" class="logo"> <br>
 			<br><br><br><br><br><br>
 			<p>변경 이미지</p>
 			<br><input type='file' id="imgInp" name="m_img"/><br>

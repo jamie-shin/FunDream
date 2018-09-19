@@ -248,10 +248,11 @@ public class IController {
 	// 관리자 - 관리자 변경
 	@RequestMapping("IMU_GRANT.do")
 	public @ResponseBody int IMU_GRANT(int m_id, int m_manager) {
-		Member member = memberService.selectOneMemberById(m_id);
+		Member member = new Member();
+		member.setM_id(m_id);
 		member.setM_manager(m_manager);
 		
-		int result = memberService.updateMember(member);
+		int result = memberService.updateByManager(member);
 		if(result == 1) {
 			return memberService.selectOneMemberById(m_id).getM_manager();
 		}
@@ -261,10 +262,11 @@ public class IController {
 	// 관리자 - 회원 유형 변경
 	@RequestMapping("IMU_SLEEP.do")
 	public @ResponseBody int IMU_SLEEP(int m_valid, int m_id) {
-		Member member = memberService.selectOneMemberById(m_id);
+		Member member = new Member();
+		member.setM_id(m_id);
 		member.setM_valid(m_valid);
 		
-		int result = memberService.updateMember(member);
+		int result = memberService.updateByManager(member);
 		if(result == 1) {
 			return memberService.selectOneMemberById(m_id).getM_valid();
 		}
