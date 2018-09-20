@@ -106,7 +106,11 @@ public class ProjectController {
 	public ModelAndView MAIN(HttpSession session) {
 		session.removeAttribute("keyword");
 		ModelAndView mav = new ModelAndView();
-
+		
+		if(session.getAttribute("m_id")!=null) {
+			Member mm = memberService.selectOneMemberById((Integer)session.getAttribute("m_id"));
+			session.setAttribute("m_img", mm.getM_img());
+		}
 		//최신 프로젝트 3개
 		List<Project> newlist = projectService.getNewProject();
 		for(int i=0;i<3;i++) {
