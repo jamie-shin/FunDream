@@ -64,7 +64,7 @@ h1 {
 	font-size: 16px;
 }
 
-.loginbox input[type="submit"] {
+.MIE_LOGIN {
 	border: none;
 	outline: none;
 	height: 40px;
@@ -74,7 +74,7 @@ h1 {
 	border-radius: 15px;
 }
 
-.loginbox input[type="submit"]:hover {
+.MIE_LOGIN:hover {
 	cursor: pointer;
 	background: #F17F42;
 	color: #000;
