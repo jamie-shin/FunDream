@@ -86,9 +86,9 @@
 				<div class="cal-accountbox-left">은행명</div>
 				<div class="cal-accountbox-right">
 					<select class="cal-bankname" name="bankname" id="bankname" disabled="disabled">
-						<option value="1" <c:if test="${bank.b_name == '신한은행'}">selected='selected'</c:if>>신한은행</option>
-						<option value="2" <c:if test="${bank.b_name == '국민은행'}">selected='selected'</c:if>>국민은행</option>
-						<option value="3" <c:if test="${bank.b_name == '우리은행'}">selected='selected'</c:if>>우리은행</option>
+						<option value="1" <c:if test="${bank.b_bankname == '신한은행'}">selected='selected'</c:if>>신한은행</option>
+						<option value="2" <c:if test="${bank.b_bankname == '국민은행'}">selected='selected'</c:if>>국민은행</option>
+						<option value="3" <c:if test="${bank.b_bankname == '우리은행'}">selected='selected'</c:if>>우리은행</option>
 					</select>
 				</div>
 			</div>
