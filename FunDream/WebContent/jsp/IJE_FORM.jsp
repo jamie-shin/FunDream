@@ -101,7 +101,7 @@
 				<div class="cal-accountbox-right"><input type="text" placeholder="ex) 홍길동" class="cal-accountname" id="bankowner" name="bankowner" value="${bank.b_owner}" readonly="readonly"></div>
 			</div>
 			<div class="cal-btn-center">
-				<input type="button" value="신청" class="cal-applybtn" id="applyCalculate">
+				<input type="button" value="정산" class="cal-applybtn" id="applyCalculate">
 				<input type="button" value="취소" class="cal-cancelbtn" id="cancelCalculate">
 			</div>
 		</div>
