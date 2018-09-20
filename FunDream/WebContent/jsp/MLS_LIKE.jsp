@@ -33,6 +33,7 @@ $(document).ready(function(){
 				case "delete":
 					alert(p_name + "이(가) 관심 프로젝트 해제되었습니다.");
 					likeBtn.toggleClass('is-active');
+					location.reload();
 					break;
 				default :
 					console.log("관심 프로젝트 등록/삭제 실패");
@@ -111,12 +112,12 @@ $(document).ready(function(){
 						</div>
 						<!-- 프로그레스 바 -->
 					</a>
-					<div class="LIKE-buttons">
-						<input type="hidden" value="${project.p_name}" name="p_name">
-						<input type="hidden" value="${project.p_index}" name="p_index">
-						<input type="hidden" value="${m_id}" name="m_id">
-				        <span class="like-btn"></span>
-				    </div>
+				<div class="LIKE-buttons">
+					<input type="hidden" value="${project.p_name}" name="p_name">
+					<input type="hidden" value="${project.p_index}" name="p_index">
+					<input type="hidden" value="${m_id}" name="m_id">
+				    <span class="like-btn is-active"></span>
+			    </div>
 				</c:forEach>
 			</div>
 		</c:if>

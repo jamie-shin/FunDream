@@ -113,8 +113,16 @@ public class ProjectController {
 		ModelAndView mav = new ModelAndView();
 		
 		if(session.getAttribute("m_id")!=null) {
-			Member mm = memberService.selectOneMemberById((Integer)session.getAttribute("m_id"));
+			int m_id = (Integer)session.getAttribute("m_id");
+			Member mm = memberService.selectOneMemberById(m_id);
 			session.setAttribute("m_img", mm.getM_img());
+			List<Favorite> favoriteList = favoriteService.selectFavoritesById(m_id);
+			mav.addObject("favoriteList", favoriteList);
+			System.out.println("=========관심프로젝트시작========");
+			for(Favorite f : favoriteList) {
+				System.out.println(f);
+			}
+			System.out.println("=========관심프로젝트종료========");
 		}
 		//최신 프로젝트 3개
 		List<Project> newlist = projectService.getNewProject();
@@ -188,7 +196,6 @@ public class ProjectController {
 			successlist.get(i).setGap(gap);
 		}
 		mav.addObject("successlist", successlist);
-		
 		mav.setViewName("MAIN");
 		return mav;
 	}

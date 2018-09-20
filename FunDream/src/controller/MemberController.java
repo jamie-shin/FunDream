@@ -504,6 +504,11 @@ public class MemberController {
 				myFavoriteList.add(project);
 			}
 			mav.addObject("myFavoriteList", myFavoriteList);
+			System.out.println("========관심 프로젝트 시작========");
+			for(Favorite f : favoriteList) {
+				System.out.println(f);
+			}
+			System.out.println("========관심 프로젝트 종료========");
 		}
 		else {
 			mav.addObject("msg", "noFavorite");
