@@ -24,33 +24,33 @@
 				var spe = pwd.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 
 				if(pwd.length < 8 || pwd.length > 20){
-				 	alert("8자리 ~ 20자리 이내로 입력해주세요.");
+				 	$('#msgPwd').text("8자리 ~ 20자리 이내로 입력해주세요.");
 				 	$('#inputPwd').val("");
 					return false;
 				}
 				if(pwdCheck.search(/₩s/) != -1){
-				 	alert("비밀번호는 공백없이 입력해주세요.");
+					$('#msgPwd').text("비밀번호는 공백없이 입력해주세요.");
 				 	$('#inputPwd').val("");
 					return false;
 				}
 				if(num < 0 || eng < 0 || spe < 0){
-				 	alert("영문, 숫자, 특수문자를 혼합하여 입력해주세요.");
+					$('#msgPwd').text("영문, 숫자, 특수문자를 혼합하여 입력해주세요.");
 				 	$('#inputPwd').val("");
 					return false;
 				}
 				if(/(\w)\1\1\1/.test(pwd)){
-					alert('444같은 문자를 3번 이상 사용하실 수 없습니다.');
+					$('#msgPwd').text('444같은 문자를 3번 이상 사용하실 수 없습니다.');
 				 	$('#inputPwd').val("");
 					return false;
 				}
 			}
 			if(pwd!="" && pwdCheck!="" && pwd!=pwdCheck){
-				alert('비밀번호가 일치하지 않습니다.');
+				$('#msgPwd').text('비밀번호가 일치하지 않습니다.');
 			 	$('#inputPwd').val("");
 			 	$('#inputPwdCheck').val("");
 				return false;
 			}
-			alert('사용가능한 비밀번호입니다.');
+			$('#msgPwd').text('사용가능한 비밀번호입니다.');
 			return true;			
 		});
 		
@@ -65,33 +65,33 @@
 				var spe_c = pwdCheck.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 
 				if(pwdCheck.length < 8 || pwdCheck.length > 20){
-				 	alert("8자리 ~ 20자리 이내로 입력해주세요.");
+					$('#msgCheckPwd').text("8자리 ~ 20자리 이내로 입력해주세요.");
 				 	$('#inputPwdCheck').val("");
 					return false;
 				}
 				if(pwdCheck.search(/₩s/) != -1){
-				 	alert("비밀번호는 공백없이 입력해주세요.");
+					$('#msgCheckPwd').text("비밀번호는 공백없이 입력해주세요.");
 				 	$('#inputPwdCheck').val("");
 					return false;
 				}
 				if(num_c < 0 || eng_c < 0 || spe_c < 0){
-				 	alert("영문, 숫자, 특수문자를 혼합하여 입력해주세요.");
+					$('#msgCheckPwd').text("영문, 숫자, 특수문자를 혼합하여 입력해주세요.");
 				 	$('#inputPwdCheck').val("");
 					return false;
 				}
 				if(/(\w)\1\1\1/.test(pwdCheck)){
-					alert('444같은 문자를 3번 이상 사용하실 수 없습니다.');
+					$('#msgCheckPwd').text('444같은 문자를 3번 이상 사용하실 수 없습니다.');
 				 	$('#inputPwdCheck').val("");
 					return false;
 				}
 			}
 			if(pwd!="" && pwdCheck!="" && pwd!=pwdCheck){
-				alert('비밀번호가 일치하지 않습니다.');
+				$('#msgCheckPwd').text('비밀번호가 일치하지 않습니다.');
 			 	$('#inputPwd').val("");
 			 	$('#inputPwdCheck').val("");
 				return false;
 			}
-			alert('사용가능한 비밀번호입니다.');
+			$('#msgCheckPwd').text('사용가능한 비밀번호입니다.');
 			return true;			
 		});
 		
@@ -100,7 +100,7 @@
 			 var kor = /[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
 			 var name = $(this).val();
 			 if(kor.test(name)){
-			 	alert("한글만 입력 가능합니다.");
+				 $('#msgName').text("한글만 입력 가능합니다.");
 			 	$(this).val(name.replace(kor,''));
 			 }
 		});
@@ -131,7 +131,7 @@
 			var spec = /[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi;
 			nick = $(this).val();
 			if(spec.test(nick)){
-				alert('특수문자는 사용 불가능합니다.');
+				$('#msgNick').text('특수문자는 사용 불가능합니다.');
 				$(this).val(nick.replace(spec,''));
 			}
 		});
@@ -150,20 +150,24 @@
 			var m_img = $('#inputImg').attr('src');
 			
 			if(m_pwd != "" && m_pwdCheck == ""){
-				alert('비밀번호 확인을 입력하세요');
+				$('#msgCheckPwd').text('비밀번호 확인을 입력하세요');
+				return false;
+			}
+			if(m_pwd == "" && m_pwdCheck != ""){
+				$('#msgPwd').text('비밀번호를 입력하세요');
 				return false;
 			}
 			if(m_name == ""){
-				alert('이름을 입력하세요.');
+				$('#msgName').text('이름을 입력하세요.');
 				return false;
 			}
 			if(phone1 == "" || phone2 == "" || phone3 == ""){
-				alert('연락처를 입력하세요.');
+				$('#msgPhone').text('연락처를 입력하세요.');
 				return false;
 			}
 
 			if(m_nick == ""){
-				alert('닉네임을 입력하세요.');
+				$('#msgNick').text('닉네임을 입력하세요.');
 				return false;
 			}
 			
@@ -257,21 +261,21 @@
 			<p>프로필 이미지</p>
 			<br> <img src="${member.m_img}" name="" id="inputImg" class="logo"> <br>
 			<br><br><br><br><br><br>
-			<p>변경 이미지</p>
+			<p>변경 이미지</p><small id="msgImg"></small>
 			<br><input type='file' id="imgInp" name="m_img"/><br>
 			<br><img id="blah" src="#" alt="your image" class="logo"/><br>
 			<br><br><br><br><br><br>
-			<p>닉네임</p>
+			<p>닉네임</p><small id="msgNick"></small>
 			<input type="text" name="" id="inputNick" value="${member.m_nick }" placeholder="nickname">
-			<p>이메일</p>
+			<p>이메일</p><small id="msgEmail"></small>
 			<input type="email" name="" id="inputEmail" readonly value="${member.m_email }" placeholder="가져온 이메일"> 
-			<p>이름</p>
+			<p>이름</p><small id="msgName"></small>
 			<input type="text" name="" id="inputName" value="${member.m_name }"  placeholder="가져온이름">
-			<p>변경할 비밀번호</p>
+			<p>변경할 비밀번호</p><small id="msgPwd"></small>
 			<input type="password" name="" id="inputPwd" placeholder="Password">
-			<p>비밀번호 확인</p>
+			<p>비밀번호 확인</p><small id="msgCheckPwd"></small>
 			<input type="password" name="" id="inputPwdCheck" placeholder="Password Check">
-			<p>연락처</p>
+			<p>연락처</p><small id="msgPhone"></small>
 			<select name="" id="inputPhone1">
 				<option value="010" <c:if test="${phone[0] eq 010 }">selected</c:if>>010</option>
 				<option value="011" <c:if test="${phone[0] eq 011 }">selected</c:if>>011</option>
