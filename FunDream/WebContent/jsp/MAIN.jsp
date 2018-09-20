@@ -52,34 +52,34 @@
 		<ul class="slider">
 			<li>
 				<a href="">
-					<div class="banner" style="background-image: url('img/애완동물.jpg');"></div>
+					<div class="banner" style="background-image: url('img/123.jpg');"></div>
 					<section class="caption">	
-						<h1>프로젝트13</h1>
+						<h1>착! 붙이는 보조배터리</h1>
 						<!-- 프로젝트 제목  -->
 					</section>
 				</a>
 			</li>
 			<li>
 				<a href="">
-					<div class="banner" style="background-image: url('img/레저.jpg');"></div>
+					<div class="banner" style="background-image: url('img/가디건.jpg');"></div>
 					<section class="caption">
-						<h1>프로젝트12</h1>
+						<h1>[뜨사모] 손뜨개 모임에서 선물을 드립니다</h1>
 					</section>
 				</a>
 			</li>
 			<li>
 				<a href="">
-					<div class="banner" style="background-image: url('img/화장품.jpg');"></div>
+					<div class="banner" style="background-image: url('img/여행.jpg');"></div>
 					<section class="caption">
-						<h1>프로젝트2</h1>
+						<h1>떠나요 둘이서 모든걸 훌훌버리고~~</h1>
 					</section>
 				</a>
 			</li>
 			<li>
 				<a href="">
-					<div class="banner" style="background-image: url('img/뷰티.jpg');"></div>
+					<div class="banner" style="background-image: url('img/강아지 의류 메인.jpg');"></div>
 					<section class="caption">
-						<h1>프로젝트11</h1>
+						<h1>[2019년 설맞이] 애견 한복</h1>
 					</section>
 				</a>
 			</li>
