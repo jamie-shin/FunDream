@@ -80,7 +80,7 @@ h1 {
 	color: #000;
 }
 
-.loginbox input[type="button"] {
+.MIE_JOIN {
 	border: none;
 	outline: none;
 	height: 40px;
@@ -90,7 +90,7 @@ h1 {
 	border-radius: 15px;
 }
 
-.loginbox input[type="button"]:hover {
+.MIE_JOIN:hover {
 	cursor: pointer;
 	background: #F17F42;
 	color: #000;
