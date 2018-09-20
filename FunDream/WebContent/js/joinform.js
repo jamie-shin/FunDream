@@ -257,7 +257,6 @@ $(function() {
 		}
 		if (m_name != "") {
 			$('#msgName').text('');
-			return false;
 		}
 		if (phone1 == "" || phone2 == "" || phone3 == "") {
 			$('#msgPhone').text('연락처를 입력하세요.');
@@ -265,7 +264,6 @@ $(function() {
 		}
 		if (phone1 != "" && phone2 != "" && phone3 != "") {
 			$('#msgPhone').text('');
-			return false;
 		}
 		if (birthY == "" || birthM == "" || birthD == "") {
 			$('#msgBirth').text('생년월일을 입력하세요.');
@@ -273,7 +271,6 @@ $(function() {
 		}
 		if (birthY != "" && birthM != "" && birthD != "") {
 			$('#msgBirth').text('');
-			return false;
 		}
 		if (m_gender == "") {
 			$('#msgGender').text('성별을 선택하세요.');
@@ -281,7 +278,6 @@ $(function() {
 		}
 		if (m_gender != "") {
 			$('#msgGender').text('');
-			return false;
 		}
 		if (m_nick == "") {
 			$('#msgNick').text('닉네임을 입력하세요.');
@@ -289,7 +285,6 @@ $(function() {
 		}
 		if (m_nick != "") {
 			$('#msgNick').text('');
-			return false;
 		}
 		// 체크안하고 회원가입 버튼 누를시
 		if ($("#c1").prop("checked") == false) {
