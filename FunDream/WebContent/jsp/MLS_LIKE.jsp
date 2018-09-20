@@ -9,7 +9,9 @@
 <title>관심 프로젝트</title>
 <link rel="stylesheet" href="css/CreatedProject.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+<link
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet">
 </head>
 <body>
 	<!-- 오늘 날짜 구하기 -->
