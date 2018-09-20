@@ -166,6 +166,9 @@ $(document).ready(function(){
 					        <c:if test="${fav.p_index != list.p_index}"><span class="like-btn"></span></c:if>
 						</c:forEach>
 					</c:if>
+					<c:if test="${favoriteList == null && m_id != null}">
+						<span class="like-btn">
+					</c:if>
 			    </div>
 			</c:forEach>
 		</div>
@@ -235,6 +238,9 @@ $(document).ready(function(){
 					        <c:if test="${fav.p_index != list.p_index}"><span class="like-btn"></span></c:if>
 						</c:forEach>
 					</c:if>
+					<c:if test="${favoriteList == null && m_id != null}">
+						<span class="like-btn">
+					</c:if>
 			    </div>
 			</c:forEach>
 		</div>
@@ -303,6 +309,9 @@ $(document).ready(function(){
 					        <c:if test="${fav.p_index == list.p_index}"><span class="like-btn is-active"></span></c:if>
 					        <c:if test="${fav.p_index != list.p_index}"><span class="like-btn"></span></c:if>
 						</c:forEach>
+					</c:if>
+					<c:if test="${favoriteList == null && m_id != null}">
+						<span class="like-btn">
 					</c:if>
 			    </div>
 			</c:forEach>
