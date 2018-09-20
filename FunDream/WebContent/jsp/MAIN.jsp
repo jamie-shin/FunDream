@@ -15,8 +15,9 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.like-btn').on('click', function() {
-		var m_id =  $(this).siblings('#m_id').val();
-		var p_index = $(this).siblings("#p_index").val();
+		var m_id =  $(this).siblings('[name=m_id]').val();
+		var p_index = $(this).siblings("[name=p_index]").val();
+		var p_name = $(this).siblings("[name=p_name]").val();
 		var likeBtn = $(this);
 		$.ajax({
 			url : "MLD_UNLIKE.do",
@@ -26,11 +27,11 @@ $(document).ready(function(){
 			success : function(data){
 				switch(data){
 				case "insert":
-					alert("관심 프로젝트가 등록되었습니다.");
+					alert(p_name + "이(가) 관심 프로젝트 등록되었습니다.");
 					likeBtn.toggleClass('is-active');
 					break;
 				case "delete":
-					alert("관심 프로젝트가 해제되었습니다.");
+					alert(p_name + "이(가) 관심 프로젝트 해제되었습니다.");
 					likeBtn.toggleClass('is-active');
 					break;
 				default :
@@ -156,9 +157,18 @@ $(document).ready(function(){
 				<!-- 프로그레스 바 -->
 				</a>
 				<div class="LIKE-buttons">
-					<input type="hidden" value="${list.p_index}" id="p_index" name="p_index">
-					<input type="hidden" value="${m_id}" id="m_id" name="m_id">
-			        <span class="like-btn"></span>
+					<input type="hidden" value="${list.p_name}" name="p_name">
+					<input type="hidden" value="${list.p_index}" name="p_index">
+					<input type="hidden" value="${m_id}" name="m_id">
+					<c:if test="${favoriteList != null}">
+					<c:forEach items="${favoriteList}" var="f">
+				        <c:if test="${f.p_index == list.p_index}"><span class="like-btn is-active"></span></c:if>
+				        <c:if test="${f.p_index != list.p_index}"><span class="like-btn"></span></c:if>
+					</c:forEach>
+					</c:if>
+					<c:if test="${favoriteList == null && m_id != null}">
+						<span class="like-btn"></span>
+					</c:if>
 			    </div>
 			</c:forEach>
 		</div>
@@ -219,7 +229,18 @@ $(document).ready(function(){
 				<!-- 프로그레스 바 -->
 				</a>
 				<div class="LIKE-buttons">
-			        <span class="like-btn"></span>
+					<input type="hidden" value="${list.p_name}" name="p_name">
+					<input type="hidden" value="${list.p_index}" name="p_index">
+					<input type="hidden" value="${m_id}" name="m_id">
+					<c:if test="${favoriteList != null}">
+					<c:forEach items="${favoriteList}" var="f">
+				        <c:if test="${f.p_index == list.p_index}"><span class="like-btn is-active"></span></c:if>
+				        <c:if test="${f.p_index != list.p_index}"><span class="like-btn"></span></c:if>
+					</c:forEach>
+					</c:if>
+					<c:if test="${favoriteList == null && m_id != null}">
+						<span class="like-btn"></span>
+					</c:if>
 			    </div>
 			</c:forEach>
 		</div>
@@ -280,7 +301,18 @@ $(document).ready(function(){
 				<!-- 프로그레스 바 -->
 				</a>
 				<div class="LIKE-buttons">
-			        <span class="like-btn"></span>
+					<input type="hidden" value="${list.p_name}" name="p_name">
+					<input type="hidden" value="${list.p_index}" name="p_index">
+					<input type="hidden" value="${m_id}" name="m_id">
+					<c:if test="${favoriteList != null}">
+						<c:forEach items="${favoriteList}" var="fav">
+					        <c:if test="${fav.p_index == list.p_index}"><span class="like-btn is-active"></span></c:if>
+					        <c:if test="${fav.p_index != list.p_index}"><span class="like-btn"></span></c:if>
+						</c:forEach>
+					</c:if>
+					<c:if test="${m_id != ''}">
+						<span class="like-btn"></span>
+					</c:if>
 			    </div>
 			</c:forEach>
 		</div>

@@ -270,3 +270,36 @@
 }
 
 /* /progress bar css */
+
+/* 좋아요 버튼 */
+.LIKE-buttons {
+  position: relative;
+  z-index: 10;
+  left: -90px;
+}
+.like-btn {
+  display: inline-block;
+  Cursor: pointer;
+  position: absolute;
+  top: 9px;
+  left: 15px;
+  background: url('https://designmodo.com/demo/shopping-cart/twitter-heart.png');
+  width: 60px;
+  height: 60px;
+  background-size: 2900%;
+  background-repeat: no-repeat;
+}
+.is-active {
+  animation-name: animate;
+  animation-duration: 1.2s;
+  animation-iteration-count: 1;
+  animation-timing-function: steps(28);
+  animation-fill-mode: forwards;
+}
+ 
+@keyframes animate {
+  0%   { background-position: left;  }
+  50%  { background-position: right; }
+  100% { background-position: right; }
+}
+/* 좋아요 버튼 끝 */
