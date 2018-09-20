@@ -40,7 +40,7 @@
 $(function(){
 	$(document).find("#submitBtn").on('click', function(){
 		var keyword = $("#keyword").val();
-		alert(keyword);
+		//alert(keyword);
 		if (keyword==null || keyword ==""){
 			alert("입력된 검색어가 없습니다.");
 			return false;
