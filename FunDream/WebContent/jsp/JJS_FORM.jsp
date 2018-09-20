@@ -68,7 +68,7 @@
 						html += '<span class="card-summary">';
 						html += '<h3>'+list[i].p_name+'</h3>';
 						
-						html += '<small class="card-part">'+list[i].p_count+'명 참여</small>';
+						html += '<div class="card-part"><small>'+list[i].p_count+'명 참여</small></div>';
 						if(option=="1"){
 							if(list[i].per<100){
 								html += '<h3 class="card-toggle" style="background:black; color:white">무산</h3>';
@@ -189,7 +189,7 @@
 							html += '<span class="card-summary">';
 							html += '<h3>'+list[i].p_name+'</h3>';
 							
-							html += '<small class="card-part">'+list[i].p_count+'명 참여</small>';
+							html += '<div class="card-part"><small>'+list[i].p_count+'명 참여</small></div>';
 							if(list[i].per<100){
 								html += '<h3 class="card-toggle" style="background:black; color:white">무산</h3>';
 							}
@@ -294,7 +294,7 @@
 					<!-- 게시물 제목 -->
 				</span>
 				<!-- 한줄 내용 입력창 -->
-				<small class="card-part">${list.p_count}명 참여</small>
+				<div class="card-part"><small>${list.p_count}명 참여</small></div>
 				<!-- 참여자 수  -->
 				
 				<input type="hidden" value="${list.gap }">

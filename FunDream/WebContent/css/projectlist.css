@@ -203,10 +203,6 @@ label::before {
 
 /* /체크 박스 */
 
-.card-part {
-	margin-left: 66%;
-}
-
 
 .card span {
   display: block;
@@ -239,7 +235,9 @@ label::before {
   padding: 5% 5% 3% 5%;
 }
 .card .card-part {
-  padding: 5% 5% 3% 5%;
+  padding: 5% 9% 3% 5%;
+  text-align: right;
+  
 }
 .card .card-header {
   position: relative;
@@ -386,6 +384,8 @@ div.candidatos .parcial .info .percentagem-num {
 }
 
 * {
+	margin:0;
+	padding:0;
   -moz-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -moz-transform;
   -o-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -o-transform;
   -webkit-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -webkit-transform;

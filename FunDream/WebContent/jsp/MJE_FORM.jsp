@@ -84,12 +84,14 @@
 						<c:if test="${project.p_approval == 2 && end < today}">마감
 							<c:if test="${(end < today) && (project.p_target <= project.p_status) && (project.p_approval == 2)}"><input type="hidden" id="value" value="${project.p_index}"><input type="button" id="request" value="정산요청"></c:if>
 						</c:if>
+						<c:if test="${project.p_approval == 5}">정산 승인 대기 중</c:if>
+						<c:if test="${project.p_approval == 6}">정산 완료 </c:if>
 						<c:if test="${project.p_approval == 3}">반려</c:if>
 						<br><br>
 						${start} ~ ${end}
 					</span>
 					<!-- 무산과 성공 백그라운드 컬러와 글씨 색상 지정은 여기서  -->
-					<c:if test="${(end < today) && (project.p_target <= project.p_status) && (project.p_approval == 2)}">
+					<c:if test="${(end < today) && (project.p_target <= project.p_status) && (project.p_approval == 2 || project.p_approval==5 || project.p_approval ==6)}">
 						<h3 class="card-toggle" style="background:white; color:red;">성공</h3>
 						
 					</c:if>
@@ -113,14 +115,9 @@
 		            				
 		            			</c:choose>
 		        			</div>
-		        			<c:choose>
-		        				<c:when test="${project.p_approval == 5}">
-			        			<div class="partidas">정산승인대기중</div>
-		        				</c:when>
-		        				<c:otherwise>
+		        			
 		        				<div class="partidas">${project.p_status }</div>
-		        				</c:otherwise>
-		        			</c:choose>
+		        				
 		    			</div>
 					</div>
 					<!-- 프로그레스 바 -->
