@@ -63,9 +63,9 @@
 						}
 						html += '<span class="card-header" style="background-image: url('+list[i].p_mainimg+');">';
 						if(m_id==list[i].m_id){
-							html += '<span class="card-title"><h3>내가 만든 프로젝트</h3></span></span>';
+							html += '<span class="card-title"><h3>내가 만든 프로젝트</h3></span>';
 						}
-						html += '<span class="card-summary">';
+						html += '</span><span class="card-summary">';
 						html += '<h3>'+list[i].p_name+'</h3>';
 						
 						html += '<div class="card-part"><small>'+list[i].p_count+'명 참여</small></div>';
@@ -184,9 +184,9 @@
 							}
 							html += '<span class="card-header" style="background-image: url('+list[i].p_mainimg+');">';
 							if(m_id==list[i].m_id){
-								html += '<span class="card-title"><h3>내가 만든 프로젝트</h3></span></span>';
+								html += '<span class="card-title"><h3>내가 만든 프로젝트</h3></span>';
 							}
-							html += '<span class="card-summary">';
+							html += '</span><span class="card-summary">';
 							html += '<h3>'+list[i].p_name+'</h3>';
 							
 							html += '<div class="card-part"><small>'+list[i].p_count+'명 참여</small></div>';
