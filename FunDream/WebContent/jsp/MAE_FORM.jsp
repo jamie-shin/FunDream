@@ -18,6 +18,10 @@
 			var bankname = $('#bankname').val();
 			var bankaccount = $('#bankaccount').val();
 			var bankowner = $('#bankowner').val();
+			if(bankname == "" || bankaccount == "" || bankowner == ""){
+				alert("계좌 정보를 입력하세요.");
+				return false;
+			}
 			$.ajax({
 				url : "MAI.do",
 				data : {p_index : p_index,
@@ -94,7 +98,7 @@
 			<div class="cal-accountbox-1">
 				<div class="cal-accountbox-left">은행명</div>
 				<div class="cal-accountbox-right">
-					<select class="cal-bankname" name="bankname" id="bankname">
+					<select class="cal-bankname" name="bankname" id="bankname" placeholder="은행을 선택하세요">
 						<option value="1">신한은행</option>
 						<option value="2">국민은행</option>
 						<option value="3">우리은행</option>

@@ -1110,7 +1110,10 @@ public class ProjectController {
 	@RequestMapping("MAI.do")
 	public @ResponseBody String MAI(String p_index, String p_calculate, String bankname, String bankaccount, String bankowner) {
 		System.out.println(p_index);
-		System.out.println(Long.parseLong(p_calculate));
+		System.out.println(Double.parseDouble(p_calculate));
+		
+		Double double_cal = Double.parseDouble(p_calculate);
+		int int_cal = Integer.parseInt(String.valueOf(Math.round(double_cal)));
 		
 		Bank_Info bank = new Bank_Info();
 		bank.setP_index(Integer.parseInt(p_index));
@@ -1130,13 +1133,13 @@ public class ProjectController {
 		bank.setB_bankname(b_bankname);
 		bank.setB_account(bankaccount);
 		bank.setB_owner(bankowner);
-		System.out.println(bank);
+		System.out.println("정산 계좌 정보 : " + bank);
 		int b_result = bank_InfoService.insertBank_Info(bank);
-		
-		//오류수정해야함
+
 		Map<String, Object> changeMap = new HashMap<>();
 		changeMap.put("p_index", Integer.parseInt(p_index));
-		changeMap.put("p_calculate", Long.parseLong(p_calculate));
+		changeMap.put("p_calculate", int_cal);
+		System.out.println("프로젝트 인덱스 : " + p_index + " / 프로젝트 정산 금액 : " + int_cal);
 		int p_result = projectService.updateCalculate(changeMap);
 		
 		if(b_result == 1 && p_result == 1) return "success";
