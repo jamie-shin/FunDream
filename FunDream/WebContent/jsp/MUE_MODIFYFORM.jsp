@@ -103,6 +103,9 @@
 				 $('#msgName').text("한글만 입력 가능합니다.");
 			 	$(this).val(name.replace(kor,''));
 			 }
+			 else{
+				 $('#msgName').text("");
+			 }
 		});
 		
 		// 연락처, 생년월일 숫자 길이 제한
@@ -134,6 +137,9 @@
 				$('#msgNick').text('특수문자는 사용 불가능합니다.');
 				$(this).val(nick.replace(spec,''));
 			}
+			else{
+				$('#msgNick').text("");
+			}
 		});
 		
 		// 회원가입 버튼 클릭 시
@@ -161,13 +167,23 @@
 				$('#msgName').text('이름을 입력하세요.');
 				return false;
 			}
+			if(m_name != ""){
+				$('#msgName').text('');
+			}
 			if(phone1 == "" || phone2 == "" || phone3 == ""){
 				$('#msgPhone').text('연락처를 입력하세요.');
 				return false;
 			}
-
+			if(phone1 != "" && phone2 != "" && phone3 != ""){
+				$('#msgPhone').text('');
+				return false;
+			}
 			if(m_nick == ""){
 				$('#msgNick').text('닉네임을 입력하세요.');
+				return false;
+			}
+			if(m_nick != ""){
+				$('#msgNick').text('');
 				return false;
 			}
 			
