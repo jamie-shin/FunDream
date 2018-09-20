@@ -391,7 +391,6 @@ img {
 /* 좋아요 버튼 */
 .LIKE-buttons {
   position: relative;
-  z-index: 10;
   left: -90px;
 }
 .like-btn {
@@ -413,7 +412,15 @@ img {
   animation-timing-function: steps(28);
   animation-fill-mode: forwards;
 }
- 
+
+.is-active2 {
+  animation-name: animate;
+  animation-duration: 0;
+  animation-iteration-count: 1;
+  animation-timing-function: steps(0);
+  animation-fill-mode: forwards;
+}
+
 @keyframes animate {
   0%   { background-position: left;  }
   50%  { background-position: right; }
