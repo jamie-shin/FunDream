@@ -245,8 +245,7 @@ public class MemberController {
 		member.setM_phone(m_phone);
 		member.setM_birth(new SimpleDateFormat("yyyy-MM-dd").parse(m_birth));
 		member.setM_gender(Integer.parseInt(m_gender_str));
-		if(m_nick.equals("null")) member.setM_nick(m_nick);
-		else member.setM_nick(m_name);
+		member.setM_nick(m_nick);
 		
 		int result = memberService.insertMember(member, type, file,request);
 		
