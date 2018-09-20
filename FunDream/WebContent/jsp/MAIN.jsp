@@ -12,6 +12,13 @@
 	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="js/mainpage.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.like-btn').on('click', function() {
+		$(this).toggleClass('is-active');
+	});
+});
+</script>
 </head>
 <body class="mainPage">
 	<div class="slideshow">
@@ -122,6 +129,9 @@
 				</div>
 				<!-- 프로그레스 바 -->
 				</a>
+				<div class="LIKE-buttons">
+			        <span class="like-btn"></span>
+			    </div>
 			</c:forEach>
 		</div>
 	</div>
@@ -180,6 +190,9 @@
 				</div>
 				<!-- 프로그레스 바 -->
 				</a>
+				<div class="LIKE-buttons">
+			        <span class="like-btn"></span>
+			    </div>
 			</c:forEach>
 		</div>
 	</div>
@@ -238,6 +251,9 @@
 				</div>
 				<!-- 프로그레스 바 -->
 				</a>
+				<div class="LIKE-buttons">
+			        <span class="like-btn"></span>
+			    </div>
 			</c:forEach>
 		</div>
 	</div>
