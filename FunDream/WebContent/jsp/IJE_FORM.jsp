@@ -40,12 +40,9 @@
 <body class="calbody">
 	<div class="cal-container">
 		<input type="hidden" id="p_index" name="p_index" value="${project.p_index}">
-		<input type="hidden" id="calculate" name="calculate" value="${project.p_status * 10000 * 0.93}">
+		<input type="hidden" id="calculate" name="calculate" value="${project.p_status * 0.93}">
 		<div class="cal-title-center">
 			<h1>${project.p_name} 정산</h1><br><br>
-			<div class="cal-imgbox">
-				<img src="img/bg.jpg" class="cal-img">
-			</div><br>
 		</div>
 		<div class="cal-textbox">
 			<div class="cal-textbox-1">
@@ -65,9 +62,9 @@
 				<div class="cal-textbox-right">
 					<div class="cal-progress">
 						<div class="cal-bar" style=
-							<c:if test="${(project.p_status / project.p_target * 100) <= 100}">"width: ${project.p_status / project.p_target * 100}%;"</c:if>
+							<c:if test="${(project.p_status / project.p_target * 100) <= 100}">"width: ${project.p_status / project.p_target}%;"</c:if>
 							<c:if test="${(project.p_status / project.p_target * 100) > 100}">"width: 100%;"</c:if>>
-							<p class="cal-percent"><fmt:formatNumber pattern="###,###.##%" value="${project.p_status / project.p_target * 100}" /></p>
+							<p class="cal-percent"><fmt:formatNumber pattern="###,###.##%" value="${project.p_status / project.p_target}" /></p>
 						</div>
 					</div>
 				</div>
@@ -76,7 +73,7 @@
 		<div class="cal-textbox">
 			<div class="cal-textbox-1">
 				<div class="cal-textbox-left">정산받을금액</div>
-				<div class="cal-textbox-right"><fmt:formatNumber pattern="###,###" value="${project.p_status * 10000 * 0.93}" /> 원 
+				<div class="cal-textbox-right"><fmt:formatNumber pattern="###,###" value="${project.p_status * 0.93}" /> 원 
 				 	<a href="#" data-tooltip data-tooltip-label="정산비용" data-tooltip-message="수수료 7%(VAT별도)를 제외한 금액으로 정산됩니다.">
 					 	<i class="fa fa-question-circle"></i>
 				 	</a>
