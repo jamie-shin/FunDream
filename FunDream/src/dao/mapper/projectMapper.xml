@@ -65,7 +65,7 @@
 		
 		<choose>
 		<when test="option==1">
-			<![CDATA[p_enddate < now() and p_approval=2]]></when>
+			<![CDATA[p_enddate < now() and (p_approval=2 or p_approval=5 or p_approval=6)]]></when>
 		<otherwise>
 			<![CDATA[(p_startdate <= now() and p_enddate >= now()) and p_approval=2]]></otherwise>
 			
