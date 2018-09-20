@@ -222,7 +222,7 @@ $(function() {
 		var m_img = $('#inputImg').attr('src');
 		var m_agree = $('#c1').val();
 
-		alert("연락처 : " + m_phone + " / 생일 : " + m_birth);
+		console.log("연락처 : " + m_phone + " / 생일 : " + m_birth);
 
 		if (m_email == "") {
 			alert('이메일을 입력하세요.');
