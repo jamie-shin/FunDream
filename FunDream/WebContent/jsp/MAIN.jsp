@@ -32,7 +32,7 @@ $(document).ready(function(){
 					break;
 				case "delete":
 					alert(p_name + "이(가) 관심 프로젝트 해제되었습니다.");
-					likeBtn.toggleClass('is-active');
+					likeBtn.attr('class', 'like-btn');
 					break;
 				default :
 					console.log("관심 프로젝트 등록/삭제 실패");
