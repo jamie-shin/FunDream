@@ -83,7 +83,6 @@
 			<h2 align="center">등록한 관심 프로젝트가 없습니다.</h2>
 		</c:if>
 	</div>
-	<jsp:include page="Footer.jsp"></jsp:include>
 	<jsp:include page="Header.jsp"></jsp:include>
 </body>
 </html>

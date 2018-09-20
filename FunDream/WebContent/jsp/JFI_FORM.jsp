@@ -328,7 +328,6 @@
 			<input type="button" class="next-spon-btn" id="fund_btn" value="후원하기">
 		</div>
 	</div>
-	<jsp:include page="Footer.jsp"></jsp:include>
 	<jsp:include page="Header.jsp" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>

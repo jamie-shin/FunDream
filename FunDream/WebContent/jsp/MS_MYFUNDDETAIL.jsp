@@ -127,7 +127,6 @@
 			<input type="button" class="par-list-btn" id="back_btn" value="목록으로 돌아가기">
 		</div>
 	</div>
-	<jsp:include page="Footer.jsp"></jsp:include>
 	<jsp:include page="Header.jsp" />
 </body>
 </html>

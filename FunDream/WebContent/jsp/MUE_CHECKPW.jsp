@@ -51,7 +51,6 @@
 	<input type="submit" id="checkBtn" value="확인">
 	<input type="button" value="취소" onclick="location.href='MAIN.do'">
 </div>
-<jsp:include page="Footer.jsp"></jsp:include>
 <jsp:include page="Header.jsp"/>
 </body>
 </html>
