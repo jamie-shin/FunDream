@@ -320,6 +320,7 @@ $(function() {
 			processData: false,
 			contentType: false,
 			success : function(data){
+				console.log("회원가입 결과 : " + data);
 				switch(data){
 				case "success" :
 					alert("회원가입이 완료되었습니다.");
