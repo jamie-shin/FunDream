@@ -40,6 +40,7 @@ import model.Bank_Info;
 import model.Category;
 import model.Comment;
 import model.Delivery;
+import model.Favorite;
 import model.Fund;
 import model.Fund_Detail;
 import model.Member;
@@ -52,6 +53,7 @@ import service.Bank_InfoService;
 import service.CategoryService;
 import service.CommentService;
 import service.DeliveryService;
+import service.FavoriteService;
 import service.FundService;
 import service.Fund_DetailService;
 import service.MemberService;
@@ -95,6 +97,9 @@ public class ProjectController {
 	
 	@Autowired
 	private Bank_InfoService bank_InfoService;
+	
+	@Autowired
+	private FavoriteService favoriteService;
 	
 	int gap=0;
 	Date today = new Date();
@@ -1147,6 +1152,24 @@ public class ProjectController {
 		int p_result = projectService.updateCalculate(changeMap);
 		
 		if(b_result == 1 && p_result == 1) return "success";
+		return "fail";
+	}
+	
+	// 관심 프로젝트 등록/삭제
+	@RequestMapping("MLD_UNLIKE.do")
+	public @ResponseBody String MLD_UNLIKE(int m_id, int p_index) {
+		Favorite search = new Favorite();
+		search.setM_id(m_id);
+		search.setP_index(p_index);
+		Favorite favorite = favoriteService.selectOneFavoriteByIdProject(search);
+		if(favorite == null) {
+			favoriteService.insertFavorite(search);
+			return "insert";
+		}
+		else if(favorite != null){
+			favoriteService.deleteFavorite(favorite.getFv_index());
+			return "delete";
+		}
 		return "fail";
 	}
 

@@ -16,5 +16,9 @@
 	<select id="selectFavoritesById" parameterType="int" resultType="favorite">
 		select * from Favorite where m_id=#{m_id}
 	</select>
+	
+	<select id="selectOneFavoriteByIdProject" parameterType="favorite" resultType="favorite">
+		select * from favorite where m_id=#{m_id} and p_index=#{p_index}
+	</select>
 
 </mapper>

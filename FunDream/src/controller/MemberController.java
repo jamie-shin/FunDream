@@ -484,30 +484,6 @@ public class MemberController {
 		return"none";
 	}
 	
-	
-	// 관심 프로젝트 등록
-	@RequestMapping("DDI_LIKE.do")
-	public @ResponseBody String DDI_LIKE(HttpServletRequest req, int p_index) {
-		int m_id = Integer.parseInt((String)req.getSession().getAttribute("m_id"));
-		
-		Favorite favorite = new Favorite();
-		favorite.setM_id(m_id);
-		favorite.setP_index(p_index);
-		int result = favoriteService.insertFavorite(favorite);
-		
-		if(result == 1) return "success";
-		return "fail";
-	}
-	
-	// 관심 프로젝트 해제
-	@RequestMapping("MLD_UNLIKE.do")
-	public @ResponseBody String MLD_UNLIKE(int fv_index) {
-		int result = favoriteService.deleteFavorite(fv_index);
-		
-		if(result == 1) return "success";
-		return "fail";
-	}
-	
 	// 내 관심 프로젝트 조회
 	@RequestMapping("MLS_LIKE.do")
 	public ModelAndView MLS_LIKE(HttpServletRequest req) {

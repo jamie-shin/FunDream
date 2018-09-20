@@ -15,7 +15,33 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.like-btn').on('click', function() {
-		$(this).toggleClass('is-active');
+		var m_id =  $(this).siblings('#m_id').val();
+		var p_index = $(this).siblings("#p_index").val();
+		var likeBtn = $(this);
+		$.ajax({
+			url : "MLD_UNLIKE.do",
+			type : "POST",
+			data : {m_id : m_id,
+					p_index : p_index},
+			success : function(data){
+				switch(data){
+				case "insert":
+					alert("관심 프로젝트가 등록되었습니다.");
+					likeBtn.toggleClass('is-active');
+					break;
+				case "delete":
+					alert("관심 프로젝트가 해제되었습니다.");
+					likeBtn.toggleClass('is-active');
+					break;
+				default :
+					console.log("관심 프로젝트 등록/삭제 실패");
+					break;
+				}
+			},
+			error : function(){
+				console.log("관심 프로젝트 등록/삭제 오류");
+			}
+		});
 	});
 });
 </script>
@@ -130,6 +156,8 @@ $(document).ready(function(){
 				<!-- 프로그레스 바 -->
 				</a>
 				<div class="LIKE-buttons">
+					<input type="hidden" value="${list.p_index}" id="p_index" name="p_index">
+					<input type="hidden" value="${m_id}" id="m_id" name="m_id">
 			        <span class="like-btn"></span>
 			    </div>
 			</c:forEach>

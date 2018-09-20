@@ -26,4 +26,9 @@ public class FavoriteService {
 		return favoriteDao.selectFavoritesById(m_id);
 	}
 
+	public Favorite selectOneFavoriteByIdProject(Favorite favorite) {
+		// TODO Auto-generated method stub
+		return favoriteDao.selectOneFavoriteByIdProject(favorite);
+	}
+
 }
