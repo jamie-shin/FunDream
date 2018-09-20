@@ -313,14 +313,14 @@ public class IController {
 		mav.addObject("rejectList", projectService.getProjectsByApproval(3));
 		
 		HashMap<String, Object> selectMap1 = new HashMap<>();
+		// 승인 완료(2) - 프로젝트 종료 - 정산 요청 전
+		mav.addObject("beforeApplyList", projectService.getProjectsByBeforeApply());
 		// 승인 완료(2) - 프로젝트 종료 - 정산 대기(1)
 		mav.addObject("calculateBeforeList", projectService.getProjectsByWait());
 		// 승인 완료(2) - 프로젝트 종료 - 정산 완료(2)
 		mav.addObject("completeList", projectService.getProjectsByComplete());
 		// 승인 완료(2) - 프로젝트 종료 - 모금 실패(3)
-		HashMap<String, Object> selectMap3 = new HashMap<>();
-		selectMap3.put("calculate", -1);
-		mav.addObject("failList", projectService.getProjectsByCalculate(selectMap3));
+		mav.addObject("failList", projectService.getProjectsByFail());
 		
 		mav.setViewName("IJS_PROJECTFORM");
 		return mav;

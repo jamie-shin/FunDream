@@ -245,6 +245,30 @@
 		</div>
 		
 		<div class="IJS-PF-subtitle"><h2>종료된 프로젝트</h2></div><br>
+		<div class="IJS-PF-subtitle"><strong>정산 요청 전</strong></div>
+		<div class="wrapper">
+			<div class="table">
+				<div class="row header">
+					<div class="cell">프로젝트 번호</div>
+		      		<div class="cell">프로젝트 명</div>
+		      		<div class="cell">제작자</div>
+		      		<div class="cell">프로젝트 종료일</div>
+		      		<div class="cell">정산여부</div>
+				</div>
+				<c:if test="${beforeApplyList!= ''}">
+					<c:forEach items="${beforeApplyList}" var="calculate">
+					    <div class="row">
+					    	<div class="cell" data-title="프로젝트 번호"><a href="#" id="project">${calculate.p_index}</a></div>
+					    	<div class="cell" data-title="프로젝트 명"><a href="#" id="projectName">${calculate.p_name}</a></div>
+					      	<div class="cell" data-title="제작자"><a href="#" id="member">${calculate.m_id}</a></div>
+					      	<div class="cell" data-title="프로젝트 종료일">${calculate.p_enddate}</div>
+					      	<div class="cell" data-title="정산여부">정산 신청 전</div>
+					    </div>
+					</c:forEach>
+				</c:if>
+		    </div>
+		</div>
+		
 		<div class="IJS-PF-subtitle"><strong>정산 대기 중</strong></div>
 		<div class="wrapper">
 			<div class="table">

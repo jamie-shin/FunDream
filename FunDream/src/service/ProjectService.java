@@ -229,4 +229,19 @@ public class ProjectService {
 	public int updateComplete(int p_index) {
 		return projectDao.updateComplete(p_index);
 	}
+
+	public List<Project> getProjectsByBeforeApply() {
+		// TODO Auto-generated method stub
+		List<Project> list = projectDao.selectProjectsByBeforeApply();
+		System.out.println("====== 프로젝트 완료 후 정산 요청 전 리스트 ======");
+		for(Project p : list) {
+			System.out.println(p);
+		}
+		return projectDao.selectProjectsByBeforeApply();
+	}
+
+	public List<Project> getProjectsByFail() {
+		// TODO Auto-generated method stub
+		return projectDao.selectProjectsByFail();
+	}
 }

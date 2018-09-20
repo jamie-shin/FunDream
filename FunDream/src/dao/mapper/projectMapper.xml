@@ -147,4 +147,12 @@
 		update Project set p_approval=6 where p_index=#{p_index}
 	</update>
 	
+	<select id="selectProjectsByBeforeApply" resultType="project">
+		select * from Project where <![CDATA[p_enddate < now()]]> and <![CDATA[p_target <= p_status]]> and p_approval=2
+	</select>
+	
+	<select id="selectProjectsByFail" resultType="project">
+		select * from Project where <![CDATA[p_enddate < now()]]> and p_target > p_status
+	</select>
+	
 </mapper>

@@ -41,5 +41,7 @@ public interface IProjectDao {
 	public List<Project> selectProjectsByWait();
 	
 	public int updateComplete(int p_index);
+	public List<Project> selectProjectsByBeforeApply();
+	public List<Project> selectProjectsByFail();
 	
 }
