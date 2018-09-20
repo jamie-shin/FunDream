@@ -226,7 +226,7 @@
 								<div class="spon-project-left">
 									<h3>옵션</h3>
 								<c:if test="${r.r_option!=''}">
-									<span class="spon-project-spantag"><input type="text" class="spon-project-reward-option" name="" placeholder="ex) 파란색" id="option${status.index}"></span>
+									<span class="spon-project-spantag"><input type="text" class="spon-project-reward-option" name="" placeholder="${r.r_option}" id="option${status.index}"></span>
 								</c:if>
 								<c:if test="${r.r_option==''}">
 									<span class="spon-project-spantag">없음</span>
