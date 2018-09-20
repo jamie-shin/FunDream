@@ -2,6 +2,8 @@ package controller;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -335,9 +337,13 @@ public class MemberController {
 		return url;
 	}
 	
-	 @RequestMapping("MIS_LOGIN.do") // 로그인창에서 로그인버튼
-	    public @ResponseBody String MIS_LOGIN(HttpSession session, @RequestParam("m_email") String m_email, @RequestParam("m_pwd") String m_pwd) {
-	        String checkEmail ="";
+	 @RequestMapping(value="MIS_LOGIN.do", method=RequestMethod.POST, produces="application/text;charset=UTF-8") // 로그인창에서 로그인버튼
+	    public @ResponseBody String MIS_LOGIN(HttpServletRequest request, HttpServletResponse reponse, HttpSession session, String m_email, String m_pwd) throws UnsupportedEncodingException {
+	     
+		 request.setCharacterEncoding("UTF-8");
+		 reponse.setCharacterEncoding("UTF-8");
+		 
+		 String checkEmail ="";
 	        System.out.println("이메일: "+m_email);
 	        System.out.println("비밀번호: "+m_pwd);
 	        int result = memberService.MIS_LOGIN(m_email, m_pwd);
@@ -346,13 +352,13 @@ public class MemberController {
 	 
 	        if (result == 1 || result == 3 || result == 5 || result == 6) {
 	            if (result == 1) {
-	                checkEmail = "1";//("msg", "해당 이메일로 등록된 회원이 없습니다.");
+	                checkEmail = "xemail";//("msg", "해당 이메일로 등록된 회원이 없습니다.");
 	            } else if (result == 3) {
-	            	checkEmail = "3"; //("msg", "비밀번호를 확인해 주세요.");
+	            	checkEmail = "xpwd"; //("msg", "비밀번호를 확인해 주세요.");
 	            } else if (result == 5) {
-	               checkEmail="5";//("msg", "탈퇴 처리된 아이디입니다.");
+	               checkEmail="leave";//("msg", "탈퇴 처리된 아이디입니다.");
 	            } else if (result == 6) {
-	                checkEmail="6"; //"msg", "이용 정지된 아이디입니다.");
+	                checkEmail="invalid"; //"msg", "이용 정지된 아이디입니다.");
 	            }
 
 	        } 
@@ -367,13 +373,12 @@ public class MemberController {
 	            if (result == 2) {
 	                // String m_manager= "m_manager";
 	                session.setAttribute("m_manager", 1);
-	                checkEmail ="2";//("msg", "관리자님 환영합니다");
+	                checkEmail = m.getM_nick();
 	                System.out.println(session);
 	            } else if (result == 4) {
 	                session.setAttribute("m_manager", 2);
-	                checkEmail ="4"; //("msg",m_name+"님 환영합니다");
+	                checkEmail = m.getM_nick();
 	            }
-	           
 	        }
 	        return checkEmail;
 	    }
