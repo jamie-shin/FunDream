@@ -1163,14 +1163,15 @@ public class ProjectController {
 		search.setP_index(p_index);
 		Favorite favorite = favoriteService.selectOneFavoriteByIdProject(search);
 		if(favorite == null) {
-			favoriteService.insertFavorite(search);
-			return "insert";
+			int result = favoriteService.insertFavorite(search);
+			if(result == 1) return "insert";
+			return "fail";
 		}
-		else if(favorite != null){
-			favoriteService.deleteFavorite(favorite.getFv_index());
-			return "delete";
+		else{
+			int result = favoriteService.deleteFavorite(favorite.getFv_index());
+			if(result == 1) return "delete";
+			return "fail";
 		}
-		return "fail";
 	}
 
 }
