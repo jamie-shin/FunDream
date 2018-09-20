@@ -69,7 +69,7 @@
 			</li>
 			<li>
 				<a href="">
-					<div class="banner" style="background-image: url('img/여행.jpg');"></div>
+					<div class="banner" style="background-image: url('img/여행행.jpg');"></div>
 					<section class="caption">
 						<h1>떠나요 둘이서 모든걸 훌훌버리고~~</h1>
 					</section>
