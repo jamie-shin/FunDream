@@ -86,7 +86,7 @@
 		<div class="cal-textbox">
 			<div class="cal-textbox-1">
 				<div class="cal-textbox-left">정산받을금액</div>
-				<div class="cal-textbox-right"><fmt:formatNumber pattern="###,###" value="${project.p_status * 10000 * 0.93}" /> 원 
+				<div class="cal-textbox-right"><fmt:formatNumber pattern="###,###" value="${project.p_status * 0.93}" /> 원 
 				 	<a href="#" data-tooltip data-tooltip-label="정산비용" data-tooltip-message="수수료 7%(VAT별도)를 제외한 금액으로 정산됩니다.">
 					 	<i class="fa fa-question-circle"></i>
 				 	</a>
