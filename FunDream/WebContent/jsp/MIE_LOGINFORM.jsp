@@ -139,7 +139,7 @@
 		<small id="checkPwd" style="color: yellow"></small><br>
 		<a id="setPwd" href="">Lost your password?</a><br><br>
 		<input type="button" class="MIE_LOGIN" name="" value="로그인" id="submitB" class="MIE-login">
-		<input type="button" name="" value="회원가입" onclick="location.href='MSE_JOINFORM.do'" class="MIE-join">
+		<input type="button" class="MIE_JOIN" name="" value="회원가입" onclick="location.href='MSE_JOINFORM.do'" class="MIE-join">
 		<input type="button" name="" value="네이버로 로그인" class="naverlogin">
 		<input type="button" name="" value="구글로 로그인" class="googlelogin">
 	</div>
