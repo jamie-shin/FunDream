@@ -296,7 +296,7 @@ public class ProjectController {
 		int ct_index = Integer.parseInt(request.getParameter("ct_index"));
 		String p_name = request.getParameter("p_name");
 		int p_type = Integer.parseInt(request.getParameter("p_type"));
-		int p_target = Integer.parseInt(request.getParameter("p_target"));
+		int p_target = Integer.parseInt(request.getParameter("p_target"))*10000;
 		String p_startdate = request.getParameter("p_startdate");
 		String p_enddate = request.getParameter("p_enddate");
 		String p_age_str = request.getParameter("p_age");

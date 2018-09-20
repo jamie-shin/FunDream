@@ -97,7 +97,7 @@
 							html += '<div class="percentagem" style="width: 100%;"></div>';
 						}
 						html += '</div>';
-						html += '<div class="partidas">'+list[i].p_status+'</div>';
+						html += '<div class="partidas">'+list[i].p_status+' / ' + list[i].p_target + '</div>';
 						html += '</div>';
 						html += '</div>';
 						html += '</a>';
@@ -212,7 +212,7 @@
 								html += '<div class="percentagem" style="width: 100%;"></div>';
 							}
 							html += '</div>';
-							html += '<div class="partidas">'+list[i].p_status+'</div>';
+							html += '<div class="partidas">'+list[i].p_status+' / ' + list[i].p_target + '</div>';
 							html += '</div>';
 							html += '</div>';
 							html += '</a>';
@@ -320,7 +320,7 @@
 								</c:when>
 							</c:choose>
 						</div>
-						<div class="partidas">${list.p_status}</div>
+						<div class="partidas">${list.p_status} / ${list.p_target}</div>
 						<!-- 모금된 후원액 -->
 					</div>
 				</div>
