@@ -303,29 +303,7 @@ public class IController {
 	@RequestMapping("IJS_PROJECTFORM.do")
 	public ModelAndView IJS_PROJECTFORM() {
 		ModelAndView mav = new ModelAndView();
-		// 승인 대기 중(1)
-		mav.addObject("waitList", projectService.getProjectsByApproval(1));
-		// 승인 완료(2) - 프로젝트 시작 전(1)
-		mav.addObject("approveListBefore", projectService.getProjectsByApproval(2));
-		// 승인 완료(2) - 프로젝트 진행 중(2)
-		mav.addObject("approveListProgress", projectService.getProjectsByApproval(2));
-		// 반려(3)
-		mav.addObject("rejectList", projectService.getProjectsByApproval(3));
-		
-		HashMap<String, Object> selectMap1 = new HashMap<>();
-		// 승인 완료(2) - 프로젝트 종료 - 정산 대기(1)
-		selectMap1.put("calculate", 1);
-		mav.addObject("calculateBeforeList", projectService.getProjectsByCalculate(selectMap1));
-		// 승인 완료(2) - 프로젝트 종료 - 정산 완료(2)
-		HashMap<String, Object> selectMap2 = new HashMap<>();
-		selectMap2.put("calculate", 2);
-		mav.addObject("completeList", projectService.getProjectsByCalculate(selectMap2));
-		// 승인 완료(2) - 프로젝트 종료 - 모금 실패(3)
-		HashMap<String, Object> selectMap3 = new HashMap<>();
-		selectMap3.put("calculate", 3);
-		mav.addObject("failList", projectService.getProjectsByCalculate(selectMap3));
-		
-		mav.setViewName("IJS_PROJECTFORM");
+
 		return mav;
 	}
 	
@@ -372,50 +350,6 @@ public class IController {
 		if(result == 1) return "success";
 		return "fail";
 	}
-	
-	//관리자 프로젝트 부분 수정필요
-	
-/*	// 관리자 - 프로젝트 정산 화면 요청
-	@RequestMapping("IJE_FORM.do")
-	public ModelAndView IJE_FORM(String p_index_str) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("project", projectService.getOneProject(Integer.parseInt(p_index_str)));
-		mav.setViewName("IJE_FORM");
-		return mav;
-	}
-	
-	// 관리자 - 프로젝트 정산 요청
-	@RequestMapping("IJU_APPLY.do")
-	public @ResponseBody String IJU_APPLY(int p_index, int p_calculate, String bankname, String bankaccount, String bankowner) {
-		Bank_Info bank = new Bank_Info();
-		bank.setP_index(p_index);
-		String b_bankname = "";
-		switch(bankname) {
-		case "1":
-			b_bankname = "신한은행";
-			break;
-		case "2":
-			b_bankname = "국민은행";
-			break;
-		case "3": 
-			b_bankname = "우리은행";
-			break;
-		}
-		bank.setB_bankname(b_bankname);
-		bank.setB_account(bankaccount);
-		bank.setB_owner(bankowner);
-		System.out.println(bank);
-		int b_result = bank_InfoService.insertBank_Info(bank);
-		
-		Map<String, Object> changeMap = new HashMap<>();
-		changeMap.put("p_index", p_index);
-		changeMap.put("p_calculate", p_calculate);
-		int p_result = projectService.updateCalculate(changeMap);
-		
-		if(b_result == 1 && p_result == 1) return "success";
-		return "fail";
-	}*/
-	
 	
 	// 관리자 - 공지사항 목록
 	@RequestMapping("INS_NOTICELIST.do")
