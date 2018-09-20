@@ -61,7 +61,7 @@
 						else{
 							html += '<a class="card" href="JPS_DETAIL.do?p_index='+list[i].p_index+'&m_id='+m_id+'")>';
 						}
-						html += '<span class="card-header" style="background-image: url('+list[i].p_mainimg+');">';
+						html += '<span class="card-header" style="background-image: url('+"\'"+list[i].p_mainimg+"\'"+');">';
 						if(m_id==list[i].m_id){
 							html += '<span class="card-title"><h3>내가 만든 프로젝트</h3></span>';
 						}
@@ -182,7 +182,7 @@
 							else{
 								html += '<a class="card" href="JPS_DETAIL.do?p_index='+list[i].p_index+'&m_id='+m_id+'")>';
 							}
-							html += '<span class="card-header" style="background-image: url('+list[i].p_mainimg+');">';
+							html += '<span class="card-header" style="background-image: url('+"\'"+list[i].p_mainimg+"\'"+');">';
 							if(m_id==list[i].m_id){
 								html += '<span class="card-title"><h3>내가 만든 프로젝트</h3></span>';
 							}

@@ -25,7 +25,7 @@
 			
 		<c:forEach items="${test}" var="t" varStatus="status">
 			<a class="card" href="MS_MYFUNDDETAIL.do?f_index=${t[0].f_index}">
-				<span class="card-header" style="background-image: url(${t[1].p_mainimg});">
+				<span class="card-header" style="background-image: url('${t[1].p_mainimg}');">
 				</span>
 				<span class="card-summary">
 						<h3>${t[1].p_name}</h3>

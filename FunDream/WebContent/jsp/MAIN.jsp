@@ -112,7 +112,7 @@
 				<c:if test="${m_email ==null }">
 					<a class="card" href="JPS_DETAIL.do?p_index=${list.p_index}")>
 				</c:if>
-				<span class="card-header" style="background-image: url(${list.p_mainimg});">
+				<span class="card-header" style="background-image: url('${list.p_mainimg}');">
 					<!-- 내가 만든 프로젝트 표시하는 card-title -->
 					<c:if test="${list.m_id == m_id}">
 						<span class="card-title"><h3>내가 만든 프로젝트</h3></span>
@@ -193,7 +193,7 @@
 				<c:if test="${m_email ==null }">
 					<a class="card" href="JPS_DETAIL.do?p_index=${list.p_index}")>
 				</c:if>
-				<span class="card-header" style="background-image: url(${list.p_mainimg});"> 
+				<span class="card-header" style="background-image: url('${list.p_mainimg}');"> 
 					<!-- 내가 만든 프로젝트 표시하는 card-title -->
 					<c:if test="${list.m_id == m_id}">
 						<span class="card-title"><h3>내가 만든 프로젝트</h3></span>
@@ -267,7 +267,7 @@
 				<c:if test="${m_email ==null }">
 					<a class="card" href="JPS_DETAIL.do?p_index=${list.p_index}")>
 				</c:if>
-				<span class="card-header" style="background-image: url(${list.p_mainimg});">
+				<span class="card-header" style="background-image: url('${list.p_mainimg}');">
 					<!-- 내가 만든 프로젝트 표시하는 card-title -->
 					<c:if test="${list.m_id == m_id}">
 						<span class="card-title"><h3>내가 만든 프로젝트</h3></span>

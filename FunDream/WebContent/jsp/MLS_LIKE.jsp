@@ -70,7 +70,7 @@ $(document).ready(function(){
 					<a class="card" href="#">
 						<input type="hidden" id="p_index" name="p_index" value="${project.p_index}">
 						<input type="hidden" id="p_approval" name="p_approval" value="${project.p_approval}">
-						<span class="card-header" style="background-image: url(${project.p_mainimg});">
+						<span class="card-header" style="background-image: url('${project.p_mainimg}');">
 							<span class="card-title">
 								<h3>[${project.p_index}] ${project.p_name}</h3>
 								<!-- <div class="right-al">
