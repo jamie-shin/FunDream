@@ -52,7 +52,7 @@
 <body class="calbody">
 	<div class="cal-container">
 		<input type="hidden" id="p_index" name="p_index" value="${project.p_index}">
-		<input type="hidden" id="calculate" name="calculate" value="${project.p_status * 10000 * 0.93}">
+		<input type="hidden" id="calculate" name="calculate" value="${project.p_status * 0.93}">
 		<div class="cal-title-center">
 			<h1>${project.p_name} 정산</h1><br><br>
 
@@ -75,9 +75,9 @@
 				<div class="cal-textbox-right">
 					<div class="cal-progress">
 						<div class="cal-bar" style=
-							<c:if test="${(project.p_status / project.p_target * 100) <= 100}">"width: ${project.p_status / project.p_target * 100}%;"</c:if>
+							<c:if test="${(project.p_status / project.p_target * 100) <= 100}">"width: ${project.p_status / project.p_target}%;"</c:if>
 							<c:if test="${(project.p_status / project.p_target * 100) > 100}">"width: 100%;"</c:if>>
-							<p class="cal-percent"><fmt:formatNumber pattern="###,###.##%" value="${project.p_status / project.p_target * 100}" /></p>
+							<p class="cal-percent"><fmt:formatNumber pattern="###,###.##%" value="${project.p_status / project.p_target}" /></p>
 						</div>
 					</div>
 				</div>
