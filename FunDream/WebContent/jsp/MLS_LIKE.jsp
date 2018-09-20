@@ -12,6 +12,40 @@
 <link
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet">
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.like-btn').on('click', function() {
+		var m_id =  $(this).siblings('[name=m_id]').val();
+		var p_index = $(this).siblings("[name=p_index]").val();
+		var p_name = $(this).siblings("[name=p_name]").val();
+		var likeBtn = $(this);
+		$.ajax({
+			url : "MLD_UNLIKE.do",
+			type : "POST",
+			data : {m_id : m_id,
+					p_index : p_index},
+			success : function(data){
+				switch(data){
+				case "insert":
+					alert(p_name + "이(가) 관심 프로젝트 등록되었습니다.");
+					likeBtn.toggleClass('is-active');
+					break;
+				case "delete":
+					alert(p_name + "이(가) 관심 프로젝트 해제되었습니다.");
+					likeBtn.toggleClass('is-active');
+					break;
+				default :
+					console.log("관심 프로젝트 등록/삭제 실패");
+					break;
+				}
+			},
+			error : function(){
+				console.log("관심 프로젝트 등록/삭제 오류");
+			}
+		});
+	});
+});
+</script>
 </head>
 <body>
 	<!-- 오늘 날짜 구하기 -->
@@ -78,8 +112,8 @@
 						<!-- 프로그레스 바 -->
 					</a>
 					<div class="LIKE-buttons">
-						<input type="hidden" value="${list.p_name}" name="p_name">
-						<input type="hidden" value="${list.p_index}" name="p_index">
+						<input type="hidden" value="${project.p_name}" name="p_name">
+						<input type="hidden" value="${project.p_index}" name="p_index">
 						<input type="hidden" value="${m_id}" name="m_id">
 				        <span class="like-btn"></span>
 				    </div>
