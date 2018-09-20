@@ -80,7 +80,7 @@
 </head>
 <body class="MIE-body">
 	<div class="loginbox">
-		<img src="img/캡처.JPG" class="logo">
+		<img src="img/FunDream.JPG" class="logo">
 		<h1>펀드림</h1>
 		<form action="MAIN.do" id="loginForm" method="post">
 			<p>이메일</p>
