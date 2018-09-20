@@ -133,6 +133,9 @@ $(function() {
 			$('#msgName').text("한글만 입력 가능합니다.");
 			$(this).val(name.replace(kor, ''));
 		}
+		else{
+			$('#msgName').text("");
+		}
 	});
 
 	// 연락처, 생년월일 숫자 길이 제한
@@ -163,6 +166,7 @@ $(function() {
 				$(this).focus();
 				$('#msgBirth').text("잘못된 연도입니다.");
 			} else {
+				$('#msgBirth').text("");
 				$("#inputBirthMonth").focus();
 			}
 			return false;
@@ -175,6 +179,7 @@ $(function() {
 				$(this).focus();
 				$('#msgBirth').text("잘못된 월입니다.");
 			} else {
+				$('#msgBirth').text("");
 				$("#inputBirthDay").focus();
 			}
 			return false;
@@ -189,6 +194,9 @@ $(function() {
 			}
 			return false;
 		}
+		else {
+			$('#msgBirth').text("");
+		}
 	});
 
 	// 닉네임 검증(한글&영문&숫자 가능, 특수문자만 불가)
@@ -198,6 +206,9 @@ $(function() {
 		if (spec.test(nick)) {
 			$('#msgNick').text('특수문자는 사용 불가능합니다.');
 			$(this).val(nick.replace(spec, ''));
+		}
+		else{
+			$('#msgNick').text("");
 		}
 	});
 
@@ -244,26 +255,49 @@ $(function() {
 			$('#msgName').text('이름을 입력하세요.');
 			return false;
 		}
+		if (m_name != "") {
+			$('#msgName').text('');
+			return false;
+		}
 		if (phone1 == "" || phone2 == "" || phone3 == "") {
 			$('#msgPhone').text('연락처를 입력하세요.');
+			return false;
+		}
+		if (phone1 != "" && phone2 != "" && phone3 != "") {
+			$('#msgPhone').text('');
 			return false;
 		}
 		if (birthY == "" || birthM == "" || birthD == "") {
 			$('#msgBirth').text('생년월일을 입력하세요.');
 			return false;
 		}
+		if (birthY != "" && birthM != "" && birthD != "") {
+			$('#msgBirth').text('');
+			return false;
+		}
 		if (m_gender == "") {
 			$('#msgGender').text('성별을 선택하세요.');
+			return false;
+		}
+		if (m_gender != "") {
+			$('#msgGender').text('');
 			return false;
 		}
 		if (m_nick == "") {
 			$('#msgNick').text('닉네임을 입력하세요.');
 			return false;
 		}
+		if (m_nick != "") {
+			$('#msgNick').text('');
+			return false;
+		}
 		// 체크안하고 회원가입 버튼 누를시
 		if ($("#c1").prop("checked") == false) {
 			$('#msgAgree').text("회원약관 동의에 체크하셔야 회원가입이 가능합니다.");
 			return false;
+		}
+		if ($("#c1").prop("checked") == true) {
+			$('#msgAgree').text("");
 		}
 
 		$('#m_email').val(m_email);
@@ -292,7 +326,7 @@ $(function() {
 					location.href = "MIE_LOGINFORM.do";
 					break;
 				default : 
-					$('#msgImg').text("이미지 형식이 올바르지 않습니다.");
+					alert("이미지 형식이 올바르지 않습니다.");
 					break;
 				}
 			},
