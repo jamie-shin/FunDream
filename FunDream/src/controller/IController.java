@@ -303,7 +303,26 @@ public class IController {
 	@RequestMapping("IJS_PROJECTFORM.do")
 	public ModelAndView IJS_PROJECTFORM() {
 		ModelAndView mav = new ModelAndView();
-
+		// 승인 대기 중(1)
+		mav.addObject("waitList", projectService.getProjectsByApproval(1));
+		// 승인 완료(2) - 프로젝트 시작 전(1)
+		mav.addObject("approveListBefore", projectService.getProjectsByBefore());
+		// 승인 완료(2) - 프로젝트 진행 중(2)
+		mav.addObject("approveListProgress", projectService.getProjectsByAfter());
+		// 반려(3)
+		mav.addObject("rejectList", projectService.getProjectsByApproval(3));
+		
+		HashMap<String, Object> selectMap1 = new HashMap<>();
+		// 승인 완료(2) - 프로젝트 종료 - 정산 대기(1)
+		mav.addObject("calculateBeforeList", projectService.getProjectsByWait());
+		// 승인 완료(2) - 프로젝트 종료 - 정산 완료(2)
+		mav.addObject("completeList", projectService.getProjectsByComplete());
+		// 승인 완료(2) - 프로젝트 종료 - 모금 실패(3)
+		HashMap<String, Object> selectMap3 = new HashMap<>();
+		selectMap3.put("calculate", -1);
+		mav.addObject("failList", projectService.getProjectsByCalculate(selectMap3));
+		
+		mav.setViewName("IJS_PROJECTFORM");
 		return mav;
 	}
 	
@@ -453,4 +472,23 @@ public class IController {
 		out.close();
 	}
 	
+	// 관리자 - 프로젝트 정산 화면 요청
+	@RequestMapping("IJE_FORM.do")
+	public ModelAndView IJE_FORM(String p_index_str) {
+		int p_index = Integer.parseInt(p_index_str);
+		Bank_Info bank = bank_InfoService.selectBankByProject(p_index);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("project", projectService.getOneProject(p_index));
+		mav.addObject("bank", bank);
+		return mav;
+	}
+
+	// 관리자 - 프로젝트 정산 처리
+	@RequestMapping("IJU_APPLY.do")
+	public @ResponseBody String IJE_FORM(int p_index) {
+		int result = projectService.updateComplete(p_index);
+		if(result == 1) return "success";
+		return "fail";
+	}
+
 }
