@@ -205,5 +205,28 @@ public class ProjectService {
 		// TODO Auto-generated method stub
 		return projectDao.updateStory(project);
 	}
+
+	public List<Project> getProjectsByBefore() {
+		// TODO Auto-generated method stub
+		return projectDao.selectProjectByBefore();
+	}
+
+	public List<Project> getProjectsByAfter() {
+		// TODO Auto-generated method stub
+		return projectDao.selectProjectByAfter();
+	}
+
+	public List<Project> getProjectsByComplete() {
+		// TODO Auto-generated method stub
+		return projectDao.selectProjectsByComplete();
+	}
+
+	public List<Project> getProjectsByWait() {
+		// TODO Auto-generated method stub
+		return projectDao.selectProjectsByWait();
+	}
 	
+	public int updateComplete(int p_index) {
+		return projectDao.updateComplete(p_index);
+	}
 }

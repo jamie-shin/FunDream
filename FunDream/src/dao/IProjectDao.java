@@ -35,4 +35,11 @@ public interface IProjectDao {
 	public int updateCalculate(Map<String, Object> changeMap);
 	public int updateStory(Project project);
 	
+	public List<Project> selectProjectByBefore();
+	public List<Project> selectProjectByAfter();
+	public List<Project> selectProjectsByComplete();
+	public List<Project> selectProjectsByWait();
+	
+	public int updateComplete(int p_index);
+	
 }

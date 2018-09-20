@@ -104,10 +104,10 @@
 	</select>
 	
 	<select id="selectProjectsByCalculate" parameterType="java.util.HashMap" resultType="project">
-		select * from Project where p_approval = 2 and <![CDATA[(p_enddate < now())]]> and
-		<if test="calculate == 1"><![CDATA[(p_calculate = 0)]]></if>
-		<if test="calculate == 2"><![CDATA[(p_calculate > 0)]]></if>
-		<if test="calculate == 3"><![CDATA[(p_calculate < 0)]]></if>
+		select * from Project where p_approval = 2 and <![CDATA[(p_enddate < now())]]> 
+		<if test="calculate == 1"> and <![CDATA[(p_calculate = 0)]]></if>
+		<if test="calculate == 2"> and <![CDATA[(p_calculate > 0)]]></if>
+		<if test="calculate == 3"> and <![CDATA[(p_calculate < 0)]]></if>
 		order by p_enddate desc
 	</select>
 	
@@ -125,6 +125,26 @@
 	
 	<update id="updateStory" parameterType="project">
 		update Project set p_contents=#{p_contents} where p_index=#{p_index}
+	</update>
+		
+	<select id="selectProjectByBefore" resultType="project">
+		select * from Project where p_approval=2 and <![CDATA[p_startdate > now()]]>
+	</select>
+	
+	<select id="selectProjectByAfter" resultType="project">
+		select * from Project where p_approval=2 and <![CDATA[p_startdate <= now()]]> and <![CDATA[p_enddate > now()]]>
+	</select>
+	
+	<select id="selectProjectsByComplete" resultType="project">
+		select * from Project where p_approval=6 and <![CDATA[p_enddate < now()]]> and p_calculate > 0
+	</select>
+	
+	<select id="selectProjectsByWait" resultType="project">
+		select * from Project where p_approval=5 and <![CDATA[p_enddate < now()]]>
+	</select>
+	
+	<update id="updateComplete" parameterType="int">
+		update Project set p_approval=6 where p_index=#{p_index}
 	</update>
 	
 </mapper>

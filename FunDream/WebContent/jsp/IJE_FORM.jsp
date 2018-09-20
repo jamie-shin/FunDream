@@ -14,23 +14,15 @@
 	$(function(){
 		$(document).on('click', '#applyCalculate', function(){
 			var p_index = $('#p_index').val();
-			var p_calculate = $('#calculate').val();
-			var bankname = $('#bankname').val();
-			var bankaccount = $('#bankaccount').val();
-			var bankowner = $('#bankowner').val();
 			$.ajax({
 				url : "IJU_APPLY.do",
-				data : {p_index : p_index,
-						bankname : bankname,
-						bankaccount : bankaccount,
-						bankowner : bankowner,
-						p_calculate : p_calculate},
+				data : {p_index : p_index},
 				type : "POST",
 				success : function(data){
 					switch(data){
 					case "success":
 						alert("정산 처리가 완료되었습니다.");
-						location.href = history.back();
+						location.href = "IJS_PROJECTFORM.do";
 						break;
 					default : 
 						console.log("정산 처리 실패");

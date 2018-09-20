@@ -22,4 +22,9 @@
 	<delete id="deleteOneBank_infoByF_index" parameterType="int">
 		delete from bank_info where f_index=#{f_index}
 	</delete>
+		
+	<select id="selectOneBankByProject" parameterType="int" resultType="bank_Info">
+		select * from bank_info where p_index=#{p_index}
+	</select>
+	
 </mapper>
