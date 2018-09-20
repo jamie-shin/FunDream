@@ -85,20 +85,20 @@
 			<div class="cal-accountbox-1">
 				<div class="cal-accountbox-left">은행명</div>
 				<div class="cal-accountbox-right">
-					<select class="cal-bankname" name="bankname" id="bankname">
-						<option value="1">신한은행</option>
-						<option value="2">국민은행</option>
-						<option value="3">우리은행</option>
+					<select class="cal-bankname" name="bankname" id="bankname" disabled="disabled">
+						<option value="1" <c:if test="${bank.b_name == '신한은행'}">selected='selected'</c:if>>신한은행</option>
+						<option value="2" <c:if test="${bank.b_name == '국민은행'}">selected='selected'</c:if>>국민은행</option>
+						<option value="3" <c:if test="${bank.b_name == '우리은행'}">selected='selected'</c:if>>우리은행</option>
 					</select>
 				</div>
 			</div>
 			<div class="cal-accountbox-1">
 				<div class="cal-accountbox-left">계좌번호</div>
-				<div class="cal-accountbox-right"><input type="text" placeholder="ex) 000-000-000000" class="cal-accountnumber" id="bankaccount" name="bankaccount"></div>
+				<div class="cal-accountbox-right"><input type="text" placeholder="ex) 000-000-000000" class="cal-accountnumber" id="bankaccount" name="bankaccount" value="${bank.b_account}" readonly="readonly"></div>
 			</div>
 			<div class="cal-accountbox-1">
 				<div class="cal-accountbox-left">예금주명</div>
-				<div class="cal-accountbox-right"><input type="text" placeholder="ex) 홍길동" class="cal-accountname" id="bankowner" name="bankowner"></div>
+				<div class="cal-accountbox-right"><input type="text" placeholder="ex) 홍길동" class="cal-accountname" id="bankowner" name="bankowner" value="${bank.b_owner}" readonly="readonly"></div>
 			</div>
 			<div class="cal-btn-center">
 				<input type="button" value="신청" class="cal-applybtn" id="applyCalculate">
