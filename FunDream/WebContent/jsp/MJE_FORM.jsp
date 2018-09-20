@@ -89,7 +89,7 @@
 						${start} ~ ${end}
 					</span>
 					<!-- 무산과 성공 백그라운드 컬러와 글씨 색상 지정은 여기서  -->
-					<c:if test="${(end < today) && (project.p_target <= project.p_status) && (project.p_approval == 2)}">
+					<c:if test="${(end < today) && (project.p_target <= project.p_status) && (project.p_approval == 2 || project.p_approval==5 || project.p_approval ==6)}">
 						<h3 class="card-toggle" style="background:white; color:red;">성공</h3>
 						
 					</c:if>
