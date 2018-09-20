@@ -20,17 +20,16 @@
 		<input type="hidden" name="m_gender" id="m_gender" value="">
 		<input type="hidden" name="m_nick" id="m_nick" value="">
 		<div class="joinbox">
-			<p>이메일</p>
+			<p>이메일</p><small id="checkEmail"></small>
 			<input type="email" id="inputEmail" name="" placeholder="E-mail">
-			<small id="checkEmail"></small> 
 			<input type="button" id="sendCodeBtn" name="" value="이메일 인증"  disabled="disabled">
-			<p>비밀번호</p>
+			<p>비밀번호</p><small id="msgPwd"></small>
 			<input type="password" id="inputPwd" name="" placeholder="Password">
-			<p>비밀번호 확인</p>
+			<p>비밀번호 확인</p><small id="msgCheckPwd"></small>
 			<input type="password" id="inputPwdCheck" name="" placeholder="Password Check">
-			<p>이름</p>
+			<p>이름</p><small id="msgName"></small>
 			<input type="text" id="inputName" name="" placeholder="name">
-			<p>연락처</p>
+			<p>연락처</p><small id="msgPhone"></small>
 			<select id="inputPhone1" name="">
 				<option value="010">010</option>
 				<option value="011">011</option>
@@ -41,19 +40,19 @@
 			</select> 
 			<strong>-</strong> <input type="number" id="inputPhone2" name="" maxlength="4" style="width: 70px;">
 			<strong>-</strong> <input type="number" id="inputPhone3" name="" maxlength="4" style="width: 70px;">
-			<p>생년월일</p>
+			<p>생년월일</p><small id="msgBirth"></small>
 			<input type="number" id="inputBirthYear" name="" maxlength="4" style="width: 60px;" placeholder="yyyy">
 			<input type="number" id="inputBirthMonth" name="" maxlength="2" style="width: 60px;" placeholder="MM">
 			<input type="number" id="inputBirthDay" name="" maxlength="2" style="width: 60px;" placeholder="dd">
-			<p>성별</p>
+			<p>성별</p><small id="msgGender"></small>
 			<select id="inputGender" name="">
 				<option value="1">남자</option>
 				<option value="2">여자</option>
 			</select><br>
 			<br>
-			<p>닉네임</p>
+			<p>닉네임</p><small id="msgNick"></small>
 			<input type="text" id="inputNick" name="" placeholder="nickname">
-			<p>이미지 파일</p>
+			<p>이미지 파일</p><p id="msgImg"></p>
 			<br><input type='file' id="imgInp" name="m_img"/><br>
 			<img id="blah" src="#" alt="your image" class="logo"/>
 			<br><br><br><br>
@@ -93,6 +92,7 @@
 회사는 본 약관 및 개별약관에서 정한 바에 따라 회원별로 서비스의 이용시간, 이용횟수, 메뉴 등을 세분하여 달리 적용할 수 있습니다.
 			</textarea>
 			<input type="checkbox" name="" id="c1"><label for="c1">상기내용에 동의합니다.</label>
+			<small id="msgAgree"></small>
 			<br>
 			<br>
 			<input type="button" class="MSE_JOIN" id="signupSubmit" name="" value="회원가입"> 
