@@ -299,6 +299,17 @@ progress, progress[role] {
 .JPS_DETAIL_CONTENTS img { width:100% !important }
 .JPS_DETAIL_CONTENTS .note-video-clip { width: 100% !important; height: 370px !important; }
 
+
+.MP_fontsize {
+  font-size:30pt;
+  text-align: center;
+}
+.JPS_MP {
+  transition: all 0.2s;
+  color: #F17F42;
+}
+
+
 @media (max-width: 800px) {
 	.pv-side {
 		display: none;

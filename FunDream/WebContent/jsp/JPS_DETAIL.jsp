@@ -318,6 +318,23 @@ $(function() {
      });
 });
 </script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	var heartuptimer = setInterval(heartup, 200);
+	function heartup() {
+	  $(".JPS_MP").css("font-weight", "900");
+	}
+
+	var heartdowntimer = setInterval(heartdown, 500);
+	function heartdown() {
+	  $(".JPS_MP").css("font-weight", "100");
+	}
+	
+});
+
+</script>
 </head>
 <body>
 	<div class="pv-banner-image"
@@ -678,8 +695,15 @@ $(function() {
 			<c:if test="${type eq 'none' || type eq 'normal'}">
 				<input type="button" value="후원하기" class="pv-reward-btn" id="FundBtn">
 			</c:if>
-			<c:if test="${type eq 'producer' || type eq 'manager'}">
+			<c:if test="${type eq 'manager'}">
 			<div style="height:50px; width:100%;">
+			</div>
+			</c:if>
+			<c:if test="${type eq 'producer'}">
+			<div style="height:50px; width:100%;">
+				<div class="MP_fontsize"> 
+					<span class="JPS_MP">My Project</span>
+				</div>
 			</div>
 			</c:if>
 			<div class="pv-progressbar-box">
