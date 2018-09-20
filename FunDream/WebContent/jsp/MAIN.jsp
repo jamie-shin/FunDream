@@ -161,13 +161,10 @@ $(document).ready(function(){
 					<input type="hidden" value="${list.p_index}" name="p_index">
 					<input type="hidden" value="${m_id}" name="m_id">
 					<c:if test="${favoriteList != null}">
-					<c:forEach items="${favoriteList}" var="f">
-				        <c:if test="${f.p_index == list.p_index}"><span class="like-btn is-active"></span></c:if>
-				        <c:if test="${f.p_index != list.p_index}"><span class="like-btn"></span></c:if>
-					</c:forEach>
-					</c:if>
-					<c:if test="${favoriteList == null && m_id != null}">
-						<span class="like-btn"></span>
+						<c:forEach items="${favoriteList}" var="fav">
+					        <c:if test="${fav.p_index == list.p_index}"><span class="like-btn is-active"></span></c:if>
+					        <c:if test="${fav.p_index != list.p_index}"><span class="like-btn"></span></c:if>
+						</c:forEach>
 					</c:if>
 			    </div>
 			</c:forEach>
@@ -233,13 +230,10 @@ $(document).ready(function(){
 					<input type="hidden" value="${list.p_index}" name="p_index">
 					<input type="hidden" value="${m_id}" name="m_id">
 					<c:if test="${favoriteList != null}">
-					<c:forEach items="${favoriteList}" var="f">
-				        <c:if test="${f.p_index == list.p_index}"><span class="like-btn is-active"></span></c:if>
-				        <c:if test="${f.p_index != list.p_index}"><span class="like-btn"></span></c:if>
-					</c:forEach>
-					</c:if>
-					<c:if test="${favoriteList == null && m_id != null}">
-						<span class="like-btn"></span>
+						<c:forEach items="${favoriteList}" var="fav">
+					        <c:if test="${fav.p_index == list.p_index}"><span class="like-btn is-active"></span></c:if>
+					        <c:if test="${fav.p_index != list.p_index}"><span class="like-btn"></span></c:if>
+						</c:forEach>
 					</c:if>
 			    </div>
 			</c:forEach>
@@ -309,9 +303,6 @@ $(document).ready(function(){
 					        <c:if test="${fav.p_index == list.p_index}"><span class="like-btn is-active"></span></c:if>
 					        <c:if test="${fav.p_index != list.p_index}"><span class="like-btn"></span></c:if>
 						</c:forEach>
-					</c:if>
-					<c:if test="${m_id != ''}">
-						<span class="like-btn"></span>
 					</c:if>
 			    </div>
 			</c:forEach>
