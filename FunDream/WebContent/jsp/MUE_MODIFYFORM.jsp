@@ -284,7 +284,7 @@
 			<br>
 			<!-- <input type="button" class="uploadbtn" name="" value="업로드" onclick=""> -->
 			<br><br><br>
-			<input type="submit" class="modibtn" id="updateSubmit" value="수정"> 
+			<input type="button" class="modibtn" id="updateSubmit" value="수정"> 
 			<input type="button" class="cancelbtn" name="" value="취소" onclick="location.href='MAIN.do'">
 			<input type="button" class="outbtn" id="leaveBtn" name="" value="탈퇴">
 		</div>
