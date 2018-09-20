@@ -29,7 +29,7 @@
 		</span>
 		<c:if test="${msg != 'noFavorite'}">
 			<div class="cards">
-				<c:forEach items="${myProjectList}" var="project">
+				<c:forEach items="${myFavoriteList}" var="project">
 					<a class="card" href="#">
 						<input type="hidden" id="p_index" name="p_index" value="${project.p_index}">
 						<input type="hidden" id="p_approval" name="p_approval" value="${project.p_approval}">
@@ -75,6 +75,12 @@
 						</div>
 						<!-- 프로그레스 바 -->
 					</a>
+					<div class="LIKE-buttons">
+						<input type="hidden" value="${list.p_name}" name="p_name">
+						<input type="hidden" value="${list.p_index}" name="p_index">
+						<input type="hidden" value="${m_id}" name="m_id">
+				        <span class="like-btn"></span>
+				    </div>
 				</c:forEach>
 			</div>
 		</c:if>
