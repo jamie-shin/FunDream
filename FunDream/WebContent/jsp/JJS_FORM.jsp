@@ -62,7 +62,9 @@
 							html += '<a class="card" href="JPS_DETAIL.do?p_index='+list[i].p_index+'&m_id='+m_id+'")>';
 						}
 						html += '<span class="card-header" style="background-image: url('+list[i].p_mainimg+');">';
-						html += '<span class="card-title"><h3>내가 만든 프로젝트</h3></span></span>';
+						if(m_id==list[i].m_id){
+							html += '<span class="card-title"><h3>내가 만든 프로젝트</h3></span></span>';
+						}
 						html += '<span class="card-summary">';
 						html += '<h3>'+list[i].p_name+'</h3>';
 						
@@ -181,7 +183,9 @@
 								html += '<a class="card" href="JPS_DETAIL.do?p_index='+list[i].p_index+'&m_id='+m_id+'")>';
 							}
 							html += '<span class="card-header" style="background-image: url('+list[i].p_mainimg+');">';
-							html += '<span class="card-title"><h3>내가 만든 프로젝트</h3></span></span>';
+							if(m_id==list[i].m_id){
+								html += '<span class="card-title"><h3>내가 만든 프로젝트</h3></span></span>';
+							}
 							html += '<span class="card-summary">';
 							html += '<h3>'+list[i].p_name+'</h3>';
 							
@@ -281,7 +285,9 @@
 				</c:if>
 				<span class="card-header" style="background-image: url('${list.p_mainimg}');">
 					<!-- 내가 만든 프로젝트 표시하는 card-title -->
-					<span class="card-title"><h3>내가 만든 프로젝트</h3></span>
+					<c:if test="${list.m_id == m_id}">
+						<span class="card-title"><h3>내가 만든 프로젝트</h3></span>
+					</c:if>
 				</span>
 				<span class="card-summary">
 					<h3>${list.p_name}</h3>

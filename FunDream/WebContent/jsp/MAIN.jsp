@@ -80,7 +80,9 @@
 				</c:if>
 				<span class="card-header" style="background-image: url(''${list.p_mainimg});">
 					<!-- 내가 만든 프로젝트 표시하는 card-title -->
-					<span class="card-title"><h3>내가 만든 프로젝트</h3></span>
+					<c:if test="${list.m_id == m_id}">
+						<span class="card-title"><h3>내가 만든 프로젝트</h3></span>
+					</c:if>
 				</span>
 				<span class="card-summary">
 					<h3>${list.p_name}</h3>
@@ -143,7 +145,9 @@
 				</c:if>
 				<span class="card-header" style="background-image: url(${list.p_mainimg});"> 
 					<!-- 내가 만든 프로젝트 표시하는 card-title -->
-					<span class="card-title"><h3>내가 만든 프로젝트</h3></span>
+					<c:if test="${list.m_id == m_id}">
+						<span class="card-title"><h3>내가 만든 프로젝트</h3></span>
+					</c:if>
 				</span>
 				<span class="card-summary">
 					<h3>${list.p_name}</h3>
@@ -199,7 +203,9 @@
 				</c:if>
 				<span class="card-header" style="background-image: url(${list.p_mainimg});">
 					<!-- 내가 만든 프로젝트 표시하는 card-title -->
-					<span class="card-title"><h3>내가 만든 프로젝트</h3></span>
+					<c:if test="${list.m_id == m_id}">
+						<span class="card-title"><h3>내가 만든 프로젝트</h3></span>
+					</c:if>
 				</span>
 				<span class="card-summary">
 					<h3>${list.p_name}</h3>
