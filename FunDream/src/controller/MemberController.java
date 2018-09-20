@@ -334,7 +334,7 @@ public class MemberController {
 		}
 		return url;
 	}
-
+	
 	 @RequestMapping("MIS_LOGIN.do") // 로그인창에서 로그인버튼
 	    public @ResponseBody String MIS_LOGIN(HttpSession session, @RequestParam("m_email") String m_email, @RequestParam("m_pwd") String m_pwd) {
 	        String checkEmail ="";
