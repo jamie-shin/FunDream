@@ -77,7 +77,6 @@
 		$('#submitB').on('click', function(){
 			var m_email = $('#inputEmail').val();
 			var m_pwd = $('#inputPwd').val();
-			alert(m_email);
 			if(m_email==""){
 				alert('이메일을 입력하세요.');
 				return false;
