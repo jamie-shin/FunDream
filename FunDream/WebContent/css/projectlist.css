@@ -386,6 +386,8 @@ div.candidatos .parcial .info .percentagem-num {
 }
 
 * {
+	margin:0;
+	padding:0;
   -moz-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -moz-transform;
   -o-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -o-transform;
   -webkit-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -webkit-transform;
