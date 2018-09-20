@@ -297,6 +297,7 @@ progress, progress[role] {
 
 .JPS_DETAIL_CONTENTS { width:100%; height:auto; }
 .JPS_DETAIL_CONTENTS img { width:100% !important }
+.JPS_DETAIL_CONTENTS .note-video-clip { width: 100% !important; height: 370px !important; }
 
 @media (max-width: 800px) {
 	.pv-side {
