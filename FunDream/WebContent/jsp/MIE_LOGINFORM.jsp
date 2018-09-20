@@ -85,10 +85,10 @@
 		<form action="MAIN.do" id="loginForm" method="post">
 			<p>이메일</p>
 			<input type="email" name="m_email" id="m_email" placeholder="E-mail">
-			<small id="checkEmail" style="color: red"></small><br>
+			<small id="checkEmail" style="color : yellow"></small><br>
 			<p>비밀번호</p>
 			<input type="password" name="m_pwd" id="m_pwd" placeholder="Password">
-			<small id="checkPwd" style="color: red"></small><br>
+			<small id="checkPwd" style="color: yellow"></small><br>
 			<a id="setPwd" href="">Lost your password?</a><br><br>
 			<input type="submit" name="" value="로그인" id="submitB" disabled="disabled" class="MIE-login">
 			<input type="button" name="" value="회원가입" onclick="location.href='MSE_JOINFORM.do'" class="MIE-join">
