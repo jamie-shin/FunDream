@@ -40,7 +40,7 @@
 			</select> 
 			<strong>-</strong> <input type="number" id="inputPhone2" name="" maxlength="4" style="width: 70px;">
 			<strong>-</strong> <input type="number" id="inputPhone3" name="" maxlength="4" style="width: 70px;">
-			<p>생년월일</p><small id="msgBirth"></small>
+			<p>생년월일</p><small id="msgBirth"></small><br>
 			<input type="number" id="inputBirthYear" name="" maxlength="4" style="width: 60px;" placeholder="yyyy">
 			<input type="number" id="inputBirthMonth" name="" maxlength="2" style="width: 60px;" placeholder="MM">
 			<input type="number" id="inputBirthDay" name="" maxlength="2" style="width: 60px;" placeholder="dd">
